@@ -29,118 +29,125 @@ export default function Home() {
     return allLessons.find((l) => !progress.completed.includes(l.id)) ?? null;
   }, [progress.completed]);
 
+  const hasProgress = progress.completed.length > 0;
+
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        PPL Study
-      </Typography>
-      <Typography variant="body2" color="text.secondary" gutterBottom>
-        Transport Canada Private Pilot Licence — written exam prep
-      </Typography>
-
-      {/* Overall progress */}
-      <Box sx={{ mb: 4, mt: 2 }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-          <Typography variant="body2" color="text.secondary">
-            Overall progress
+    <>
+      {/* Hero — full-width, above fold on 375 px mobile */}
+      <Box sx={{ pt: { xs: 6, md: 10 }, pb: { xs: 4, md: 6 } }}>
+        <Container maxWidth="lg">
+          <Typography
+            variant="h3"
+            component="h1"
+            sx={{ fontWeight: 700, mb: 2, lineHeight: 1.2, fontSize: { xs: '1.875rem', md: '3rem' } }}
+          >
+            Study for the Canadian PPL written exam, 20 minutes a day
           </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {completedCount} / {totalLessons} · {overallPercent}%
+          <Typography
+            variant="subtitle1"
+            component="p"
+            color="text.secondary"
+            sx={{ mb: 3, maxWidth: 560 }}
+          >
+            Structured lessons aligned to the Transport Canada PPL Aeroplane Written Exam syllabus.
           </Typography>
-        </Box>
-        <LinearProgress
-          variant="determinate"
-          value={overallPercent}
-          sx={{ height: 10, borderRadius: 5 }}
-        />
+          <Button
+            component={RouterLink}
+            to="/lessons"
+            variant="contained"
+            size="large"
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
+          >
+            Start studying
+          </Button>
+        </Container>
       </Box>
 
-      {/* Topic cards */}
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
-          gap: 2,
-          mb: 4,
-        }}
-      >
-        {TOPICS.map((topic) => {
-          const slots = CURRICULUM.filter((s) => s.topic === topic);
-          const done = slots.filter((s) => isComplete(s.id)).length;
-          const pct = slots.length > 0 ? Math.round((done / slots.length) * 100) : 0;
-
-          return (
-            <Card key={topic} variant="outlined">
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {TOPIC_LABELS[topic]}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" gutterBottom>
-                  {done} / {slots.length} lessons · {pct}%
-                </Typography>
-                <LinearProgress
-                  variant="determinate"
-                  value={pct}
-                  sx={{ height: 6, borderRadius: 3, mb: 1.5 }}
-                />
-                <Button
-                  component={RouterLink}
-                  to={`/lessons#${topic}`}
-                  size="small"
-                  variant="outlined"
-                >
-                  View lessons
-                </Button>
-              </CardContent>
-            </Card>
-          );
-        })}
+      {/* Credibility strip */}
+      <Box sx={{ bgcolor: 'background.paper', py: 2 }}>
+        <Container maxWidth="lg">
+          <Box sx={{ display: 'flex', gap: { xs: 2, md: 4 }, flexWrap: 'wrap', justifyContent: 'center' }}>
+            <Typography variant="body2" color="text.secondary">Transport Canada syllabus</Typography>
+            <Typography variant="body2" color="text.secondary">60 structured lessons</Typography>
+            <Typography variant="body2" color="text.secondary">Target 80%+ pass rate</Typography>
+          </Box>
+        </Container>
       </Box>
 
-      {/* Next up */}
-      <Box
-        sx={{
-          p: 2,
-          borderRadius: 2,
-          border: '1px solid',
-          borderColor: nextUp ? 'primary.main' : 'success.main',
-          backgroundColor: 'background.paper',
-        }}
-      >
-        {nextUp ? (
-          <>
-            <Typography variant="overline" color="primary.main">
-              Next Up
-            </Typography>
-            <Typography variant="body1" sx={{ mb: 1 }}>
-              {nextUp.id} — {nextUp.title}
-            </Typography>
-            {authoredIds.has(nextUp.id) ? (
-              <Button
-                component={RouterLink}
-                to={`/lessons/${nextUp.topic}/${nextUp.slug}`}
-                variant="contained"
-                size="small"
-              >
-                Start lesson
-              </Button>
-            ) : (
-              <Typography variant="body2" color="text.disabled">
-                Lesson coming soon
+      {/* Progress section — only when at least one lesson is complete */}
+      {hasProgress && (
+        <Container maxWidth="md" sx={{ py: 4 }}>
+          <Box sx={{ mb: 3 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
+              <Typography variant="body2" color="text.secondary">Overall progress</Typography>
+              <Typography variant="body2" color="text.secondary">
+                {completedCount} / {totalLessons} · {overallPercent}%
               </Typography>
+            </Box>
+            <LinearProgress variant="determinate" value={overallPercent} sx={{ height: 10, borderRadius: 5 }} />
+          </Box>
+          <Box
+            sx={{
+              p: 2,
+              borderRadius: 2,
+              border: '1px solid',
+              borderColor: nextUp ? 'primary.main' : 'success.main',
+              bgcolor: 'background.paper',
+            }}
+          >
+            {nextUp ? (
+              <>
+                <Typography variant="overline" color="primary.main">Next Up</Typography>
+                <Typography variant="body1" sx={{ mb: 1 }}>{nextUp.id} — {nextUp.title}</Typography>
+                {authoredIds.has(nextUp.id) ? (
+                  <Button
+                    component={RouterLink}
+                    to={`/lessons/${nextUp.topic}/${nextUp.slug}`}
+                    variant="contained"
+                    size="small"
+                  >
+                    Start lesson
+                  </Button>
+                ) : (
+                  <Typography variant="body2" color="text.disabled">Lesson coming soon</Typography>
+                )}
+              </>
+            ) : (
+              <>
+                <Typography variant="overline" color="success.main">All done!</Typography>
+                <Typography variant="body1">
+                  You&apos;ve completed all available lessons. Good luck on the exam!
+                </Typography>
+              </>
             )}
-          </>
-        ) : (
-          <>
-            <Typography variant="overline" color="success.main">
-              All done!
-            </Typography>
-            <Typography variant="body1">
-              You&apos;ve completed all available lessons. Good luck on the exam!
-            </Typography>
-          </>
-        )}
-      </Box>
-    </Container>
+          </Box>
+        </Container>
+      )}
+
+      {/* Topic cards — 2-col ≥600 px, single-col xs */}
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
+          {TOPICS.map((topic) => {
+            const slots = CURRICULUM.filter((s) => s.topic === topic);
+            const done = slots.filter((s) => isComplete(s.id)).length;
+            const pct = slots.length > 0 ? Math.round((done / slots.length) * 100) : 0;
+            return (
+              <Card key={topic} variant="outlined">
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>{TOPIC_LABELS[topic]}</Typography>
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    {done} / {slots.length} lessons · {pct}%
+                  </Typography>
+                  <LinearProgress variant="determinate" value={pct} sx={{ height: 6, borderRadius: 3, mb: 1.5 }} />
+                  <Button component={RouterLink} to={`/lessons#${topic}`} size="small" variant="outlined">
+                    View lessons
+                  </Button>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </Box>
+      </Container>
+    </>
   );
 }
