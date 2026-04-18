@@ -17,6 +17,30 @@ const theme = createTheme({
   typography: {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
   },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          minHeight: 48,
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          minWidth: 48,
+          minHeight: 48,
+        },
+      },
+    },
+    MuiCheckbox: {
+      styleOverrides: {
+        root: {
+          padding: 12,
+        },
+      },
+    },
+  },
 });
 
 export default theme;
