@@ -21,7 +21,7 @@ https://media.suprun.workers.dev/ppl/lessons/{topic}/{NNN}-{slug}.m4a
 
 The R2 key mirrors the repo path exactly — derive one from the other by prepending `ppl/` and swapping `.md` for `.m4a`.
 
-> **Note on custom domain.** `media.suprun.ca` is the aspirational custom-domain CNAME (see `projects/suprun.ca/MEDIA-SETUP.md`), but as of 2026-04 it is not wired up at Cloudflare. The live hostname is `media.suprun.workers.dev`. Switch to the custom domain by doing a project-wide find/replace once the CNAME is active.
+> **Hostname is permanent.** Always use `media.suprun.workers.dev`. The `media.suprun.ca` CNAME referenced in `projects/suprun.ca/MEDIA-SETUP.md` was attempted but never successfully wired, and setup is not planned. Treat `media.suprun.ca` as a stale doc reference, not a future target.
 
 ## Infrastructure
 
