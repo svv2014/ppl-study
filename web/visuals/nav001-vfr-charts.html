@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAV-001: VFR Aeronautical Charts — Reading the Map</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+
+  /* ── Scale cards ─────────────────────────────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+  .scale-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; }
+  .scale-title { font-size: 16px; font-weight: 800; color: #f0c040; margin-bottom: 4px; }
+  .scale-sub { font-size: 12px; color: #7a9ab5; margin-bottom: 14px; }
+  .scale-eq { font-size: 13px; color: #c8d8e8; line-height: 1.8; }
+  .scale-eq strong { color: #f0c040; }
+  .scale-bar { height: 8px; border-radius: 4px; margin: 10px 0 4px; display: flex; overflow: hidden; }
+  .scale-seg-dark { background: #1a3a5a; flex: 1; }
+  .scale-seg-light { background: #3a6a9a; flex: 1; }
+  .scale-bar-label { display: flex; justify-content: space-between; font-size: 10px; color: #7a9ab5; }
+
+  /* ── Symbol grid ─────────────────────────────────────────────────── */
+  .symbol-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
+  .sym-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .sym-card .sym-label { font-size: 12px; font-weight: 700; color: #c8d8e8; text-align: center; }
+  .sym-card .sym-sub { font-size: 11px; color: #7a9ab5; text-align: center; line-height: 1.4; }
+
+  /* ── Airspace lines table ─────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .line-demo { display: flex; align-items: center; height: 16px; }
+  .line-note { font-size: 12px; color: #c8d8e8; }
+  .alt-note { font-size: 11px; color: #7a9ab5; margin-top: 2px; }
+
+  /* CSS line styles */
+  .line-solid-blue  { width: 80px; height: 3px; background: #3a7ad5; }
+  .line-dashed-blue { width: 80px; height: 0; border-top: 3px dashed #3a7ad5; }
+  .line-dashed-mag  { width: 80px; height: 0; border-top: 3px dashed #c050c0; }
+  .line-dashed-purp { width: 80px; height: 0; border-top: 2.5px dashed #9050d0; }
+  .line-hatch-b {
+    width: 80px; height: 12px;
+    background: repeating-linear-gradient(
+      135deg,
+      #3a7ad5 0px, #3a7ad5 3px,
+      transparent 3px, transparent 8px
+    );
+    border: 1.5px solid #3a7ad5;
+  }
+
+  /* ── Obstruction block ──────────────────────────────────────────── */
+  .obs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .obs-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 20px; }
+  .obs-card h3 { font-size: 13px; font-weight: 700; color: #c8d8e8; margin-bottom: 10px; }
+  .obs-example { display: flex; align-items: center; gap: 16px; }
+  .obs-label { font-size: 12px; color: #7a9ab5; line-height: 1.7; }
+  .obs-label strong { color: #f0c040; }
+
+  /* ── NAVAID cards ─────────────────────────────────────────────────── */
+  .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .nav-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; display: flex; gap: 20px; align-items: flex-start; }
+  .nav-card .nav-desc { flex: 1; }
+  .nav-card .nav-name { font-size: 14px; font-weight: 800; color: #f0c040; margin-bottom: 4px; }
+  .nav-card .nav-full { font-size: 11px; color: #7a9ab5; margin-bottom: 10px; }
+  .nav-card .nav-points { list-style: none; }
+  .nav-card .nav-points li { font-size: 12px; color: #c8d8e8; padding: 3px 0; line-height: 1.5; }
+  .nav-card .nav-points li::before { content: "· "; color: #f0c040; }
+
+  /* ── Notation block ──────────────────────────────────────────────── */
+  .notation-row { display: flex; gap: 14px; margin-bottom: 32px; }
+  .notation-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 20px; flex: 1; }
+  .notation-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
+  .notation-card p { font-size: 12px; color: #c8d8e8; line-height: 1.7; }
+  .notation-card .big { font-size: 22px; font-weight: 800; color: #f0c040; text-align: center; padding: 8px 0; letter-spacing: 2px; }
+
+  /* ── Memory hook ─────────────────────────────────────────────────── */
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>NAV-001 — VFR Aeronautical Charts: Reading the Map</h1>
+<p class="subtitle">Transport Canada · TP 12880E Ch.9, TP 9994 VFR Chart User's Guide · PPL Written Exam</p>
+
+<!-- ── CHART SCALES ─────────────────────────────────────────────────── -->
+<div class="section-label">Chart Scales</div>
+<div class="two-col" style="margin-bottom:32px;">
+
+  <div class="scale-card">
+    <div class="scale-title">VNC — 1:500,000</div>
+    <div class="scale-sub">VFR Navigation Chart · Primary cross-country chart</div>
+    <div class="scale-eq"><strong>1 cm = 5 km</strong> on the ground<br>≈ 2.7 nautical miles per cm<br>60° latitude grid every 30 min of arc</div>
+    <div class="scale-bar">
+      <div class="scale-seg-dark"></div><div class="scale-seg-light"></div>
+      <div class="scale-seg-dark"></div><div class="scale-seg-light"></div>
+      <div class="scale-seg-dark"></div><div class="scale-seg-light"></div>
+    </div>
+    <div class="scale-bar-label"><span>0</span><span>10 km</span><span>20 km</span><span>30 km</span></div>
+  </div>
+
+  <div class="scale-card">
+    <div class="scale-title">VTA — 1:250,000</div>
+    <div class="scale-sub">VFR Terminal Area Chart · Airport terminal areas, more detail</div>
+    <div class="scale-eq"><strong>1 cm = 2.5 km</strong> on the ground<br>≈ 1.35 nautical miles per cm<br>Larger scale = more detail, smaller area</div>
+    <div class="scale-bar">
+      <div class="scale-seg-dark"></div><div class="scale-seg-light"></div>
+      <div class="scale-seg-dark"></div><div class="scale-seg-light"></div>
+      <div class="scale-seg-dark"></div><div class="scale-seg-light"></div>
+    </div>
+    <div class="scale-bar-label"><span>0</span><span>5 km</span><span>10 km</span><span>15 km</span></div>
+  </div>
+
+</div>
+
+<!-- ── AIRPORT SYMBOLS ──────────────────────────────────────────────── -->
+<div class="section-label">Airport Symbols</div>
+<div class="symbol-grid" style="margin-bottom:32px;">
+
+  <!-- Towered airport -->
+  <div class="sym-card">
+    <svg width="60" height="60" viewBox="0 0 60 60">
+      <!-- tick marks at 8 compass points -->
+      <line x1="30" y1="5"  x2="30" y2="13" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="30" y1="47" x2="30" y2="55" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="5"  y1="30" x2="13" y2="30" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="47" y1="30" x2="55" y2="30" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="12" y1="12" x2="18" y2="18" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="42" y1="12" x2="48" y2="18" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round" transform="rotate(90,45,15)"/>
+      <line x1="12" y1="48" x2="18" y2="42" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="48" y1="48" x2="42" y2="42" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round"/>
+      <!-- circle -->
+      <circle cx="30" cy="30" r="14" fill="none" stroke="#3a7ad5" stroke-width="2.5"/>
+      <circle cx="30" cy="30" r="3"  fill="#3a7ad5"/>
+    </svg>
+    <div class="sym-label">Towered Airport</div>
+    <div class="sym-sub">Blue circle + tick marks<br>ATC tower in operation</div>
+  </div>
+
+  <!-- Uncontrolled airport -->
+  <div class="sym-card">
+    <svg width="60" height="60" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="16" fill="rgba(200,160,0,0.15)" stroke="#c8a000" stroke-width="2.5"/>
+      <circle cx="30" cy="30" r="3"  fill="#c8a000"/>
+    </svg>
+    <div class="sym-label">Uncontrolled Airport</div>
+    <div class="sym-sub">Yellow / amber circle<br>No control tower — CTAF applies</div>
+  </div>
+
+  <!-- Seaplane base -->
+  <div class="sym-card">
+    <svg width="60" height="60" viewBox="0 0 60 60">
+      <circle cx="30" cy="30" r="16" fill="rgba(180,60,180,0.15)" stroke="#b040b0" stroke-width="2.5"/>
+      <!-- small float symbol -->
+      <path d="M22 34 Q30 28 38 34" fill="none" stroke="#b040b0" stroke-width="1.5"/>
+      <circle cx="30" cy="30" r="3"  fill="#b040b0"/>
+    </svg>
+    <div class="sym-label">Seaplane Base</div>
+    <div class="sym-sub">Magenta circle<br>Water operations</div>
+  </div>
+
+</div>
+
+<!-- ── AIRSPACE BOUNDARIES ─────────────────────────────────────────── -->
+<div class="section-label">Airspace Boundary Markings</div>
+<table style="margin-bottom:28px;">
+  <thead>
+    <tr>
+      <th>Line Style</th>
+      <th>Class</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><div class="line-demo"><div class="line-solid-blue"></div></div></td>
+      <td style="color:#3a7ad5;font-weight:700;">Class C</td>
+      <td>
+        <div class="line-note">Solid blue line</div>
+        <div class="alt-note">Busy airports — clearance + 2-way radio required for VFR</div>
+      </td>
+    </tr>
+    <tr>
+      <td><div class="line-demo"><div class="line-dashed-blue"></div></div></td>
+      <td style="color:#3a7ad5;font-weight:700;">Class D</td>
+      <td>
+        <div class="line-note">Dashed blue line</div>
+        <div class="alt-note">Towered airports — 2-way radio contact required (no clearance)</div>
+      </td>
+    </tr>
+    <tr>
+      <td><div class="line-demo"><div class="line-dashed-mag"></div></div></td>
+      <td style="color:#c050c0;font-weight:700;">Class E</td>
+      <td>
+        <div class="line-note">Dashed magenta line</div>
+        <div class="alt-note">Class E surface area — controlled, no radio/clearance required for VFR</div>
+      </td>
+    </tr>
+    <tr>
+      <td><div class="line-demo"><div class="line-hatch-b"></div></div></td>
+      <td style="color:#3a7ad5;font-weight:700;">Class B</td>
+      <td>
+        <div class="line-note">Blue/white hatch</div>
+        <div class="alt-note">12,500–18,000 ft ASL — IFR only, ATC clearance required</div>
+      </td>
+    </tr>
+    <tr>
+      <td><div class="line-demo"><div class="line-dashed-purp"></div></div></td>
+      <td style="color:#9050d0;font-weight:700;">Isogonic</td>
+      <td>
+        <div class="line-note">Dashed purple/magenta line (not airspace)</div>
+        <div class="alt-note">Lines of equal magnetic variation — used to convert true ↔ magnetic headings</div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── AIRSPACE NOTATION ───────────────────────────────────────────── -->
+<div class="section-label">Airspace Ceiling / Floor Notation</div>
+<div class="notation-row">
+
+  <div class="notation-card">
+    <h3>Reading the Fraction</h3>
+    <p>Airspace extents are shown as <strong style="color:#f0c040;">CEILING/FLOOR</strong> in hundreds of feet ASL.<br><br>
+    The top number is the ceiling. The lower number is the floor.<br>
+    <strong style="color:#f0c040;">SFC</strong> means the airspace begins at the surface.</p>
+    <div class="big">40 / SFC</div>
+    <p style="text-align:center;margin-top:4px;">Surface up to 4,000 ft ASL</p>
+  </div>
+
+  <div class="notation-card">
+    <h3>Common Examples</h3>
+    <p style="line-height:2.0;">
+      <strong style="color:#f0c040;">30/SFC</strong> — Surface to 3,000 ft ASL<br>
+      <strong style="color:#f0c040;">40/15</strong> — 1,500 ft to 4,000 ft ASL<br>
+      <strong style="color:#f0c040;">100/40</strong> — 4,000 ft to 10,000 ft ASL<br>
+      <strong style="color:#f0c040;">UNL/SFC</strong> — Surface to unlimited<br>
+      <span style="color:#7a9ab5;font-size:11px;">Numbers shown in hundreds of feet</span>
+    </p>
+  </div>
+
+</div>
+
+<!-- ── OBSTRUCTION SYMBOLS ─────────────────────────────────────────── -->
+<div class="section-label">Obstruction Symbols</div>
+<div class="obs-grid" style="margin-bottom:32px;">
+
+  <div class="obs-card">
+    <h3>Structure &lt; 1,000 ft AGL</h3>
+    <div class="obs-example">
+      <svg width="44" height="54" viewBox="0 0 44 54">
+        <circle cx="22" cy="42" r="5" fill="#c8d8e8"/>
+        <line x1="22" y1="37" x2="22" y2="8" stroke="#c8d8e8" stroke-width="2"/>
+        <line x1="16" y1="22" x2="22" y2="12" stroke="#c8d8e8" stroke-width="1.5"/>
+        <line x1="28" y1="22" x2="22" y2="12" stroke="#c8d8e8" stroke-width="1.5"/>
+        <circle cx="22" cy="8"  r="3" fill="#e08000"/>
+      </svg>
+      <div class="obs-label">
+        Solid dot + vertical line<br>
+        <strong>1847</strong> MSL elevation at top<br>
+        <strong>(412)</strong> height AGL in brackets
+      </div>
+    </div>
+  </div>
+
+  <div class="obs-card">
+    <h3>Structure ≥ 1,000 ft AGL</h3>
+    <div class="obs-example">
+      <svg width="44" height="54" viewBox="0 0 44 54">
+        <polygon points="22,42 28,50 16,50" fill="none" stroke="#c8d8e8" stroke-width="2"/>
+        <line x1="22" y1="42" x2="22" y2="8" stroke="#c8d8e8" stroke-width="2"/>
+        <line x1="14" y1="24" x2="22" y2="12" stroke="#c8d8e8" stroke-width="1.5"/>
+        <line x1="30" y1="24" x2="22" y2="12" stroke="#c8d8e8" stroke-width="1.5"/>
+        <circle cx="22" cy="8"  r="3" fill="#e08000"/>
+      </svg>
+      <div class="obs-label">
+        Open triangle + vertical line<br>
+        <strong>2193</strong> MSL elevation at top<br>
+        <strong>(1247)</strong> height AGL in brackets<br>
+        <span style="color:#7a9ab5;font-size:11px;">More prominent symbol — higher hazard</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── NAVAIDS ─────────────────────────────────────────────────────── -->
+<div class="section-label">Navigational Aids (NAVAIDs)</div>
+<div class="nav-grid" style="margin-bottom:32px;">
+
+  <div class="nav-card">
+    <!-- VOR compass rose symbol -->
+    <svg width="64" height="64" viewBox="0 0 64 64" style="flex-shrink:0;">
+      <!-- outer compass rose ring -->
+      <circle cx="32" cy="32" r="28" fill="none" stroke="#3a7ad5" stroke-width="1.5"/>
+      <!-- cardinal tick marks -->
+      <line x1="32" y1="4"  x2="32" y2="14" stroke="#3a7ad5" stroke-width="2"/>
+      <line x1="32" y1="50" x2="32" y2="60" stroke="#3a7ad5" stroke-width="2"/>
+      <line x1="4"  y1="32" x2="14" y2="32" stroke="#3a7ad5" stroke-width="2"/>
+      <line x1="50" y1="32" x2="60" y2="32" stroke="#3a7ad5" stroke-width="2"/>
+      <!-- intercardinal tick marks -->
+      <line x1="12" y1="12" x2="19" y2="19" stroke="#3a7ad5" stroke-width="1.5"/>
+      <line x1="52" y1="12" x2="45" y2="19" stroke="#3a7ad5" stroke-width="1.5"/>
+      <line x1="12" y1="52" x2="19" y2="45" stroke="#3a7ad5" stroke-width="1.5"/>
+      <line x1="52" y1="52" x2="45" y2="45" stroke="#3a7ad5" stroke-width="1.5"/>
+      <!-- inner circle + centre dot -->
+      <circle cx="32" cy="32" r="10" fill="none" stroke="#3a7ad5" stroke-width="1"/>
+      <circle cx="32" cy="32" r="4"  fill="#3a7ad5"/>
+    </svg>
+    <div class="nav-desc">
+      <div class="nav-name">VOR</div>
+      <div class="nav-full">VHF Omnidirectional Range</div>
+      <ul class="nav-points">
+        <li>Compass-rose circle with dot</li>
+        <li>Printed: frequency, 3-letter ID, Morse</li>
+        <li>Provides magnetic radials 000°–360°</li>
+        <li>Used for en-route and approach nav</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="nav-card">
+    <!-- NDB symbol -->
+    <svg width="64" height="64" viewBox="0 0 64 64" style="flex-shrink:0;">
+      <!-- outer dashed circle -->
+      <circle cx="32" cy="32" r="26" fill="none" stroke="#9050d0" stroke-width="1.5" stroke-dasharray="4 4"/>
+      <!-- inner solid circle -->
+      <circle cx="32" cy="32" r="12" fill="rgba(140,60,200,0.12)" stroke="#9050d0" stroke-width="2"/>
+      <!-- centre dot -->
+      <circle cx="32" cy="32" r="5"  fill="#9050d0"/>
+    </svg>
+    <div class="nav-desc">
+      <div class="nav-name">NDB</div>
+      <div class="nav-full">Non-Directional Beacon</div>
+      <ul class="nav-points">
+        <li>Purple/magenta dot + dashed circle</li>
+        <li>Printed: frequency, 2–3 letter ID, Morse</li>
+        <li>Transmits in all directions (LF/MF band)</li>
+        <li>Used with ADF — less precise than VOR</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── MEF ─────────────────────────────────────────────────────────── -->
+<div class="section-label">Maximum Elevation Figure (MEF)</div>
+<div class="notation-row" style="margin-bottom:32px;">
+
+  <div class="notation-card">
+    <h3>What is the MEF?</h3>
+    <p>The MEF is the <strong style="color:#f0c040;">highest known elevation</strong> in each 30-minute latitude/longitude grid square on the VNC. It includes terrain, towers, antennas, and a buffer above the highest obstacle.<br><br>
+    Shown as a <strong style="color:#f0c040;">large bold number</strong> in the centre of each grid square.<br><br>
+    Fly <strong style="color:#f0c040;">above the MEF</strong> for guaranteed terrain clearance over the entire grid square.</p>
+  </div>
+
+  <div class="notation-card">
+    <h3>Reading the MEF</h3>
+    <p style="line-height:2.0;">
+      <strong style="color:#f0c040;font-size:28px;">47</strong><br>
+      <span style="color:#7a9ab5;">Bold number in grid square</span><br><br>
+      Read as <strong style="color:#f0c040;">4,700 feet ASL</strong><br>
+      The leading digit(s) are thousands, trailing digit is hundreds.<br>
+      <span style="color:#7a9ab5;font-size:11px;">E.g. "47" = 4,700 ft · "12" = 1,200 ft · "9" = 900 ft</span>
+    </p>
+  </div>
+
+</div>
+
+<!-- ── MEMORY HOOK ──────────────────────────────────────────────────── -->
+<div class="hook-box">
+  <h2>Memory Hook — Commonly Tested Chart Symbols</h2>
+
+  <div class="hook-row">
+    <span class="hook-badge">AIRPORT COLOURS</span>
+    <span class="hook-text"><strong>Blue = tower, Yellow = no tower, Magenta = water</strong> — think: blue for busy (controlled), yellow for mellow (uncontrolled).</span>
+  </div>
+
+  <div class="hook-row">
+    <span class="hook-badge">AIRSPACE LINES</span>
+    <span class="hook-text"><strong>Solid blue = Class C · Dashed blue = Class D · Dashed magenta = Class E surface</strong> — solid means strict (need clearance), dashed means less strict.</span>
+  </div>
+
+  <div class="hook-row">
+    <span class="hook-badge">MEF FORMULA</span>
+    <span class="hook-text"><strong>1 cm = 5 km on the VNC (1:500,000)</strong> — 6 cm apart on chart = 30 km on the ground. The number in each grid square = MSL ceiling in hundreds of feet.</span>
+  </div>
+
+  <div class="hook-row">
+    <span class="hook-badge">CEILING / FLOOR</span>
+    <span class="hook-text">On a VNC, airspace extent is shown as <strong>CEILING over FLOOR</strong>. "30/SFC" = surface up to 3,000 ft ASL. Top number is always ceiling.</span>
+  </div>
+
+  <div class="hook-row">
+    <span class="hook-badge">ISOGONIC LINE</span>
+    <span class="hook-text">Dashed <strong>purple</strong> line = magnetic variation line. In eastern Canada it runs roughly north–south, ~10–15° West. Use it to convert <strong>True → Magnetic</strong> by adding westerly variation.</span>
+  </div>
+
+  <div class="hook-row">
+    <span class="hook-badge">VOR vs NDB</span>
+    <span class="hook-text"><strong>VOR = blue compass rose + dot</strong> (precise, VHF). <strong>NDB = purple dot + dashed ring</strong> (lower frequency, less precise). Exam may ask you to identify which symbol belongs to which NAVAID.</span>
+  </div>
+</div>
+
+</body>
+</html>
