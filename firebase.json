@@ -1,11 +1,17 @@
 {
   "hosting": {
     "site": "ppl-study-suprun-ca",
-    "public": "public",
+    "public": "web-app/dist",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ],
     "headers": [
       {
@@ -14,15 +20,6 @@
           {
             "key": "Cache-Control",
             "value": "public, max-age=3600"
-          }
-        ]
-      },
-      {
-        "source": "**/*.@(m4a|mp3|ogg)",
-        "headers": [
-          {
-            "key": "Cache-Control",
-            "value": "public, max-age=86400"
           }
         ]
       }
