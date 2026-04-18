@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice Exam — PPL Study</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <span class="nav-brand">✈ PPL Study</span>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="lessons.html">Lessons</a></li>
+      <li><a href="plan.html">Study Plan</a></li>
+      <li><a href="exam.html" class="active">Practice Exam</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>Practice Exam</h1>
+    <p class="subtitle">5-question quiz from lesson AL-001 — Canadian Airspace Classifications.<br>
+      Select your answer to reveal the explanation, then move to the next question.</p>
+
+    <div id="exam-start" class="exam-start">
+      <div class="card" style="max-width:480px;margin:0 auto 32px;text-align:left;">
+        <h3>Exam Info</h3>
+        <p>Source: Lesson AL-001 — Canadian Airspace Classifications</p>
+        <p>Questions: 5 · No time limit · Instant feedback with explanations</p>
+        <p>Pass mark: 80% (4/5) · Matches Transport Canada standard</p>
+      </div>
+      <button class="btn" onclick="startExam()">Start Practice Exam</button>
+    </div>
+
+    <div id="exam-body" style="display:none;">
+      <div id="progress-header" style="margin-bottom:20px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
+          <span style="font-size:0.85rem;color:var(--gray);" id="q-counter">Question 1 of 5</span>
+          <span style="font-size:0.85rem;color:var(--amber);" id="score-live">Score: 0 / 0</span>
+        </div>
+        <div class="progress-wrap"><div class="progress-bar" id="exam-progress-bar" style="width:0%"></div></div>
+      </div>
+      <div id="question-area"></div>
+      <div id="next-wrap" style="text-align:center;margin-top:16px;display:none;">
+        <button class="btn" id="next-btn" onclick="nextQuestion()">Next Question →</button>
+      </div>
+    </div>
+
+    <div id="exam-results" style="display:none;">
+      <div class="score-card">
+        <div class="score-big" id="final-score"></div>
+        <div class="score-label" id="final-label"></div>
+        <div style="margin-top:24px;">
+          <button class="btn" onclick="retakeExam()">Retake Exam</button>
+          <a href="plan.html" class="btn btn-outline" style="margin-left:12px;">Study Plan</a>
+        </div>
+      </div>
+      <div id="review-section"></div>
+    </div>
+  </div>
+
+  <footer>PPL Study · Transport Canada Private Pilot Licence · Content based on TP 12880E and CARs</footer>
+
+  <script>
+    const QUESTIONS = [
+      {
+        num: 1,
+        text: 'You are planning a VFR flight that will pass through Class C airspace. Before entering, you must:',
+        options: [
+          'Have a filed flight plan on record',
+          'Obtain an ATC clearance and establish two-way radio contact',
+          'Establish two-way radio contact only — no clearance is required',
+          'Fly at or below 700 feet AGL to remain clear of Class C',
+        ],
+        answer: 1,
+        explanation: 'Class C requires both an ATC clearance and established two-way radio contact before entry. A clearance (not just contact) is the threshold requirement — this distinguishes Class C from Class D, where contact alone is sufficient. Source: CARs 601.07, TP 12880E Chapter 7.',
+      },
+      {
+        num: 2,
+        text: 'Class A airspace in Canada begins at:',
+        options: [
+          '12,500 feet ASL',
+          '14,500 feet ASL',
+          '18,000 feet ASL',
+          '18,000 feet AGL',
+        ],
+        answer: 2,
+        explanation: 'Class A begins at 18,000 feet ASL. Note it is ASL (above sea level), not AGL. Class B occupies 12,500 to 18,000 feet ASL. Source: CARs 601.01, TP 12880E Chapter 7.',
+      },
+      {
+        num: 3,
+        text: 'In Class G airspace, at and below 1,000 feet AGL during the day, the minimum VFR weather requirements are:',
+        options: [
+          '3 statute miles visibility, 500 below / 1,000 above / 2,000 horizontal from cloud',
+          '1 statute mile visibility, clear of cloud',
+          '2 statute miles visibility, clear of cloud',
+          '3 statute miles visibility, clear of cloud',
+        ],
+        answer: 2,
+        explanation: 'At and below 1,000 feet AGL in Class G (day), the minimums are 2 statute miles visibility and clear of cloud. This is lower than the 3-mile / 500-1,000-2,000 minimums required in controlled airspace. Source: CARs 602.115, TP 12880E Chapter 7.',
+      },
+      {
+        num: 4,
+        text: 'Class F(A) airspace is best described as:',
+        options: [
+          'Airspace that is permanently restricted to IFR traffic only',
+          'Advisory airspace that warns pilots of potential hazards; entry does not require authorization',
+          'Airspace requiring ATC clearance for all aircraft',
+          'Restricted airspace that requires a specific permit from Transport Canada',
+        ],
+        answer: 1,
+        explanation: 'Class F has two subtypes. F(R) is Restricted — you need authorization to enter. F(A) is Advisory — it alerts pilots to hazards (like a parachute drop zone) but does not require authorization to enter. Source: CARs 601.15, AIM RAC 2.8.',
+      },
+      {
+        num: 5,
+        text: 'Which of the following statements about Class D airspace is correct?',
+        options: [
+          'A VFR pilot must obtain an ATC clearance before entering',
+          'VFR flight is not permitted in Class D airspace',
+          'A VFR pilot must establish two-way radio contact with ATC before entering',
+          'No radio communication is required; pilots should self-announce on CTAF',
+        ],
+        answer: 2,
+        explanation: 'Class D requires two-way radio contact — the controller must acknowledge your call sign by name — but does not require a formal clearance. This distinguishes Class D from Class C. Source: CARs 601.08, TP 12880E Chapter 7.',
+      },
+    ];
+
+    let current = 0;
+    let score = 0;
+    let answered = 0;
+    let userAnswers = [];
+
+    function startExam() {
+      current = 0;
+      score = 0;
+      answered = 0;
+      userAnswers = [];
+      document.getElementById('exam-start').style.display = 'none';
+      document.getElementById('exam-results').style.display = 'none';
+      document.getElementById('exam-body').style.display = 'block';
+      renderQuestion();
+    }
+
+    function renderQuestion() {
+      const q = QUESTIONS[current];
+      const total = QUESTIONS.length;
+      document.getElementById('q-counter').textContent = `Question ${current + 1} of ${total}`;
+      document.getElementById('score-live').textContent = `Score: ${score} / ${answered}`;
+      document.getElementById('exam-progress-bar').style.width = `${Math.round((current / total) * 100)}%`;
+      document.getElementById('next-wrap').style.display = 'none';
+
+      const letters = ['A', 'B', 'C', 'D'];
+      document.getElementById('question-area').innerHTML = `
+        <div class="question-card">
+          <div class="question-num">Question ${current + 1} — Lesson AL-001: Canadian Airspace Classifications</div>
+          <div class="question-text">${q.text}</div>
+          <ul class="options">
+            ${q.options.map((opt, i) => `
+              <li>
+                <button class="option-btn" id="opt-${i}" onclick="selectAnswer(${i})">
+                  <strong>${letters[i]}.</strong> ${opt}
+                </button>
+              </li>
+            `).join('')}
+          </ul>
+          <div class="explanation" id="explanation">${q.explanation}</div>
+        </div>
+      `;
+    }
+
+    function selectAnswer(idx) {
+      const q = QUESTIONS[current];
+      const correct = q.answer;
+      const letters = ['A', 'B', 'C', 'D'];
+
+      // Disable all buttons
+      for (let i = 0; i < q.options.length; i++) {
+        const btn = document.getElementById('opt-' + i);
+        btn.disabled = true;
+        if (i === correct) btn.classList.add('correct');
+        else if (i === idx && idx !== correct) btn.classList.add('wrong');
+      }
+
+      if (idx === correct) score++;
+      answered++;
+      userAnswers.push({ q: current, chosen: idx, correct });
+
+      document.getElementById('explanation').style.display = 'block';
+      document.getElementById('score-live').textContent = `Score: ${score} / ${answered}`;
+
+      const nextWrap = document.getElementById('next-wrap');
+      nextWrap.style.display = 'block';
+      const nextBtn = document.getElementById('next-btn');
+      if (current === QUESTIONS.length - 1) {
+        nextBtn.textContent = 'See Results →';
+      } else {
+        nextBtn.textContent = 'Next Question →';
+      }
+    }
+
+    function nextQuestion() {
+      current++;
+      if (current >= QUESTIONS.length) {
+        showResults();
+      } else {
+        renderQuestion();
+      }
+    }
+
+    function showResults() {
+      document.getElementById('exam-body').style.display = 'none';
+      document.getElementById('exam-results').style.display = 'block';
+
+      const total = QUESTIONS.length;
+      const pct = Math.round((score / total) * 100);
+      document.getElementById('final-score').textContent = `${score} / ${total}`;
+
+      let label = '';
+      if (pct >= 80) label = `${pct}% — Excellent! You passed the Transport Canada standard (80%+).`;
+      else if (pct >= 60) label = `${pct}% — Passed minimum, but aim for 80%+ on the real exam.`;
+      else label = `${pct}% — Below passing. Review AL-001 and try again.`;
+      document.getElementById('final-label').textContent = label;
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const reviewHTML = userAnswers.map(a => {
+        const q = QUESTIONS[a.q];
+        const isCorrect = a.chosen === a.correct;
+        return `
+          <div class="question-card" style="margin-bottom:16px;border-color:${isCorrect ? 'var(--success)' : '#ef4444'}">
+            <div class="question-num">Q${a.q + 1} — ${isCorrect ? '✓ Correct' : '✗ Incorrect'}</div>
+            <div class="question-text" style="font-size:0.95rem;">${q.text}</div>
+            <p style="margin:8px 0 4px;font-size:0.85rem;">Your answer: <strong>${letters[a.chosen]}. ${q.options[a.chosen]}</strong></p>
+            ${!isCorrect ? `<p style="font-size:0.85rem;color:var(--success);">Correct answer: <strong>${letters[a.correct]}. ${q.options[a.correct]}</strong></p>` : ''}
+            <div class="explanation" style="display:block;margin-top:10px;">${q.explanation}</div>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('review-section').innerHTML = `
+        <h2 style="margin-top:32px;">Question Review</h2>
+        ${reviewHTML}
+      `;
+    }
+
+    function retakeExam() {
+      startExam();
+    }
+  </script>
+</body>
+</html>

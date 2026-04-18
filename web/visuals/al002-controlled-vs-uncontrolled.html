@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-002: Controlled vs Uncontrolled Airspace</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 32px; }
+  .zone { border-radius: 10px; padding: 20px; }
+  .ctrl-zone { background: #0a1a35; border: 1.5px solid #1565c0; }
+  .unctrl-zone { background: #0a200a; border: 1.5px solid #2e7d32; }
+  .zone-title { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+  .ctrl-zone .zone-title { color: #5ba3f5; }
+  .unctrl-zone .zone-title { color: #80e080; }
+  .zone-classes { font-size: 12px; color: #7a9ab5; margin-bottom: 14px; }
+  .badge-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .badge { display: inline-block; width: 30px; height: 30px; border-radius: 50%; text-align: center; line-height: 30px; font-size: 14px; font-weight: 800; }
+  .bg-c { background: #1565c0; } .bg-d { background: #0277bd; } .bg-e { background: #006064; } .bg-g { background: #2e7d32; }
+  .point { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .dot-ctrl { background: #5ba3f5; }
+  .dot-uctrl { background: #80e080; }
+  .point-text { font-size: 13px; color: #c8d8e8; line-height: 1.5; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .yes { color: #80e080; font-weight: 700; }
+  .no  { color: #ff8080; font-weight: 700; }
+  .partial { color: #f0c040; font-weight: 600; }
+  .ctrl-row { background: rgba(20,60,120,0.2); }
+  .uctrl-row { background: rgba(20,80,20,0.2); }
+
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+
+  .trap-box { background: #2a1a0a; border: 1.5px solid #8b4513; border-radius: 10px; padding: 16px 20px; margin-top: 20px; }
+  .trap-box h2 { font-size: 12px; color: #e08050; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .trap-box p { font-size: 13px; color: #c8b8a8; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<h1>AL-002 — Controlled vs Uncontrolled Airspace</h1>
+<p class="subtitle">Transport Canada · CARs Part VI, TP 12880E Ch.7 · PPL Written Exam</p>
+
+<div class="two-col">
+  <div class="zone ctrl-zone">
+    <div class="zone-title">Controlled Airspace</div>
+    <div class="zone-classes">Classes A · B · C · D · E</div>
+    <div class="badge-row">
+      <span class="badge" style="background:#880e4f">A</span>
+      <span class="badge bg-c">B</span>
+      <span class="badge bg-c">C</span>
+      <span class="badge bg-d">D</span>
+      <span class="badge bg-e">E</span>
+    </div>
+    <div class="point"><div class="dot dot-ctrl"></div><div class="point-text">ATC provides services to IFR traffic</div></div>
+    <div class="point"><div class="dot dot-ctrl"></div><div class="point-text">Class C: separates IFR-IFR and IFR-VFR</div></div>
+    <div class="point"><div class="dot dot-ctrl"></div><div class="point-text">Class D: separates IFR only, info to VFR</div></div>
+    <div class="point"><div class="dot dot-ctrl"></div><div class="point-text">Class E: separates IFR only, no VFR service</div></div>
+    <div class="point"><div class="dot dot-ctrl"></div><div class="point-text">Radio required for C and D (not E)</div></div>
+    <div class="point"><div class="dot dot-ctrl"></div><div class="point-text">Clearance required only for A, B, C</div></div>
+  </div>
+  <div class="zone unctrl-zone">
+    <div class="zone-title">Uncontrolled Airspace</div>
+    <div class="zone-classes">Class G only</div>
+    <div class="badge-row">
+      <span class="badge bg-g">G</span>
+    </div>
+    <div class="point"><div class="dot dot-uctrl"></div><div class="point-text">No ATC service — for any aircraft</div></div>
+    <div class="point"><div class="dot dot-uctrl"></div><div class="point-text">No clearance required</div></div>
+    <div class="point"><div class="dot dot-uctrl"></div><div class="point-text">No radio required (CTAF recommended)</div></div>
+    <div class="point"><div class="dot dot-uctrl"></div><div class="point-text">Lower VFR weather minimums apply</div></div>
+    <div class="point"><div class="dot dot-uctrl"></div><div class="point-text">100% see-and-avoid pilot responsibility</div></div>
+    <div class="point"><div class="dot dot-uctrl"></div><div class="point-text">Most rural low-level GA flying is here</div></div>
+  </div>
+</div>
+
+<!-- Services table -->
+<div class="section-label">ATC Services by Class</div>
+<table>
+  <thead>
+    <tr>
+      <th>Class</th>
+      <th>IFR Separation</th>
+      <th>VFR Separation from IFR</th>
+      <th>VFR-VFR Separation</th>
+      <th>Radio (VFR)</th>
+      <th>Clearance (VFR)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="ctrl-row"><td><strong>C</strong></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="yes">Required</td><td class="yes">Required</td></tr>
+    <tr class="ctrl-row"><td><strong>D</strong></td><td class="yes">Yes</td><td class="partial">Info only</td><td class="no">No</td><td class="yes">Required</td><td class="no">Not required</td></tr>
+    <tr class="ctrl-row"><td><strong>E</strong></td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">Not required</td><td class="no">Not required</td></tr>
+    <tr class="uctrl-row"><td><strong>G</strong></td><td class="no">None</td><td class="no">None</td><td class="no">None</td><td class="no">Not required</td><td class="no">Not required</td></tr>
+  </tbody>
+</table>
+
+<!-- Transponder -->
+<div class="section-label">Transponder (Mode C) Requirements</div>
+<table>
+  <thead><tr><th>Airspace</th><th>Mode C Required?</th><th>Notes</th></tr></thead>
+  <tbody>
+    <tr class="ctrl-row"><td>Class C</td><td class="yes">Yes</td><td style="color:#7a9ab5">Within or through Class C</td></tr>
+    <tr class="ctrl-row"><td>Class D</td><td class="yes">Yes</td><td style="color:#7a9ab5">Within or through Class D</td></tr>
+    <tr class="ctrl-row"><td>Class E</td><td class="no">Not required</td><td style="color:#7a9ab5">Unless above specific altitude</td></tr>
+    <tr class="uctrl-row"><td>Class G</td><td class="no">Not required</td><td style="color:#7a9ab5">Optional in most cases</td></tr>
+  </tbody>
+</table>
+
+<div class="trap-box">
+  <h2>⚠️ Class E Trap</h2>
+  <p>Class E is <strong style="color:#f0c040">controlled</strong> airspace — but VFR pilots need no clearance, no radio, and get no separation service. "Controlled" means ATC provides services to IFR aircraft there, not that VFR pilots are managed. This distinction trips up many exam candidates.</p>
+</div>
+
+</body>
+</html>

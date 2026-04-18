@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-001: Canadian Airspace Classifications</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+
+  .stack { display: flex; gap: 0; flex-direction: column; margin-bottom: 36px; border-radius: 10px; overflow: hidden; border: 1.5px solid #1a2d3d; }
+  .layer { display: grid; grid-template-columns: 120px 80px 1fr 1fr; align-items: center; padding: 12px 16px; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .layer:last-child { border-bottom: none; }
+  .class-badge { display: inline-block; font-size: 22px; font-weight: 800; width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; }
+  .alt-range { font-size: 11px; color: #7a9ab5; }
+  .rule-tag { display: inline-block; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; margin: 2px; }
+  .ifr-tag { background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); }
+  .vfr-tag { background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); }
+  .no-tag { background: rgba(150,150,150,0.1); color: #888; border: 1px solid rgba(150,150,150,0.2); }
+  .req { font-size: 12px; color: #c8d8e8; }
+  .req small { color: #6a8a9a; display: block; margin-top: 2px; }
+
+  .a  { background: #0a1525; } .badge-a  { background: #880e4f; color:#fff; }
+  .b  { background: #0a1a30; } .badge-b  { background: #1565c0; color:#fff; }
+  .c  { background: #0a2040; } .badge-c  { background: #1976d2; color:#fff; }
+  .d  { background: #0a2545; } .badge-d  { background: #0277bd; color:#fff; }
+  .e  { background: #052530; } .badge-e  { background: #006064; color:#fff; }
+  .f  { background: #1a1a05; } .badge-f  { background: #827717; color:#fff; }
+  .g  { background: #0a200a; } .badge-g  { background: #2e7d32; color:#fff; }
+
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; }
+  .yes { color: #80e080; font-weight: 700; }
+  .no  { color: #ff8080; font-weight: 700; }
+  .req-col { color: #f0c040; font-weight: 600; }
+
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>AL-001 — Canadian Airspace Classifications</h1>
+<p class="subtitle">Transport Canada · CARs Part VI, TP 12880E Ch.7 · PPL Written Exam</p>
+
+<!-- Vertical stack -->
+<div class="section-label">Airspace Layers — High to Low</div>
+<div class="stack">
+  <div class="layer a">
+    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-a">A</span><div class="alt-range">18,000 ft ASL<br>to 60,000 ft ASL</div></div>
+    <div><span class="rule-tag ifr-tag">IFR only</span></div>
+    <div class="req">ATC Clearance required<small>VFR not permitted</small></div>
+    <div class="req">Radio required</div>
+  </div>
+  <div class="layer b">
+    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-b">B</span><div class="alt-range">12,500 ft ASL<br>to 18,000 ft ASL</div></div>
+    <div><span class="rule-tag ifr-tag">IFR only</span></div>
+    <div class="req">ATC Clearance required<small>VFR not permitted</small></div>
+    <div class="req">Radio required</div>
+  </div>
+  <div class="layer c">
+    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-c">C</span><div class="alt-range">Busy airports<br>(e.g. CYYZ, CYVR)</div></div>
+    <div><span class="rule-tag vfr-tag">VFR ✓</span></div>
+    <div class="req">ATC Clearance + 2-way radio<small>IFR-IFR + IFR-VFR separation</small></div>
+    <div class="req">VFR-VFR: pilot responsibility</div>
+  </div>
+  <div class="layer d">
+    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-d">D</span><div class="alt-range">Towered airports<br>(mid-size)</div></div>
+    <div><span class="rule-tag vfr-tag">VFR ✓</span></div>
+    <div class="req">2-way contact (no clearance)<small>IFR separation only</small></div>
+    <div class="req">Traffic advisories to VFR</div>
+  </div>
+  <div class="layer e">
+    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-e">E</span><div class="alt-range">Airways, transition<br>areas, smaller airports</div></div>
+    <div><span class="rule-tag vfr-tag">VFR ✓</span></div>
+    <div class="req">No clearance, no radio req'd<small>IFR separation only</small></div>
+    <div class="req">VFR: no ATC service</div>
+  </div>
+  <div class="layer f">
+    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-f">F</span><div class="alt-range">Special use<br>(varies)</div></div>
+    <div><span class="rule-tag" style="background:rgba(255,200,0,0.1);color:#f0c040;border:1px solid rgba(255,200,0,0.3);">F(R)/F(A)</span></div>
+    <div class="req">F(R) = Restricted (auth required)<small>F(A) = Advisory (hazard warning)</small></div>
+    <div class="req">Check NOTAM</div>
+  </div>
+  <div class="layer g">
+    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-g">G</span><div class="alt-range">Below controlled<br>airspace</div></div>
+    <div><span class="rule-tag vfr-tag">VFR ✓</span></div>
+    <div class="req">No clearance, no radio req'd<small>No ATC service</small></div>
+    <div class="req">Lower weather minimums</div>
+  </div>
+</div>
+
+<!-- Memory hook -->
+<div class="hook-box">
+  <h2>Memory Hook — Classes at a Glance</h2>
+  <div class="hook-row"><span class="hook-badge">A + B</span><span class="hook-text"><strong>IFR only</strong> — clearance required. You won't fly here as a PPL student.</span></div>
+  <div class="hook-row"><span class="hook-badge">C</span><span class="hook-text"><strong>Clearance + radio</strong> — ATC separates IFR from VFR, not VFR from VFR.</span></div>
+  <div class="hook-row"><span class="hook-badge">D</span><span class="hook-text"><strong>Radio contact only</strong> — no clearance, but must establish 2-way. ATC separates IFR only.</span></div>
+  <div class="hook-row"><span class="hook-badge">E</span><span class="hook-text"><strong>No requirements for VFR</strong> — but it's still controlled (ATC serves IFR).</span></div>
+  <div class="hook-row"><span class="hook-badge">F</span><span class="hook-text"><strong>Special use</strong> — F(R) restricted, F(A) advisory. Always check NOTAM.</span></div>
+  <div class="hook-row"><span class="hook-badge">G</span><span class="hook-text"><strong>Uncontrolled</strong> — no ATC. Lower weather minimums. See and avoid.</span></div>
+</div>
+
+</body>
+</html>

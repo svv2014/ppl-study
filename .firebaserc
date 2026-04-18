@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "suprun-ca"
+  },
+  "targets": {
+    "suprun-ca": {
+      "hosting": {
+        "ppl-study-suprun-ca": [
+          "ppl-study-suprun-ca"
+        ]
+      }
+    }
+  }
+}

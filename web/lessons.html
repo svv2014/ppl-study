@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lessons — PPL Study</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav>
+    <span class="nav-brand">✈ PPL Study</span>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="lessons.html" class="active">Lessons</a></li>
+      <li><a href="plan.html">Study Plan</a></li>
+      <li><a href="exam.html">Practice Exam</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <h1>Lesson Browser</h1>
+    <p class="subtitle">Browse lessons by section. Audio available for completed lessons.</p>
+
+    <!-- AIR LAW -->
+    <div id="air-law" class="plan-section">
+      <h2>⚖️ Air Law <span style="font-size:0.8rem;color:var(--gray);font-weight:400">18 lessons · ~30–35% of exam</span></h2>
+
+      <div class="lesson-card featured" style="border-color:var(--amber);margin-bottom:16px;flex-direction:column;align-items:flex-start;">
+        <div style="display:flex;align-items:center;gap:16px;width:100%;">
+          <span class="lesson-id">AL-001</span>
+          <div class="lesson-meta">
+            <div class="lesson-title">Canadian Airspace Classifications</div>
+            <div class="lesson-time">⏱ 20 min · Source: CARs Part VI, TP 12880E Ch.7, AIM RAC 2.0</div>
+          </div>
+          <span style="font-size:0.75rem;color:var(--success);font-weight:700;">✓ COMPLETE</span>
+        </div>
+        <div class="audio-section" style="width:100%;margin-top:16px;">
+          <h3>🎧 Lesson Audio</h3>
+          <audio controls>
+            <source src="../audio/ppl-lesson-al001-airspace.m4a" type="audio/mp4">
+            <source src="/tmp/kokoro-ppl/ppl-lesson-al001-airspace.m4a" type="audio/mp4">
+            Your browser does not support the audio element.
+          </audio>
+          <p style="font-size:0.78rem;color:var(--gray);margin-top:8px;">
+            Audio: ppl-lesson-al001-airspace.m4a · Classes A–G definitions, altitudes, VFR requirements
+          </p>
+        </div>
+        <div style="margin-top:12px;width:100%;">
+          <a href="visuals/al001-airspace-classifications.html" target="_blank" style="display:inline-block;background:rgba(240,192,64,0.12);border:1.5px solid rgba(240,192,64,0.4);color:#f0c040;padding:8px 16px;border-radius:6px;font-size:0.82rem;font-weight:700;text-decoration:none;">📊 Visual Reference Card →</a>
+        </div>
+        <div style="margin-top:8px;padding:14px 16px;background:rgba(245,166,35,0.07);border-radius:6px;width:100%;">
+          <strong style="color:var(--amber);font-size:0.85rem;">Key Topics:</strong>
+          <p style="margin:6px 0 0;font-size:0.87rem;">
+            Class A (18,000–60,000 ft ASL, IFR only) · Class B (12,500–18,000 ft ASL) · Class C (busy airports, clearance + radio) ·
+            Class D (towered airports, 2-way contact) · Class E (controlled, no clearance for VFR) ·
+            Class F (special use, F(R) restricted / F(A) advisory) · Class G (uncontrolled, lower weather mins)
+          </p>
+        </div>
+      </div>
+
+      <!-- AL-002 -->
+      <div class="lesson-card featured" style="border-color:var(--amber);margin-bottom:16px;flex-direction:column;align-items:flex-start;">
+        <div style="display:flex;align-items:center;gap:16px;width:100%;">
+          <span class="lesson-id">AL-002</span>
+          <div class="lesson-meta">
+            <div class="lesson-title">Controlled vs Uncontrolled Airspace</div>
+            <div class="lesson-time">⏱ 20 min · Source: CARs Part VI, TP 12880E Ch.7</div>
+          </div>
+          <span style="font-size:0.75rem;color:var(--success);font-weight:700;">✓ COMPLETE</span>
+        </div>
+        <div class="audio-section" style="width:100%;margin-top:16px;">
+          <h3>🎧 Lesson Audio</h3>
+          <audio controls>
+            <source src="/tmp/kokoro-al002/ppl-al002-controlled-vs-uncontrolled.m4a" type="audio/mp4">
+          </audio>
+        </div>
+        <div style="margin-top:12px;width:100%;">
+          <a href="visuals/al002-controlled-vs-uncontrolled.html" target="_blank" style="display:inline-block;background:rgba(240,192,64,0.12);border:1.5px solid rgba(240,192,64,0.4);color:#f0c040;padding:8px 16px;border-radius:6px;font-size:0.82rem;font-weight:700;text-decoration:none;">📊 Visual Reference Card →</a>
+        </div>
+        <div style="margin-top:8px;padding:14px 16px;background:rgba(245,166,35,0.07);border-radius:6px;width:100%;">
+          <strong style="color:var(--amber);font-size:0.85rem;">Key Topics:</strong>
+          <p style="margin:6px 0 0;font-size:0.87rem;">Controlled vs uncontrolled split · ATC services per class · VFR pilot responsibilities · Radio and transponder requirements · Why Class E is the tricky middle ground</p>
+        </div>
+      </div>
+
+      <!-- AL-003 -->
+      <div class="lesson-card featured" style="border-color:var(--amber);margin-bottom:16px;flex-direction:column;align-items:flex-start;">
+        <div style="display:flex;align-items:center;gap:16px;width:100%;">
+          <span class="lesson-id">AL-003</span>
+          <div class="lesson-meta">
+            <div class="lesson-title">VFR Weather Minimums</div>
+            <div class="lesson-time">⏱ 20 min · Source: CARs 602.114–602.117, TP 12880E Ch.7</div>
+          </div>
+          <span style="font-size:0.75rem;color:var(--success);font-weight:700;">✓ COMPLETE</span>
+        </div>
+        <div class="audio-section" style="width:100%;margin-top:16px;">
+          <h3>🎧 Lesson Audio</h3>
+          <audio controls>
+            <source src="/tmp/kokoro-al003/ppl-al003-vfr-weather-minimums.m4a" type="audio/mp4">
+          </audio>
+        </div>
+        <div style="margin-top:12px;width:100%;">
+          <a href="visuals/al003-weather-minimums.html" target="_blank" style="display:inline-block;background:rgba(240,192,64,0.12);border:1.5px solid rgba(240,192,64,0.4);color:#f0c040;padding:8px 16px;border-radius:6px;font-size:0.82rem;font-weight:700;text-decoration:none;">📊 Visual Reference Card →</a>
+        </div>
+        <div style="margin-top:8px;padding:14px 16px;background:rgba(245,166,35,0.07);border-radius:6px;width:100%;">
+          <strong style="color:var(--amber);font-size:0.85rem;">Key Topics:</strong>
+          <p style="margin:6px 0 0;font-size:0.87rem;">3SM/500-1000-2000 controlled day · 5SM at night · Class G ≤1,000ft = 2SM clear-of-cloud · Class G &gt;1,000ft = 1SM (exam trap) · Special VFR</p>
+        </div>
+      </div>
+
+      <div id="al-remaining"></div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div id="navigation" class="plan-section">
+      <h2>🧭 Navigation <span style="font-size:0.8rem;color:var(--gray);font-weight:400">14 lessons · ~25–30% of exam</span></h2>
+
+      <div class="lesson-card featured" style="border-color:var(--amber);margin-bottom:16px;flex-direction:column;align-items:flex-start;">
+        <div style="display:flex;align-items:center;gap:16px;width:100%;">
+          <span class="lesson-id">NAV-001</span>
+          <div class="lesson-meta">
+            <div class="lesson-title">VFR Aeronautical Charts — Reading the Map</div>
+            <div class="lesson-time">⏱ 20 min · Source: TP 12880E Ch.9, TP 9994 VFR Chart User's Guide</div>
+          </div>
+          <span style="font-size:0.75rem;color:var(--success);font-weight:700;">✓ COMPLETE</span>
+        </div>
+        <div style="margin-top:12px;width:100%;">
+          <a href="visuals/al002-controlled-vs-uncontrolled.html" target="_blank" style="display:inline-block;background:rgba(240,192,64,0.12);border:1.5px solid rgba(240,192,64,0.4);color:#f0c040;padding:8px 16px;border-radius:6px;font-size:0.82rem;font-weight:700;text-decoration:none;">📊 Visual Reference Card →</a>
+        </div>
+        <div style="margin-top:8px;padding:14px 16px;background:rgba(245,166,35,0.07);border-radius:6px;width:100%;">
+          <strong style="color:var(--amber);font-size:0.85rem;">Key Topics:</strong>
+          <p style="margin:6px 0 0;font-size:0.87rem;">
+            VNC scale 1:500,000 (1 cm = 5 km) · VTA 1:250,000 · Lat/lon grid every 30' ·
+            MEF (Maximum Elevation Figure) · Airport symbols (blue = tower, yellow = uncontrolled, magenta = seaplane) ·
+            Airspace boundary markings · VOR/NDB symbols · Isogonic lines (magnetic variation)
+          </p>
+        </div>
+      </div>
+
+      <div id="nav-remaining"></div>
+    </div>
+
+    <!-- METEOROLOGY -->
+    <div id="meteorology" class="plan-section">
+      <h2>🌦️ Meteorology <span style="font-size:0.8rem;color:var(--gray);font-weight:400">14 lessons · ~20–25% of exam</span></h2>
+      <div id="met-lessons"></div>
+    </div>
+
+    <!-- GENERAL KNOWLEDGE -->
+    <div id="general" class="plan-section">
+      <h2>🔧 General Knowledge <span style="font-size:0.8rem;color:var(--gray);font-weight:400">14 lessons · ~15–20% of exam</span></h2>
+      <div id="gk-lessons"></div>
+    </div>
+  </div>
+
+  <footer>PPL Study · Transport Canada Private Pilot Licence · Content based on TP 12880E and CARs</footer>
+
+  <script>
+    const AL_REMAINING = [
+      { id: 'AL-004', title: 'Altimeter Settings — QNH, QNE, QFE', slug: 'altimeter-settings' },
+      { id: 'AL-005', title: 'Right-of-Way Rules', slug: 'right-of-way-rules' },
+      { id: 'AL-006', title: 'Aerodrome Traffic Circuit (ATC)', slug: 'aerodrome-traffic-circuit' },
+      { id: 'AL-007', title: 'Radio Communications', slug: 'radio-communications' },
+      { id: 'AL-008', title: 'ATC Services and Clearances', slug: 'atc-services-clearances' },
+      { id: 'AL-009', title: 'VFR Flight Plans and Itineraries', slug: 'flight-plans-itineraries' },
+      { id: 'AL-010', title: 'NOTAMs — Types, Reading, Sources', slug: 'notams' },
+      { id: 'AL-011', title: 'CARs Structure — Parts I, II, III, VI', slug: 'cars-structure' },
+      { id: 'AL-012', title: 'Pilot Licences and Recency', slug: 'pilot-licences-recency' },
+      { id: 'AL-013', title: 'Aircraft Documents — C of A, C of R', slug: 'aircraft-documents' },
+      { id: 'AL-014', title: 'Emergency Procedures (Legal)', slug: 'emergency-procedures-law' },
+      { id: 'AL-015', title: 'Transponder — Codes and Squawk', slug: 'transponder-codes' },
+      { id: 'AL-016', title: 'Wake Turbulence', slug: 'wake-turbulence' },
+      { id: 'AL-017', title: 'Low-Level Flight Rules', slug: 'low-level-flight-rules' },
+      { id: 'AL-018', title: 'Special Use Airspace', slug: 'special-use-airspace' },
+    ];
+
+    const NAV_REMAINING = [
+      { id: 'NAV-002', title: 'Latitude, Longitude, and Map Reading', slug: 'lat-lon-map-reading' },
+      { id: 'NAV-003', title: 'True vs Magnetic vs Compass Heading', slug: 'true-magnetic-compass' },
+      { id: 'NAV-004', title: 'Dead Reckoning — Wind Triangle Concept', slug: 'dead-reckoning-basics' },
+      { id: 'NAV-005', title: 'Wind Correction Angle (E6B)', slug: 'wind-correction-angle' },
+      { id: 'NAV-006', title: 'Time-Speed-Distance Calculations', slug: 'time-speed-distance' },
+      { id: 'NAV-007', title: 'Fuel Planning — Reserves and Rules', slug: 'fuel-planning' },
+      { id: 'NAV-008', title: 'Cross-Country Planning', slug: 'cross-country-planning' },
+      { id: 'NAV-009', title: 'Pilotage — Visual Checkpoints', slug: 'pilotage' },
+      { id: 'NAV-010', title: 'VOR Navigation', slug: 'vor-navigation' },
+      { id: 'NAV-011', title: 'GPS Basics and Limitations', slug: 'gps-basics' },
+      { id: 'NAV-012', title: 'Altitude Types — Indicated, True, Pressure', slug: 'altitude-types' },
+      { id: 'NAV-013', title: 'Density Altitude', slug: 'density-altitude' },
+      { id: 'NAV-014', title: 'Lost Procedure and Diversion', slug: 'lost-procedure' },
+    ];
+
+    const MET_LESSONS = [
+      { id: 'MET-001', title: 'Atmosphere Structure — Layers and ISA', slug: 'atmosphere-structure' },
+      { id: 'MET-002', title: 'Temperature, Pressure, Humidity', slug: 'temp-pressure-humidity' },
+      { id: 'MET-003', title: 'Cloud Types and Formation', slug: 'clouds-types' },
+      { id: 'MET-004', title: 'Fog Formation and Types', slug: 'fog-types' },
+      { id: 'MET-005', title: 'METAR Decoding', slug: 'metar-decoding' },
+      { id: 'MET-006', title: 'TAF Decoding', slug: 'taf-decoding' },
+      { id: 'MET-007', title: 'GFA — Graphical Forecast for Aviation', slug: 'gfa' },
+      { id: 'MET-008', title: 'PIREPs — Pilot Reports', slug: 'pireps' },
+      { id: 'MET-009', title: 'Thunderstorms — Hazards and Avoidance', slug: 'thunderstorms' },
+      { id: 'MET-010', title: 'Icing — Types, Conditions, Rules', slug: 'icing' },
+      { id: 'MET-011', title: 'Turbulence — Types and Severity', slug: 'turbulence' },
+      { id: 'MET-012', title: 'Wind Shear and Microburst', slug: 'wind-shear-microburst' },
+      { id: 'MET-013', title: 'Fronts — Cold, Warm, Occluded', slug: 'fronts' },
+      { id: 'MET-014', title: 'Weather Decision-Making (Go/No-Go)', slug: 'wx-decision-making' },
+    ];
+
+    const GK_LESSONS = [
+      { id: 'GK-001', title: 'Aircraft Parts and Controls', slug: 'aircraft-parts-controls' },
+      { id: 'GK-002', title: 'Four Forces of Flight', slug: 'four-forces' },
+      { id: 'GK-003', title: 'Piston Engines — 4-Stroke, Magnetos', slug: 'piston-engines' },
+      { id: 'GK-004', title: 'Fuel System — Grades and Contamination', slug: 'fuel-system' },
+      { id: 'GK-005', title: 'Electrical System', slug: 'electrical-system' },
+      { id: 'GK-006', title: 'Pitot-Static Instruments', slug: 'pitot-static-instruments' },
+      { id: 'GK-007', title: 'Gyroscopic Instruments — AI, DI, TC', slug: 'gyroscopic-instruments' },
+      { id: 'GK-008', title: 'Engine Instruments', slug: 'engine-instruments' },
+      { id: 'GK-009', title: 'Weight and Balance — CG and Calculations', slug: 'weight-and-balance' },
+      { id: 'GK-010', title: 'Performance Charts — POH/AFM', slug: 'performance-charts' },
+      { id: 'GK-011', title: 'Takeoff and Landing Performance', slug: 'takeoff-landing-perf' },
+      { id: 'GK-012', title: 'Stalls and Spins', slug: 'stalls-spins' },
+      { id: 'GK-013', title: 'Load Factor and Maneuvering Speed (Va)', slug: 'load-factor' },
+      { id: 'GK-014', title: 'Pre-Flight Inspection and Maintenance', slug: 'preflight-inspection' },
+    ];
+
+    function renderLessonList(lessons, containerId) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = lessons.map(l => `
+        <div class="lesson-card">
+          <span class="lesson-id">${l.id}</span>
+          <div class="lesson-meta">
+            <div class="lesson-title">${l.title}</div>
+            <div class="lesson-time">⏱ 20 min · Lesson not yet released</div>
+          </div>
+          <span style="font-size:0.75rem;color:var(--gray);">Coming soon</span>
+        </div>
+      `).join('');
+    }
+
+    renderLessonList(AL_REMAINING, 'al-remaining');
+    renderLessonList(NAV_REMAINING, 'nav-remaining');
+    renderLessonList(MET_LESSONS, 'met-lessons');
+    renderLessonList(GK_LESSONS, 'gk-lessons');
+
+    // Scroll to anchor from home page links
+    const hash = window.location.hash;
+    if (hash) {
+      setTimeout(() => {
+        const el = document.querySelector(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  </script>
+</body>
+</html>
