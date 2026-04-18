@@ -1,0 +1,85 @@
+name: New Lesson
+description: Author a new 20-minute study lesson (content task, not dev)
+title: "[Lesson]: "
+labels: ["content", "p2-medium"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to commission a new lesson file under `lessons/{topic}/{NNN}-{slug}.md`.
+        All lessons must follow the canonical frontmatter schema (see `docs/lesson-schema.md`) and cite Transport Canada sources (TP number or CAR section) for every specific rule or number.
+
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      options:
+        - air-law
+        - navigation
+        - meteorology
+        - general-knowledge
+    validations:
+      required: true
+
+  - type: input
+    id: lesson_id
+    attributes:
+      label: Lesson ID
+      description: Format AL-NNN / NAV-NNN / MET-NNN / GEN-NNN (check curriculum-plan.md for next free number)
+      placeholder: NAV-002
+    validations:
+      required: true
+
+  - type: input
+    id: slug
+    attributes:
+      label: Slug (filename)
+      description: lowercase, hyphen-separated, matches file path after the NNN prefix
+      placeholder: lat-lon-map-reading
+    validations:
+      required: true
+
+  - type: textarea
+    id: content_scope
+    attributes:
+      label: Content Scope (20-minute lesson)
+      description: What must this lesson cover? Be specific about concepts, numbers, and rules.
+      placeholder: |
+        - Concept 1 (with source citation)
+        - Concept 2
+        - Connection to which other lesson(s)
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: Transport Canada sources to cite. TP number with chapter, or CAR section.
+      placeholder: |
+        - TP 12880E Chapter 9
+        - CAR 602.115
+    validations:
+      required: true
+
+  - type: textarea
+    id: questions
+    attributes:
+      label: Practice Questions
+      description: Specify what the 5 practice questions should test (the worker writes the actual questions).
+      placeholder: |
+        1. Degree-to-NM conversion
+        2. Reading a lat/lon grid position
+        3. Connecting scale from NAV-001
+        4. ...
+        5. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Anything else the author should know — tone, scope boundaries, what to avoid.
+    validations:
+      required: false
