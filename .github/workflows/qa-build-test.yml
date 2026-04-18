@@ -13,6 +13,9 @@ on:
 permissions:
   pull-requests: write
   contents: write
+  checks: write
+  deployments: write
+  statuses: write
 
 jobs:
   qa-merge-deploy:
@@ -82,9 +85,12 @@ jobs:
         run: npm run build
 
       - name: Deploy to Firebase Hosting
+        # No repoToken: we deploy to `live` channel only — no PR preview comment
+        # needed. Avoids the "Resource not accessible by integration" failure
+        # that happens when the action tries to write a check/comment using
+        # GITHUB_TOKEN after the PR is already merged.
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SUPRUN_CA }}'
           channelId: live
           projectId: suprun-ca
