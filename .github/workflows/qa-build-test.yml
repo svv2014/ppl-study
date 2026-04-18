@@ -42,7 +42,9 @@ jobs:
       - name: Apply qa-pass
         if: success()
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use AUTOMERGE_PAT so the label change triggers auto-merge workflow
+          # (GITHUB_TOKEN-driven label changes don't trigger other workflows).
+          GH_TOKEN: ${{ secrets.AUTOMERGE_PAT || secrets.GITHUB_TOKEN }}
         run: |
           gh pr edit ${{ github.event.pull_request.number }} \
             --repo ${{ github.repository }} \
@@ -52,7 +54,9 @@ jobs:
       - name: Apply qa-fail
         if: failure()
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use AUTOMERGE_PAT so the label change triggers auto-merge workflow
+          # (GITHUB_TOKEN-driven label changes don't trigger other workflows).
+          GH_TOKEN: ${{ secrets.AUTOMERGE_PAT || secrets.GITHUB_TOKEN }}
         run: |
           gh pr edit ${{ github.event.pull_request.number }} \
             --repo ${{ github.repository }} \
