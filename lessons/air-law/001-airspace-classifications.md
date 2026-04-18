@@ -1,3 +1,65 @@
+---
+id: AL-001
+topic: air-law
+order: 1
+slug: airspace-classifications
+title: "Canadian Airspace Classifications"
+duration_min: 20
+status: complete
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/001-airspace-classifications.m4a
+visual: /visuals/al001-airspace-classifications.html
+sources:
+  - CARs Part VI
+  - TP 12880E
+  - AIM RAC 2.0
+questions:
+  - id: q1
+    prompt: "You are planning a VFR flight that will pass through Class C airspace. Before entering, you must:"
+    choices:
+      A: "Have a filed flight plan on record"
+      B: "Obtain an ATC clearance and establish two-way radio contact"
+      C: "Establish two-way radio contact only — no clearance is required"
+      D: "Fly at or below 700 feet AGL to remain clear of Class C"
+    answer: B
+    explanation: "Class C requires both an ATC clearance and established two-way radio contact before entry. A clearance (not just contact) is the threshold requirement — this distinguishes Class C from Class D, where contact alone is sufficient. Source: CARs 601.07, TP 12880E Chapter 7."
+  - id: q2
+    prompt: "Class A airspace in Canada begins at:"
+    choices:
+      A: "12,500 feet ASL"
+      B: "14,500 feet ASL"
+      C: "18,000 feet ASL"
+      D: "18,000 feet AGL"
+    answer: C
+    explanation: "Class A begins at 18,000 feet ASL. Note it is ASL (above sea level), not AGL. Class B occupies 12,500 to 18,000 feet ASL. Source: CARs 601.01, TP 12880E Chapter 7."
+  - id: q3
+    prompt: "In Class G airspace, at and below 1,000 feet AGL during the day, the minimum VFR weather requirements are:"
+    choices:
+      A: "3 statute miles visibility, 500 below / 1,000 above / 2,000 horizontal from cloud"
+      B: "1 statute mile visibility, clear of cloud"
+      C: "2 statute miles visibility, clear of cloud"
+      D: "3 statute miles visibility, clear of cloud"
+    answer: C
+    explanation: "At and below 1,000 feet AGL in Class G (day), the minimums are 2 statute miles visibility and clear of cloud. This is lower than the 3-mile / 500-1,000-2,000 minimums required in controlled airspace. Source: CARs 602.115, TP 12880E Chapter 7."
+  - id: q4
+    prompt: "Class F(A) airspace is best described as:"
+    choices:
+      A: "Airspace that is permanently restricted to IFR traffic only"
+      B: "Advisory airspace that warns pilots of potential hazards; entry does not require authorization"
+      C: "Airspace requiring ATC clearance for all aircraft"
+      D: "Restricted airspace that requires a specific permit from Transport Canada"
+    answer: B
+    explanation: "Class F has two subtypes. F(R) is Restricted — you need authorization to enter. F(A) is Advisory — it alerts pilots to hazards (like a parachute drop zone) but does not require authorization to enter. Source: CARs 601.15, AIM RAC 2.8."
+  - id: q5
+    prompt: "Which of the following statements about Class D airspace is correct?"
+    choices:
+      A: "A VFR pilot must obtain an ATC clearance before entering"
+      B: "VFR flight is not permitted in Class D airspace"
+      C: "A VFR pilot must establish two-way radio contact with ATC before entering"
+      D: "No radio communication is required; pilots should self-announce on CTAF"
+    answer: C
+    explanation: "Class D requires two-way radio contact — the controller must acknowledge your call sign by name — but does not require a formal clearance. This distinguishes Class D from Class C. Source: CARs 601.08, TP 12880E Chapter 7."
+---
+
 # Lesson AL-001: Canadian Airspace Classifications
 
 **Section:** Air Law  
@@ -52,68 +114,6 @@ That's the airspace framework. Review the chart below after this lesson — visu
 | E | Varies (airways, transitions) | Yes | Yes | Not required | Not required |
 | F | Varies (special use) | Varies | Advisory | Check NOTAM | Check NOTAM |
 | G | Below controlled airspace | Yes | Yes | Not required | Not required |
-
----
-
-## Practice Questions
-
-**Q1.** You are planning a VFR flight that will pass through Class C airspace. Before entering, you must:
-
-- A) Have a filed flight plan on record
-- B) Obtain an ATC clearance and establish two-way radio contact
-- C) Establish two-way radio contact only — no clearance is required
-- D) Fly at or below 700 feet AGL to remain clear of Class C
-
-**Answer: B**  
-*Explanation:* Class C requires both an ATC clearance and established two-way radio contact before entry. A clearance (not just contact) is the threshold requirement — this distinguishes Class C from Class D, where contact alone is sufficient. Source: CARs 601.07, TP 12880E Chapter 7.
-
----
-
-**Q2.** Class A airspace in Canada begins at:
-
-- A) 12,500 feet ASL
-- B) 14,500 feet ASL
-- C) 18,000 feet ASL
-- D) 18,000 feet AGL
-
-**Answer: C**  
-*Explanation:* Class A begins at 18,000 feet ASL. Note it is ASL (above sea level), not AGL. Class B occupies 12,500 to 18,000 feet ASL. Source: CARs 601.01, TP 12880E Chapter 7.
-
----
-
-**Q3.** In Class G airspace, at and below 1,000 feet AGL during the day, the minimum VFR weather requirements are:
-
-- A) 3 statute miles visibility, 500 below / 1,000 above / 2,000 horizontal from cloud
-- B) 1 statute mile visibility, clear of cloud
-- C) 2 statute miles visibility, clear of cloud
-- D) 3 statute miles visibility, clear of cloud
-
-**Answer: C**  
-*Explanation:* At and below 1,000 feet AGL in Class G (day), the minimums are 2 statute miles visibility and clear of cloud. This is lower than the 3-mile / 500-1,000-2,000 minimums required in controlled airspace. Source: CARs 602.115, TP 12880E Chapter 7.
-
----
-
-**Q4.** Class F(A) airspace is best described as:
-
-- A) Airspace that is permanently restricted to IFR traffic only
-- B) Advisory airspace that warns pilots of potential hazards; entry does not require authorization
-- C) Airspace requiring ATC clearance for all aircraft
-- D) Restricted airspace that requires a specific permit from Transport Canada
-
-**Answer: B**  
-*Explanation:* Class F has two subtypes. F(R) is Restricted — you need authorization to enter. F(A) is Advisory — it alerts pilots to hazards (like a parachute drop zone) but does not require authorization to enter. Source: CARs 601.15, AIM RAC 2.8.
-
----
-
-**Q5.** Which of the following statements about Class D airspace is correct?
-
-- A) A VFR pilot must obtain an ATC clearance before entering
-- B) VFR flight is not permitted in Class D airspace
-- C) A VFR pilot must establish two-way radio contact with ATC before entering
-- D) No radio communication is required; pilots should self-announce on CTAF
-
-**Answer: C**  
-*Explanation:* Class D requires two-way radio contact — the controller must acknowledge your call sign by name — but does not require a formal clearance. This distinguishes Class D from Class C. Source: CARs 601.08, TP 12880E Chapter 7.
 
 ---
 

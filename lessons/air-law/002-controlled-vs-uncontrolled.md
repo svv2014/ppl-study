@@ -1,3 +1,65 @@
+---
+id: AL-002
+topic: air-law
+order: 2
+slug: controlled-vs-uncontrolled
+title: "Controlled vs Uncontrolled Airspace"
+duration_min: 20
+status: complete
+audio: null
+visual: /visuals/al002-controlled-vs-uncontrolled.html
+sources:
+  - CARs Part VI
+  - TP 12880E
+  - AIM RAC 2.0
+questions:
+  - id: q1
+    prompt: "In Class D airspace, what service does ATC provide to VFR pilots?"
+    choices:
+      A: "Full separation from all IFR and VFR traffic"
+      B: "Separation from IFR traffic only, plus traffic advisories for VFR"
+      C: "Traffic advisories only — no separation from any traffic"
+      D: "No service — VFR pilots are not permitted in Class D"
+    answer: C
+    explanation: "In Class D, ATC provides separation for IFR aircraft only. VFR pilots receive traffic information (advisories) but ATC does not guarantee separation between VFR and IFR, or VFR and VFR. This is different from Class C where ATC separates IFR from VFR. Source: CARs 601.08, TP 12880E Chapter 7."
+  - id: q2
+    prompt: "Which of the following airspace classes is considered 'controlled' but does NOT require radio contact for VFR pilots?"
+    choices:
+      A: "Class C"
+      B: "Class D"
+      C: "Class E"
+      D: "Class G"
+    answer: C
+    explanation: "Class E is controlled airspace — ATC provides services to IFR aircraft there — but VFR pilots are not required to establish radio contact to fly through it. This makes Class E unique: it's technically controlled, but VFR pilots have no communication requirement. Class G is uncontrolled. Classes C and D both require radio contact. Source: CARs 601.07–601.09."
+  - id: q3
+    prompt: "A VFR pilot is flying near a Class C airport. Which statement correctly describes ATC's responsibilities?"
+    choices:
+      A: "ATC provides separation between all IFR and all VFR aircraft"
+      B: "ATC provides separation between IFR aircraft, and between IFR and VFR aircraft; VFR-to-VFR is the pilot's responsibility"
+      C: "ATC provides traffic advisories only; all separation is the pilot's responsibility"
+      D: "ATC provides no services to VFR pilots in Class C"
+    answer: B
+    explanation: "In Class C, ATC separates IFR-IFR and IFR-VFR pairs, but VFR aircraft are not separated from each other by ATC. Pilots still must see and avoid other VFR traffic. This is a common exam trap — Class C protection is not total. Source: CARs 601.07, AIM RAC 2.7."
+  - id: q4
+    prompt: "Which of the following is required to enter Class D airspace as a VFR pilot?"
+    choices:
+      A: "ATC clearance and Mode C transponder"
+      B: "Two-way radio contact with ATC (call sign acknowledged)"
+      C: "ATC clearance only — transponder not required"
+      D: "No radio or clearance — VFR pilots may enter freely"
+    answer: B
+    explanation: "Class D requires two-way radio contact — the controller must acknowledge your call sign — but no formal clearance is required. A Mode C transponder is required in Class D. However, the question asks specifically about ATC communication requirements: the answer is two-way contact, not clearance. Source: CARs 601.08."
+  - id: q5
+    prompt: "In which airspace class does ATC provide NO separation services whatsoever?"
+    choices:
+      A: "Class E"
+      B: "Class D"
+      C: "Class F"
+      D: "Class G"
+    answer: D
+    explanation: "Class G is uncontrolled airspace. ATC provides no separation services of any kind — not for IFR, not for VFR. All traffic avoidance is the pilot's responsibility. Class E provides IFR separation. Class F is special use airspace with its own rules. Class D provides IFR separation. Source: CARs Part VI, TP 12880E Chapter 7."
+---
+
 # Lesson AL-002: Controlled vs Uncontrolled Airspace
 
 **Section:** Air Law  
@@ -109,68 +171,6 @@ The more urban your route, the more controlled airspace you'll encounter. The mo
 | Class D | Yes (IFR only) | No (info only) | Yes | No |
 | Class E | Yes (IFR only) | No | No | No |
 | Class G | No | No | No | No |
-
----
-
-## Practice Questions
-
-**Q1.** In Class D airspace, what service does ATC provide to VFR pilots?
-
-- A) Full separation from all IFR and VFR traffic
-- B) Separation from IFR traffic only, plus traffic advisories for VFR
-- C) Traffic advisories only — no separation from any traffic
-- D) No service — VFR pilots are not permitted in Class D
-
-**Answer: C**  
-*Explanation:* In Class D, ATC provides separation for IFR aircraft only. VFR pilots receive traffic information (advisories) but ATC does not guarantee separation between VFR and IFR, or VFR and VFR. This is different from Class C where ATC separates IFR from VFR. Source: CARs 601.08, TP 12880E Chapter 7.
-
----
-
-**Q2.** Which of the following airspace classes is considered "controlled" but does NOT require radio contact for VFR pilots?
-
-- A) Class C
-- B) Class D
-- C) Class E
-- D) Class G
-
-**Answer: C**  
-*Explanation:* Class E is controlled airspace — ATC provides services to IFR aircraft there — but VFR pilots are not required to establish radio contact to fly through it. This makes Class E unique: it's technically controlled, but VFR pilots have no communication requirement. Class G is uncontrolled. Classes C and D both require radio contact. Source: CARs 601.07–601.09.
-
----
-
-**Q3.** A VFR pilot is flying near a Class C airport. Which statement correctly describes ATC's responsibilities?
-
-- A) ATC provides separation between all IFR and all VFR aircraft
-- B) ATC provides separation between IFR aircraft, and between IFR and VFR aircraft; VFR-to-VFR is the pilot's responsibility
-- C) ATC provides traffic advisories only; all separation is the pilot's responsibility
-- D) ATC provides no services to VFR pilots in Class C
-
-**Answer: B**  
-*Explanation:* In Class C, ATC separates IFR-IFR and IFR-VFR pairs, but VFR aircraft are not separated from each other by ATC. Pilots still must see and avoid other VFR traffic. This is a common exam trap — Class C protection is not total. Source: CARs 601.07, AIM RAC 2.7.
-
----
-
-**Q4.** Which of the following is required to enter Class D airspace as a VFR pilot?
-
-- A) ATC clearance and Mode C transponder
-- B) Two-way radio contact with ATC (call sign acknowledged)
-- C) ATC clearance only — transponder not required
-- D) No radio or clearance — VFR pilots may enter freely
-
-**Answer: B**  
-*Explanation:* Class D requires two-way radio contact — the controller must acknowledge your call sign — but no formal clearance is required. A Mode C transponder is required in Class D. However, the question asks specifically about ATC communication requirements: the answer is two-way contact, not clearance. Source: CARs 601.08.
-
----
-
-**Q5.** In which airspace class does ATC provide NO separation services whatsoever?
-
-- A) Class E
-- B) Class D
-- C) Class F
-- D) Class G
-
-**Answer: D**  
-*Explanation:* Class G is uncontrolled airspace. ATC provides no separation services of any kind — not for IFR, not for VFR. All traffic avoidance is the pilot's responsibility. Class E provides IFR separation. Class F is special use airspace with its own rules. Class D provides IFR separation. Source: CARs Part VI, TP 12880E Chapter 7.
 
 ---
 
