@@ -12,11 +12,9 @@
 
 ## ASDLC flow
 
-Merging happens automatically once this PR is labeled `qa-pass`:
+One workflow does everything once this PR is labeled `ready-for-qa`:
 
-1. Reviewer (human or QA worker) verifies the work matches acceptance criteria.
-2. Reviewer applies `qa-pass` label.
-3. `.github/workflows/auto-merge-qa-pass.yml` enables GitHub auto-merge.
-4. Once required checks are green, PR squash-merges and the branch is deleted.
-
-If you hit `qa-fail`, fix the issue and push — the same PR can be re-labelled `qa-pass` when ready.
+1. Reviewer (human or review-handler agent) verifies the work.
+2. Reviewer applies `ready-for-qa` label.
+3. `.github/workflows/qa-build-test.yml` runs: build + test, then squash-merges the PR, then deploys `main` to Firebase.
+4. If build/test fails, the workflow applies `qa-fail` and comments with a run link. Fix and re-label `ready-for-qa` to retry.
