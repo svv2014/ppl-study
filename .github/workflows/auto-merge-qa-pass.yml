@@ -14,8 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Enable auto-merge
+        # Use AUTOMERGE_PAT (Personal Access Token with `repo` + `workflow` scope)
+        # so the resulting push to main can trigger downstream workflows like deploy.
+        # Falls back to GITHUB_TOKEN if AUTOMERGE_PAT isn't set — but fallback will
+        # NOT trigger deploy because of GitHub's anti-recursion rule.
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AUTOMERGE_PAT || secrets.GITHUB_TOKEN }}
         run: |
           gh pr merge ${{ github.event.pull_request.number }} \
             --repo ${{ github.repository }} \
