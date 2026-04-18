@@ -16,10 +16,53 @@ import { useProgress } from '../lib/progress';
 const mdOptions = {
   overrides: {
     h1: { component: Typography, props: { variant: 'h4', gutterBottom: true, sx: { mt: 3 } } },
-    h2: { component: Typography, props: { variant: 'h5', gutterBottom: true, sx: { mt: 3 } } },
-    h3: { component: Typography, props: { variant: 'h6', gutterBottom: true, sx: { mt: 2 } } },
+    h2: { component: Typography, props: { variant: 'h5', gutterBottom: true, sx: { mt: 4, mb: 1 } } },
+    h3: { component: Typography, props: { variant: 'h6', gutterBottom: true, sx: { mt: 3, mb: 1 } } },
     p: { component: Typography, props: { variant: 'body1', paragraph: true } },
     li: { component: Typography, props: { component: 'li', variant: 'body1', sx: { mb: 0.5 } } },
+    code: {
+      component: Box,
+      props: {
+        component: 'code',
+        sx: {
+          fontFamily: 'monospace',
+          fontSize: '0.875em',
+          bgcolor: 'rgba(255,255,255,0.08)',
+          px: 0.75,
+          py: 0.25,
+          borderRadius: 0.5,
+        },
+      },
+    },
+    pre: {
+      component: Box,
+      props: {
+        component: 'pre',
+        sx: {
+          bgcolor: 'background.paper',
+          p: 2,
+          borderRadius: 1,
+          overflowX: 'auto',
+          maxWidth: '100%',
+          my: 2,
+          '& code': { bgcolor: 'transparent', p: 0 },
+        },
+      },
+    },
+    blockquote: {
+      component: Box,
+      props: {
+        component: 'blockquote',
+        sx: {
+          borderLeft: '3px solid',
+          borderColor: 'primary.main',
+          pl: 2,
+          ml: 0,
+          my: 2,
+          color: 'text.secondary',
+        },
+      },
+    },
   },
 };
 
@@ -55,7 +98,7 @@ export default function LessonDetail() {
   }
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Container maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: { xs: 2, sm: 3 }, py: 4 }}>
       <Box sx={{ mb: 1, display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <Chip
           label={lesson.topic.replace(/-/g, ' ')}
@@ -68,26 +111,38 @@ export default function LessonDetail() {
         )}
       </Box>
 
-      <Typography variant="h3" gutterBottom sx={{ mt: 2 }}>
+      <Typography
+        variant="h3"
+        gutterBottom
+        sx={{ mt: 2, typography: { xs: 'h4', md: 'h3' } }}
+      >
         {lesson.title}
       </Typography>
 
       <AudioPlayer src={lesson.audio} />
 
-      <Box sx={{ mt: 2, mb: 3, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+      <Box
+        sx={{
+          mt: 2,
+          mb: 3,
+          display: 'flex',
+          flexDirection: { xs: 'column', sm: 'row' },
+          gap: 2,
+        }}
+      >
         <Button
           variant="outlined"
-          size="small"
           href={lesson.visual}
           target="_blank"
           rel="noopener noreferrer"
+          sx={{ minHeight: 44 }}
         >
           View Visual
         </Button>
         <Button
           variant="outlined"
-          size="small"
           onClick={() => navigate(`/lessons/${lesson.topic}/${lesson.slug}/quiz`)}
+          sx={{ minHeight: 44 }}
         >
           Take Practice Quiz
         </Button>
