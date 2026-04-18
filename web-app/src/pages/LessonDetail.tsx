@@ -74,13 +74,14 @@ export default function LessonDetail() {
 
       <AudioPlayer src={lesson.audio} />
 
-      <Box sx={{ mt: 2, mb: 3, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+      <Box sx={{ mt: 2, mb: 3, display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' }, flexWrap: 'wrap' }}>
         <Button
           variant="outlined"
           size="small"
           href={lesson.visual}
           target="_blank"
           rel="noopener noreferrer"
+          sx={{ width: { xs: '100%', sm: 'auto' } }}
         >
           View Visual
         </Button>
@@ -88,6 +89,7 @@ export default function LessonDetail() {
           variant="outlined"
           size="small"
           onClick={() => navigate(`/lessons/${lesson.topic}/${lesson.slug}/quiz`)}
+          sx={{ width: { xs: '100%', sm: 'auto' } }}
         >
           Take Practice Quiz
         </Button>
@@ -114,6 +116,7 @@ export default function LessonDetail() {
         color="primary"
         onClick={handleMarkComplete}
         disabled={completed}
+        sx={{ width: { xs: '100%', sm: 'auto' } }}
       >
         {completed ? 'Completed' : 'Mark Complete'}
       </Button>
