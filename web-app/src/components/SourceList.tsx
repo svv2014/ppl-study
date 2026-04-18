@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { SOURCE_URLS } from '../lib/sources';
 
 interface SourceListProps {
   sources: string[];
@@ -24,15 +26,35 @@ export default function SourceList({ sources }: SourceListProps) {
         Sources
       </Typography>
       <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-        {sources.map((src) => (
-          <Chip
-            key={src}
-            label={src}
-            size="small"
-            variant="outlined"
-            sx={{ color: 'text.secondary', borderColor: 'text.disabled' }}
-          />
-        ))}
+        {sources.map((src) => {
+          const url = SOURCE_URLS[src];
+          if (url) {
+            return (
+              <Chip
+                key={src}
+                component="a"
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                clickable
+                label={src}
+                size="small"
+                variant="outlined"
+                sx={{ color: 'text.secondary', borderColor: 'text.disabled' }}
+              />
+            );
+          }
+          return (
+            <Tooltip key={src} title="No public link">
+              <Chip
+                label={src}
+                size="small"
+                variant="outlined"
+                sx={{ color: 'text.secondary', borderColor: 'text.disabled' }}
+              />
+            </Tooltip>
+          );
+        })}
       </Box>
     </Box>
   );
