@@ -1,8 +1,10 @@
-name: QA build + test
+name: QA build test merge deploy
 
-# Runs only when a PR is labeled `ready-for-qa` — avoids burning CI on WIP pushes.
-# On success: applies `qa-pass` (which triggers auto-merge).
-# On failure: applies `qa-fail` and comments with a link to the run.
+# Single end-to-end pipeline: when a reviewer labels the PR `ready-for-qa`,
+# we build + test, then merge the PR, then deploy main to Firebase Hosting —
+# all in one workflow run. No PAT needed, no cross-workflow chaining.
+#
+# Fails fast: if build/test fails, we label qa-fail and skip merge + deploy.
 
 on:
   pull_request:
@@ -10,14 +12,16 @@ on:
 
 permissions:
   pull-requests: write
-  contents: read
+  contents: write
 
 jobs:
-  qa:
+  qa-merge-deploy:
     if: github.event.label.name == 'ready-for-qa'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # --- Build + test on the PR head ---
+      - name: Checkout PR head
+        uses: actions/checkout@v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
@@ -31,7 +35,7 @@ jobs:
         working-directory: web-app
         run: npm ci
 
-      - name: Build
+      - name: Build (PR head)
         working-directory: web-app
         run: npm run build
 
@@ -39,16 +43,7 @@ jobs:
         working-directory: web-app
         run: npm test --if-present
 
-      - name: Apply qa-pass
-        if: success()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr edit ${{ github.event.pull_request.number }} \
-            --repo ${{ github.repository }} \
-            --remove-label ready-for-qa \
-            --add-label qa-pass
-
+      # --- On failure: label qa-fail and stop ---
       - name: Apply qa-fail
         if: failure()
         env:
@@ -61,3 +56,35 @@ jobs:
           gh pr comment ${{ github.event.pull_request.number }} \
             --repo ${{ github.repository }} \
             --body "QA build/test failed. See [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details."
+
+      # --- On success: squash-merge ---
+      - name: Merge PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge ${{ github.event.pull_request.number }} \
+            --repo ${{ github.repository }} \
+            --squash \
+            --delete-branch
+
+      # --- Then deploy from main (in same workflow — no cross-trigger needed) ---
+      - name: Checkout main (post-merge)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Install (main)
+        working-directory: web-app
+        run: npm ci
+
+      - name: Build (main)
+        working-directory: web-app
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SUPRUN_CA }}'
+          channelId: live
+          projectId: suprun-ca
