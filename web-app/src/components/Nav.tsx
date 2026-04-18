@@ -6,9 +6,9 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const NAV_LINKS = [
   { label: 'Home', to: '/' },
-  { label: 'Lessons', to: '/lessons' },
-  { label: 'Exam', to: '/exam' },
-  { label: 'Plan', to: '/plan' },
+  { label: 'Browse Lessons', to: '/lessons' },
+  { label: 'Practice Exam', to: '/exam' },
+  { label: 'Study Plan', to: '/plan' },
 ];
 
 export default function Nav() {
