@@ -1,3 +1,65 @@
+---
+id: NAV-001
+topic: navigation
+order: 1
+slug: vfr-charts
+title: "VFR Aeronautical Charts — Reading the Map"
+duration_min: 20
+status: complete
+audio: null
+visual: /visuals/nav001-vfr-charts.html
+sources:
+  - TP 12880E
+  - TP 9994
+  - VNC Chart Legend
+questions:
+  - id: q1
+    prompt: "On a Canadian VFR Navigation Chart (VNC), the scale is 1:500,000. Two airports on the chart are 6 centimetres apart. What is the approximate ground distance between them?"
+    choices:
+      A: "6 nautical miles"
+      B: "15 nautical miles"
+      C: "30 kilometres"
+      D: "30 nautical miles"
+    answer: C
+    explanation: "At 1:500,000, one centimetre on the chart equals 500,000 centimetres on the ground, which is 5 kilometres. So 6 cm = 30 km. Note: the answer in nautical miles would be approximately 16.2 NM, which isn't one of the options. The exam may use kilometres or nautical miles — read the question carefully. Source: TP 9994 VFR Chart User's Guide."
+  - id: q2
+    prompt: "The Maximum Elevation Figure (MEF) shown in a grid square on a VNC represents:"
+    choices:
+      A: "The elevation of the highest airport in that grid square"
+      B: "The altitude at which you must file an IFR flight plan"
+      C: "The highest terrain or obstacle in that grid square, plus a clearance buffer"
+      D: "The minimum safe cruising altitude for IFR traffic"
+    answer: C
+    explanation: "The MEF is the highest known elevation in each 30-minute grid square, which includes terrain, obstacles (towers, antennas), and a buffer. Flying above the MEF gives clearance over everything in that square. It is not the same as an IFR minimum altitude and does not require a flight plan. Source: TP 9994, TP 12880E Chapter 9."
+  - id: q3
+    prompt: "On a VNC, an airport shown with a blue circle and short tick marks indicates:"
+    choices:
+      A: "A seaplane base"
+      B: "An airport open only to IFR traffic"
+      C: "An airport with an operating control tower (ATC)"
+      D: "An airport with customs services available"
+    answer: C
+    explanation: "Blue circle with tick marks = controlled airport with an ATC tower. Yellow circle = uncontrolled airport. Magenta = seaplane base. The colour and symbol type communicate the type of facility, not the hours of operation or customs status. Source: VNC Chart Legend."
+  - id: q4
+    prompt: "On a VNC, the airspace floor and ceiling next to an airspace boundary is shown as '30/SFC'. This means:"
+    choices:
+      A: "The airspace extends from 3,000 feet MSL to the surface below"
+      B: "The airspace extends from the surface up to 3,000 feet ASL"
+      C: "The airspace starts at 300 feet AGL"
+      D: "The airspace ceiling is 30 feet above the surface"
+    answer: B
+    explanation: "On Canadian charts, airspace extents are shown as 'ceiling/floor' in hundreds of feet. '30/SFC' means the ceiling is 3,000 feet ASL and the floor is the Surface (SFC). The upper number is always the ceiling; lower number is the floor. Source: VNC Chart Legend, AIM RAC 2.0."
+  - id: q5
+    prompt: "Isogonic lines on a VNC are used to determine:"
+    choices:
+      A: "The boundaries between Class C and Class D airspace"
+      B: "The magnetic variation at a given location"
+      C: "Lines of equal pressure for weather planning"
+      D: "Areas where GPS signals may be unreliable"
+    answer: B
+    explanation: "Isogonic lines connect points of equal magnetic variation — the angular difference between True North and Magnetic North. In Canada, the variation is typically westerly (5°W to 25°W depending on location), meaning magnetic north is to the west of true north. Pilots must apply variation when converting true headings to magnetic headings for compass flying. Source: TP 12880E Chapter 9, TP 9994."
+---
+
 # Lesson NAV-001: VFR Aeronautical Charts — Reading the Map
 
 **Section:** Navigation  
@@ -109,68 +171,6 @@ For the written exam, you'll be given a chart excerpt and asked to identify symb
 | Compass rose + dot | VOR |
 | Purple dot circle | NDB |
 | Bold number in grid square | MEF (Maximum Elevation Figure) |
-
----
-
-## Practice Questions
-
-**Q1.** On a Canadian VFR Navigation Chart (VNC), the scale is 1:500,000. Two airports on the chart are 6 centimetres apart. What is the approximate ground distance between them?
-
-- A) 6 nautical miles
-- B) 15 nautical miles
-- C) 30 kilometres
-- D) 30 nautical miles
-
-**Answer: C — 30 kilometres**  
-*Explanation:* At 1:500,000, one centimetre on the chart equals 500,000 centimetres on the ground, which is 5 kilometres. So 6 cm = 30 km. Note: the answer in nautical miles would be approximately 16.2 NM, which isn't one of the options. The exam may use kilometres or nautical miles — read the question carefully. Source: TP 9994 VFR Chart User's Guide.
-
----
-
-**Q2.** The Maximum Elevation Figure (MEF) shown in a grid square on a VNC represents:
-
-- A) The elevation of the highest airport in that grid square
-- B) The altitude at which you must file an IFR flight plan
-- C) The highest terrain or obstacle in that grid square, plus a clearance buffer
-- D) The minimum safe cruising altitude for IFR traffic
-
-**Answer: C**  
-*Explanation:* The MEF is the highest known elevation in each 30-minute grid square, which includes terrain, obstacles (towers, antennas), and a buffer. Flying above the MEF gives clearance over everything in that square. It is not the same as an IFR minimum altitude and does not require a flight plan. Source: TP 9994, TP 12880E Chapter 9.
-
----
-
-**Q3.** On a VNC, an airport shown with a blue circle and short tick marks indicates:
-
-- A) A seaplane base
-- B) An airport open only to IFR traffic
-- C) An airport with an operating control tower (ATC)
-- D) An airport with customs services available
-
-**Answer: C**  
-*Explanation:* Blue circle with tick marks = controlled airport with an ATC tower. Yellow circle = uncontrolled airport. Magenta = seaplane base. The colour and symbol type communicate the type of facility, not the hours of operation or customs status. Source: VNC Chart Legend.
-
----
-
-**Q4.** On a VNC, the airspace floor and ceiling next to an airspace boundary is shown as "30/SFC". This means:
-
-- A) The airspace extends from 3,000 feet MSL to the surface below
-- B) The airspace extends from the surface up to 3,000 feet ASL
-- C) The airspace starts at 300 feet AGL
-- D) The airspace ceiling is 30 feet above the surface
-
-**Answer: B**  
-*Explanation:* On Canadian charts, airspace extents are shown as "ceiling/floor" in hundreds of feet. "30/SFC" means the ceiling is 3,000 feet ASL and the floor is the Surface (SFC). The upper number is always the ceiling; lower number is the floor. Source: VNC Chart Legend, AIM RAC 2.0.
-
----
-
-**Q5.** Isogonic lines on a VNC are used to determine:
-
-- A) The boundaries between Class C and Class D airspace
-- B) The magnetic variation at a given location
-- C) Lines of equal pressure for weather planning
-- D) Areas where GPS signals may be unreliable
-
-**Answer: B**  
-*Explanation:* Isogonic lines connect points of equal magnetic variation — the angular difference between True North and Magnetic North. In Canada, the variation is typically westerly (5°W to 25°W depending on location), meaning magnetic north is to the west of true north. Pilots must apply variation when converting true headings to magnetic headings for compass flying. Source: TP 12880E Chapter 9, TP 9994.
 
 ---
 

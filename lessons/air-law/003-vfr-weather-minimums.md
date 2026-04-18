@@ -1,3 +1,65 @@
+---
+id: AL-003
+topic: air-law
+order: 3
+slug: vfr-weather-minimums
+title: "VFR Weather Minimums"
+duration_min: 20
+status: complete
+audio: null
+visual: /visuals/al003-vfr-weather-minimums.html
+sources:
+  - CARs 602.114-602.117
+  - TP 12880E
+  - AIM RAC 2.0
+questions:
+  - id: q1
+    prompt: "A VFR pilot is flying through Class D airspace during the day. The minimum flight visibility required is:"
+    choices:
+      A: "1 statute mile"
+      B: "2 statute miles"
+      C: "3 statute miles"
+      D: "5 statute miles"
+    answer: C
+    explanation: "The standard daytime VFR minimum in Class C, D, and E controlled airspace is 3 statute miles visibility. At night the requirement increases to 5 statute miles. Source: CARs 602.115."
+  - id: q2
+    prompt: "You are flying VFR at 600 feet AGL in Class G airspace during the day. The minimum visibility required is:"
+    choices:
+      A: "1 statute mile"
+      B: "2 statute miles"
+      C: "3 statute miles"
+      D: "5 statute miles"
+    answer: B
+    explanation: "In Class G airspace at or below 1,000 feet AGL during the day, the minimum flight visibility is 2 statute miles and the aircraft must remain clear of cloud. The 1 statute mile minimum applies above 1,000 feet AGL in Class G during the day. Source: CARs 602.115."
+  - id: q3
+    prompt: "At night, the cloud clearance requirements in Class C airspace are:"
+    choices:
+      A: "The same as daytime — 500 ft below, 1,000 ft above, 2,000 ft horizontal"
+      B: "Doubled — 1,000 ft below, 2,000 ft above, 4,000 ft horizontal"
+      C: "Clear of cloud only"
+      D: "No cloud clearance is required at night"
+    answer: A
+    explanation: "In Class C, D, and E, the cloud clearance distances do not change between day and night. Only the flight visibility minimum increases (from 3 SM to 5 SM at night). Cloud clearance stays 500 below, 1,000 above, 2,000 horizontal. Source: CARs 602.115–602.116."
+  - id: q4
+    prompt: "A pilot flying VFR in Class G airspace above 1,000 feet AGL on a clear day needs a minimum flight visibility of:"
+    choices:
+      A: "2 statute miles"
+      B: "3 statute miles"
+      C: "5 statute miles"
+      D: "1 statute mile"
+    answer: D
+    explanation: "Above 1,000 feet AGL in Class G during the day, the minimum visibility is 1 statute mile — the lowest VFR visibility minimum in the regulations. The cloud clearance distances still apply (500-1,000-2,000), but only 1 mile of forward visibility is legally required. Source: CARs 602.115."
+  - id: q5
+    prompt: "Which of the following scenarios describes conditions that are NOT legal for VFR flight in Class E airspace during the day?"
+    choices:
+      A: "Visibility 5 SM, cloud base 2,000 ft AGL, cloud layer scattered"
+      B: "Visibility 3 SM, clear of cloud"
+      C: "Visibility 2 SM, cloud base 3,000 ft AGL"
+      D: "Visibility 4 SM, cloud base 1,800 ft AGL"
+    answer: C
+    explanation: "Class E is controlled airspace. The daytime minimum is 3 statute miles visibility. 2 SM is below the minimum, making VFR flight illegal regardless of cloud conditions. Option B is legal (3 SM, clear of cloud meets the visibility minimum). Option D has 4 SM visibility — sufficient — and cloud at 1,800 AGL; you'd need to stay 500 feet below cloud, so you'd be legal below 1,300 AGL. Source: CARs 602.115."
+---
+
 # Lesson AL-003: VFR Weather Minimums
 
 **Section:** Air Law  
@@ -107,68 +169,6 @@ These scenarios are the bread and butter of the weather minimums questions. Work
 | Class G ≤1,000 AGL — Day | 2 SM | Clear of cloud | Clear of cloud | Clear of cloud |
 | Class G >1,000 AGL — Day | 1 SM | 500 ft | 1,000 ft | 2,000 ft |
 | Class G — Night | 3 SM | 500 ft | 1,000 ft | 2,000 ft |
-
----
-
-## Practice Questions
-
-**Q1.** A VFR pilot is flying through Class D airspace during the day. The minimum flight visibility required is:
-
-- A) 1 statute mile
-- B) 2 statute miles
-- C) 3 statute miles
-- D) 5 statute miles
-
-**Answer: C**  
-*Explanation:* The standard daytime VFR minimum in Class C, D, and E controlled airspace is 3 statute miles visibility. At night the requirement increases to 5 statute miles. Source: CARs 602.115.
-
----
-
-**Q2.** You are flying VFR at 600 feet AGL in Class G airspace during the day. The minimum visibility required is:
-
-- A) 1 statute mile
-- B) 2 statute miles
-- C) 3 statute miles
-- D) 5 statute miles
-
-**Answer: B**  
-*Explanation:* In Class G airspace at or below 1,000 feet AGL during the day, the minimum flight visibility is 2 statute miles and the aircraft must remain clear of cloud. The 1 statute mile minimum applies above 1,000 feet AGL in Class G during the day. Source: CARs 602.115.
-
----
-
-**Q3.** At night, the cloud clearance requirements in Class C airspace are:
-
-- A) The same as daytime — 500 ft below, 1,000 ft above, 2,000 ft horizontal
-- B) Doubled — 1,000 ft below, 2,000 ft above, 4,000 ft horizontal
-- C) Clear of cloud only
-- D) No cloud clearance is required at night
-
-**Answer: A**  
-*Explanation:* In Class C, D, and E, the cloud clearance distances do not change between day and night. Only the flight visibility minimum increases (from 3 SM to 5 SM at night). Cloud clearance stays 500 below, 1,000 above, 2,000 horizontal. Source: CARs 602.115–602.116.
-
----
-
-**Q4.** A pilot flying VFR in Class G airspace above 1,000 feet AGL on a clear day needs a minimum flight visibility of:
-
-- A) 2 statute miles
-- B) 3 statute miles
-- C) 5 statute miles
-- D) 1 statute mile
-
-**Answer: D**  
-*Explanation:* Above 1,000 feet AGL in Class G during the day, the minimum visibility is 1 statute mile — the lowest VFR visibility minimum in the regulations. The cloud clearance distances still apply (500-1,000-2,000), but only 1 mile of forward visibility is legally required. Source: CARs 602.115.
-
----
-
-**Q5.** Which of the following scenarios describes conditions that are NOT legal for VFR flight in Class E airspace during the day?
-
-- A) Visibility 5 SM, cloud base 2,000 ft AGL, cloud layer scattered
-- B) Visibility 3 SM, clear of cloud
-- C) Visibility 2 SM, cloud base 3,000 ft AGL
-- D) Visibility 4 SM, cloud base 1,800 ft AGL
-
-**Answer: C**  
-*Explanation:* Class E is controlled airspace. The daytime minimum is 3 statute miles visibility. 2 SM is below the minimum, making VFR flight illegal regardless of cloud conditions. Option B is legal (3 SM, clear of cloud meets the visibility minimum). Option D has 4 SM visibility — sufficient — and cloud at 1,800 AGL; you'd need to stay 500 feet below cloud, so you'd be legal below 1,300 AGL. Source: CARs 602.115.
 
 ---
 
