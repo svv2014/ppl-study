@@ -7,19 +7,29 @@ import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import AudioPlayer from '../components/AudioPlayer';
 import SourceList from '../components/SourceList';
 import { getLessonBySlug } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
+
+function InlineCode({ children }: { children?: React.ReactNode }) {
+  return (
+    <code style={{ fontFamily: 'monospace', background: 'rgba(255,255,255,0.08)', padding: '2px 4px', borderRadius: 3, fontSize: '0.875em' }}>
+      {children}
+    </code>
+  );
+}
 
 const mdOptions = {
   overrides: {
     h1: { component: Typography, props: { variant: 'h4', gutterBottom: true, sx: { mt: 3 } } },
     h2: { component: Typography, props: { variant: 'h5', gutterBottom: true, sx: { mt: 3 } } },
     h3: { component: Typography, props: { variant: 'h6', gutterBottom: true, sx: { mt: 2 } } },
+    h4: { component: Typography, props: { variant: 'subtitle1', gutterBottom: true, sx: { mt: 2, fontWeight: 600 } } },
     p: { component: Typography, props: { variant: 'body1', paragraph: true } },
     li: { component: Typography, props: { component: 'li', variant: 'body1', sx: { mb: 0.5 } } },
+    code: { component: InlineCode },
   },
 };
 
@@ -62,6 +72,7 @@ export default function LessonDetail() {
           size="small"
           sx={{ textTransform: 'capitalize', bgcolor: 'primary.main', color: '#000' }}
         />
+        <Chip label={lesson.id} size="small" variant="outlined" />
         <Chip label={`${lesson.duration_min} min`} size="small" variant="outlined" />
         {completed && (
           <Chip label="Completed" size="small" color="success" variant="outlined" />
@@ -79,15 +90,13 @@ export default function LessonDetail() {
           variant="outlined"
           size="small"
           href={lesson.visual}
-          target="_blank"
-          rel="noopener noreferrer"
         >
-          View Visual
+          View Visual Reference
         </Button>
         <Button
           variant="outlined"
           size="small"
-          onClick={() => navigate(`/lessons/${lesson.topic}/${lesson.slug}/quiz`)}
+          href={`/exam?lesson=${lesson.id}`}
         >
           Take Practice Quiz
         </Button>

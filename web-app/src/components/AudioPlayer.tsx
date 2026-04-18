@@ -35,12 +35,10 @@ export default function AudioPlayer({ src }: AudioPlayerProps) {
       </Typography>
       <audio
         controls
+        src={src}
         preload="none"
         style={{ width: '100%', display: 'block' }}
-      >
-        <source src={src} type="audio/mp4" />
-        Your browser does not support the audio element.
-      </audio>
+      />
     </Box>
   );
 }
