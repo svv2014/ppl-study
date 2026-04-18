@@ -162,6 +162,8 @@ Work through a Pilot's Operating Handbook alongside these lessons if one is avai
 | File | Status |
 |------|--------|
 | `lessons/air-law/001-airspace-classifications.md` | Complete |
+| `lessons/air-law/002-controlled-vs-uncontrolled.md` | Complete |
+| `lessons/air-law/003-vfr-weather-minimums.md` | Complete |
 | `lessons/navigation/001-vfr-charts.md` | Complete |
 
 ---
