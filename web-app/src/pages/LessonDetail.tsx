@@ -60,7 +60,7 @@ export default function LessonDetail() {
         <Chip
           label={lesson.topic.replace(/-/g, ' ')}
           size="small"
-          sx={{ textTransform: 'capitalize', bgcolor: 'primary.main', color: '#000' }}
+          sx={{ textTransform: 'capitalize', bgcolor: 'primary.main', color: 'text.onAccent' }}
         />
         <Chip label={`${lesson.duration_min} min`} size="small" variant="outlined" />
         {completed && (

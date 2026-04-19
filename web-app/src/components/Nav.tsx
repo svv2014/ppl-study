@@ -26,9 +26,9 @@ export default function Nav() {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: '#0a1628' }}>
+    <AppBar position="static" sx={{ backgroundColor: 'background.default' }}>
       <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1, color: '#f5a623', fontWeight: 700 }}>
+        <Typography variant="h6" sx={{ flexGrow: 1, color: 'primary.main', fontWeight: 700 }}>
           PPL Study
         </Typography>
         {isMobile ? (
@@ -44,7 +44,7 @@ export default function Nav() {
               anchor="right"
               open={drawerOpen}
               onClose={() => setDrawerOpen(false)}
-              PaperProps={{ sx: { backgroundColor: '#0d1f3c', minWidth: 200 } }}
+              PaperProps={{ sx: { backgroundColor: 'background.surfaceRaised', minWidth: 200 } }}
             >
               <List>
                 {NAV_LINKS.map(({ label, to }) => (
@@ -54,7 +54,7 @@ export default function Nav() {
                     to={to}
                     onClick={() => setDrawerOpen(false)}
                   >
-                    <ListItemText primary={label} sx={{ color: '#ffffff' }} />
+                    <ListItemText primary={label} sx={{ color: 'text.primary' }} />
                   </ListItemButton>
                 ))}
               </List>
@@ -62,7 +62,7 @@ export default function Nav() {
           </>
         ) : (
           NAV_LINKS.map(({ label, to }) => (
-            <Button key={to} component={RouterLink} to={to} sx={{ color: '#ffffff' }}>
+            <Button key={to} component={RouterLink} to={to} color="inherit">
               {label}
             </Button>
           ))
