@@ -46,6 +46,9 @@ const theme = createTheme({
       [breakpoints.down('md')]: { fontSize: '1.25rem' },
       [breakpoints.down('sm')]: { fontSize: '1.125rem' },
     },
+    h6: {
+      [breakpoints.down('sm')]: { fontSize: '1rem' },
+    },
   },
   components: {
     MuiButton: {
