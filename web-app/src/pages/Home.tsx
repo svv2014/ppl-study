@@ -8,6 +8,7 @@ import Container from '@mui/material/Container';
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 
+import HeroMotif from '../components/HeroMotif';
 import { CURRICULUM, TOPIC_LABELS, TOPICS } from '../lib/curriculum';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
@@ -34,14 +35,29 @@ export default function Home() {
   return (
     <>
       {/* Hero — full-width, above fold on 375 px mobile */}
-      <Box sx={{ pt: { xs: 6, md: 10 }, pb: { xs: 4, md: 6 } }}>
-        <Container maxWidth="lg">
+      <Box sx={{ position: 'relative', overflow: 'hidden', pt: { xs: 6, md: 10 }, pb: { xs: 4, md: 6 } }}>
+        {/* Heading-rose motif — decorative background */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            right: { xs: '-10%', md: '2%' },
+            transform: 'translateY(-50%)',
+            width: { xs: 280, md: 420 },
+            height: { xs: 280, md: 420 },
+            opacity: 0.08,
+            pointerEvents: 'none',
+          }}
+        >
+          <HeroMotif />
+        </Box>
+        <Container maxWidth="lg" sx={{ position: 'relative' }}>
           <Typography
             variant="h3"
             component="h1"
             sx={{ fontWeight: 700, mb: 2, lineHeight: 1.2, fontSize: { xs: '1.875rem', md: '3rem' } }}
           >
-            Study for the Canadian PPL written exam, 20 minutes a day
+            Pass the Canadian PPL written exam — 20 minutes a day
           </Typography>
           <Typography
             variant="subtitle1"
@@ -49,7 +65,7 @@ export default function Home() {
             color="text.secondary"
             sx={{ mb: 3, maxWidth: 560 }}
           >
-            Structured lessons aligned to the Transport Canada PPL Aeroplane Written Exam syllabus.
+            Structured lessons covering PSTAR and the full Transport Canada PPL syllabus.
           </Typography>
           <Button
             component={RouterLink}
@@ -67,9 +83,9 @@ export default function Home() {
       <Box sx={{ bgcolor: 'background.paper', py: 2 }}>
         <Container maxWidth="lg">
           <Box sx={{ display: 'flex', gap: { xs: 2, md: 4 }, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Typography variant="body2" color="text.secondary">Transport Canada syllabus</Typography>
-            <Typography variant="body2" color="text.secondary">60 structured lessons</Typography>
-            <Typography variant="body2" color="text.secondary">Target 80%+ pass rate</Typography>
+            <Typography variant="body2" color="text.secondary">Covers PSTAR &amp; PPL written exam</Typography>
+            <Typography variant="body2" color="text.secondary">Transport Canada syllabus aligned</Typography>
+            <Typography variant="body2" color="text.secondary">Target 80%+ on your written</Typography>
           </Box>
         </Container>
       </Box>
