@@ -16,10 +16,52 @@ import { useProgress } from '../lib/progress';
 const mdOptions = {
   overrides: {
     h1: { component: Typography, props: { variant: 'h4', gutterBottom: true, sx: { mt: 3 } } },
-    h2: { component: Typography, props: { variant: 'h5', gutterBottom: true, sx: { mt: 3 } } },
-    h3: { component: Typography, props: { variant: 'h6', gutterBottom: true, sx: { mt: 2 } } },
+    h2: { component: Typography, props: { variant: 'h5', gutterBottom: true, sx: { mt: 4 } } },
+    h3: { component: Typography, props: { variant: 'h6', gutterBottom: true, sx: { mt: 3 } } },
     p: { component: Typography, props: { variant: 'body1', paragraph: true } },
     li: { component: Typography, props: { component: 'li', variant: 'body1', sx: { mb: 0.5 } } },
+    code: {
+      component: Box,
+      props: {
+        component: 'code',
+        sx: {
+          fontFamily: 'monospace',
+          fontSize: '0.875em',
+          bgcolor: 'rgba(255,255,255,0.08)',
+          px: 0.75,
+          py: 0.25,
+          borderRadius: 1,
+        },
+      },
+    },
+    pre: {
+      component: Box,
+      props: {
+        component: 'pre',
+        sx: {
+          bgcolor: 'background.paper',
+          p: 2,
+          borderRadius: 1,
+          overflowX: 'auto',
+          my: 2,
+          '& code': { bgcolor: 'transparent', p: 0 },
+        },
+      },
+    },
+    blockquote: {
+      component: Box,
+      props: {
+        component: 'blockquote',
+        sx: {
+          borderLeft: '3px solid',
+          borderColor: 'primary.main',
+          pl: 2,
+          ml: 0,
+          my: 2,
+          color: 'text.secondary',
+        },
+      },
+    },
   },
 };
 
@@ -33,7 +75,7 @@ export default function LessonDetail() {
 
   if (!lesson) {
     return (
-      <Container maxWidth="md" sx={{ py: 6 }}>
+      <Container maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: { xs: 2, sm: 3 }, py: 6 }}>
         <Typography variant="h4" gutterBottom>
           Lesson not found
         </Typography>
@@ -55,7 +97,7 @@ export default function LessonDetail() {
   }
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Container maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: { xs: 2, sm: 3 }, py: 4 }}>
       <Box sx={{ mb: 1, display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <Chip
           label={lesson.topic.replace(/-/g, ' ')}
