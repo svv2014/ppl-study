@@ -1,73 +1,94 @@
-import { useState } from 'react';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import AppBar from '@mui/material/AppBar';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
+import Paper from '@mui/material/Paper';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link as RouterLink } from 'react-router-dom';
+import HomeIcon from '@mui/icons-material/Home';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import QuizIcon from '@mui/icons-material/Quiz';
+import ChecklistIcon from '@mui/icons-material/Checklist';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 
 const NAV_LINKS = [
-  { label: 'Home', to: '/' },
-  { label: 'Browse Lessons', to: '/lessons' },
-  { label: 'Practice Exam', to: '/exam' },
-  { label: 'Study Plan', to: '/plan' },
+  { label: 'Home', to: '/', icon: <HomeIcon /> },
+  { label: 'Browse Lessons', to: '/lessons', icon: <MenuBookIcon /> },
+  { label: 'Practice Exam', to: '/exam', icon: <QuizIcon /> },
+  { label: 'Study Plan', to: '/plan', icon: <ChecklistIcon /> },
 ];
+
+const BOTTOM_NAV_LABELS = ['Home', 'Browse', 'Exam', 'Plan'];
+
+function isActiveRoute(pathname: string, to: string): boolean {
+  return to === '/' ? pathname === '/' : pathname === to || pathname.startsWith(to + '/');
+}
 
 export default function Nav() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const activeIndex = NAV_LINKS.findIndex(({ to }) => isActiveRoute(location.pathname, to));
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: 'background.default' }}>
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1, color: 'primary.main', fontWeight: 700 }}>
-          PPL Study
-        </Typography>
-        {isMobile ? (
-          <>
-            <IconButton
-              color="inherit"
-              onClick={() => setDrawerOpen(true)}
-              aria-label="open navigation menu"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Drawer
-              anchor="right"
-              open={drawerOpen}
-              onClose={() => setDrawerOpen(false)}
-              PaperProps={{ sx: { backgroundColor: 'background.surfaceRaised', minWidth: 200 } }}
-            >
-              <List>
-                {NAV_LINKS.map(({ label, to }) => (
-                  <ListItemButton
-                    key={to}
-                    component={RouterLink}
-                    to={to}
-                    onClick={() => setDrawerOpen(false)}
-                  >
-                    <ListItemText primary={label} sx={{ color: 'text.primary' }} />
-                  </ListItemButton>
-                ))}
-              </List>
-            </Drawer>
-          </>
-        ) : (
-          NAV_LINKS.map(({ label, to }) => (
-            <Button key={to} component={RouterLink} to={to} color="inherit">
-              {label}
-            </Button>
-          ))
-        )}
-      </Toolbar>
-    </AppBar>
+    <>
+      <AppBar position="static" sx={{ backgroundColor: 'background.default' }}>
+        <Toolbar>
+          <Typography variant="h6" sx={{ flexGrow: 1, color: 'primary.main', fontWeight: 700 }}>
+            PPL Study
+          </Typography>
+          {!isMobile &&
+            NAV_LINKS.map(({ label, to }) => {
+              const active = isActiveRoute(location.pathname, to);
+              return (
+                <Button
+                  key={to}
+                  component={RouterLink}
+                  to={to}
+                  color="inherit"
+                  sx={
+                    active
+                      ? {
+                          color: 'primary.main',
+                          borderBottom: '2px solid',
+                          borderBottomColor: 'primary.main',
+                          borderRadius: 0,
+                        }
+                      : { borderRadius: 0 }
+                  }
+                >
+                  {label}
+                </Button>
+              );
+            })}
+        </Toolbar>
+      </AppBar>
+      {isMobile && (
+        <Paper
+          elevation={3}
+          sx={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: theme.zIndex.appBar,
+            pb: 'env(safe-area-inset-bottom)',
+          }}
+        >
+          <BottomNavigation
+            value={activeIndex}
+            onChange={(_, newValue: number) => navigate(NAV_LINKS[newValue].to)}
+          >
+            {NAV_LINKS.map(({ icon }, i) => (
+              <BottomNavigationAction key={NAV_LINKS[i].to} label={BOTTOM_NAV_LABELS[i]} icon={icon} />
+            ))}
+          </BottomNavigation>
+        </Paper>
+      )}
+    </>
   );
 }
