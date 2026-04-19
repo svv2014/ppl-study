@@ -1,5 +1,10 @@
+import { useTheme } from '@mui/material/styles';
+
 /** Heading-rose aviation motif — decorative, aria-hidden */
 export default function HeroMotif() {
+  const theme = useTheme();
+  const primary = theme.palette.primary.main;
+
   const cx = 200;
   const cy = 200;
   const outerR = 190;
@@ -34,14 +39,14 @@ export default function HeroMotif() {
       aria-hidden="true"
       style={{ width: '100%', height: '100%' }}
     >
-      <circle cx={cx} cy={cy} r={outerR} fill="none" stroke="#f5a623" strokeWidth="1.5" />
-      <circle cx={cx} cy={cy} r={130} fill="none" stroke="#f5a623" strokeWidth="0.75" />
-      <circle cx={cx} cy={cy} r={68} fill="none" stroke="#f5a623" strokeWidth="0.5" />
+      <circle cx={cx} cy={cy} r={outerR} fill="none" stroke={primary} strokeWidth="1.5" />
+      <circle cx={cx} cy={cy} r={130} fill="none" stroke={primary} strokeWidth="0.75" />
+      <circle cx={cx} cy={cy} r={68} fill="none" stroke={primary} strokeWidth="0.5" />
       {ticks.map(({ x1, y1, x2, y2, isCardinal, isMajor }, i) => (
         <line
           key={i}
           x1={x1} y1={y1} x2={x2} y2={y2}
-          stroke="#f5a623"
+          stroke={primary}
           strokeWidth={isCardinal ? 2 : isMajor ? 1.2 : 0.6}
         />
       ))}
@@ -55,7 +60,7 @@ export default function HeroMotif() {
             y={cy + r * Math.sin(rad)}
             textAnchor="middle"
             dominantBaseline="central"
-            fill="#f5a623"
+            fill={primary}
             fontSize="20"
             fontWeight="700"
             fontFamily="monospace"
@@ -64,9 +69,9 @@ export default function HeroMotif() {
           </text>
         );
       })}
-      <line x1={cx} y1={cy - 58} x2={cx} y2={cy + 58} stroke="#f5a623" strokeWidth="0.5" />
-      <line x1={cx - 58} y1={cy} x2={cx + 58} y2={cy} stroke="#f5a623" strokeWidth="0.5" />
-      <circle cx={cx} cy={cy} r={4} fill="#f5a623" />
+      <line x1={cx} y1={cy - 58} x2={cx} y2={cy + 58} stroke={primary} strokeWidth="0.5" />
+      <line x1={cx - 58} y1={cy} x2={cx + 58} y2={cy} stroke={primary} strokeWidth="0.5" />
+      <circle cx={cx} cy={cy} r={4} fill={primary} />
     </svg>
   );
 }
