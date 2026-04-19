@@ -55,10 +55,10 @@ export default function Nav() {
                       ? {
                           color: 'primary.main',
                           borderBottom: '2px solid',
-                          borderBottomColor: 'primary.main',
+                          borderColor: 'primary.main',
                           borderRadius: 0,
                         }
-                      : { borderRadius: 0 }
+                      : undefined
                   }
                 >
                   {label}
