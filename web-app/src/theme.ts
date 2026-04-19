@@ -1,5 +1,7 @@
 import { createTheme } from '@mui/material/styles';
 
+const { breakpoints } = createTheme();
+
 declare module '@mui/material/styles' {
   interface TypeBackground {
     surfaceRaised: string;
@@ -29,6 +31,21 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+    body1: {
+      lineHeight: 1.75,
+    },
+    h3: {
+      [breakpoints.down('md')]: { fontSize: '1.875rem' },
+      [breakpoints.down('sm')]: { fontSize: '1.375rem' },
+    },
+    h4: {
+      [breakpoints.down('md')]: { fontSize: '1.5rem' },
+      [breakpoints.down('sm')]: { fontSize: '1.25rem' },
+    },
+    h5: {
+      [breakpoints.down('md')]: { fontSize: '1.25rem' },
+      [breakpoints.down('sm')]: { fontSize: '1.125rem' },
+    },
   },
   components: {
     MuiButton: {
