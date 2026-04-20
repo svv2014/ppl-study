@@ -1,7 +1,5 @@
 import { createTheme } from '@mui/material/styles';
 
-const { breakpoints } = createTheme();
-
 declare module '@mui/material/styles' {
   interface TypeBackground {
     surfaceRaised: string;
@@ -31,23 +29,68 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-    body1: {
-      lineHeight: 1.75,
+    h1: {
+      fontSize: '1.875rem',
+      fontWeight: 700,
+      lineHeight: 1.2,
+      '@media (min-width:900px)': {
+        fontSize: '3rem',
+      },
+    },
+    h2: {
+      fontSize: '1.5rem',
+      fontWeight: 700,
+      lineHeight: 1.25,
+      '@media (min-width:900px)': {
+        fontSize: '2.25rem',
+      },
     },
     h3: {
-      [breakpoints.down('md')]: { fontSize: '1.875rem' },
-      [breakpoints.down('sm')]: { fontSize: '1.375rem' },
+      fontSize: '1.375rem',
+      fontWeight: 600,
+      lineHeight: 1.3,
+      '@media (min-width:900px)': {
+        fontSize: '1.875rem',
+      },
     },
     h4: {
-      [breakpoints.down('md')]: { fontSize: '1.5rem' },
-      [breakpoints.down('sm')]: { fontSize: '1.25rem' },
+      fontSize: '1.25rem',
+      fontWeight: 600,
+      lineHeight: 1.35,
+      '@media (min-width:900px)': {
+        fontSize: '1.5rem',
+      },
     },
     h5: {
-      [breakpoints.down('md')]: { fontSize: '1.25rem' },
-      [breakpoints.down('sm')]: { fontSize: '1.125rem' },
+      fontSize: '1.125rem',
+      fontWeight: 600,
+      lineHeight: 1.4,
+      '@media (min-width:900px)': {
+        fontSize: '1.25rem',
+      },
     },
     h6: {
-      [breakpoints.down('sm')]: { fontSize: '1rem' },
+      fontSize: '1rem',
+      fontWeight: 500,
+      lineHeight: 1.4,
+      '@media (min-width:900px)': {
+        fontSize: '1.125rem',
+      },
+    },
+    body1: {
+      fontSize: '1rem',
+      fontWeight: 400,
+      lineHeight: 1.75,
+    },
+    body2: {
+      fontSize: '0.875rem',
+      fontWeight: 400,
+      lineHeight: 1.6,
+    },
+    caption: {
+      fontSize: '0.75rem',
+      fontWeight: 400,
+      lineHeight: 1.5,
     },
   },
   components: {
