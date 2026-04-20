@@ -15,7 +15,7 @@ that conforms to this schema. The web app and validator both rely on it.
 | `duration_min` | integer | Estimated study time in minutes (target: 20) |
 | `status` | string | One of: `planning`, `draft`, `complete` |
 | `audio` | string \| null | Full URL to the narration audio file, or `null` if not yet generated |
-| `visual` | string | Path to the visual/chart supplement, e.g. `/visuals/al001-airspace-classifications.html` |
+| `visual` | string \| null | Root-relative path to the visual/chart supplement — format: `/visuals/{id_lowercase}-{slug}.html` (e.g. `/visuals/al001-airspace-classifications.html`), or `null` if the lesson has no visual. See `docs/visuals-standards.md`. |
 | `sources` | list of strings | Authoritative sources cited in the lesson (TP number or CARs section) |
 | `questions` | list of 5 question objects | Practice questions — see question schema below |
 
