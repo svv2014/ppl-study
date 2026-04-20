@@ -5,7 +5,7 @@ order: 5
 slug: right-of-way-rules
 title: "Right-of-Way Rules"
 duration_min: 20
-status: published
+status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/air-law/005-right-of-way-rules.m4a
 visual: null
 sources:

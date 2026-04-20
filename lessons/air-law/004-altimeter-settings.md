@@ -5,7 +5,7 @@ order: 4
 slug: altimeter-settings
 title: "Altimeter Settings"
 duration_min: 20
-status: published
+status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/air-law/004-altimeter-settings.m4a
 visual: null
 sources:

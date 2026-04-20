@@ -5,7 +5,7 @@ order: 6
 slug: aerodrome-traffic-circuit
 title: "Aerodrome Traffic Circuit"
 duration_min: 20
-status: published
+status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/air-law/006-aerodrome-traffic-circuit.m4a
 visual: null
 sources:
