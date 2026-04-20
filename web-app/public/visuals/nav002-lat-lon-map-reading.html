@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAV-002: Latitude, Longitude, and Map Reading</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+
+  /* ── Coordinate Grid ────────────────────────────────────────────── */
+  .grid-wrap { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 20px; margin-bottom: 32px; display: flex; justify-content: center; }
+
+  /* ── Info cards row ─────────────────────────────────────────────── */
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .info-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; }
+  .info-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
+  .info-card p  { font-size: 12px; color: #c8d8e8; line-height: 1.75; }
+  .info-card .big { font-size: 26px; font-weight: 800; color: #f0c040; text-align: center; padding: 8px 0; letter-spacing: 1px; }
+  .info-card .sub { font-size: 11px; color: #7a9ab5; text-align: center; margin-top: 2px; }
+
+  /* ── Distance table ─────────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px; border-bottom: 1px solid #1a2d3d; color: #c8d8e8; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  td strong { color: #f0c040; }
+
+  /* ── Convergence diagram ─────────────────────────────────────────── */
+  .conv-wrap { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 20px; margin-bottom: 32px; display: flex; gap: 24px; align-items: flex-start; }
+  .conv-desc { flex: 1; font-size: 12px; color: #c8d8e8; line-height: 1.75; }
+  .conv-desc h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
+  .conv-desc .formula { background: #0d1b2a; border: 1px solid #1a3a5a; border-radius: 6px; padding: 10px 14px; margin: 10px 0; font-size: 13px; color: #f0c040; font-weight: 600; text-align: center; }
+
+  /* ── Memory hook ─────────────────────────────────────────────────── */
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>NAV-002 — Latitude, Longitude, and Map Reading</h1>
+<p class="subtitle">Transport Canada · TP 12880E Ch.9, TP 9994 VFR Chart User's Guide · PPL Written Exam</p>
+
+<!-- ── COORDINATE GRID DIAGRAM ──────────────────────────────────────── -->
+<div class="section-label">The Coordinate Grid</div>
+<div class="grid-wrap">
+  <svg width="760" height="360" viewBox="0 0 760 360" style="max-width:100%;">
+
+    <!-- Ocean / background fill -->
+    <rect x="40" y="30" width="680" height="290" fill="#0d2040" rx="4"/>
+
+    <!-- ── Latitude lines (parallels) ── -->
+    <!-- 44°N -->
+    <line x1="40" y1="290" x2="720" y2="290" stroke="#3a6090" stroke-width="1" stroke-dasharray="4 3"/>
+    <!-- 45°N (solid — labeled degree) -->
+    <line x1="40" y1="240" x2="720" y2="240" stroke="#3a7ad5" stroke-width="1.5"/>
+    <!-- 45°30′N (grid line) -->
+    <line x1="40" y1="190" x2="720" y2="190" stroke="#3a6090" stroke-width="1" stroke-dasharray="4 3"/>
+    <!-- 46°N (solid) -->
+    <line x1="40" y1="140" x2="720" y2="140" stroke="#3a7ad5" stroke-width="1.5"/>
+    <!-- 46°30′N (grid line) -->
+    <line x1="40" y1="90" x2="720" y2="90" stroke="#3a6090" stroke-width="1" stroke-dasharray="4 3"/>
+    <!-- 47°N (solid) -->
+    <line x1="40" y1="40" x2="720" y2="40" stroke="#3a7ad5" stroke-width="1.5"/>
+
+    <!-- ── Longitude lines (meridians) ── -->
+    <!-- 078°W (solid) -->
+    <line x1="80"  y1="30" x2="80"  y2="320" stroke="#3a7ad5" stroke-width="1.5"/>
+    <!-- 077°30′W (grid) -->
+    <line x1="186" y1="30" x2="186" y2="320" stroke="#3a6090" stroke-width="1" stroke-dasharray="4 3"/>
+    <!-- 077°W (solid) -->
+    <line x1="293" y1="30" x2="293" y2="320" stroke="#3a7ad5" stroke-width="1.5"/>
+    <!-- 076°30′W (grid) -->
+    <line x1="400" y1="30" x2="400" y2="320" stroke="#3a6090" stroke-width="1" stroke-dasharray="4 3"/>
+    <!-- 076°W (solid) -->
+    <line x1="507" y1="30" x2="507" y2="320" stroke="#3a7ad5" stroke-width="1.5"/>
+    <!-- 075°30′W (grid) -->
+    <line x1="614" y1="30" x2="614" y2="320" stroke="#3a6090" stroke-width="1" stroke-dasharray="4 3"/>
+    <!-- 075°W (solid) -->
+    <line x1="720" y1="30" x2="720" y2="320" stroke="#3a7ad5" stroke-width="1.5"/>
+
+    <!-- ── Latitude labels (left side) ── -->
+    <text x="36" y="294" fill="#7a9ab5" font-size="10" text-anchor="end" font-family="'Segoe UI',system-ui,sans-serif">44°N</text>
+    <text x="36" y="244" fill="#c8d8e8" font-size="11" text-anchor="end" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">45°N</text>
+    <text x="36" y="194" fill="#7a9ab5" font-size="10" text-anchor="end" font-family="'Segoe UI',system-ui,sans-serif">45°30′</text>
+    <text x="36" y="144" fill="#c8d8e8" font-size="11" text-anchor="end" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">46°N</text>
+    <text x="36" y="94"  fill="#7a9ab5" font-size="10" text-anchor="end" font-family="'Segoe UI',system-ui,sans-serif">46°30′</text>
+    <text x="36" y="44"  fill="#c8d8e8" font-size="11" text-anchor="end" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">47°N</text>
+
+    <!-- ── Longitude labels (bottom) ── -->
+    <text x="80"  y="335" fill="#c8d8e8" font-size="11" text-anchor="middle" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">078°W</text>
+    <text x="186" y="335" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">77°30′</text>
+    <text x="293" y="335" fill="#c8d8e8" font-size="11" text-anchor="middle" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">077°W</text>
+    <text x="400" y="335" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">76°30′</text>
+    <text x="507" y="335" fill="#c8d8e8" font-size="11" text-anchor="middle" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">076°W</text>
+    <text x="614" y="335" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">75°30′</text>
+    <text x="720" y="335" fill="#c8d8e8" font-size="11" text-anchor="middle" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">075°W</text>
+
+    <!-- ── MEF values in grid squares ── -->
+    <text x="240" y="222" fill="#f0c040" font-size="18" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">34</text>
+    <text x="347" y="222" fill="#f0c040" font-size="18" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">28</text>
+    <text x="455" y="222" fill="#f0c040" font-size="18" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">42</text>
+    <text x="240" y="172" fill="#f0c040" font-size="18" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">31</text>
+    <text x="347" y="172" fill="#f0c040" font-size="18" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">25</text>
+    <text x="455" y="172" fill="#f0c040" font-size="18" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">38</text>
+    <text x="240" y="122" fill="#f0c040" font-size="18" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">29</text>
+    <text x="347" y="122" fill="#f0c040" font-size="18" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">33</text>
+    <text x="455" y="122" fill="#f0c040" font-size="18" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">45</text>
+
+    <!-- ── Sample position dot: N 45°45′, W 076°45′ ── -->
+    <!-- 45°45′ = 45°+45′ → between 45°30′(y=190) and 46°(y=140); 45′=1.5 grid steps; halfway between 45°30 and 46° = y=165 -->
+    <!-- 076°45′ = between 076°30(x=400) and 076°(x=507); 15′=0.5 step; x=453 -->
+    <circle cx="453" cy="165" r="6" fill="#f0c040" stroke="#0d1b2a" stroke-width="1.5"/>
+    <!-- dotted crosshair lines to axes -->
+    <line x1="40" y1="165" x2="453" y2="165" stroke="#f0c040" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+    <line x1="453" y1="165" x2="453" y2="320" stroke="#f0c040" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+    <!-- label callout -->
+    <rect x="458" y="148" width="150" height="32" rx="5" fill="#1a2a10" stroke="#f0c040" stroke-width="1"/>
+    <text x="533" y="162" fill="#f0c040" font-size="11" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">N 45°45′, W 076°45′</text>
+    <text x="533" y="175" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">sample position fix</text>
+
+    <!-- ── North arrow ── -->
+    <g transform="translate(700,55)">
+      <line x1="0" y1="20" x2="0" y2="0" stroke="#c8d8e8" stroke-width="2" stroke-linecap="round"/>
+      <polygon points="0,-2 -4,8 4,8" fill="#c8d8e8"/>
+      <text x="0" y="32" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">N</text>
+    </g>
+
+    <!-- ── "30′ grid square" brace for the highlighted square ── -->
+    <!-- Highlight one grid square: x=400–507, y=140–190 -->
+    <rect x="400" y="140" width="107" height="50" fill="rgba(58,122,213,0.1)" stroke="#3a7ad5" stroke-width="2" stroke-dasharray="none" rx="0"/>
+    <text x="453" y="162" fill="#3a7ad5" font-size="10" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">30′ × 30′</text>
+    <text x="453" y="175" fill="#3a7ad5" font-size="9"  text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">grid square</text>
+
+    <!-- ── 1° latitude = 60 NM double-headed arrow ── -->
+    <!-- Between 45°N (y=240) and 46°N (y=140), at x=665 -->
+    <line x1="660" y1="240" x2="660" y2="140" stroke="#80c880" stroke-width="1.5"/>
+    <polygon points="660,238 656,250 664,250" fill="#80c880"/>
+    <polygon points="660,142 656,130 664,130" fill="#80c880"/>
+    <rect x="618" y="178" width="84" height="26" rx="4" fill="#1a2a1a" stroke="#2d5a2d" stroke-width="1"/>
+    <text x="660" y="190" fill="#80c880" font-size="10" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">1° lat = 60 NM</text>
+    <text x="660" y="201" fill="#7a9ab5" font-size="9" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">everywhere</text>
+
+    <!-- ── Legend: line types ── -->
+    <line x1="44" y1="348" x2="90" y2="348" stroke="#3a7ad5" stroke-width="1.5"/>
+    <text x="95" y="352" fill="#c8d8e8" font-size="10" font-family="'Segoe UI',system-ui,sans-serif">Full degree (parallel / meridian)</text>
+    <line x1="240" y1="348" x2="286" y2="348" stroke="#3a6090" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="291" y="352" fill="#c8d8e8" font-size="10" font-family="'Segoe UI',system-ui,sans-serif">30-minute grid line</text>
+    <circle cx="458" cy="348" r="5" fill="#f0c040" stroke="#0d1b2a" stroke-width="1"/>
+    <text x="468" y="352" fill="#c8d8e8" font-size="10" font-family="'Segoe UI',system-ui,sans-serif">Position fix</text>
+    <text x="565" y="352" fill="#f0c040" font-size="10" font-weight="700" font-family="'Segoe UI',system-ui,sans-serif">Bold = MEF (hundreds of ft)</text>
+  </svg>
+</div>
+
+<!-- ── KEY FACTS ────────────────────────────────────────────────────── -->
+<div class="section-label">Key Facts — Latitude &amp; Longitude</div>
+<div class="three-col">
+
+  <div class="info-card">
+    <h3>1° of Latitude</h3>
+    <div class="big">60 NM</div>
+    <div class="sub">everywhere on Earth</div>
+    <p style="margin-top:12px;">Because 1 minute of arc = 1 nautical mile by definition. So 60 minutes = 60 NM = 1 full degree.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>VNC Grid Spacing</h3>
+    <div class="big">30′</div>
+    <div class="sub">per grid line on the VNC chart</div>
+    <p style="margin-top:12px;">Both latitude and longitude grid lines on a VFR Navigation Chart are printed every <strong style="color:#f0c040;">30 minutes of arc</strong> — each grid square is 30′ × 30′.</p>
+  </div>
+
+  <div class="info-card">
+    <h3>Position Format</h3>
+    <div class="big" style="font-size:18px;letter-spacing:0;">N DD°MM′<br>W DDD°MM′</div>
+    <div class="sub">ATC reporting format</div>
+    <p style="margin-top:12px;">Latitude uses 2-digit degrees; longitude uses 3-digit degrees (up to 180°). Always include N/S and E/W.</p>
+  </div>
+
+</div>
+
+<!-- ── DISTANCE REFERENCE TABLE ─────────────────────────────────────── -->
+<div class="section-label">Latitude Distance Reference</div>
+<table style="margin-bottom:28px;">
+  <thead>
+    <tr>
+      <th>Arc Measure</th>
+      <th>Distance (Latitude)</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1′ (1 minute)</td>
+      <td><strong>1 NM</strong></td>
+      <td>Nautical mile definition — exact</td>
+    </tr>
+    <tr>
+      <td>30′ (half degree)</td>
+      <td><strong>30 NM</strong></td>
+      <td>One VNC grid square height</td>
+    </tr>
+    <tr>
+      <td>1° (1 degree)</td>
+      <td><strong>60 NM</strong></td>
+      <td>60 minutes × 1 NM — the key exam figure</td>
+    </tr>
+    <tr>
+      <td>2° (2 degrees)</td>
+      <td><strong>120 NM</strong></td>
+      <td>e.g. 49°N to 51°N on the same meridian</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ── MERIDIAN CONVERGENCE ─────────────────────────────────────────── -->
+<div class="section-label">Meridian Convergence — Longitude Distance Varies</div>
+<div class="conv-wrap">
+
+  <svg width="200" height="220" viewBox="0 0 200 220" style="flex-shrink:0;">
+    <!-- Earth outline suggestion -->
+    <ellipse cx="100" cy="200" rx="95" ry="20" fill="none" stroke="#1a3a5a" stroke-width="1" stroke-dasharray="4 3"/>
+
+    <!-- Converging meridians -->
+    <line x1="100" y1="10" x2="20"  y2="200" stroke="#3a7ad5" stroke-width="1.5"/>
+    <line x1="100" y1="10" x2="60"  y2="200" stroke="#3a7ad5" stroke-width="1.5"/>
+    <line x1="100" y1="10" x2="100" y2="200" stroke="#3a7ad5" stroke-width="1.5"/>
+    <line x1="100" y1="10" x2="140" y2="200" stroke="#3a7ad5" stroke-width="1.5"/>
+    <line x1="100" y1="10" x2="180" y2="200" stroke="#3a7ad5" stroke-width="1.5"/>
+
+    <!-- North Pole dot -->
+    <circle cx="100" cy="10" r="4" fill="#f0c040"/>
+    <text x="100" y="6" fill="#f0c040" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">N. Pole</text>
+
+    <!-- Parallels (latitude lines) -->
+    <!-- 60°N -->
+    <line x1="40"  y1="70"  x2="160" y2="70"  stroke="#80c880" stroke-width="1.5"/>
+    <text x="165" y="74"  fill="#80c880" font-size="9" font-family="'Segoe UI',system-ui,sans-serif">60°N</text>
+    <!-- 45°N -->
+    <line x1="18"  y1="130" x2="182" y2="130" stroke="#80c880" stroke-width="1.5"/>
+    <text x="165" y="134" fill="#80c880" font-size="9" font-family="'Segoe UI',system-ui,sans-serif">45°N</text>
+    <!-- Equator -->
+    <line x1="5"   y1="200" x2="195" y2="200" stroke="#80c880" stroke-width="1.5"/>
+    <text x="100" y="214" fill="#80c880" font-size="9" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">Equator 0°</text>
+
+    <!-- Double-headed arrow at 60°N showing narrow spacing -->
+    <line x1="60" y1="60" x2="100" y2="60" stroke="#f0c040" stroke-width="1.5"/>
+    <polygon points="62,57 55,63 62,69" fill="#f0c040" transform="rotate(0,60,63)"/>
+    <polygon points="98,57 105,63 98,69" fill="#f0c040" transform="rotate(0,100,63)"/>
+    <text x="80" y="57" fill="#f0c040" font-size="8" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">≈30NM/°</text>
+
+    <!-- Double-headed arrow at 45°N showing medium spacing -->
+    <line x1="60" y1="122" x2="140" y2="122" stroke="#f0c040" stroke-width="1.5"/>
+    <polygon points="62,119 55,125 62,131" fill="#f0c040" transform="rotate(0,60,125)"/>
+    <polygon points="138,119 145,125 138,131" fill="#f0c040" transform="rotate(0,140,125)"/>
+    <text x="100" y="119" fill="#f0c040" font-size="8" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">≈42NM/°</text>
+  </svg>
+
+  <div class="conv-desc">
+    <h3>Why Longitude Distance Shrinks with Latitude</h3>
+    <p>Meridians converge toward the poles. At the equator they are equally spaced. As you fly north into Canada, the same angular separation (1°) covers less ground distance.</p>
+    <div class="formula">1° lon ≈ 60 NM × cos(latitude)</div>
+    <p>
+      <strong style="color:#f0c040;">At equator (0°):</strong> cos(0°) = 1.0 → <strong style="color:#c8d8e8;">60 NM</strong><br>
+      <strong style="color:#f0c040;">At 45°N:</strong> cos(45°) ≈ 0.71 → <strong style="color:#c8d8e8;">≈ 42 NM</strong><br>
+      <strong style="color:#f0c040;">At 50°N:</strong> cos(50°) ≈ 0.64 → <strong style="color:#c8d8e8;">≈ 38.6 NM</strong><br>
+      <strong style="color:#f0c040;">At 60°N:</strong> cos(60°) = 0.50 → <strong style="color:#c8d8e8;">≈ 30 NM</strong>
+    </p>
+    <p style="margin-top:10px;color:#7a9ab5;font-size:11px;">Exam tip: you won't need to calculate this — but you must know that longitude distance is <em>less</em> than 60 NM per degree in Canada, and decreases as you go north.</p>
+  </div>
+
+</div>
+
+<!-- ── READING A GRID POSITION ───────────────────────────────────────── -->
+<div class="section-label">How to Read a Position from the VNC Grid</div>
+<div class="two-col">
+
+  <div class="info-card">
+    <h3>Step-by-Step Method</h3>
+    <p>
+      <strong style="color:#f0c040;">1.</strong> Find the nearest printed degree label on the chart border (e.g., 45°N or 076°W).<br><br>
+      <strong style="color:#f0c040;">2.</strong> Count grid lines from that label toward your point. Each grid line = <strong style="color:#f0c040;">30′</strong>.<br><br>
+      <strong style="color:#f0c040;">3.</strong> Estimate remaining minutes visually between the grid lines.<br><br>
+      <strong style="color:#f0c040;">4.</strong> Combine: degree label + grid steps + estimate = your coordinate.
+    </p>
+  </div>
+
+  <div class="info-card">
+    <h3>Worked Example</h3>
+    <p>
+      An airport sits <strong style="color:#f0c040;">one grid line north</strong> of the 45°N parallel, and <strong style="color:#f0c040;">halfway</strong> between that grid line and the next.<br><br>
+      45° + 30′ (one grid line) + 15′ (halfway) = <strong style="color:#f0c040;">45°45′N</strong><br><br>
+      Apply the same method for longitude using the W labels on the top/bottom border.<br><br>
+      <span style="color:#7a9ab5;font-size:11px;">Source: TP 9994 VFR Chart User's Guide</span>
+    </p>
+  </div>
+
+</div>
+
+<!-- ── MEMORY HOOK ──────────────────────────────────────────────────── -->
+<div class="hook-box">
+  <h2>Memory Hook — Key Exam Facts</h2>
+
+  <div class="hook-row">
+    <span class="hook-badge">1° LAT</span>
+    <span class="hook-text"><strong>1 degree of latitude = 60 NM, always.</strong> One minute of arc = one nautical mile by definition. This is exact and constant everywhere on Earth.</span>
+  </div>
+
+  <div class="hook-row">
+    <span class="hook-badge">VNC GRID</span>
+    <span class="hook-text">Grid lines every <strong>30 minutes</strong> — count two grid lines to cover one full degree (60 NM). Each grid square holds one MEF value.</span>
+  </div>
+
+  <div class="hook-row">
+    <span class="hook-badge">LONGITUDE</span>
+    <span class="hook-text">Longitude distance <strong>shrinks as you go north</strong> — meridians converge. At 60°N, 1° of longitude is only ≈ 30 NM. Use latitude for distance math, not longitude.</span>
+  </div>
+
+  <div class="hook-row">
+    <span class="hook-badge">PARALLELS</span>
+    <span class="hook-text">Parallels (lat lines) run <strong>east–west</strong>, evenly spaced. Meridians (lon lines) run <strong>north–south</strong>, converging at the poles.</span>
+  </div>
+
+  <div class="hook-row">
+    <span class="hook-badge">POSITION FORMAT</span>
+    <span class="hook-text">Report as <strong>N DD°MM′, W DDD°MM′</strong> — latitude first, longitude second, hemisphere always specified. All Canadian positions are N and W.</span>
+  </div>
+
+</div>
+
+</body>
+</html>

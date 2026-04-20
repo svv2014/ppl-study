@@ -7,7 +7,7 @@ title: "Latitude, Longitude, and Map Reading"
 duration_min: 20
 status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/navigation/002-lat-lon-map-reading.m4a
-visual: null
+visual: /visuals/nav002-lat-lon-map-reading.html
 sources:
   - TP 12880E
   - TP 9994
