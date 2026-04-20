@@ -67,3 +67,7 @@ ppl-study/
 **Voice Profile:** echo  
 
 All lesson narration (past and future) uses Kokoro TTS with the echo voice profile. This is the project standard — ASDLC agents should use this configuration when generating audio for lessons.
+
+## Visuals Standard
+
+Lesson visuals are standalone dark-aviation HTML files stored in `web-app/public/visuals/` and served by Firebase Hosting. See **`docs/visuals-standards.md`** for palette, file naming, accessibility rules, and the canonical style sample.
