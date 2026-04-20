@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-008: ATC Services and Clearances</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; margin: auto; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+
+  /* ATC units cards */
+  .units-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .unit-card { background: #1a2d3d; border-radius: 8px; padding: 16px; border-left: 4px solid #1a2d3d; }
+  .unit-card.twr { border-left-color: #f0c040; }
+  .unit-card.tcu { border-left-color: #80b8ff; }
+  .unit-card.acc { border-left-color: #80e080; }
+  .unit-card.fss { border-left-color: #7a9ab5; }
+  .unit-abbr { font-size: 18px; font-weight: 800; margin-bottom: 2px; }
+  .twr .unit-abbr { color: #f0c040; }
+  .tcu .unit-abbr { color: #80b8ff; }
+  .acc .unit-abbr { color: #80e080; }
+  .fss .unit-abbr { color: #7a9ab5; }
+  .unit-name { font-size: 12px; color: #7a9ab5; margin-bottom: 8px; }
+  .unit-role { font-size: 13px; color: #e8edf2; line-height: 1.5; }
+  .unit-detail { font-size: 11px; color: #7a9ab5; margin-top: 6px; line-height: 1.4; }
+  .not-atc { display: inline-block; font-size: 10px; background: rgba(150,150,150,0.12); color: #aaa; border: 1px solid rgba(150,150,150,0.25); border-radius: 4px; padding: 1px 6px; margin-bottom: 4px; }
+
+  /* Handoff sequence */
+  .handoff { display: flex; flex-direction: column; gap: 0; margin-bottom: 28px; border-radius: 10px; overflow: hidden; border: 1.5px solid #1a2d3d; }
+  .handoff-row { display: grid; grid-template-columns: 36px 160px 1fr; align-items: center; padding: 11px 16px; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .handoff-row:last-child { border-bottom: none; }
+  .step-num { font-size: 11px; font-weight: 800; color: #7a9ab5; text-align: center; }
+  .step-unit { font-weight: 700; font-size: 13px; }
+  .step-twr { color: #f0c040; }
+  .step-tcu { color: #80b8ff; }
+  .step-acc { color: #80e080; }
+  .step-gnd { color: #c8b870; }
+  .step-cd { color: #d0a050; }
+  .step-desc { font-size: 12px; color: #c8d8e8; }
+  .dep-row { background: #0a1a0a; }
+  .arr-row { background: #0a0a1a; }
+  .header-row { background: #1a2d3d; }
+  .header-row .step-desc { color: #7a9ab5; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* CRAFT table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .craft-letter { font-size: 20px; font-weight: 800; color: #f0c040; width: 36px; }
+  .craft-word { font-weight: 700; color: #e8edf2; }
+  .craft-desc { font-size: 12px; color: #7a9ab5; margin-top: 3px; }
+
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+
+  @media (max-width: 550px) { .units-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>AL-008 — ATC Services and Clearances</h1>
+<p class="subtitle">Transport Canada · CARs 602.31, 602.32, 602.136, TP 12880E, AIM RAC 1.0 · PPL Written Exam</p>
+
+<!-- ATC units -->
+<div class="section-label">ATC Units — Who Does What</div>
+<div class="units-grid">
+  <div class="unit-card twr">
+    <div class="unit-abbr">TWR</div>
+    <div class="unit-name">Aerodrome Control Tower</div>
+    <div class="unit-role">Controls runways, taxiways, and the immediate aerodrome environment</div>
+    <div class="unit-detail">Issues taxi instructions, take-off &amp; landing clearances, circuit control. Sub-positions: Ground, Local, Clearance Delivery.</div>
+  </div>
+  <div class="unit-card tcu">
+    <div class="unit-abbr">TCU / APP</div>
+    <div class="unit-name">Terminal Control Unit / Approach Control</div>
+    <div class="unit-role">Controls the terminal area surrounding a major airport (typically Class C airspace)</div>
+    <div class="unit-detail">Handles departures after tower handoff; manages arrivals during approach. VFR in Class C contacts TCU.</div>
+  </div>
+  <div class="unit-card acc">
+    <div class="unit-abbr">ACC</div>
+    <div class="unit-name">Area Control Centre</div>
+    <div class="unit-role">Controls en route aircraft in controlled airspace</div>
+    <div class="unit-detail">Canada has ACCs in Toronto, Montréal, Edmonton, Vancouver, Gander, Moncton. Handles IFR (and VFR on request) between terminal areas.</div>
+  </div>
+  <div class="unit-card fss">
+    <div class="unit-abbr">FSS</div>
+    <div class="unit-name">Flight Service Station</div>
+    <span class="not-atc">NOT an ATC unit</span>
+    <div class="unit-role">Weather briefings, flight plan filing, MF advisory at uncontrolled aerodromes, SAR alerting</div>
+    <div class="unit-detail">Does not issue clearances. Provides traffic advisories at MF aerodromes.</div>
+  </div>
+</div>
+
+<!-- Handoff sequence -->
+<div class="section-label">Tower → TCU → ACC Handoff Sequence</div>
+<div class="handoff">
+  <div class="handoff-row header-row dep-row">
+    <div></div>
+    <div class="step-desc" style="grid-column: 2 / span 2;">DEPARTURE</div>
+  </div>
+  <div class="handoff-row dep-row">
+    <div class="step-num">1</div>
+    <div class="step-unit step-cd">Clearance Delivery / Ground</div>
+    <div class="step-desc">Pre-departure: taxi instructions, IFR clearance (CRAFT) at larger aerodromes</div>
+  </div>
+  <div class="handoff-row dep-row">
+    <div class="step-num">2</div>
+    <div class="step-unit step-twr">Tower (TWR)</div>
+    <div class="step-desc">Take-off clearance. Aircraft under tower control in circuit and immediate departure area</div>
+  </div>
+  <div class="handoff-row dep-row">
+    <div class="step-num">3</div>
+    <div class="step-unit step-tcu">TCU / Approach</div>
+    <div class="step-desc">Tower instructs pilot to contact TCU. Handles aircraft climbing through terminal area (Class C)</div>
+  </div>
+  <div class="handoff-row dep-row">
+    <div class="step-num">4</div>
+    <div class="step-unit step-acc">ACC</div>
+    <div class="step-desc">Clear of terminal area: TCU hands off to ACC for en route phase</div>
+  </div>
+  <div class="handoff-row header-row arr-row">
+    <div></div>
+    <div class="step-desc" style="grid-column: 2 / span 2;">ARRIVAL (reverse sequence)</div>
+  </div>
+  <div class="handoff-row arr-row">
+    <div class="step-num">↓</div>
+    <div class="step-unit step-acc">ACC</div>
+    <div class="step-desc">En route → hands off to TCU as aircraft approaches terminal area</div>
+  </div>
+  <div class="handoff-row arr-row">
+    <div class="step-num">↓</div>
+    <div class="step-unit step-tcu">TCU / Approach</div>
+    <div class="step-desc">Vectors aircraft for approach, hands off to tower for final</div>
+  </div>
+  <div class="handoff-row arr-row">
+    <div class="step-num">↓</div>
+    <div class="step-unit step-twr">Tower (TWR)</div>
+    <div class="step-desc">Landing clearance, taxi to parking via Ground</div>
+  </div>
+</div>
+
+<!-- CRAFT acronym -->
+<div class="section-label">CRAFT Acronym — IFR Clearance Structure</div>
+<table>
+  <thead>
+    <tr><th>Letter</th><th>Element</th><th>Example</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="craft-letter">C</td>
+      <td><span class="craft-word">Clearance limit</span><div class="craft-desc">The point to which you are cleared (usually destination)</div></td>
+      <td style="font-size:12px;color:#7a9ab5;">…cleared to CYOW…</td>
+    </tr>
+    <tr>
+      <td class="craft-letter">R</td>
+      <td><span class="craft-word">Route</span><div class="craft-desc">Airways, waypoints, or direct routing</div></td>
+      <td style="font-size:12px;color:#7a9ab5;">…via V300 direct…</td>
+    </tr>
+    <tr>
+      <td class="craft-letter">A</td>
+      <td><span class="craft-word">Altitude</span><div class="craft-desc">Cleared altitude; expect altitude en route</div></td>
+      <td style="font-size:12px;color:#7a9ab5;">…maintain FL180, expect FL220…</td>
+    </tr>
+    <tr>
+      <td class="craft-letter">F</td>
+      <td><span class="craft-word">Frequency</span><div class="craft-desc">Departure frequency to contact after take-off</div></td>
+      <td style="font-size:12px;color:#7a9ab5;">…departure 132.4…</td>
+    </tr>
+    <tr>
+      <td class="craft-letter">T</td>
+      <td><span class="craft-word">Transponder</span><div class="craft-desc">Squawk code assigned by ATC</div></td>
+      <td style="font-size:12px;color:#7a9ab5;">…squawk 4521</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Key rules -->
+<div class="hook-box">
+  <h2>Key Rules — CARs 602.31 &amp; 602.136</h2>
+  <div class="hook-row"><span class="hook-badge">Unable</span><span class="hook-text">If a clearance would compromise safety, respond <strong>"Unable, [reason]"</strong>. ATC will issue an amended clearance. Safety always overrides ATC compliance.</span></div>
+  <div class="hook-row"><span class="hook-badge">Readback</span><span class="hook-text">Runway clearances must be read back: <strong>runway designation + call sign</strong> + any hold-short instruction. "Roger" alone is not sufficient.</span></div>
+  <div class="hook-row"><span class="hook-badge">En Route = ACC</span><span class="hook-text">The <strong>Area Control Centre</strong> handles en route IFR aircraft. Terminal area = TCU. Aerodrome = Tower. FSS is not ATC.</span></div>
+  <div class="hook-row"><span class="hook-badge">Responsibility</span><span class="hook-text">A correct readback confirms the instruction was received — it does <strong>not</strong> transfer responsibility. The pilot-in-command is always ultimately responsible.</span></div>
+</div>
+
+</body>
+</html>

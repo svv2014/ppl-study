@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-007: Radio Communications</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; margin: auto; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+
+  /* Phonetic alphabet — two-column grid */
+  .alphabet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 28px; border-radius: 8px; overflow: hidden; border: 1.5px solid #1a2d3d; }
+  .alpha-row { display: grid; grid-template-columns: 36px 1fr; align-items: center; padding: 7px 12px; background: #0d1b2a; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .alpha-row:nth-child(even) { background: #0a1520; }
+  .alpha-letter { font-size: 16px; font-weight: 800; color: #f0c040; }
+  .alpha-word { font-size: 13px; color: #e8edf2; }
+
+  /* Phraseology table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .word-col { font-weight: 800; color: #f0c040; font-size: 14px; }
+  .meaning-col { color: #e8edf2; }
+  .trap-col { font-size: 12px; color: #ff9090; }
+
+  /* Light gun table */
+  .gun-table td:first-child { font-weight: 700; }
+  .gun-green { color: #80e080; }
+  .gun-red { color: #ff9090; }
+  .gun-white { color: #e8edf2; }
+  .gun-alt { color: #f0c040; }
+
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+
+  @media (max-width: 500px) { .alphabet-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>AL-007 — Radio Communications</h1>
+<p class="subtitle">Transport Canada · CARs 602.136, 602.138, TP 12880E, AIM COM 5.0 · PPL Written Exam</p>
+
+<!-- ICAO phonetic alphabet -->
+<div class="section-label">ICAO Phonetic Alphabet</div>
+<div class="alphabet-grid">
+  <div class="alpha-row"><span class="alpha-letter">A</span><span class="alpha-word">Alpha</span></div>
+  <div class="alpha-row"><span class="alpha-letter">N</span><span class="alpha-word">November</span></div>
+  <div class="alpha-row"><span class="alpha-letter">B</span><span class="alpha-word">Bravo</span></div>
+  <div class="alpha-row"><span class="alpha-letter">O</span><span class="alpha-word">Oscar</span></div>
+  <div class="alpha-row"><span class="alpha-letter">C</span><span class="alpha-word">Charlie</span></div>
+  <div class="alpha-row"><span class="alpha-letter">P</span><span class="alpha-word">Papa</span></div>
+  <div class="alpha-row"><span class="alpha-letter">D</span><span class="alpha-word">Delta</span></div>
+  <div class="alpha-row"><span class="alpha-letter">Q</span><span class="alpha-word">Quebec</span></div>
+  <div class="alpha-row"><span class="alpha-letter">E</span><span class="alpha-word">Echo</span></div>
+  <div class="alpha-row"><span class="alpha-letter">R</span><span class="alpha-word">Romeo</span></div>
+  <div class="alpha-row"><span class="alpha-letter">F</span><span class="alpha-word">Foxtrot</span></div>
+  <div class="alpha-row"><span class="alpha-letter">S</span><span class="alpha-word">Sierra</span></div>
+  <div class="alpha-row"><span class="alpha-letter">G</span><span class="alpha-word">Golf</span></div>
+  <div class="alpha-row"><span class="alpha-letter">T</span><span class="alpha-word">Tango</span></div>
+  <div class="alpha-row"><span class="alpha-letter">H</span><span class="alpha-word">Hotel</span></div>
+  <div class="alpha-row"><span class="alpha-letter">U</span><span class="alpha-word">Uniform</span></div>
+  <div class="alpha-row"><span class="alpha-letter">I</span><span class="alpha-word">India</span></div>
+  <div class="alpha-row"><span class="alpha-letter">V</span><span class="alpha-word">Victor</span></div>
+  <div class="alpha-row"><span class="alpha-letter">J</span><span class="alpha-word">Juliet</span></div>
+  <div class="alpha-row"><span class="alpha-letter">W</span><span class="alpha-word">Whiskey</span></div>
+  <div class="alpha-row"><span class="alpha-letter">K</span><span class="alpha-word">Kilo</span></div>
+  <div class="alpha-row"><span class="alpha-letter">X</span><span class="alpha-word">X-ray</span></div>
+  <div class="alpha-row"><span class="alpha-letter">L</span><span class="alpha-word">Lima</span></div>
+  <div class="alpha-row"><span class="alpha-letter">Y</span><span class="alpha-word">Yankee</span></div>
+  <div class="alpha-row"><span class="alpha-letter">M</span><span class="alpha-word">Mike</span></div>
+  <div class="alpha-row"><span class="alpha-letter">Z</span><span class="alpha-word">Zulu</span></div>
+</div>
+
+<!-- Standard phraseology -->
+<div class="section-label">Standard Phraseology — Key Words</div>
+<table>
+  <thead>
+    <tr><th>Word</th><th>Meaning</th><th>Common Exam Trap</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="word-col">Roger</td>
+      <td class="meaning-col">I have received all of your last transmission</td>
+      <td class="trap-col">Does NOT mean you will comply — use Wilco for that</td>
+    </tr>
+    <tr>
+      <td class="word-col">Wilco</td>
+      <td class="meaning-col">Understood and will comply</td>
+      <td class="trap-col">Implies Roger — don't say both</td>
+    </tr>
+    <tr>
+      <td class="word-col">Affirmative</td>
+      <td class="meaning-col">Yes</td>
+      <td class="trap-col">Don't use "yeah", "yep", or informal equivalents</td>
+    </tr>
+    <tr>
+      <td class="word-col">Negative</td>
+      <td class="meaning-col">No</td>
+      <td class="trap-col">Don't use "nope" or informal equivalents</td>
+    </tr>
+    <tr>
+      <td class="word-col">Standby</td>
+      <td class="meaning-col">ATC has heard your call — wait for a response</td>
+      <td class="trap-col">Does NOT authorize any action — wait for full clearance</td>
+    </tr>
+    <tr>
+      <td class="word-col">Unable</td>
+      <td class="meaning-col">Cannot comply with the instruction</td>
+      <td class="trap-col">Always state a reason: "Unable, terrain"</td>
+    </tr>
+    <tr>
+      <td class="word-col">Say Again</td>
+      <td class="meaning-col">Please repeat your last transmission</td>
+      <td class="trap-col">"Repeat" is NOT standard civilian phraseology — use "Say Again"</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Readback requirement -->
+<div class="section-label">Runway Clearance Readback — CARs 602.136</div>
+<table>
+  <thead>
+    <tr><th>Clearance Type</th><th>Mandatory Readback Elements</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="font-weight:600;">Take-off / Landing / Crossing / Hold-short clearance</td>
+      <td><span style="color:#f0c040;font-weight:700;">Runway designation + Aircraft call sign</span> + any hold-short instruction</td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;">Taxi route including runway crossing</td>
+      <td>Full taxi route including the runway(s) to be crossed</td>
+    </tr>
+    <tr>
+      <td style="font-weight:600;">Altitude/heading assignment, altimeter setting</td>
+      <td>The assigned value + call sign</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Light gun signals -->
+<div class="section-label">Light Gun Signals (Radio Failure — Squawk 7600)</div>
+<table class="gun-table">
+  <thead>
+    <tr><th>Signal</th><th>For Aircraft in Flight</th><th>For Aircraft on Ground</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="gun-green">Steady Green</td>
+      <td>Cleared to land</td>
+      <td>Cleared for take-off</td>
+    </tr>
+    <tr>
+      <td class="gun-green">Flashing Green</td>
+      <td>Cleared to approach</td>
+      <td>Cleared to taxi</td>
+    </tr>
+    <tr>
+      <td class="gun-red">Steady Red</td>
+      <td>Give way, continue circling</td>
+      <td>Stop</td>
+    </tr>
+    <tr>
+      <td class="gun-red">Flashing Red</td>
+      <td>Aerodrome unsafe — do not land</td>
+      <td>Taxi clear of runway in use</td>
+    </tr>
+    <tr>
+      <td class="gun-white">Flashing White</td>
+      <td>Return to start position</td>
+      <td>Return to starting point on aerodrome</td>
+    </tr>
+    <tr>
+      <td class="gun-alt">Alternating Red &amp; Green</td>
+      <td colspan="2">Exercise extreme caution</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Exam traps -->
+<div class="hook-box">
+  <h2>Common Exam Traps</h2>
+  <div class="hook-row"><span class="hook-badge">Roger ≠ Comply</span><span class="hook-text">"Roger" confirms you received the message. <strong>"Wilco"</strong> means you will comply. A landing clearance requires a full readback — not just "Roger".</span></div>
+  <div class="hook-row"><span class="hook-badge">Say Again</span><span class="hook-text">Use <strong>"Say Again"</strong> — not "Repeat". "Repeat" has a specific military meaning (fire again) and is non-standard in civilian aviation.</span></div>
+  <div class="hook-row"><span class="hook-badge">Uncontrolled</span><span class="hook-text">At uncontrolled aerodromes you are <strong>broadcasting position and intentions</strong>, not requesting clearance. No ATC present.</span></div>
+  <div class="hook-row"><span class="hook-badge">Niner</span><span class="hook-text">The digit 9 is pronounced <strong>"niner"</strong> in aviation to avoid confusion with the German word for "no" (nein).</span></div>
+</div>
+
+</body>
+</html>
