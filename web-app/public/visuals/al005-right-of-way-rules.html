@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-005: Right-of-Way Rules</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; margin: auto; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+
+  /* Hierarchy pyramid */
+  .hierarchy { display: flex; flex-direction: column; gap: 4px; margin-bottom: 28px; }
+  .hier-row { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 6px; }
+  .hier-num { font-size: 11px; font-weight: 800; color: #7a9ab5; width: 20px; flex-shrink: 0; }
+  .hier-label { font-size: 14px; font-weight: 700; flex: 1; }
+  .hier-note { font-size: 11px; color: #7a9ab5; }
+  .priority-1 { background: #1a1005; border-left: 4px solid #f0c040; }
+  .priority-2 { background: #0f1a0f; border-left: 4px solid #80e080; }
+  .priority-3 { background: #0a1520; border-left: 4px solid #7a9ab5; }
+  .priority-4 { background: #0a1520; border-left: 4px solid #5a7a95; }
+  .priority-5 { background: #0a1520; border-left: 4px solid #3a5a75; }
+  .priority-1 .hier-label { color: #f0c040; }
+  .priority-2 .hier-label { color: #80e080; }
+  .priority-3 .hier-label, .priority-4 .hier-label, .priority-5 .hier-label { color: #e8edf2; }
+  .gives-way-tag { font-size: 10px; background: rgba(255,80,80,0.12); color: #ff9090; border: 1px solid rgba(255,80,80,0.25); border-radius: 4px; padding: 2px 7px; font-weight: 700; }
+  .right-of-way-tag { font-size: 10px; background: rgba(80,200,80,0.12); color: #80e080; border: 1px solid rgba(80,200,80,0.25); border-radius: 4px; padding: 2px 7px; font-weight: 700; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .scenario-col { font-weight: 600; color: #e8edf2; }
+  .gives-way-col { color: #ff9090; font-weight: 700; }
+  .rule-col { font-size: 12px; color: #7a9ab5; }
+
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>AL-005 — Right-of-Way Rules</h1>
+<p class="subtitle">Transport Canada · CARs 602.19–602.21, TP 12880E · PPL Written Exam</p>
+
+<!-- Aircraft category hierarchy -->
+<div class="section-label">Aircraft Category Hierarchy — Higher = More Right-of-Way</div>
+<div class="hierarchy">
+  <div class="hier-row priority-1">
+    <span class="hier-num">1</span>
+    <span class="hier-label">Balloons</span>
+    <span class="right-of-way-tag">Right of Way over All</span>
+    <span class="hier-note">Cannot manoeuvre on demand</span>
+  </div>
+  <div class="hier-row priority-2">
+    <span class="hier-num">2</span>
+    <span class="hier-label">Gliders</span>
+    <span class="right-of-way-tag">Over Airships, Tow, Powered</span>
+    <span class="hier-note">No engine — limited manoeuvring</span>
+  </div>
+  <div class="hier-row priority-3">
+    <span class="hier-num">3</span>
+    <span class="hier-label">Airships</span>
+    <span class="hier-note">Over towing aircraft and powered aircraft</span>
+  </div>
+  <div class="hier-row priority-4">
+    <span class="hier-num">4</span>
+    <span class="hier-label">Aircraft towing other aircraft or objects</span>
+    <span class="hier-note">Over powered aircraft only</span>
+  </div>
+  <div class="hier-row priority-5">
+    <span class="hier-num">5</span>
+    <span class="hier-label">Powered Aircraft</span>
+    <span class="gives-way-tag">Lowest Priority — Yields to All Above</span>
+  </div>
+</div>
+
+<!-- Scenario table -->
+<div class="section-label">Scenario Quick Reference — CARs 602.19–602.21</div>
+<table>
+  <thead>
+    <tr>
+      <th>Scenario</th>
+      <th>Who Gives Way</th>
+      <th>Rule / Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="scenario-col">Powered aircraft vs. glider (converging)</td>
+      <td class="gives-way-col">Powered aircraft</td>
+      <td class="rule-col">Category hierarchy — CARs 602.19(1)</td>
+    </tr>
+    <tr>
+      <td class="scenario-col">Two powered aircraft converging at same altitude</td>
+      <td class="gives-way-col">Aircraft that has the other on its right</td>
+      <td class="rule-col">Give way to traffic on your right — CARs 602.19(2)</td>
+    </tr>
+    <tr>
+      <td class="scenario-col">Head-on approach (collision risk)</td>
+      <td class="gives-way-col">Both aircraft turn right</td>
+      <td class="rule-col">Both turn simultaneously — CARs 602.20</td>
+    </tr>
+    <tr>
+      <td class="scenario-col">Overtaking (from behind, within 70° of tail)</td>
+      <td class="gives-way-col">Overtaking aircraft — passes to the right, yields</td>
+      <td class="rule-col">Being-overtaken aircraft holds course — CARs 602.21</td>
+    </tr>
+    <tr>
+      <td class="scenario-col">Aircraft on final approach / landing</td>
+      <td class="gives-way-col">All other aircraft yield to the landing aircraft</td>
+      <td class="rule-col">Lower on approach = higher priority — CARs 602.19(3)</td>
+    </tr>
+    <tr>
+      <td class="scenario-col">Two aircraft on approach at different altitudes</td>
+      <td class="gives-way-col">Higher aircraft yields to the lower aircraft</td>
+      <td class="rule-col">CARs 602.19(3)</td>
+    </tr>
+    <tr>
+      <td class="scenario-col">Aircraft declaring emergency (MAYDAY / PAN-PAN)</td>
+      <td class="gives-way-col">All other aircraft yield — absolute priority</td>
+      <td class="rule-col">Emergency overrides all other rules</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Exam decision flow -->
+<div class="hook-box">
+  <h2>Exam Decision Flow — Work Through in Order</h2>
+  <div class="hook-row"><span class="hook-badge">Step 1</span><span class="hook-text">Different aircraft categories? Apply <strong>category hierarchy</strong> — powered aircraft yields to glider, balloon, etc.</span></div>
+  <div class="hook-row"><span class="hook-badge">Step 2</span><span class="hook-text">Is one aircraft on <strong>approach to land</strong>? Landing aircraft has priority over all others.</span></div>
+  <div class="hook-row"><span class="hook-badge">Step 3</span><span class="hook-text">Same category, <strong>converging</strong>? The aircraft that has the other on its RIGHT gives way.</span></div>
+  <div class="hook-row"><span class="hook-badge">Step 4</span><span class="hook-text"><strong>Head-on</strong>? Both aircraft turn right — simultaneously.</span></div>
+  <div class="hook-row"><span class="hook-badge">Step 5</span><span class="hook-text"><strong>Overtaking</strong>? Overtaking aircraft passes to the right and yields. Being-overtaken holds course.</span></div>
+</div>
+
+</body>
+</html>

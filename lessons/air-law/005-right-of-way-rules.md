@@ -7,7 +7,7 @@ title: "Right-of-Way Rules"
 duration_min: 20
 status: published
 audio: https://media.suprun.workers.dev/ppl/lessons/air-law/005-right-of-way-rules.m4a
-visual: null
+visual: /visuals/al005-right-of-way-rules.html
 sources:
   - CARs 602.19
   - CARs 602.20
