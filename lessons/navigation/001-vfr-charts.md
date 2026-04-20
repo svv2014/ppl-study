@@ -6,7 +6,7 @@ slug: vfr-charts
 title: "VFR Aeronautical Charts — Reading the Map"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/001-vfr-charts.m4a
 visual: /visuals/nav001-vfr-charts.html
 sources:
   - TP 12880E

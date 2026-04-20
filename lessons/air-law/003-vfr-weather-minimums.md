@@ -6,7 +6,7 @@ slug: vfr-weather-minimums
 title: "VFR Weather Minimums"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/003-vfr-weather-minimums.m4a
 visual: /visuals/al003-vfr-weather-minimums.html
 sources:
   - CARs 602.114-602.117

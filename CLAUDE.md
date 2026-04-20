@@ -48,6 +48,12 @@ ppl-study/
 └── orchestrator/     ASDLC-compatible dev cycle (GitHub issue automation)
 ```
 
+## Audio Generation
+
+Lesson narration is generated with Kokoro TTS (voice `am_echo`, speed 1.1) and hosted on Cloudflare R2.
+See **`docs/audio-standards.md`** for the canonical parameters, R2 path convention, generation command, and idempotency rule.
+See `docs/audio-hosting.md` for infrastructure and upload details.
+
 ## Critical Rules
 
 - All lesson content must be factually accurate against Transport Canada sources
