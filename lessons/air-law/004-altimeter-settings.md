@@ -7,7 +7,7 @@ title: "Altimeter Settings"
 duration_min: 20
 status: published
 audio: https://media.suprun.workers.dev/ppl/lessons/air-law/004-altimeter-settings.m4a
-visual: null
+visual: /visuals/al004-altimeter-settings.html
 sources:
   - CARs 602.35
   - TP 12880E

@@ -7,7 +7,7 @@ title: "Aerodrome Traffic Circuit"
 duration_min: 20
 status: published
 audio: https://media.suprun.workers.dev/ppl/lessons/air-law/006-aerodrome-traffic-circuit.m4a
-visual: null
+visual: /visuals/al006-aerodrome-traffic-circuit.html
 sources:
   - CARs 602.96
   - CARs 602.105

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-006: Aerodrome Traffic Circuit</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; margin: auto; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+
+  /* Circuit diagram */
+  .circuit-container { background: #0a1520; border: 1.5px solid #1a2d3d; border-radius: 10px; padding: 24px; margin-bottom: 28px; }
+  .circuit-diagram { display: grid; grid-template-columns: 1fr 180px 1fr; grid-template-rows: auto auto auto auto auto; max-width: 600px; margin: 0 auto; gap: 0; }
+  .runway-cell { grid-column: 2; grid-row: 3; display: flex; align-items: center; justify-content: center; }
+  .runway { background: #2a3a4a; border: 2px solid #f0c040; border-radius: 4px; padding: 8px 16px; text-align: center; font-size: 11px; font-weight: 800; color: #f0c040; letter-spacing: 2px; width: 100%; }
+  .runway-arrows { font-size: 14px; display: block; margin-top: 2px; color: #7a9ab5; }
+  .leg-cell { display: flex; align-items: center; justify-content: center; padding: 8px; }
+  .leg-label { text-align: center; }
+  .leg-name { font-size: 13px; font-weight: 700; color: #f0c040; display: block; }
+  .leg-detail { font-size: 11px; color: #7a9ab5; display: block; margin-top: 3px; line-height: 1.4; }
+  .upwind { grid-column: 2; grid-row: 5; }
+  .crosswind { grid-column: 3; grid-row: 2; }
+  .downwind { grid-column: 2; grid-row: 1; }
+  .base { grid-column: 1; grid-row: 2; }
+  .final { grid-column: 2; grid-row: 4; }
+  .corner-tr { grid-column: 3; grid-row: 1; display: flex; align-items: flex-end; justify-content: flex-start; padding: 4px; color: #80b8ff; font-size: 16px; }
+  .corner-br { grid-column: 3; grid-row: 5; display: flex; align-items: flex-start; justify-content: flex-start; padding: 4px; color: #80b8ff; font-size: 16px; }
+  .corner-tl { grid-column: 1; grid-row: 1; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px; color: #80b8ff; font-size: 16px; }
+  .corner-bl { grid-column: 1; grid-row: 5; display: flex; align-items: flex-start; justify-content: flex-end; padding: 4px; color: #80b8ff; font-size: 16px; }
+  .diagram-note { text-align: center; font-size: 11px; color: #7a9ab5; margin-top: 12px; }
+
+  /* Standards cards */
+  .standards-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .std-card { background: #1a2d3d; border-radius: 8px; padding: 14px 16px; }
+  .std-card h3 { font-size: 11px; color: #7a9ab5; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .std-value { font-size: 16px; font-weight: 800; color: #f0c040; }
+  .std-note { font-size: 11px; color: #7a9ab5; margin-top: 4px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .leg-name-col { font-weight: 700; color: #f0c040; }
+
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+
+  @media (max-width: 600px) { .standards-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>AL-006 — Aerodrome Traffic Circuit</h1>
+<p class="subtitle">Transport Canada · CARs 602.96, 602.105, TP 12880E, AIM RAC 4.5 · PPL Written Exam</p>
+
+<!-- Circuit diagram -->
+<div class="section-label">Standard Left-Hand Circuit (all turns to the left)</div>
+<div class="circuit-container">
+  <div class="circuit-diagram">
+    <div class="corner-tl">↙</div>
+    <div class="leg-cell downwind">
+      <div class="leg-label">
+        <span class="leg-name">⬅ DOWNWIND</span>
+        <span class="leg-detail">Parallel to runway<br>Opposite direction to landing<br>1,000 ft AGL · pre-landing checks</span>
+      </div>
+    </div>
+    <div class="corner-tr">↙</div>
+    <div class="leg-cell base">
+      <div class="leg-label">
+        <span class="leg-name">BASE ↓</span>
+        <span class="leg-detail">90° to runway<br>Toward runway<br>Extend flaps</span>
+      </div>
+    </div>
+    <div></div>
+    <div class="leg-cell crosswind">
+      <div class="leg-label">
+        <span class="leg-name">CROSSWIND ↑</span>
+        <span class="leg-detail">90° to runway<br>Away from runway<br>Climb to circuit altitude</span>
+      </div>
+    </div>
+    <div></div>
+    <div class="runway-cell">
+      <div class="runway">RUNWAY<span class="runway-arrows">▲ ▼</span></div>
+    </div>
+    <div></div>
+    <div></div>
+    <div class="leg-cell final">
+      <div class="leg-label">
+        <span class="leg-name">FINAL ↓</span>
+        <span class="leg-detail">Aligned with runway<br>Into wind · descending to land</span>
+      </div>
+    </div>
+    <div></div>
+    <div class="corner-bl">↖</div>
+    <div class="leg-cell upwind">
+      <div class="leg-label">
+        <span class="leg-name">UPWIND ➡</span>
+        <span class="leg-detail">After take-off · climb-out<br>Same direction as runway</span>
+      </div>
+    </div>
+    <div class="corner-br">↖</div>
+  </div>
+  <p class="diagram-note">Left-hand circuit shown. Arrows indicate direction of aircraft travel. All turns to the LEFT.</p>
+</div>
+
+<!-- Standards -->
+<div class="section-label">Circuit Standards</div>
+<div class="standards-grid">
+  <div class="std-card">
+    <h3>Standard Direction</h3>
+    <div class="std-value">Left-Hand</div>
+    <div class="std-note">All turns to the left unless CFS, NOTAM, or ATC specifies right-hand</div>
+  </div>
+  <div class="std-card">
+    <h3>Circuit Altitude</h3>
+    <div class="std-value">1,000 ft AGL</div>
+    <div class="std-note">Light aircraft. Some aerodromes use 1,500 ft AGL — check CFS</div>
+  </div>
+  <div class="std-card">
+    <h3>Standard Join</h3>
+    <div class="std-value">45° Mid-Downwind</div>
+    <div class="std-note">From non-traffic (upwind) side, 45° angle to mid-point of downwind</div>
+  </div>
+</div>
+
+<!-- Legs table -->
+<div class="section-label">Circuit Legs — In Order</div>
+<table>
+  <thead>
+    <tr><th>#</th><th>Leg</th><th>Description</th><th>Key Actions</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="color:#f0c040;font-weight:800;">1</td>
+      <td class="leg-name-col">Upwind</td>
+      <td>Departure, same direction as runway, climbing</td>
+      <td style="font-size:12px;color:#7a9ab5;">Initial climb-out, retract flaps</td>
+    </tr>
+    <tr>
+      <td style="color:#f0c040;font-weight:800;">2</td>
+      <td class="leg-name-col">Crosswind</td>
+      <td>Perpendicular to runway, away from aerodrome</td>
+      <td style="font-size:12px;color:#7a9ab5;">Continue climb to circuit altitude</td>
+    </tr>
+    <tr>
+      <td style="color:#f0c040;font-weight:800;">3</td>
+      <td class="leg-name-col">Downwind</td>
+      <td>Parallel to runway, opposite direction to landing, at circuit altitude</td>
+      <td style="font-size:12px;color:#7a9ab5;">ATIS/altimeter, fuel, pre-landing checks</td>
+    </tr>
+    <tr>
+      <td style="color:#f0c040;font-weight:800;">4</td>
+      <td class="leg-name-col">Base</td>
+      <td>Perpendicular to runway, toward the runway</td>
+      <td style="font-size:12px;color:#7a9ab5;">Reduce speed, extend flaps, begin descent</td>
+    </tr>
+    <tr>
+      <td style="color:#f0c040;font-weight:800;">5</td>
+      <td class="leg-name-col">Final</td>
+      <td>Aligned with runway, into wind, descending to land</td>
+      <td style="font-size:12px;color:#7a9ab5;">Manage descent rate, airspeed, alignment</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Key facts -->
+<div class="hook-box">
+  <h2>Key Facts for the Exam</h2>
+  <div class="hook-row"><span class="hook-badge">Direction</span><span class="hook-text"><strong>Left-hand turns</strong> are the Canadian standard. Right-hand only when published in CFS, NOTAM, or directed by ATC.</span></div>
+  <div class="hook-row"><span class="hook-badge">Altitude</span><span class="hook-text">Standard altitude is <strong>1,000 ft AGL</strong> for light aircraft. Always check the CFS for aerodrome-specific info.</span></div>
+  <div class="hook-row"><span class="hook-badge">Downwind</span><span class="hook-text">The leg that runs <strong>parallel to the runway in the opposite direction to landing</strong>. Classic exam question.</span></div>
+  <div class="hook-row"><span class="hook-badge">Joining</span><span class="hook-text">Recommended join: <strong>45° to mid-downwind from the non-traffic (upwind) side</strong> of the runway.</span></div>
+</div>
+
+</body>
+</html>

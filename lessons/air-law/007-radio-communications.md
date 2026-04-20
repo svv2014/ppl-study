@@ -7,7 +7,7 @@ title: "Radio Communications"
 duration_min: 20
 status: published
 audio: https://media.suprun.workers.dev/ppl/lessons/air-law/007-radio-communications.m4a
-visual: null
+visual: /visuals/al007-radio-communications.html
 sources:
   - CARs 602.136
   - CARs 602.138
