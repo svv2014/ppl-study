@@ -6,7 +6,7 @@ slug: radio-communications
 title: "Radio Communications"
 duration_min: 20
 status: published
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/007-radio-communications.m4a
 visual: null
 sources:
   - CARs 602.136

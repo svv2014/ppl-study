@@ -6,7 +6,7 @@ slug: atc-services-clearances
 title: "ATC Services and Clearances"
 duration_min: 20
 status: published
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/008-atc-services-clearances.m4a
 visual: null
 sources:
   - CARs 602.31
