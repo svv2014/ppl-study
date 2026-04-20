@@ -6,7 +6,7 @@ slug: controlled-vs-uncontrolled
 title: "Controlled vs Uncontrolled Airspace"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/002-controlled-vs-uncontrolled.m4a
 visual: /visuals/al002-controlled-vs-uncontrolled.html
 sources:
   - CARs Part VI
