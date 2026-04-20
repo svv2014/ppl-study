@@ -60,3 +60,10 @@ ppl-study/
 - Label issues `dev` for automatic implementation by ASDLC cycle
 - Label issues `po-review` for planning/scoping
 - Issue format: what to create, which topic, lesson number
+
+## Audio Generation Standard
+
+**TTS Tool:** Kokoro  
+**Voice Profile:** echo  
+
+All lesson narration (past and future) uses Kokoro TTS with the echo voice profile. This is the project standard — ASDLC agents should use this configuration when generating audio for lessons.
