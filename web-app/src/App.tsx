@@ -5,6 +5,7 @@ import Nav from './components/Nav';
 import Home from './pages/Home';
 import LessonsIndex from './pages/LessonsIndex';
 import LessonDetail from './pages/LessonDetail';
+import LessonQuiz from './pages/LessonQuiz';
 import Exam from './pages/Exam';
 import Plan from './pages/Plan';
 
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/lessons" element={<LessonsIndex />} />
             <Route path="/lessons/:topic/:slug" element={<LessonDetail />} />
+            <Route path="/lessons/:topic/:slug/quiz" element={<LessonQuiz />} />
             <Route path="/exam" element={<Exam />} />
             <Route path="/plan" element={<Plan />} />
           </Routes>
