@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <>
       {/* Hero — full-width, above fold on 375 px mobile */}
-      <Box sx={{ position: 'relative', overflow: 'hidden', pt: { xs: 6, md: 10 }, pb: { xs: 4, md: 6 } }}>
+      <Box id="main-content" tabIndex={-1} sx={{ position: 'relative', overflow: 'hidden', pt: { xs: 6, md: 10 }, pb: { xs: 4, md: 6 } }}>
         {/* Heading-rose motif — decorative background */}
         <Box
           aria-hidden="true"

@@ -75,7 +75,7 @@ export default function LessonDetail() {
 
   if (!lesson) {
     return (
-      <Container maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: { xs: 2, sm: 3 }, py: 6 }}>
+      <Container id="main-content" tabIndex={-1} maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: { xs: 2, sm: 3 }, py: 6 }}>
         <Typography variant="h4" gutterBottom>
           Lesson not found
         </Typography>
@@ -97,7 +97,7 @@ export default function LessonDetail() {
   }
 
   return (
-    <Container maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: { xs: 2, sm: 3 }, py: 4 }}>
+    <Container id="main-content" tabIndex={-1} maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: { xs: 2, sm: 3 }, py: 4 }}>
       <Box sx={{ mb: 1, display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <Chip
           label={lesson.topic.replace(/-/g, ' ')}

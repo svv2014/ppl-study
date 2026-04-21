@@ -29,7 +29,7 @@ export default function LessonsIndex() {
   }, []);
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Container id="main-content" tabIndex={-1} maxWidth="md" sx={{ py: 4 }}>
       <Typography variant="h4" gutterBottom>
         Browse Lessons
       </Typography>
