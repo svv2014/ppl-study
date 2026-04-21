@@ -25,10 +25,13 @@ export default function Plan() {
   const [resetOpen, setResetOpen] = useState(false);
   const { progress, markComplete, markIncomplete, isComplete, reset } = useProgress();
 
-  const authoredIds = useMemo(
-    () => new Set(getAllLessons().map((l) => l.id)),
-    [],
-  );
+  const { authoredIds, lessonTitleMap } = useMemo(() => {
+    const lessons = getAllLessons();
+    return {
+      authoredIds: new Set(lessons.map((l) => l.id)),
+      lessonTitleMap: new Map(lessons.map((l) => [l.id, l.title])),
+    };
+  }, []);
 
   const totalLessons = CURRICULUM.length;
   const completedCount = CURRICULUM.filter((s) => isComplete(s.id)).length;
@@ -142,7 +145,7 @@ export default function Plan() {
                           flex: 1,
                         }}
                       >
-                        {slot.title}
+                        {lessonTitleMap.get(slot.id) ?? slot.title}
                       </Typography>
                     ) : (
                       <Typography
@@ -150,7 +153,7 @@ export default function Plan() {
                         color="text.disabled"
                         sx={{ flex: 1 }}
                       >
-                        {slot.title}
+                        {lessonTitleMap.get(slot.id) ?? slot.title}
                       </Typography>
                     )}
                   </ListItem>
