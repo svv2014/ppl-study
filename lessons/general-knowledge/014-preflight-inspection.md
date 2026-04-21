@@ -2,8 +2,8 @@
 id: GK-014
 topic: general-knowledge
 order: 14
-slug: airworthiness
-title: "Airworthiness, Maintenance, and Aircraft Documents"
+slug: preflight-inspection
+title: "Pre-Flight Inspection and Maintenance"
 duration_min: 20
 status: complete
 audio: null
@@ -61,7 +61,7 @@ questions:
     explanation: "Under CARs 625 Appendix B, aircraft used for hire or reward (including flight training operations) require an inspection every 100 flight hours in addition to the annual inspection. Private aircraft (not for hire) are generally required to comply with the annual (or equivalent) inspection schedule only. Source: CARs 625, TP 12880E Chapter 14."
 ---
 
-# Lesson GK-014: Airworthiness, Maintenance, and Aircraft Documents
+# Lesson GK-014: Pre-Flight Inspection and Maintenance
 
 **Section:** General Knowledge  
 **Lesson number:** 014  

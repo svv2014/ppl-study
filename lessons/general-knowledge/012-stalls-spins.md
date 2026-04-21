@@ -1,8 +1,8 @@
 ---
-id: GK-007
+id: GK-012
 topic: general-knowledge
-order: 7
-slug: stalls-and-spins
+order: 12
+slug: stalls-spins
 title: "Stalls and Spins"
 duration_min: 20
 status: complete
@@ -59,10 +59,10 @@ questions:
     explanation: "The PARE spin recovery sequence is: Power to idle, Ailerons neutral, Rudder full opposite to spin rotation (to stop autorotation), Elevator forward (to reduce AOA and unstall the wings). Applying aileron into the spin can worsen it; opposite aileron can also delay recovery. Rudder opposite the rotation is the critical first active control step. Source: TP 12880E Chapter 12."
 ---
 
-# Lesson GK-007: Stalls and Spins
+# Lesson GK-012: Stalls and Spins
 
 **Section:** General Knowledge  
-**Lesson number:** 007  
+**Lesson number:** 012  
 **Estimated time:** 20 minutes  
 **Source:** TP 12880E Chapters 3, 12
 
@@ -188,4 +188,4 @@ Pulling back on the stick in a spiral dive tightens the spiral and may exceed st
 
 ---
 
-*End of Lesson GK-007.*
+*End of Lesson GK-012.*

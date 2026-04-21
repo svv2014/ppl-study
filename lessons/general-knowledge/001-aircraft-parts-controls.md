@@ -2,8 +2,8 @@
 id: GK-001
 topic: general-knowledge
 order: 1
-slug: aircraft-components
-title: "Aircraft Components and Control Surfaces"
+slug: aircraft-parts-controls
+title: "Aircraft Parts and Controls"
 duration_min: 20
 status: complete
 audio: null
@@ -59,7 +59,7 @@ questions:
     explanation: "Flaps increase wing camber and area, which lowers stall speed and increases lift at a given airspeed. They also significantly increase drag, which is useful for steepening the approach angle without increasing speed. Source: TP 12880E Chapter 2."
 ---
 
-# Lesson GK-001: Aircraft Components and Control Surfaces
+# Lesson GK-001: Aircraft Parts and Controls
 
 **Section:** General Knowledge  
 **Lesson number:** 001  

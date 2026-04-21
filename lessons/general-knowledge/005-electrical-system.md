@@ -1,9 +1,9 @@
 ---
-id: GK-009
+id: GK-005
 topic: general-knowledge
-order: 9
-slug: electrical-systems
-title: "Electrical Systems"
+order: 5
+slug: electrical-system
+title: "Electrical System"
 duration_min: 20
 status: complete
 audio: null
@@ -59,10 +59,10 @@ questions:
     explanation: "Circuit breakers protect wiring from overheating and fire. If current exceeds the breaker's rating (due to a short circuit or overloaded component), the breaker trips, opening the circuit. A tripped breaker should be reset only once — if it trips again, leave it open. Source: TP 12880E Chapter 5."
 ---
 
-# Lesson GK-009: Electrical Systems
+# Lesson GK-005: Electrical System
 
 **Section:** General Knowledge  
-**Lesson number:** 009  
+**Lesson number:** 005  
 **Estimated time:** 20 minutes  
 **Source:** TP 12880E Chapters 5, 8
 
@@ -176,4 +176,4 @@ In aircraft with vacuum-driven gyros (attitude indicator and heading indicator),
 
 ---
 
-*End of Lesson GK-009.*
+*End of Lesson GK-005.*

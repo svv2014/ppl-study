@@ -1,9 +1,9 @@
 ---
-id: GK-008
+id: GK-004
 topic: general-knowledge
-order: 8
-slug: fuel-systems
-title: "Fuel Systems and Fuel Management"
+order: 4
+slug: fuel-system
+title: "Fuel System"
 duration_min: 20
 status: complete
 audio: null
@@ -60,10 +60,10 @@ questions:
     explanation: "Vapour lock occurs when fuel vaporizes in the fuel lines, creating bubbles that block the flow of liquid fuel to the carburetor or fuel injectors. It is most likely on hot days, after engine shutdown with a hot engine (hot soak), or in high-altitude operations with low fuel pressure. Fuel-injected engines are more susceptible to vapour lock than carbureted engines. Source: TP 12880E Chapter 5."
 ---
 
-# Lesson GK-008: Fuel Systems and Fuel Management
+# Lesson GK-004: Fuel System
 
 **Section:** General Knowledge  
-**Lesson number:** 008  
+**Lesson number:** 004  
 **Estimated time:** 20 minutes  
 **Source:** TP 12880E Chapter 5, CARs 602.88, POH (aircraft-specific)
 
@@ -170,4 +170,4 @@ At high temperatures, avgas can vaporize in the fuel lines. Bubbles of vapour bl
 
 ---
 
-*End of Lesson GK-008.*
+*End of Lesson GK-004.*

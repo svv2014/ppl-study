@@ -1,7 +1,7 @@
 ---
-id: GK-005
+id: GK-009
 topic: general-knowledge
-order: 5
+order: 9
 slug: weight-and-balance
 title: "Weight and Balance"
 duration_min: 20
@@ -59,10 +59,10 @@ questions:
     explanation: "A forward CG increases longitudinal stability — the aircraft is more resistant to pitch changes. However, it requires more back pressure to rotate and flare, and at the extreme forward limit, the elevator may not have enough authority to raise the nose for takeoff or landing. Stall speed also increases with forward CG. Source: TP 12880E Chapter 10."
 ---
 
-# Lesson GK-005: Weight and Balance
+# Lesson GK-009: Weight and Balance
 
 **Section:** General Knowledge  
-**Lesson number:** 005  
+**Lesson number:** 009  
 **Estimated time:** 20 minutes  
 **Source:** TP 12880E Chapter 10, POH (aircraft-specific)
 
@@ -173,4 +173,4 @@ The CG envelope chart plots weight on the vertical axis and CG position on the h
 
 ---
 
-*End of Lesson GK-005.*
+*End of Lesson GK-009.*

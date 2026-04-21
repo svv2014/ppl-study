@@ -2,8 +2,8 @@
 id: GK-002
 topic: general-knowledge
 order: 2
-slug: aerodynamics-lift-drag
-title: "Aerodynamics: Lift, Drag, and the Four Forces"
+slug: four-forces
+title: "Four Forces of Flight"
 duration_min: 20
 status: complete
 audio: null
@@ -59,7 +59,7 @@ questions:
     explanation: "Parasite (profile) drag includes form drag, skin friction drag, and interference drag. It increases with airspeed — specifically, it increases with the square of velocity. As speed doubles, parasite drag quadruples. This is opposite to induced drag, which decreases as speed increases. Source: TP 12880E Chapter 3."
 ---
 
-# Lesson GK-002: Aerodynamics — Lift, Drag, and the Four Forces
+# Lesson GK-002: Four Forces of Flight
 
 **Section:** General Knowledge  
 **Lesson number:** 002  

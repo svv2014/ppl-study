@@ -2,8 +2,8 @@
 id: GK-003
 topic: general-knowledge
 order: 3
-slug: engines-and-propellers
-title: "Piston Engines and Propellers"
+slug: piston-engines
+title: "Piston Engines"
 duration_min: 20
 status: complete
 audio: null
@@ -59,7 +59,7 @@ questions:
     explanation: "As altitude increases, air density decreases, but fuel flow remains roughly constant — the mixture becomes too rich. The mixture control reduces fuel flow to maintain the correct fuel-to-air ratio. At cruise altitude, leaning the mixture improves efficiency and reduces fuel consumption. Source: TP 12880E Chapter 5."
 ---
 
-# Lesson GK-003: Piston Engines and Propellers
+# Lesson GK-003: Piston Engines
 
 **Section:** General Knowledge  
 **Lesson number:** 003  
