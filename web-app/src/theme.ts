@@ -23,6 +23,9 @@ const theme = createTheme({
     secondary: {
       main: '#ffffff',
     },
+    info: {
+      main: '#4fc3f7',
+    },
     text: {
       onAccent: '#000000',
     },

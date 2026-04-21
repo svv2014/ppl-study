@@ -54,7 +54,7 @@ const mdOptions = {
         component: 'blockquote',
         sx: {
           borderLeft: '3px solid',
-          borderColor: 'primary.main',
+          borderColor: 'info.main',
           pl: 2,
           ml: 0,
           my: 2,
@@ -104,7 +104,7 @@ export default function LessonDetail() {
           size="small"
           sx={{ textTransform: 'capitalize', bgcolor: 'primary.main', color: 'text.onAccent' }}
         />
-        <Chip label={`${lesson.duration_min} min`} size="small" variant="outlined" />
+        <Chip label={`${lesson.duration_min} min`} size="small" variant="outlined" color="info" />
         {completed && (
           <Chip label="Completed" size="small" color="success" variant="outlined" />
         )}

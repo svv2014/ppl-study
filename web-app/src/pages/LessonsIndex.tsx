@@ -96,7 +96,7 @@ export default function LessonsIndex() {
                             color="primary"
                             sx={{ fontFamily: 'monospace', fontWeight: 600 }}
                           />
-                          <Chip label={`${lesson.duration_min} min`} size="small" variant="outlined" />
+                          <Chip label={`${lesson.duration_min} min`} size="small" variant="outlined" color="info" />
                           <Chip {...chipProps} size="small" />
                           {lesson.audio ? (
                             <Chip label="▶ Audio" size="small" color="warning" />
