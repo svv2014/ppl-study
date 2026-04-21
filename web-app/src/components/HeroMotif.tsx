@@ -1,20 +1,22 @@
-import { useTheme } from '@mui/material/styles';
+const AMBER = '#f5a623';
 
-/** Heading-rose aviation motif — decorative, aria-hidden */
-export default function HeroMotif() {
-  const theme = useTheme();
-  const primary = theme.palette.primary.main;
+interface Props {
+  width?: number;
+  height?: number;
+}
 
-  const cx = 200;
-  const cy = 200;
-  const outerR = 190;
+/** Compass-rose aviation motif — decorative, aria-hidden */
+export default function HeroMotif({ width = 340, height = 340 }: Props) {
+  const cx = 100;
+  const cy = 100;
+  const outerR = 95;
 
   const ticks = Array.from({ length: 36 }, (_, i) => {
     const angle = i * 10;
     const rad = ((angle - 90) * Math.PI) / 180;
     const isCardinal = i % 9 === 0;
     const isMajor = i % 3 === 0;
-    const innerR = isCardinal ? 148 : isMajor ? 165 : 178;
+    const innerR = isCardinal ? 74 : isMajor ? 82.5 : 89;
     return {
       x1: cx + outerR * Math.cos(rad),
       y1: cy + outerR * Math.sin(rad),
@@ -34,25 +36,30 @@ export default function HeroMotif() {
 
   return (
     <svg
-      viewBox="0 0 400 400"
+      viewBox="0 0 200 200"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      style={{ width: '100%', height: '100%' }}
+      width={width}
+      height={height}
+      opacity={0.2}
     >
-      <circle cx={cx} cy={cy} r={outerR} fill="none" stroke={primary} strokeWidth="1.5" />
-      <circle cx={cx} cy={cy} r={130} fill="none" stroke={primary} strokeWidth="0.75" />
-      <circle cx={cx} cy={cy} r={68} fill="none" stroke={primary} strokeWidth="0.5" />
+      <circle cx={cx} cy={cy} r={outerR} fill="none" stroke={AMBER} strokeWidth="0.75" />
+      <circle cx={cx} cy={cy} r={65} fill="none" stroke={AMBER} strokeWidth="0.4" />
+      <circle cx={cx} cy={cy} r={34} fill="none" stroke={AMBER} strokeWidth="0.25" />
       {ticks.map(({ x1, y1, x2, y2, isCardinal, isMajor }, i) => (
         <line
           key={i}
-          x1={x1} y1={y1} x2={x2} y2={y2}
-          stroke={primary}
-          strokeWidth={isCardinal ? 2 : isMajor ? 1.2 : 0.6}
+          x1={x1}
+          y1={y1}
+          x2={x2}
+          y2={y2}
+          stroke={AMBER}
+          strokeWidth={isCardinal ? 1 : isMajor ? 0.6 : 0.3}
         />
       ))}
       {cardinals.map(({ angle, label }) => {
         const rad = ((angle - 90) * Math.PI) / 180;
-        const r = 113;
+        const r = 56.5;
         return (
           <text
             key={label}
@@ -60,8 +67,8 @@ export default function HeroMotif() {
             y={cy + r * Math.sin(rad)}
             textAnchor="middle"
             dominantBaseline="central"
-            fill={primary}
-            fontSize="20"
+            fill={AMBER}
+            fontSize="10"
             fontWeight="700"
             fontFamily="monospace"
           >
@@ -69,9 +76,12 @@ export default function HeroMotif() {
           </text>
         );
       })}
-      <line x1={cx} y1={cy - 58} x2={cx} y2={cy + 58} stroke={primary} strokeWidth="0.5" />
-      <line x1={cx - 58} y1={cy} x2={cx + 58} y2={cy} stroke={primary} strokeWidth="0.5" />
-      <circle cx={cx} cy={cy} r={4} fill={primary} />
+      <line x1={cx} y1={cy - 29} x2={cx} y2={cy + 29} stroke={AMBER} strokeWidth="0.25" />
+      <line x1={cx - 29} y1={cy} x2={cx + 29} y2={cy} stroke={AMBER} strokeWidth="0.25" />
+      <circle cx={cx} cy={cy} r={2} fill={AMBER} />
+      {/* Horizon-line accent at 55 % / 58 % of viewBox height */}
+      <line x1={0} y1={110} x2={200} y2={110} stroke={AMBER} strokeWidth="0.75" strokeOpacity={0.3} />
+      <line x1={0} y1={116} x2={200} y2={116} stroke={AMBER} strokeWidth="0.75" strokeOpacity={0.3} />
     </svg>
   );
 }

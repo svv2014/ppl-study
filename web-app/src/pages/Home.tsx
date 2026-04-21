@@ -38,14 +38,12 @@ export default function Home() {
       <Box sx={{ position: 'relative', overflow: 'hidden', pt: { xs: 6, md: 10 }, pb: { xs: 4, md: 6 } }}>
         {/* Heading-rose motif — decorative background */}
         <Box
+          aria-hidden="true"
           sx={{
             position: 'absolute',
             top: '50%',
             right: { xs: '-10%', md: '2%' },
             transform: 'translateY(-50%)',
-            width: { xs: 280, md: 420 },
-            height: { xs: 280, md: 420 },
-            opacity: 0.08,
             pointerEvents: 'none',
           }}
         >
@@ -63,9 +61,22 @@ export default function Home() {
             variant="subtitle1"
             component="p"
             color="text.secondary"
-            sx={{ mb: 3, maxWidth: 560 }}
+            sx={{ mb: 1, maxWidth: 560 }}
           >
             Structured lessons covering PSTAR and the full Transport Canada PPL syllabus.
+          </Typography>
+          <Typography
+            component="p"
+            sx={{
+              mb: 2,
+              fontFamily: 'monospace',
+              fontSize: '0.625rem',
+              letterSpacing: '0.15em',
+              color: 'text.secondary',
+              opacity: 0.75,
+            }}
+          >
+            TRANSPORT CANADA PPL
           </Typography>
           <Button
             component={RouterLink}
