@@ -60,7 +60,7 @@ export default function LessonsIndex() {
 
                 if (!lesson) {
                   return (
-                    <Card key={slot.id} variant="outlined" sx={{ opacity: 0.5 }}>
+                    <Card key={slot.id} variant="outlined" sx={{ opacity: 0.5, borderLeft: '3px solid rgba(255,255,255,0.12)' }}>
                       <CardContent sx={{ pb: '12px !important' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
                           <Chip label={slot.id} size="small" variant="outlined" color="default" sx={{ fontFamily: 'monospace', fontWeight: 600 }} />
@@ -80,7 +80,17 @@ export default function LessonsIndex() {
                   <Card
                     key={slot.id}
                     variant="outlined"
-                    sx={{ opacity: done ? 0.7 : 1 }}
+                    sx={{
+                      opacity: done ? 0.7 : 1,
+                      borderLeft: '3px solid',
+                      borderColor: done ? 'success.main' : 'primary.main',
+                      willChange: 'transform',
+                      transition: 'all 0.15s ease',
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 4px 20px rgba(245, 166, 35, 0.2)',
+                      },
+                    }}
                   >
                     <CardActionArea
                       component={RouterLink}
