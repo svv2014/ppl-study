@@ -84,7 +84,7 @@ export default function Exam() {
 
   if (lessons.length === 0) {
     return (
-      <Container maxWidth="md" sx={{ py: 4 }}>
+      <Container id="main-content" tabIndex={-1} maxWidth="md" sx={{ py: 4 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
           Practice Quiz
         </Typography>
@@ -94,7 +94,7 @@ export default function Exam() {
   }
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Container id="main-content" tabIndex={-1} maxWidth="md" sx={{ py: 4 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
         Practice Quiz
       </Typography>

@@ -13,6 +13,25 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
+        <Box
+          component="a"
+          href="#main-content"
+          sx={{
+            position: 'absolute',
+            top: -9999,
+            left: -9999,
+            zIndex: 9999,
+            p: 1,
+            bgcolor: 'background.paper',
+            color: 'text.primary',
+            '&:focus': {
+              top: 8,
+              left: 8,
+            },
+          }}
+        >
+          Skip to main content
+        </Box>
         <Nav />
         <Box sx={{ pb: { xs: 7, sm: 7, md: 0 } }}>
           <Routes>

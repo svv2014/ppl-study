@@ -48,7 +48,7 @@ export default function Plan() {
   }
 
   return (
-    <Container maxWidth="md" sx={{ py: 4 }}>
+    <Container id="main-content" tabIndex={-1} maxWidth="md" sx={{ py: 4 }}>
       {/* ── Page header ── */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h4" gutterBottom>
