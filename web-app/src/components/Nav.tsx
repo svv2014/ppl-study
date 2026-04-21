@@ -16,7 +16,7 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 const NAV_LINKS = [
   { label: 'Home', shortLabel: 'Home', to: '/', icon: <HomeIcon /> },
   { label: 'Browse Lessons', shortLabel: 'Browse', to: '/lessons', icon: <MenuBookIcon /> },
-  { label: 'Practice Exam', shortLabel: 'Exam', to: '/exam', icon: <QuizIcon /> },
+  { label: 'Practice Quiz', shortLabel: 'Quiz', to: '/exam', icon: <QuizIcon /> },
   { label: 'Study Plan', shortLabel: 'Plan', to: '/plan', icon: <ChecklistIcon /> },
 ];
 

@@ -11,10 +11,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
@@ -90,7 +86,7 @@ export default function Exam() {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
-          Practice Exam
+          Practice Quiz
         </Typography>
         <Alert severity="info">No lessons with quiz questions found.</Alert>
       </Container>
@@ -100,24 +96,21 @@ export default function Exam() {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
-        Practice Exam
+        Practice Quiz
       </Typography>
 
-      <FormControl fullWidth sx={{ mb: 3 }}>
-        <InputLabel id="lesson-select-label">Lesson</InputLabel>
-        <Select
-          labelId="lesson-select-label"
-          value={selectedLessonId}
-          label="Lesson"
-          onChange={(e) => handleLessonChange(e.target.value)}
-        >
-          {lessons.map((l) => (
-            <MenuItem key={l.id} value={l.id}>
-              {formatLessonLabel(l.id, l.title)}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
+        {lessons.map((l) => (
+          <Button
+            key={l.id}
+            variant={selectedLessonId === l.id ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => handleLessonChange(l.id)}
+          >
+            {formatLessonLabel(l.id, l.title)}
+          </Button>
+        ))}
+      </Box>
 
       {phase === 'select' && selectedLesson && (
         <Box>
