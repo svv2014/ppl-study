@@ -27,6 +27,20 @@ In Progress — lessons being authored.
 - **NAV-012** `lessons/navigation/012-altitude-types.md`
 - **NAV-013** `lessons/navigation/013-density-altitude.md`
 - **NAV-014** `lessons/navigation/014-lost-procedure.md`
+- **GK-001** `lessons/general-knowledge/001-aircraft-parts-controls.md`
+- **GK-002** `lessons/general-knowledge/002-four-forces.md`
+- **GK-003** `lessons/general-knowledge/003-piston-engines.md`
+- **GK-004** `lessons/general-knowledge/004-fuel-system.md`
+- **GK-005** `lessons/general-knowledge/005-electrical-system.md`
+- **GK-006** `lessons/general-knowledge/006-pitot-static-instruments.md`
+- **GK-007** `lessons/general-knowledge/007-gyroscopic-instruments.md`
+- **GK-008** `lessons/general-knowledge/008-engine-instruments.md`
+- **GK-009** `lessons/general-knowledge/009-weight-and-balance.md`
+- **GK-010** `lessons/general-knowledge/010-performance-charts.md`
+- **GK-011** `lessons/general-knowledge/011-takeoff-landing-perf.md`
+- **GK-012** `lessons/general-knowledge/012-stalls-spins.md`
+- **GK-013** `lessons/general-knowledge/013-load-factor.md`
+- **GK-014** `lessons/general-knowledge/014-preflight-inspection.md`
 
 ## Audio
 
