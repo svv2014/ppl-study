@@ -6,7 +6,7 @@ slug: notams
 title: "NOTAMs"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/010-notams.m4a
 visual: null
 sources:
   - TP 12880E

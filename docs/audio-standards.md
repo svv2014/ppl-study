@@ -13,6 +13,24 @@ All lesson narration is generated with **Kokoro** using the following canonical 
 
 These parameters are fixed for the project. Do not mix voices or models between lessons — consistency across the audio library matters for listener experience.
 
+## Narration Extraction Rule
+
+Audio is generated from the **`## Narration Script`** section of each lesson file only — not the full lesson body. The script must:
+
+1. Locate the `## Narration Script` heading in the lesson body (after stripping YAML frontmatter).
+2. Extract all text from that heading up to (but not including) the next `## ` heading, or end-of-file.
+3. Strip all markdown formatting from the extracted text before passing it to Kokoro:
+   - Bold markers: `**text**` → `text`
+   - Italic markers: `*text*` → `text`
+   - Inline code: `` `text` `` → `text`
+   - Fenced code blocks: ` ```...``` ` → (removed)
+   - ATX headings: lines starting with `#` → plain text (strip the `# ` prefix)
+   - Horizontal rules: `---` lines → (removed)
+   - Table rows: lines containing `|` → (removed)
+   - Bullet markers: leading `- ` → (removed)
+
+If a lesson file has no `## Narration Script` section, the script exits with an error — do not fall back to narrating the whole lesson.
+
 ## R2 Path Convention
 
 Audio files are hosted on Cloudflare R2 under the `suprun-media` bucket. The R2 key mirrors the lesson markdown path exactly:
@@ -54,6 +72,6 @@ The script:
 
 **Skip if already set:** If the `audio:` frontmatter field in a lesson file is already a non-null URL, do not regenerate — the audio is considered authoritative. Overwriting a published URL risks breaking existing listener sessions.
 
-**Exception — AL-001:** Lesson `AL-001` (`lessons/air-law/001-airspace-classifications.md`) must be regenerated unconditionally when re-running the batch, as the initial recording predates these standards and used a different voice.
+**2026-04-21 cutoff — narration-extraction backfill:** Audio generated before 2026-04-21 was produced from the full lesson body, not the `## Narration Script` section. All 15 lessons existing on that date (AL-001 through AL-013, NAV-001, NAV-002) were regenerated with narration-only extraction as part of issue #141. Their `audio:` fields were nulled and re-set during that backfill. Any audio URL already present for these lessons after 2026-04-21 is considered authoritative under the narration-extraction standard.
 
 To force regeneration of a lesson that already has an audio URL, delete or null out the `audio:` field before running the script.

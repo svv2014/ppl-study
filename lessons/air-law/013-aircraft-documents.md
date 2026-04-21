@@ -6,7 +6,7 @@ slug: aircraft-documents
 title: "Aircraft Documents"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/013-aircraft-documents.m4a
 visual: null
 sources:
   - CARs 605.03
