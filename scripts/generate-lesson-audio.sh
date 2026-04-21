@@ -40,12 +40,13 @@ TMPBODY=$(mktemp /tmp/lesson-body-XXXXXX.txt)
 trap 'rm -f "$TMPBODY" "$LESSON_WAV" "$LESSON_M4A"' EXIT
 
 python3 - "$LESSON_MD" "$TMPBODY" <<'PYEOF'
-import sys
+import sys, re
 
 lesson_path, out_path = sys.argv[1], sys.argv[2]
 with open(lesson_path, encoding="utf-8") as f:
     content = f.read()
 
+# Strip YAML frontmatter
 if not content.startswith("---"):
     body = content
 else:
@@ -53,6 +54,24 @@ else:
     if close == -1:
         sys.exit("ERROR: frontmatter block never closed in " + lesson_path)
     body = content[close + 4:].lstrip("\n")
+
+# Extract only the Narration Script section (between ## Narration Script and the next ## heading)
+narration_match = re.search(r'^## Narration Script\s*\n(.*?)(?=\n## |\Z)', body, re.DOTALL | re.MULTILINE)
+if narration_match:
+    body = narration_match.group(1)
+
+# Strip markdown formatting
+# Bold markers: **text** -> text
+body = re.sub(r'\*\*(.+?)\*\*', r'\1', body)
+# Horizontal rules: --- on its own line
+body = re.sub(r'^---+\s*$', '', body, flags=re.MULTILINE)
+# Table rows: lines containing | ... |
+body = re.sub(r'^\|.*\|.*$', '', body, flags=re.MULTILINE)
+# Leading bullet markers: "- text" -> "text"
+body = re.sub(r'^- ', '', body, flags=re.MULTILINE)
+
+# Collapse multiple blank lines
+body = re.sub(r'\n{3,}', '\n\n', body).strip() + '\n'
 
 with open(out_path, "w", encoding="utf-8") as f:
     f.write(body)
