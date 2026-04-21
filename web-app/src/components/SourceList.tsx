@@ -40,7 +40,7 @@ export default function SourceList({ sources }: SourceListProps) {
                 label={src}
                 size="small"
                 variant="outlined"
-                sx={{ color: 'text.secondary', borderColor: 'text.disabled' }}
+                sx={{ color: 'text.secondary', borderColor: 'text.disabled', minHeight: 44, py: '10px' }}
               />
             );
           }
@@ -50,7 +50,7 @@ export default function SourceList({ sources }: SourceListProps) {
                 label={src}
                 size="small"
                 variant="outlined"
-                sx={{ color: 'text.secondary', borderColor: 'text.disabled' }}
+                sx={{ color: 'text.secondary', borderColor: 'text.disabled', minHeight: 44, py: '10px' }}
               />
             </Tooltip>
           );
