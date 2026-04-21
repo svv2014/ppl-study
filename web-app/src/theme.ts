@@ -30,6 +30,7 @@ const theme = createTheme({
   typography: {
     fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
     h1: {
+      fontFamily: "'Space Grotesk', 'Roboto', 'Helvetica', sans-serif",
       fontSize: '1.875rem',
       fontWeight: 700,
       lineHeight: 1.2,
@@ -38,6 +39,7 @@ const theme = createTheme({
       },
     },
     h2: {
+      fontFamily: "'Space Grotesk', 'Roboto', 'Helvetica', sans-serif",
       fontSize: '1.5rem',
       fontWeight: 700,
       lineHeight: 1.25,
@@ -46,6 +48,7 @@ const theme = createTheme({
       },
     },
     h3: {
+      fontFamily: "'Space Grotesk', 'Roboto', 'Helvetica', sans-serif",
       fontSize: '1.375rem',
       fontWeight: 600,
       lineHeight: 1.3,
@@ -54,6 +57,7 @@ const theme = createTheme({
       },
     },
     h4: {
+      fontFamily: "'Space Grotesk', 'Roboto', 'Helvetica', sans-serif",
       fontSize: '1.25rem',
       fontWeight: 600,
       lineHeight: 1.35,
