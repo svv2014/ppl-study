@@ -34,10 +34,10 @@ export default function Nav() {
 
   return (
     <>
-      <AppBar position="static" sx={{ backgroundColor: 'background.default' }}>
+      <AppBar position="sticky" sx={{ backgroundColor: 'rgba(10,22,40,0.85)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1, color: 'primary.main', fontWeight: 700 }}>
-            PPL Study
+            <span aria-hidden="true">✈ </span>PPL Study
           </Typography>
           {!isMobile &&
             NAV_LINKS.map(({ label, to }) => {
