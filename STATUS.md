@@ -41,6 +41,20 @@ In Progress — lessons being authored.
 - **GK-012** `lessons/general-knowledge/012-stalls-spins.md`
 - **GK-013** `lessons/general-knowledge/013-load-factor.md`
 - **GK-014** `lessons/general-knowledge/014-preflight-inspection.md`
+- **MET-001** `lessons/meteorology/001-the-atmosphere.md`
+- **MET-002** `lessons/meteorology/002-temperature-and-pressure.md`
+- **MET-003** `lessons/meteorology/003-wind.md`
+- **MET-004** `lessons/meteorology/004-moisture-and-clouds.md`
+- **MET-005** `lessons/meteorology/005-precipitation.md`
+- **MET-006** `lessons/meteorology/006-air-masses-and-fronts.md`
+- **MET-007** `lessons/meteorology/007-thunderstorms.md`
+- **MET-008** `lessons/meteorology/008-icing.md`
+- **MET-009** `lessons/meteorology/009-fog.md`
+- **MET-010** `lessons/meteorology/010-metar.md`
+- **MET-011** `lessons/meteorology/011-taf.md`
+- **MET-012** `lessons/meteorology/012-gfa.md`
+- **MET-013** `lessons/meteorology/013-pireps-and-sigmets.md`
+- **MET-014** `lessons/meteorology/014-weather-decision-making.md`
 
 ## Audio
 
