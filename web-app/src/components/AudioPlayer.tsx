@@ -13,7 +13,7 @@ export default function AudioPlayer({ src }: AudioPlayerProps) {
         label="Audio: In production"
         size="small"
         variant="outlined"
-        sx={{ color: 'primary.main', borderColor: 'primary.main' }}
+        color="info"
       />
     );
   }

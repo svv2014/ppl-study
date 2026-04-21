@@ -47,7 +47,7 @@ export default function QuizRunner({ questions, onComplete }: QuizRunnerProps) {
         <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
           Question {currentIndex + 1} of {questions.length}
         </Typography>
-        <LinearProgress variant="determinate" value={progress} />
+        <LinearProgress variant="determinate" value={progress} color="info" />
       </Box>
 
       <Typography variant="h6" sx={{ mb: 2 }}>
