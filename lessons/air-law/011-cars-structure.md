@@ -6,7 +6,7 @@ slug: cars-structure
 title: "CARs Structure"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/011-cars-structure.m4a
 visual: null
 sources:
   - TP 12880E

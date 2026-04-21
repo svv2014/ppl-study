@@ -57,12 +57,21 @@ else:
 
 # Extract only the Narration Script section (between ## Narration Script and the next ## heading)
 narration_match = re.search(r'^## Narration Script\s*\n(.*?)(?=\n## |\Z)', body, re.DOTALL | re.MULTILINE)
-if narration_match:
-    body = narration_match.group(1)
+if not narration_match:
+    sys.exit("ERROR: no '## Narration Script' section found in " + lesson_path)
+body = narration_match.group(1)
 
 # Strip markdown formatting
+# Fenced code blocks: ```...``` (multi-line)
+body = re.sub(r'```[^\n]*\n.*?```', '', body, flags=re.DOTALL)
 # Bold markers: **text** -> text
 body = re.sub(r'\*\*(.+?)\*\*', r'\1', body)
+# Italic markers: *text* -> text
+body = re.sub(r'\*(.+?)\*', r'\1', body)
+# Inline code: `text` -> text
+body = re.sub(r'`(.+?)`', r'\1', body)
+# ATX headings: strip leading # characters (e.g. ### Title -> Title)
+body = re.sub(r'^#{1,6}\s+', '', body, flags=re.MULTILINE)
 # Horizontal rules: --- on its own line
 body = re.sub(r'^---+\s*$', '', body, flags=re.MULTILINE)
 # Table rows: lines containing | ... |
@@ -107,5 +116,34 @@ rm -f "$LESSON_WAV"
 
 # Upload and capture the public URL
 PUBLIC_URL="$("$SCRIPT_DIR/upload-lesson-audio.sh" "$LESSON_M4A" "$LESSON_MD")"
+
+# Update the audio: frontmatter field in the lesson file
+python3 - "$LESSON_MD" "$PUBLIC_URL" <<'PYEOF'
+import sys, re
+
+lesson_path, url = sys.argv[1], sys.argv[2]
+with open(lesson_path, encoding="utf-8") as f:
+    content = f.read()
+
+if not content.startswith("---"):
+    sys.exit("ERROR: lesson has no YAML frontmatter: " + lesson_path)
+
+close = content.find("\n---", 3)
+if close == -1:
+    sys.exit("ERROR: frontmatter block never closed in " + lesson_path)
+
+frontmatter = content[3:close]
+rest = content[close:]
+
+if re.search(r'^audio:', frontmatter, re.MULTILINE):
+    # Replace existing audio: line (null, empty, or existing URL)
+    frontmatter = re.sub(r'^audio:.*$', f'audio: {url}', frontmatter, flags=re.MULTILINE)
+else:
+    # Append audio: field before closing ---
+    frontmatter = frontmatter.rstrip('\n') + f'\naudio: {url}\n'
+
+with open(lesson_path, "w", encoding="utf-8") as f:
+    f.write("---" + frontmatter + rest)
+PYEOF
 
 echo "$PUBLIC_URL"

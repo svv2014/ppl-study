@@ -6,7 +6,7 @@ slug: flight-plans-itineraries
 title: "VFR Flight Plans and Itineraries"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/009-flight-plans-itineraries.m4a
 visual: null
 sources:
   - CARs 602.73
