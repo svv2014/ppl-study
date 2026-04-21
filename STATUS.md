@@ -15,18 +15,18 @@ In Progress — lessons being authored.
 - **AL-003** `lessons/air-law/003-vfr-weather-minimums.md`
 - **NAV-001** `lessons/navigation/001-vfr-charts.md`
 - **NAV-002** `lessons/navigation/002-lat-lon-map-reading.md`
-- **NAV-003** `lessons/navigation/003-magnetic-variation.md`
-- **NAV-004** `lessons/navigation/004-true-magnetic-compass-headings.md`
+- **NAV-003** `lessons/navigation/003-true-magnetic-compass.md`
+- **NAV-004** `lessons/navigation/004-dead-reckoning-basics.md`
 - **NAV-005** `lessons/navigation/005-wind-correction-angle.md`
-- **NAV-006** `lessons/navigation/006-dead-reckoning.md`
-- **NAV-007** `lessons/navigation/007-time-speed-distance.md`
-- **NAV-008** `lessons/navigation/008-cross-country-flight-planning.md`
+- **NAV-006** `lessons/navigation/006-time-speed-distance.md`
+- **NAV-007** `lessons/navigation/007-fuel-planning.md`
+- **NAV-008** `lessons/navigation/008-cross-country-planning.md`
 - **NAV-009** `lessons/navigation/009-pilotage.md`
 - **NAV-010** `lessons/navigation/010-vor-navigation.md`
-- **NAV-011** `lessons/navigation/011-ndb-adf-navigation.md`
-- **NAV-012** `lessons/navigation/012-gps-vfr.md`
-- **NAV-013** `lessons/navigation/013-lost-procedures.md`
-- **NAV-014** `lessons/navigation/014-night-vfr-nav.md`
+- **NAV-011** `lessons/navigation/011-gps-basics.md`
+- **NAV-012** `lessons/navigation/012-altitude-types.md`
+- **NAV-013** `lessons/navigation/013-density-altitude.md`
+- **NAV-014** `lessons/navigation/014-lost-procedure.md`
 
 ## Audio
 

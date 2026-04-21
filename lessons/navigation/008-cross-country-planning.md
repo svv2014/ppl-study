@@ -2,8 +2,8 @@
 id: NAV-008
 topic: navigation
 order: 8
-slug: cross-country-flight-planning
-title: "Cross-Country Flight Planning"
+slug: cross-country-planning
+title: "Cross-Country Planning"
 duration_min: 20
 status: complete
 audio: null
@@ -60,7 +60,7 @@ questions:
     explanation: "CARs 602.34: Magnetic tracks 180°–359° (southbound) require EVEN thousands plus 500 feet: 2,500, 4,500, 6,500, 8,500 etc. A magnetic track of 225° is southbound, so 4,500 feet (even thousand 4,000 + 500) is correct. 5,500, 3,500 and 7,500 are odd thousands + 500, reserved for northbound tracks (000°–179°). Source: CARs 602.34."
 ---
 
-# Lesson NAV-008: Cross-Country Flight Planning
+# Lesson NAV-008: Cross-Country Planning
 
 **Section:** Navigation  
 **Lesson number:** 008  

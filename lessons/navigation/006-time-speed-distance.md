@@ -1,9 +1,9 @@
 ---
-id: NAV-007
+id: NAV-006
 topic: navigation
-order: 7
+order: 6
 slug: time-speed-distance
-title: "Time, Speed, and Distance Calculations"
+title: "Time-Speed-Distance Calculations"
 duration_min: 20
 status: complete
 audio: null
@@ -58,10 +58,10 @@ questions:
     explanation: "Distance = Speed × Time = 105 × (48 ÷ 60) = 105 × 0.8 = 84 NM. Or: 105 knots ÷ 60 = 1.75 NM/min × 48 min = 84 NM. Source: TP 12880E Chapter 9."
 ---
 
-# Lesson NAV-007: Time, Speed, and Distance Calculations
+# Lesson NAV-006: Time-Speed-Distance Calculations
 
 **Section:** Navigation  
-**Lesson number:** 007  
+**Lesson number:** 006  
 **Estimated time:** 20 minutes  
 **Source:** TP 12880E Chapter 9
 
@@ -69,7 +69,7 @@ questions:
 
 ## Narration Script
 
-Welcome to Lesson NAV-007. This is one of the most heavily tested topics on the Transport Canada PPL written exam. Time, speed, and distance calculations — TSD — appear in navigation questions, fuel planning questions, and ETA questions. The math itself is simple, but you need to be comfortable converting between hours and minutes, and you need to know when to use the E6B and when mental math is faster.
+Welcome to Lesson NAV-006. This is one of the most heavily tested topics on the Transport Canada PPL written exam. Time, speed, and distance calculations — TSD — appear in navigation questions, fuel planning questions, and ETA questions. The math itself is simple, but you need to be comfortable converting between hours and minutes, and you need to know when to use the E6B and when mental math is faster.
 
 ---
 
@@ -261,4 +261,4 @@ Step 4: Total = 24.8 + 4 = **28.8 USG**
 
 ---
 
-*End of Lesson NAV-007.*
+*End of Lesson NAV-006.*

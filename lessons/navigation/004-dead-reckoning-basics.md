@@ -1,9 +1,9 @@
 ---
-id: NAV-006
+id: NAV-004
 topic: navigation
-order: 6
-slug: dead-reckoning
-title: "Dead Reckoning Navigation"
+order: 4
+slug: dead-reckoning-basics
+title: "Dead Reckoning"
 duration_min: 20
 status: complete
 audio: null
@@ -49,10 +49,10 @@ questions:
     explanation: "In dead reckoning, position is estimated by projecting from the last known point. Any small error in heading or ground speed estimate multiplies with time: a 2° heading error becomes a 3.5 NM track error after 100 NM. Regular checkpoint verification is essential to correct accumulated errors. Source: TP 12880E Chapter 9."
 ---
 
-# Lesson NAV-006: Dead Reckoning Navigation
+# Lesson NAV-004: Dead Reckoning
 
 **Section:** Navigation  
-**Lesson number:** 006  
+**Lesson number:** 004  
 **Estimated time:** 20 minutes  
 **Source:** TP 12880E Chapter 9
 
@@ -60,7 +60,7 @@ questions:
 
 ## Narration Script
 
-Welcome to Lesson NAV-006. Dead reckoning is the foundation of all VFR cross-country navigation. Before GPS, before VOR, before radio navigation of any kind, pilots flew cross-country using only their chart, a compass, a watch, and their knowledge of airspeed and wind. That technique is dead reckoning — and Transport Canada expects you to understand it thoroughly, because it underpins everything else.
+Welcome to Lesson NAV-004. Dead reckoning is the foundation of all VFR cross-country navigation. Before GPS, before VOR, before radio navigation of any kind, pilots flew cross-country using only their chart, a compass, a watch, and their knowledge of airspeed and wind. That technique is dead reckoning — and Transport Canada expects you to understand it thoroughly, because it underpins everything else.
 
 ---
 
@@ -211,4 +211,4 @@ For actual flight, practise filling out a PLOG before your first dual cross-coun
 
 ---
 
-*End of Lesson NAV-006.*
+*End of Lesson NAV-004.*

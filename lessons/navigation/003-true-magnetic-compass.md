@@ -2,8 +2,8 @@
 id: NAV-003
 topic: navigation
 order: 3
-slug: magnetic-variation
-title: "Magnetic Variation and Compass Deviation"
+slug: true-magnetic-compass
+title: "True vs Magnetic vs Compass Heading"
 duration_min: 20
 status: complete
 audio: null
@@ -51,7 +51,7 @@ questions:
     explanation: "With easterly variation, you SUBTRACT the variation from true to get magnetic: 090° − 25° = 065°. Easterly variation means magnetic north is east of true north, so compass headings are numerically less than true headings. Source: TP 12880E Chapter 9, AIM GEN 1.1."
 ---
 
-# Lesson NAV-003: Magnetic Variation and Compass Deviation
+# Lesson NAV-003: True vs Magnetic vs Compass Heading
 
 **Section:** Navigation  
 **Lesson number:** 003  
@@ -73,6 +73,20 @@ When you draw a line on a VFR Navigation Chart and measure its direction with a 
 Your compass, however, does not point at True North. It points toward the **Magnetic North Pole**, which is a moving point in the Canadian Arctic caused by the Earth's molten iron core. As of recent years, the magnetic north pole has been drifting northwestward over the Arctic Ocean.
 
 The angular difference between True North and Magnetic North at any given location is called **magnetic variation** — sometimes also called magnetic declination. This difference is expressed in degrees East or West.
+
+---
+
+**The Three Heading Types**
+
+Understanding the difference between True, Magnetic, and Compass headings is fundamental to all VFR navigation:
+
+**True Heading** — measured from True North (geographic North Pole). This is what you measure on the chart with your plotter.
+
+**Magnetic Heading** — measured from Magnetic North. This is what you get after applying variation to the true heading.
+
+**Compass Heading** — what the cockpit compass actually indicates. This accounts for the aircraft's own magnetic interference (deviation).
+
+The conversion chain is: **True → (variation) → Magnetic → (deviation) → Compass**
 
 ---
 
@@ -188,7 +202,7 @@ For the Transport Canada PPL written exam, you will likely be asked to apply var
 
 ---
 
-## Quick Reference: Magnetic Variation and Deviation
+## Quick Reference: True, Magnetic, and Compass Headings
 
 | Concept | Definition | Direction Rule |
 |---------|-----------|----------------|
