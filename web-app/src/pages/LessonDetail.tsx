@@ -7,11 +7,19 @@ import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useState, type ReactNode } from 'react';
 import AudioPlayer from '../components/AudioPlayer';
 import SourceList from '../components/SourceList';
 import { getLessonBySlug } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
+
+function MarkdownTable({ children }: { children?: ReactNode }) {
+  return (
+    <Box sx={{ overflowX: 'auto', width: '100%', my: 1 }}>
+      <table>{children}</table>
+    </Box>
+  );
+}
 
 const mdOptions = {
   overrides: {
@@ -48,6 +56,7 @@ const mdOptions = {
         },
       },
     },
+    table: { component: MarkdownTable },
     blockquote: {
       component: Box,
       props: {
