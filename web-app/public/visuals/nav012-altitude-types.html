@@ -3,158 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NAV-012: Altitude Types</title>
+<title>NAV-012 — Altitude Types</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
-  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
-  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
-  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
-
-  /* ── Altitude stack ──────────────────────────────────────────────── */
-  .stack-layout { display: flex; gap: 24px; margin-bottom: 32px; flex-wrap: wrap; }
-  .stack-svg { flex-shrink: 0; }
-  .stack-legend { flex: 1; min-width: 240px; display: flex; flex-direction: column; gap: 8px; }
-  .alt-card { border-radius: 8px; padding: 12px 16px; border: 1.5px solid; }
-  .alt-card .abbr { font-size: 14px; font-weight: 800; margin-bottom: 2px; }
-  .alt-card .name { font-size: 11px; margin-bottom: 6px; }
-  .alt-card .desc { font-size: 11px; color: #c8d8e8; line-height: 1.4; }
-
-  /* ── Altimeter settings table ────────────────────────────────────── */
-  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
-  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  .label-col { color: #f0c040; font-weight: 700; }
-  .set-val { color: #80e080; font-weight: 700; }
-
-  /* ── Cold temperature warning ────────────────────────────────────── */
-  .warn-box { background: #1a0a0a; border: 1.5px solid #5a1a1a; border-radius: 10px; padding: 16px 20px; margin-bottom: 28px; }
-  .warn-box h3 { font-size: 13px; font-weight: 700; color: #ff8080; margin-bottom: 8px; }
-  .warn-box p { font-size: 12px; color: #c8d8c8; line-height: 1.7; }
-  .warn-box strong { color: #f0c040; }
-
-  /* ── Hook box ────────────────────────────────────────────────────── */
-  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
-  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
-  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
-  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
-  .hook-text strong { color: #f0c040; }
+  body { background: #0d1b2a; color: #c8d8e8; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; line-height: 1.6; padding: 32px 16px; }
+  .container { max-width: 860px; margin: auto; padding: 0; }
+  h1 { color: #f0c040; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: #7a9ab5; font-size: 13px; margin-bottom: 32px; }
+  .section-label { color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; margin-top: 28px; }
+  .card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; margin-bottom: 16px; }
+  .card h3 { color: #f0c040; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .card p, .card li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+  .card ul { padding-left: 18px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  th { background: #1a2d3d; color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px; text-align: left; }
+  td { padding: 8px 12px; border-bottom: 1px solid #1a2d3d; color: #c8d8e8; font-size: 12px; vertical-align: top; }
+  td strong { color: #f0c040; }
+  .memory-hook { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #80c880; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; margin-bottom: 10px; }
+  .memory-hook p, .memory-hook li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+  .memory-hook ul { padding-left: 18px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
 </style>
 </head>
 <body>
+<div class="container">
+  <h1>NAV-012 — Altitude Types</h1>
+  <div class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</div>
 
-<h1>NAV-012 — Altitude Types</h1>
-<p class="subtitle">Transport Canada · TP 12880E Ch.9, Ch.10 · PPL Written Exam</p>
+  <div class="section-label">Vertical Stack — Altitude Reference Layers</div>
+  <div class="card" style="padding: 12px 16px;">
+    <svg viewBox="0 0 820 360" width="100%" style="display:block;">
+      <rect width="820" height="360" fill="#0d1a30" rx="8"/>
 
-<div class="section-label">Six Altitude Types — Visual Stack</div>
-<div class="stack-layout">
-  <!-- Altitude diagram -->
-  <svg class="stack-svg" width="180" height="320" viewBox="0 0 180 320" aria-label="Diagram showing six altitude types measured from different reference datums">
-    <rect width="180" height="320" fill="#071520" rx="10"/>
+      <!-- Sky gradient background -->
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0a1828"/>
+          <stop offset="100%" stop-color="#0d2240"/>
+        </linearGradient>
+      </defs>
+      <rect width="820" height="360" fill="url(#skyGrad)" rx="8"/>
 
-    <!-- Ground surface -->
-    <rect x="0" y="280" width="180" height="40" fill="#1a2d1a" rx="0"/>
-    <text x="90" y="298" text-anchor="middle" fill="#7a9ab5" font-size="9" font-family="sans-serif">Ground Surface</text>
+      <!-- Ground layer -->
+      <rect x="0" y="310" width="820" height="50" fill="#1a1408" rx="0"/>
+      <rect x="0" y="308" width="820" height="4" fill="#2a3a1a"/>
+      <!-- Ground undulation -->
+      <path d="M0,310 Q100,295 200,308 Q300,320 400,305 Q500,292 600,310 Q700,325 820,308 L820,360 L0,360 Z" fill="#141008" opacity="0.5"/>
+      <text x="50" y="332" fill="#5a7a3a" font-size="10">Ground level (terrain)</text>
 
-    <!-- Sea level line -->
-    <line x1="0" y1="250" x2="180" y2="250" stroke="#3a7ad5" stroke-width="1.5" stroke-dasharray="4,3"/>
-    <text x="90" y="263" text-anchor="middle" fill="#3a7ad5" font-size="8" font-family="sans-serif">Sea Level (ASL datum)</text>
+      <!-- Terrain elevation bump (mountain) -->
+      <path d="M600,310 L680,240 L760,310 Z" fill="#1a2a0a" stroke="#2a4a1a" stroke-width="1"/>
+      <text x="680" y="230" text-anchor="middle" fill="#5a7a3a" font-size="9">Terrain</text>
 
-    <!-- Standard pressure datum -->
-    <line x1="0" y1="220" x2="180" y2="220" stroke="#9050d0" stroke-width="1.5" stroke-dasharray="4,3"/>
-    <text x="90" y="213" text-anchor="middle" fill="#9050d0" font-size="8" font-family="sans-serif">Standard Pressure (29.92" Hg)</text>
+      <!-- MSL layer line -->
+      <line x1="30" y1="280" x2="580" y2="280" stroke="#3a6a8a" stroke-width="1.5" stroke-dasharray="6,3"/>
+      <text x="585" y="284" fill="#3a6a8a" font-size="10">MSL / ASL</text>
 
-    <!-- Aircraft position -->
-    <circle cx="90" cy="80" r="6" fill="#f0c040"/>
-    <polygon points="90,74 84,86 90,82 96,86" fill="#f0c040"/>
-    <text x="100" y="75" fill="#f0c040" font-size="8" font-family="sans-serif">Aircraft</text>
+      <!-- Aircraft position -->
+      <g transform="translate(300,160)">
+        <polygon points="0,-14 -7,9 0,5 7,9" fill="#f0c040" stroke="#c09000" stroke-width="1.5"/>
+        <line x1="-12" y1="1" x2="12" y2="1" stroke="#f0c040" stroke-width="2"/>
+      </g>
 
-    <!-- Indicated (IA) - from ground to aircraft via altimeter -->
-    <line x1="30" y1="250" x2="30" y2="80" stroke="#5ba3f5" stroke-width="2"/>
-    <polygon points="30,80 26,92 30,87 34,92" fill="#5ba3f5"/>
-    <text x="8" y="168" fill="#5ba3f5" font-size="8" font-family="sans-serif" transform="rotate(-90 8 168)">Indicated</text>
+      <!-- Pressure altitude line (ISA 29.92) -->
+      <line x1="30" y1="140" x2="580" y2="140" stroke="#c87040" stroke-width="1" stroke-dasharray="4,4"/>
+      <text x="585" y="144" fill="#c87040" font-size="9">Pressure altitude</text>
+      <text x="585" y="155" fill="#c87040" font-size="9">(ISA 29.92)</text>
 
-    <!-- True (ASL) - from MSL to aircraft -->
-    <line x1="60" y1="250" x2="60" y2="80" stroke="#80e080" stroke-width="2"/>
-    <polygon points="60,80 56,92 60,87 64,92" fill="#80e080"/>
-    <text x="38" y="168" fill="#80e080" font-size="8" font-family="sans-serif" transform="rotate(-90 38 168)">True ASL</text>
+      <!-- Dimension arrows: AGL -->
+      <!-- AGL arrow: aircraft to ground below -->
+      <line x1="140" y1="174" x2="140" y2="308" stroke="#80c880" stroke-width="1.5"/>
+      <polygon points="140,174 136,184 144,184" fill="#80c880"/>
+      <polygon points="140,308 136,298 144,298" fill="#80c880"/>
+      <rect x="92" y="228" width="52" height="18" fill="#0d1a30" rx="3"/>
+      <text x="118" y="241" text-anchor="middle" fill="#80c880" font-size="11" font-weight="700">AGL</text>
 
-    <!-- Absolute (AGL) - from ground to aircraft -->
-    <line x1="90" y1="280" x2="90" y2="80" stroke="#f0c040" stroke-width="2"/>
-    <polygon points="90,80 86,92 90,87 94,92" fill="#f0c040"/>
-    <text x="68" y="185" fill="#f0c040" font-size="8" font-family="sans-serif" transform="rotate(-90 68 185)">Absolute AGL</text>
+      <!-- ASL arrow: aircraft to MSL -->
+      <line x1="185" y1="174" x2="185" y2="278" stroke="#4a9ab5" stroke-width="1.5"/>
+      <polygon points="185,174 181,184 189,184" fill="#4a9ab5"/>
+      <polygon points="185,278 181,268 189,268" fill="#4a9ab5"/>
+      <rect x="152" y="216" width="42" height="18" fill="#0d1a30" rx="3"/>
+      <text x="173" y="229" text-anchor="middle" fill="#4a9ab5" font-size="11" font-weight="700">ASL</text>
 
-    <!-- Pressure - from std pressure to aircraft -->
-    <line x1="120" y1="220" x2="120" y2="80" stroke="#c050c0" stroke-width="2"/>
-    <polygon points="120,80 116,92 120,87 124,92" fill="#c050c0"/>
-    <text x="98" y="153" fill="#c050c0" font-size="8" font-family="sans-serif" transform="rotate(-90 98 153)">Pressure</text>
+      <!-- Indicated altitude arrow -->
+      <line x1="230" y1="174" x2="230" y2="278" stroke="#c8d8e8" stroke-width="1.5" stroke-dasharray="5,2"/>
+      <polygon points="230,174 226,184 234,184" fill="#c8d8e8"/>
+      <polygon points="230,278 226,268 234,268" fill="#c8d8e8"/>
+      <text x="240" y="200" fill="#c8d8e8" font-size="9">Indicated</text>
+      <text x="240" y="212" fill="#c8d8e8" font-size="9">(QNH set)</text>
 
-    <!-- Density - from std corrected -->
-    <line x1="150" y1="230" x2="150" y2="80" stroke="#ff8080" stroke-width="2"/>
-    <polygon points="150,80 146,92 150,87 154,92" fill="#ff8080"/>
-    <text x="128" y="158" fill="#ff8080" font-size="8" font-family="sans-serif" transform="rotate(-90 128 158)">Density</text>
+      <!-- True altitude arrow -->
+      <line x1="360" y1="174" x2="360" y2="278" stroke="#b080e0" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <polygon points="360,174 356,184 364,184" fill="#b080e0"/>
+      <polygon points="360,278 356,268 364,268" fill="#b080e0"/>
+      <text x="370" y="200" fill="#b080e0" font-size="9">True alt</text>
+      <text x="370" y="212" fill="#b080e0" font-size="9">(temp corrected)</text>
 
-    <!-- Flight Level reference -->
-    <text x="90" y="15" text-anchor="middle" fill="#9050d0" font-size="8" font-family="sans-serif">FL = PA ÷ 100</text>
-    <text x="90" y="26" text-anchor="middle" fill="#7a9ab5" font-size="7" font-family="sans-serif">(above transition)</text>
-  </svg>
+      <!-- Pressure altitude arrow: aircraft to pressure line -->
+      <line x1="420" y1="174" x2="420" y2="143" stroke="#c87040" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <polygon points="420,143 416,153 424,153" fill="#c87040"/>
+      <line x1="420" y1="174" x2="420" y2="278" stroke="#c87040" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <polygon points="420,278 416,268 424,268" fill="#c87040"/>
+      <text x="430" y="210" fill="#c87040" font-size="9">Pressure</text>
+      <text x="430" y="222" fill="#c87040" font-size="9">altitude</text>
+      <text x="430" y="234" fill="#c87040" font-size="9">(set 29.92)</text>
 
-  <div class="stack-legend">
-    <div class="alt-card" style="background:#0a1a35; border-color:#5ba3f5;">
-      <div class="abbr" style="color:#5ba3f5;">IA — Indicated Altitude</div>
-      <div class="name" style="color:#7a9ab5;">What the altimeter reads (QNH set)</div>
-      <div class="desc">Altimeter subscale set to current QNH. Reading is approximate height ASL. Most used in flight.</div>
-    </div>
-    <div class="alt-card" style="background:#0a1a35; border-color:#80e080;">
-      <div class="abbr" style="color:#80e080;">TA — True Altitude</div>
-      <div class="name" style="color:#7a9ab5;">Actual height above sea level</div>
-      <div class="desc">Indicated altitude corrected for temperature deviation from ISA. Used for terrain clearance calculations.</div>
-    </div>
-    <div class="alt-card" style="background:#0a1a35; border-color:#f0c040;">
-      <div class="abbr" style="color:#f0c040;">AA — Absolute Altitude</div>
-      <div class="name" style="color:#7a9ab5;">Height above ground (AGL)</div>
-      <div class="desc">True altitude minus terrain elevation. What matters for obstacle clearance in the local area.</div>
-    </div>
-    <div class="alt-card" style="background:#0a1a35; border-color:#c050c0;">
-      <div class="abbr" style="color:#c050c0;">PA — Pressure Altitude</div>
-      <div class="name" style="color:#7a9ab5;">Altimeter set to 29.92" Hg (1013.25 hPa)</div>
-      <div class="desc">Used for performance calculations (POH tables). Also the basis for Flight Levels above the transition altitude.</div>
-    </div>
-    <div class="alt-card" style="background:#0a1a35; border-color:#ff8080;">
-      <div class="abbr" style="color:#ff8080;">DA — Density Altitude</div>
-      <div class="name" style="color:#7a9ab5;">Pressure altitude corrected for temperature</div>
-      <div class="desc">What the engine and wings "feel." High DA = hot/high/humid = degraded performance. (→ NAV-013)</div>
-    </div>
-    <div class="alt-card" style="background:#0a1a35; border-color:#9050d0;">
-      <div class="abbr" style="color:#9050d0;">FL — Flight Level</div>
-      <div class="name" style="color:#7a9ab5;">Pressure altitude in hundreds of feet</div>
-      <div class="desc">Used above the transition altitude (18,000 ft in Canada). Set altimeter to 29.92" Hg. FL180 = 18,000 ft PA.</div>
-    </div>
+      <!-- Density altitude label -->
+      <rect x="470" y="154" width="80" height="22" fill="#1a1a0a" stroke="#f0c040" stroke-width="1" rx="3"/>
+      <text x="510" y="169" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="700">Density Alt</text>
+      <text x="510" y="188" text-anchor="middle" fill="#c87040" font-size="9">PA + temp correction</text>
+
+      <!-- Legend box -->
+      <rect x="30" y="40" width="300" height="90" fill="#0a1828" stroke="#1a3a5a" stroke-width="1" rx="5"/>
+      <text x="40" y="58" fill="#7a9ab5" font-size="10" font-weight="700">LEGEND</text>
+      <line x1="40" y1="68" x2="65" y2="68" stroke="#80c880" stroke-width="1.5"/>
+      <text x="70" y="72" fill="#80c880" font-size="9">AGL — Above Ground Level</text>
+      <line x1="40" y1="82" x2="65" y2="82" stroke="#4a9ab5" stroke-width="1.5"/>
+      <text x="70" y="86" fill="#4a9ab5" font-size="9">ASL/MSL — Above Sea Level</text>
+      <line x1="40" y1="96" x2="65" y2="96" stroke="#c8d8e8" stroke-width="1.5" stroke-dasharray="5,2"/>
+      <text x="70" y="100" fill="#c8d8e8" font-size="9">Indicated (altimeter reading)</text>
+      <line x1="40" y1="110" x2="65" y2="110" stroke="#b080e0" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <text x="70" y="114" fill="#b080e0" font-size="9">True altitude (temp corrected)</text>
+      <line x1="40" y1="124" x2="65" y2="124" stroke="#c87040" stroke-width="1.5" stroke-dasharray="4,3"/>
+      <text x="70" y="128" fill="#c87040" font-size="9">Pressure altitude (29.92)</text>
+    </svg>
+  </div>
+
+  <div class="section-label">All Six Altitude Types — Reference Table</div>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr>
+          <th>Altitude Type</th>
+          <th>Definition</th>
+          <th>Altimeter Setting</th>
+          <th>When It Matters</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Indicated</strong></td>
+          <td>What the altimeter reads — uncorrected for temperature or non-standard pressure</td>
+          <td>Current QNH (local altimeter setting)</td>
+          <td>ATC clearances, cruising altitudes, IFR separation</td>
+        </tr>
+        <tr>
+          <td><strong>True</strong></td>
+          <td>Actual height above mean sea level, corrected for temperature deviation from ISA</td>
+          <td>QNH + temperature correction</td>
+          <td>Terrain clearance calculations, precise navigation</td>
+        </tr>
+        <tr>
+          <td><strong>Absolute</strong></td>
+          <td>Height above the terrain directly below the aircraft (AGL)</td>
+          <td>Radio altimeter (no subscale setting)</td>
+          <td>Low-level ops, landing flare, helicopter ops</td>
+        </tr>
+        <tr>
+          <td><strong>Pressure</strong></td>
+          <td>Altitude above the standard datum plane (29.92 inHg / 1013.25 hPa)</td>
+          <td>Set altimeter to 29.92 inHg</td>
+          <td>Flight levels (above 18,000 ft), performance charts, transition altitude</td>
+        </tr>
+        <tr>
+          <td><strong>Density</strong></td>
+          <td>Pressure altitude corrected for non-standard temperature — the altitude the atmosphere "feels" like</td>
+          <td>Performance charts (not altimeter)</td>
+          <td>Takeoff/landing distance, climb performance, engine power output</td>
+        </tr>
+        <tr>
+          <td><strong>MSL / ASL</strong></td>
+          <td>Height measured from mean sea level — used for published elevations</td>
+          <td>Referenced from sea level datum</td>
+          <td>Airport elevation, obstacle clearance charts, terrain maps</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">Memory Hook</div>
+  <div class="memory-hook">
+    <div class="badge">Memory Hook</div>
+    <ul>
+      <li><strong style="color:#80c880">"Indicated for ATC, Pressure for Performance, Density for Departures"</strong> — the three Ps of altitude</li>
+      <li><strong style="color:#80c880">Cold = lower than indicated:</strong> On a cold day, true altitude is LOWER than indicated — you are closer to terrain than the altimeter suggests. "From high to low, look out below."</li>
+      <li><strong style="color:#80c880">QNH vs QNE:</strong> QNH = local pressure (use for normal flight below FL180); QNE = 29.92 standard (use for flight levels and performance charts)</li>
+      <li><strong style="color:#80c880">Density altitude = aircraft performance:</strong> High DA = longer takeoff roll, slower climb, reduced engine power — even if indicated altitude looks fine.</li>
+    </ul>
   </div>
 </div>
-
-<div class="section-label">Altimeter Settings (QNH / QNE / QFE)</div>
-<table>
-  <tr><th>Setting</th><th>Value Set</th><th>Reads</th><th>Used For</th></tr>
-  <tr><td class="label-col">QNH</td><td>Local sea-level pressure</td><td class="set-val">Indicated altitude ≈ ASL</td><td>Normal VFR flight; airspace compliance; terrain clearance</td></tr>
-  <tr><td class="label-col">QNE</td><td>Standard pressure 29.92" Hg</td><td class="set-val">Pressure altitude / Flight Level</td><td>Above transition altitude; performance tables; Flight Levels in controlled airspace</td></tr>
-  <tr><td class="label-col">QFE</td><td>Field elevation pressure</td><td class="set-val">Height AGL above aerodrome</td><td>Rarely used in Canada; reads zero on the runway</td></tr>
-</table>
-
-<div class="warn-box">
-  <h3>Cold Temperature Warning — Aircraft Lower Than Indicated</h3>
-  <p>In cold temperatures below ISA, air is denser and the altimeter <strong>over-reads</strong>. Your aircraft is <strong>lower than the altimeter indicates</strong>. This matters for instrument approaches and terrain clearance. The colder the temperature (and the higher the altitude), the greater the error. Transport Canada publishes cold temperature correction tables — critical for IFR approaches but also relevant as a PPL concept.</p>
-  <p style="margin-top:8px;">Rule: <strong>High to low (temperature) = look out below.</strong></p>
-</div>
-
-<div class="hook-box">
-  <h2>Exam Memory Hooks</h2>
-  <div class="hook-row"><span class="hook-badge">AGL vs ASL</span><span class="hook-text"><strong>ASL = above sea level</strong> (altimeter QNH). <strong>AGL = above ground level</strong> (how high above the terrain you are). Obstacle charts list heights AGL; altimeters read ASL.</span></div>
-  <div class="hook-row"><span class="hook-badge">PA</span><span class="hook-text"><strong>Pressure Altitude</strong> = altimeter set to 29.92" Hg. Always use PA for POH performance charts. PA is independent of local weather — good for comparing performance data.</span></div>
-  <div class="hook-row"><span class="hook-badge">FL</span><span class="hook-text">Flight Level = Pressure Altitude ÷ 100. FL185 = 18,500 ft PA. <strong>Above the transition altitude (18,000 ft ASL in Canada)</strong>, all aircraft set 29.92" and use FL notation.</span></div>
-</div>
-
 </body>
 </html>

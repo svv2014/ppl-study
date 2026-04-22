@@ -6,39 +6,28 @@
 <title>NAV-007: Fuel Planning</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; margin: auto; }
   h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
   .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
   .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
 
-  /* ── Step flow ───────────────────────────────────────────────────── */
-  .flow { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
-  .flow-step { display: flex; gap: 16px; align-items: flex-start; }
-  .flow-left { display: flex; flex-direction: column; align-items: center; }
-  .flow-num { width: 36px; height: 36px; border-radius: 50%; background: #1a3a5a; border: 2px solid #3a7ad5; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: #f0c040; flex-shrink: 0; }
-  .flow-line { width: 2px; flex: 1; background: #1a3a5a; min-height: 20px; margin: 4px 0; }
-  .flow-content { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; flex: 1; }
-  .flow-content h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 6px; }
-  .flow-content p { font-size: 12px; color: #c8d8e8; line-height: 1.6; }
-  .flow-content .eq { font-size: 14px; font-weight: 700; color: #f0c040; background: #071520; border-radius: 4px; padding: 6px 10px; display: inline-block; margin-top: 6px; }
+  .grid-wrap { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 20px; margin-bottom: 32px; display: flex; justify-content: center; }
 
-  /* ── Reserve table ───────────────────────────────────────────────── */
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .info-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; }
+  .info-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
+  .info-card p  { font-size: 12px; color: #c8d8e8; line-height: 1.75; }
+  .info-card .big { font-size: 22px; font-weight: 800; color: #f0c040; text-align: center; padding: 8px 0; letter-spacing: 1px; }
+  .info-card .sub { font-size: 11px; color: #7a9ab5; text-align: center; margin-top: 2px; }
+
   table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
   th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
+  td { padding: 10px; border-bottom: 1px solid #1a2d3d; color: #c8d8e8; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
-  .req { color: #f0c040; font-weight: 700; }
-  .warn { color: #ff8080; }
+  td strong { color: #f0c040; }
+  td.total-row { background: #1a2d3d; color: #f0c040; font-weight: 700; }
 
-  /* ── Conversion card ─────────────────────────────────────────────── */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
-  .card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; }
-  .card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
-  .card ul { list-style: none; }
-  .card ul li { font-size: 12px; color: #c8d8e8; padding: 4px 0; }
-  .card ul li::before { content: "· "; color: #f0c040; }
-
-  /* ── Hook box ────────────────────────────────────────────────────── */
   .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
   .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
   .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
@@ -50,99 +39,178 @@
 <body>
 
 <h1>NAV-007 — Fuel Planning</h1>
-<p class="subtitle">Transport Canada · CARs 602.88 · TP 12880E Ch.9 · PPL Written Exam</p>
+<p class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</p>
 
-<div class="section-label">Fuel Calculation — Step by Step</div>
-<div class="flow">
-  <div class="flow-step">
-    <div class="flow-left">
-      <div class="flow-num">1</div>
-      <div class="flow-line"></div>
-    </div>
-    <div class="flow-content">
-      <h3>Calculate Time En Route</h3>
-      <p>Use Ground Speed (from E6B wind solution) and total distance.</p>
-      <span class="eq">Time (hr) = Distance (NM) ÷ Ground Speed (kt)</span>
-    </div>
+<!-- ── FUEL BAR DIAGRAM ───────────────────────────────────────────────── -->
+<div class="section-label">Fuel Load Breakdown — Stacked Bar Diagram</div>
+<div class="grid-wrap">
+  <svg width="760" height="220" viewBox="0 0 760 220" style="max-width:100%;">
+
+    <!-- Background -->
+    <rect x="10" y="10" width="740" height="200" fill="#0d2040" rx="6"/>
+
+    <!-- Bar label -->
+    <text x="30" y="42" font-size="11" fill="#7a9ab5" font-weight="600">USABLE FUEL CAPACITY</text>
+
+    <!-- Total bar outline -->
+    <rect x="30" y="55" width="700" height="60" fill="#0a1a35" rx="5" stroke="#2a4a6a" stroke-width="1.5"/>
+
+    <!-- Taxi / contingency: 5L / 93L * 700 = ~38px -->
+    <rect x="30" y="55" width="38" height="60" fill="#8040c0" rx="5 0 0 5"/>
+
+    <!-- Trip fuel: 70L / 93L total → 70/93 * 700 = ~527px -->
+    <rect x="68" y="55" width="527" height="60" fill="#2a5a9a"/>
+
+    <!-- Reserve: 18L / 93L * 700 = ~135px -->
+    <rect x="595" y="55" width="135" height="60" fill="#c05020"/>
+
+    <!-- Remainder/margin line -->
+    <line x1="729" y1="55" x2="729" y2="115" stroke="#2a4a6a" stroke-width="1"/>
+
+    <!-- Bar labels inside -->
+    <text x="66" y="79" font-size="10" fill="#ffffff" font-weight="600">Trip Fuel</text>
+    <text x="66" y="93" font-size="10" fill="#c8d8e8">70 L (2.0 hr × 35 L/hr)</text>
+    <text x="610" y="79" font-size="10" fill="#ffffff" font-weight="600">Reserve</text>
+    <text x="610" y="93" font-size="10" fill="#c8d8e8">18 L (30 min)</text>
+    <text x="32" y="79" font-size="8" fill="#c0a0e0" font-weight="600">Taxi</text>
+    <text x="32" y="91" font-size="8" fill="#c0a0e0">5 L</text>
+
+    <!-- Bracket below showing total -->
+    <line x1="30"  y1="125" x2="30"  y2="135" stroke="#7a9ab5" stroke-width="1.5"/>
+    <line x1="729" y1="125" x2="729" y2="135" stroke="#7a9ab5" stroke-width="1.5"/>
+    <line x1="30"  y1="130" x2="729" y2="130" stroke="#7a9ab5" stroke-width="1.5"/>
+    <text x="374" y="148" text-anchor="middle" font-size="12" fill="#f0c040" font-weight="700">Total Required: 93 L</text>
+
+    <!-- Legend row at bottom -->
+    <rect x="30"  y="165" width="14" height="14" fill="#8040c0" rx="2"/>
+    <text x="50"  y="176" font-size="11" fill="#c8d8e8">Taxi/Contingency (5 L)</text>
+    <rect x="220" y="165" width="14" height="14" fill="#2a5a9a" rx="2"/>
+    <text x="240" y="176" font-size="11" fill="#c8d8e8">Trip Fuel (70 L)</text>
+    <rect x="380" y="165" width="14" height="14" fill="#c05020" rx="2"/>
+    <text x="400" y="176" font-size="11" fill="#c8d8e8">VFR Reserve — 30 min (18 L)</text>
+
+    <!-- CAR reference -->
+    <text x="380" y="198" text-anchor="middle" font-size="10" fill="#7a9ab5">CAR 602.88 — VFR Day: minimum 30 min reserve at normal cruise power</text>
+
+  </svg>
+</div>
+
+<!-- ── FORMULA CARDS ──────────────────────────────────────────────────── -->
+<div class="section-label">Key Formulas</div>
+<div class="two-col">
+  <div class="info-card">
+    <h3>Fuel Required</h3>
+    <div class="big">L = FF × T</div>
+    <div class="sub">Fuel Flow (L/hr) × Time (hrs)</div>
+    <p style="margin-top:12px;"><strong>Example:</strong> FF = 35 L/hr, trip = 2.0 hr<br>
+    <strong>Trip fuel = 35 × 2.0 = 70 L</strong><br><br>
+    Fuel flow is found in the aircraft POH/AFM performance tables at the planned cruise power setting and altitude.</p>
   </div>
-  <div class="flow-step">
-    <div class="flow-left">
-      <div class="flow-num">2</div>
-      <div class="flow-line"></div>
-    </div>
-    <div class="flow-content">
-      <h3>Calculate En Route Fuel</h3>
-      <p>Multiply time by fuel burn rate from POH. Fuel burn is given in litres/hr or USG/hr.</p>
-      <span class="eq">Fuel (L) = Burn Rate (L/hr) × Time (hr)</span>
-    </div>
-  </div>
-  <div class="flow-step">
-    <div class="flow-left">
-      <div class="flow-num">3</div>
-      <div class="flow-line"></div>
-    </div>
-    <div class="flow-content">
-      <h3>Add Statutory Reserve (CARs 602.88)</h3>
-      <p>Day VFR: <strong style="color:#f0c040">30 min</strong> reserve at cruise burn. Night VFR: <strong style="color:#f0c040">45 min</strong> reserve. Reserve is calculated at normal cruise power.</p>
-      <span class="eq">Reserve = Burn Rate × 0.5 hr (day) or 0.75 hr (night)</span>
-    </div>
-  </div>
-  <div class="flow-step">
-    <div class="flow-left">
-      <div class="flow-num">4</div>
-      <div class="flow-line"></div>
-    </div>
-    <div class="flow-content">
-      <h3>Total Fuel Required</h3>
-      <p>Sum all legs and reserve. Verify against aircraft's usable fuel capacity.</p>
-      <span class="eq">Total = taxi + en route (all legs) + reserve</span>
-    </div>
-  </div>
-  <div class="flow-step">
-    <div class="flow-left">
-      <div class="flow-num">5</div>
-    </div>
-    <div class="flow-content">
-      <h3>Verify Usable Fuel ≥ Total Required</h3>
-      <p>Check POH for usable fuel (total capacity minus unusable). If insufficient, plan a fuel stop. <span class="warn">Never depart with less fuel than total required.</span></p>
-    </div>
+  <div class="info-card">
+    <h3>VFR Reserve Requirement</h3>
+    <div class="big">30 min</div>
+    <div class="sub">CAR 602.88 — VFR Day minimum</div>
+    <p style="margin-top:12px;"><strong>Reserve fuel = FF × 0.5 hr</strong><br>
+    Example: FF = 35 L/hr<br>
+    <strong>Reserve = 35 × 0.5 = 17.5 L ≈ 18 L</strong><br><br>
+    Reserve is calculated at <strong>normal cruise power</strong>, not full throttle.</p>
   </div>
 </div>
 
-<div class="section-label">VFR Fuel Reserve Requirements — CARs 602.88</div>
+<!-- ── FUEL PLANNING STEPS TABLE ─────────────────────────────────────── -->
+<div class="section-label">Fuel Planning Steps</div>
 <table>
-  <tr><th>Operation</th><th class="req">Reserve</th><th>Based On</th><th>Note</th></tr>
-  <tr><td>Day VFR</td><td class="req">30 minutes</td><td>Cruise power fuel burn</td><td>Minimum legal requirement</td></tr>
-  <tr><td>Night VFR</td><td class="req">45 minutes</td><td>Cruise power fuel burn</td><td>Higher reserve for night ops</td></tr>
-  <tr><td>IFR (alternate required)</td><td class="req">As published</td><td>Destination + alternate + 45 min</td><td>Not PPL VFR scope</td></tr>
+  <thead>
+    <tr>
+      <th>Step</th>
+      <th>Action</th>
+      <th>Source / Method</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1</strong></td>
+      <td>Determine total trip time (ETE)</td>
+      <td>Nav log — sum all leg ETEs</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td>Calculate trip fuel: FF × trip time</td>
+      <td>POH cruise performance table</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td>Add 30-min VFR reserve: FF × 0.5 hr</td>
+      <td>CAR 602.88 requirement</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td>Add taxi &amp; run-up fuel (typically 3–5 L)</td>
+      <td>Standard/operator practice</td>
+    </tr>
+    <tr>
+      <td><strong>5</strong></td>
+      <td>Total = trip + reserve + taxi; compare to usable fuel</td>
+      <td>Aircraft fuel gauges / POH capacity</td>
+    </tr>
+  </tbody>
 </table>
 
-<div class="two-col">
-  <div class="card">
-    <h3>Fuel Unit Conversions</h3>
-    <ul>
-      <li>1 US gallon (USG) = <strong style="color:#f0c040">3.785 litres</strong></li>
-      <li>1 Imperial gallon = 4.546 litres</li>
-      <li>AVGAS 100LL density: <strong style="color:#f0c040">0.72 kg/L</strong> (6.0 lb/USG)</li>
-      <li>POH usually gives burn in USG/hr — convert to litres for fuel truck</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>Usable vs Total Fuel</h3>
-    <ul>
-      <li><strong style="color:#f0c040">Total capacity</strong> — stamped on fuel cap or in POH specs</li>
-      <li><strong style="color:#f0c040">Unusable fuel</strong> — trapped in lines/sump; cannot be used in flight</li>
-      <li><strong style="color:#f0c040">Usable fuel</strong> = Total − Unusable; this is your planning number</li>
-      <li>Endurance = Usable fuel ÷ Burn rate (includes reserve)</li>
-    </ul>
-  </div>
-</div>
+<!-- ── SAMPLE FUEL PLAN TABLE ────────────────────────────────────────── -->
+<div class="section-label">Sample Fuel Plan (Cessna 172 — 35 L/hr)</div>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Fuel Flow</th>
+      <th>Time</th>
+      <th>Fuel (L)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Trip fuel</td>
+      <td>35 L/hr</td>
+      <td>2.0 hr</td>
+      <td><strong>70 L</strong></td>
+    </tr>
+    <tr>
+      <td>VFR reserve (30 min)</td>
+      <td>35 L/hr</td>
+      <td>0.5 hr</td>
+      <td><strong>18 L</strong></td>
+    </tr>
+    <tr>
+      <td>Taxi / contingency</td>
+      <td>—</td>
+      <td>—</td>
+      <td><strong>5 L</strong></td>
+    </tr>
+    <tr>
+      <td class="total-row">Total Required</td>
+      <td class="total-row">—</td>
+      <td class="total-row">2.5 hr endurance</td>
+      <td class="total-row">93 L</td>
+    </tr>
+  </tbody>
+</table>
 
+<!-- ── MEMORY HOOK ────────────────────────────────────────────────────── -->
+<div class="section-label">Memory Hooks</div>
 <div class="hook-box">
-  <h2>Exam Memory Hooks</h2>
-  <div class="hook-row"><span class="hook-badge">GS NOT TAS</span><span class="hook-text">Fuel planning uses <strong>Ground Speed</strong> to find time, not TAS. A headwind means more time en route, so more fuel consumed.</span></div>
-  <div class="hook-row"><span class="hook-badge">RESERVE</span><span class="hook-text"><strong>Day VFR = 30 min, Night VFR = 45 min</strong> reserve. This is from CARs 602.88. The reserve must be at cruise power burn, not economy.</span></div>
-  <div class="hook-row"><span class="hook-badge">ENDURANCE</span><span class="hook-text">Endurance (how long you can fly) = Usable Fuel ÷ Burn Rate. Subtract the 30-min reserve to find usable flight time to empty.</span></div>
+  <h2>Key Concepts to Remember</h2>
+  <div class="hook-row">
+    <span class="hook-badge">30 MIN</span>
+    <span class="hook-text">VFR day minimum reserve is <strong>30 minutes at normal cruise</strong> per CAR 602.88. Night VFR requires <strong>45 minutes</strong>. These are legal minimums — plan to land with more.</span>
+  </div>
+  <div class="hook-row">
+    <span class="hook-badge">LITRES</span>
+    <span class="hook-text">Canadian aircraft fuel is measured in <strong>litres (L)</strong> for Avgas in training aircraft. Some POHs use US gallons or pounds — always check and convert consistently before planning.</span>
+  </div>
+  <div class="hook-row">
+    <span class="hook-badge">CHECK</span>
+    <span class="hook-text"><strong>Always verify total required vs. usable fuel capacity.</strong> "Tabs full" doesn't mean full tanks — check the POH for usable fuel. Never plan to land on reserve alone.</span>
+  </div>
 </div>
 
 </body>

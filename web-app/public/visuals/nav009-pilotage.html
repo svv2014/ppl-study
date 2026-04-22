@@ -3,135 +3,168 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NAV-009: Pilotage — Navigating by Ground Reference</title>
+<title>NAV-009 — Pilotage — Navigating by Ground Reference</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
-  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
-  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
-  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
-
-  /* ── Checkpoint quality table ────────────────────────────────────── */
-  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
-  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  .yes { color: #80e080; font-size: 16px; }
-  .no  { color: #ff8080; font-size: 16px; }
-  .label-col { color: #f0c040; font-weight: 600; }
-
-  /* ── Landmark types grid ─────────────────────────────────────────── */
-  .lm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
-  .lm-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 14px 16px; }
-  .lm-card .icon { font-size: 24px; margin-bottom: 6px; }
-  .lm-card h3 { font-size: 12px; font-weight: 700; color: #f0c040; margin-bottom: 6px; }
-  .lm-card p { font-size: 11px; color: #c8d8e8; line-height: 1.5; }
-  .lm-card .quality { font-size: 10px; font-weight: 700; margin-top: 6px; padding: 2px 6px; border-radius: 4px; display: inline-block; }
-  .excellent { background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); }
-  .good { background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); }
-  .poor { background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); }
-
-  /* ── 1-in-60 rule ────────────────────────────────────────────────── */
-  .rule-box { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
-  .rule-box h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
-  .rule-box .formula { font-size: 16px; font-weight: 800; color: #f0c040; background: #071520; border-radius: 6px; padding: 10px 14px; display: inline-block; margin: 8px 0; letter-spacing: 1px; }
-  .rule-box p { font-size: 12px; color: #c8d8e8; line-height: 1.7; margin-top: 8px; }
-
-  /* ── Process ─────────────────────────────────────────────────────── */
-  .process { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
-  .proc-step { display: flex; gap: 14px; align-items: center; }
-  .proc-num { width: 28px; height: 28px; border-radius: 50%; background: #1a3a5a; color: #f0c040; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .proc-text { font-size: 12px; color: #c8d8e8; line-height: 1.5; }
-  .proc-text strong { color: #f0c040; }
-
-  /* ── Hook box ────────────────────────────────────────────────────── */
-  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
-  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
-  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
-  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
-  .hook-text strong { color: #f0c040; }
+  body { background: #0d1b2a; color: #c8d8e8; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; line-height: 1.6; padding: 32px 16px; }
+  .container { max-width: 860px; margin: auto; padding: 0; }
+  h1 { color: #f0c040; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: #7a9ab5; font-size: 13px; margin-bottom: 32px; }
+  .section-label { color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; margin-top: 28px; }
+  .card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; margin-bottom: 16px; }
+  .card h3 { color: #f0c040; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .card p, .card li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+  .card ul { padding-left: 18px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  th { background: #1a2d3d; color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px; text-align: left; }
+  td { padding: 8px 12px; border-bottom: 1px solid #1a2d3d; color: #c8d8e8; font-size: 12px; }
+  td strong { color: #f0c040; }
+  .memory-hook { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #80c880; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; margin-bottom: 10px; }
+  .memory-hook p, .memory-hook li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+  .memory-hook ul { padding-left: 18px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  .good { color: #80c880; }
+  .poor { color: #e07070; }
+  td.good { color: #80c880; }
+  td.poor { color: #e07070; }
 </style>
 </head>
 <body>
+<div class="container">
+  <h1>NAV-009 — Pilotage — Navigating by Ground Reference</h1>
+  <div class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</div>
 
-<h1>NAV-009 — Pilotage — Navigating by Ground Reference</h1>
-<p class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</p>
+  <div class="section-label">VFR Chart Pilotage — Visual Reference Diagram</div>
+  <div class="card" style="padding: 12px 16px;">
+    <svg viewBox="0 0 820 300" width="100%" style="display:block;">
+      <!-- Chart background -->
+      <rect width="820" height="300" fill="#0d2240" rx="8"/>
 
-<div class="section-label">What Makes a Good Checkpoint?</div>
-<table>
-  <tr><th>Quality Criteria</th><th>Good?</th><th>Example</th><th>Avoid</th></tr>
-  <tr><td class="label-col">Distinctive from surroundings</td><td class="yes">✓</td><td>Large lake in flat prairie</td><td>Small pond in lake-heavy terrain</td></tr>
-  <tr><td class="label-col">Near or on the planned track</td><td class="yes">✓</td><td>Town bisected by your track</td><td>Feature 20 NM to the side</td></tr>
-  <tr><td class="label-col">Perpendicular to track</td><td class="yes">✓</td><td>River crossing at 90° to track</td><td>River running parallel to track</td></tr>
-  <tr><td class="label-col">Easily visible from altitude</td><td class="yes">✓</td><td>Large urban area, lake, highway</td><td>Single farmhouse, small clearing</td></tr>
-  <tr><td class="label-col">Spaced ~10–20 NM apart</td><td class="yes">✓</td><td>One checkpoint every 10 min</td><td>Back-to-back checkpoints or 40 min gaps</td></tr>
-  <tr><td class="label-col">Trees or featureless terrain</td><td class="no">✗</td><td>(not a good checkpoint)</td><td>Boreal forest, flat ocean, desert</td></tr>
-</table>
+      <!-- Chart grid lines (light blue) -->
+      <line x1="0" y1="60" x2="820" y2="60" stroke="#1a3a5a" stroke-width="0.5"/>
+      <line x1="0" y1="120" x2="820" y2="120" stroke="#1a3a5a" stroke-width="0.5"/>
+      <line x1="0" y1="180" x2="820" y2="180" stroke="#1a3a5a" stroke-width="0.5"/>
+      <line x1="0" y1="240" x2="820" y2="240" stroke="#1a3a5a" stroke-width="0.5"/>
+      <line x1="100" y1="0" x2="100" y2="300" stroke="#1a3a5a" stroke-width="0.5"/>
+      <line x1="250" y1="0" x2="250" y2="300" stroke="#1a3a5a" stroke-width="0.5"/>
+      <line x1="400" y1="0" x2="400" y2="300" stroke="#1a3a5a" stroke-width="0.5"/>
+      <line x1="550" y1="0" x2="550" y2="300" stroke="#1a3a5a" stroke-width="0.5"/>
+      <line x1="700" y1="0" x2="700" y2="300" stroke="#1a3a5a" stroke-width="0.5"/>
 
-<div class="section-label">Landmark Types — Best to Worst</div>
-<div class="lm-grid">
-  <div class="lm-card">
-    <div class="icon" aria-hidden="true">🏙️</div>
-    <h3>Urban Areas / Towns</h3>
-    <p>Shape visible from altitude. Road network distinctive. Best when city name readable on chart matches unique shape.</p>
-    <span class="quality excellent">Excellent</span>
+      <!-- Track line -->
+      <line x1="80" y1="230" x2="760" y2="70" stroke="#f0c040" stroke-width="2" stroke-dasharray="8,4"/>
+
+      <!-- Lake (checkpoint 1) -->
+      <ellipse cx="200" cy="200" rx="38" ry="22" fill="#1a5a8a" stroke="#3a8ab5" stroke-width="1.5"/>
+      <text x="200" y="240" text-anchor="middle" fill="#7ac0e0" font-size="10">Lake Simcoe</text>
+      <circle cx="200" cy="200" r="5" fill="#80c880" stroke="#40a040" stroke-width="1.5"/>
+
+      <!-- Town -->
+      <rect x="325" y="148" width="28" height="20" fill="#2a3a4a" stroke="#4a6a8a" stroke-width="1"/>
+      <rect x="330" y="143" width="8" height="7" fill="#3a4a5a" stroke="#4a6a8a" stroke-width="0.5"/>
+      <rect x="340" y="143" width="8" height="7" fill="#3a4a5a" stroke="#4a6a8a" stroke-width="0.5"/>
+      <text x="339" y="182" text-anchor="middle" fill="#7ac0e0" font-size="10">Barrie</text>
+      <circle cx="339" cy="158" r="5" fill="#80c880" stroke="#40a040" stroke-width="1.5"/>
+
+      <!-- Highway crossing -->
+      <line x1="430" y1="95" x2="530" y2="175" stroke="#c8a040" stroke-width="3"/>
+      <line x1="370" y1="145" x2="590" y2="145" stroke="#c8a040" stroke-width="3"/>
+      <text x="480" y="195" text-anchor="middle" fill="#c8a040" font-size="10">Hwy Interchange</text>
+      <circle cx="480" cy="145" r="5" fill="#80c880" stroke="#40a040" stroke-width="1.5"/>
+
+      <!-- Railway -->
+      <line x1="560" y1="80" x2="720" y2="120" stroke="#8a7a6a" stroke-width="2"/>
+      <line x1="563" y1="82" x2="567" y2="76" stroke="#8a7a6a" stroke-width="1.5"/>
+      <line x1="580" y1="87" x2="584" y2="81" stroke="#8a7a6a" stroke-width="1.5"/>
+      <line x1="597" y1="91" x2="601" y2="85" stroke="#8a7a6a" stroke-width="1.5"/>
+      <line x1="614" y1="95" x2="618" y2="89" stroke="#8a7a6a" stroke-width="1.5"/>
+      <line x1="631" y1="98" x2="635" y2="92" stroke="#8a7a6a" stroke-width="1.5"/>
+      <line x1="648" y1="101" x2="652" y2="95" stroke="#8a7a6a" stroke-width="1.5"/>
+      <line x1="665" y1="104" x2="669" y2="98" stroke="#8a7a6a" stroke-width="1.5"/>
+      <text x="650" y="130" text-anchor="middle" fill="#8a7a6a" font-size="10">Railway</text>
+      <circle cx="640" cy="102" r="5" fill="#80c880" stroke="#40a040" stroke-width="1.5"/>
+
+      <!-- Aircraft (current position) -->
+      <g transform="translate(130,215) rotate(-25)">
+        <polygon points="0,-12 -6,8 0,4 6,8" fill="#f0c040" stroke="#c09000" stroke-width="1"/>
+        <line x1="-10" y1="0" x2="10" y2="0" stroke="#f0c040" stroke-width="2"/>
+      </g>
+
+      <!-- Look-ahead circle (5 NM radius) -->
+      <circle cx="130" cy="215" r="60" fill="none" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.6"/>
+      <text x="130" y="283" text-anchor="middle" fill="#f0c040" font-size="10">5 NM look-ahead</text>
+
+      <!-- Legend -->
+      <circle cx="20" cy="18" r="4" fill="#80c880" stroke="#40a040" stroke-width="1.5"/>
+      <text x="30" y="22" fill="#80c880" font-size="10">Checkpoint</text>
+      <line x1="105" y1="18" x2="130" y2="18" stroke="#f0c040" stroke-width="2" stroke-dasharray="6,3"/>
+      <text x="135" y="22" fill="#f0c040" font-size="10">Track line</text>
+      <polygon points="210,14 204,24 210,20 216,24" fill="#f0c040" stroke="#c09000" stroke-width="0.8" transform="translate(-4,0)"/>
+      <text x="220" y="22" fill="#f0c040" font-size="10">Aircraft</text>
+    </svg>
   </div>
-  <div class="lm-card">
-    <div class="icon" aria-hidden="true">💧</div>
-    <h3>Lakes &amp; Rivers</h3>
-    <p>Distinctive shape on chart. Shoreline bends are unique. River junctions (confluences) are ideal. Avoid rivers running parallel to track.</p>
-    <span class="quality excellent">Excellent</span>
+
+  <div class="section-label">Core Concepts</div>
+  <div class="two-col">
+    <div class="card">
+      <h3>What is Pilotage?</h3>
+      <ul>
+        <li>Navigation by identifying <strong style="color:#f0c040">visual ground references</strong> and matching them to chart features</li>
+        <li>Primary VFR nav method — no instruments required beyond chart and compass</li>
+        <li>Pilot compares what they see out the window to the sectional/VNC chart</li>
+        <li>Most reliable when planned checkpoints are used systematically</li>
+        <li>Used in combination with dead reckoning (DR) for cross-country</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Checkpoint Selection Criteria</h3>
+      <ul>
+        <li><strong style="color:#f0c040">Prominent</strong> — easily visible from altitude</li>
+        <li><strong style="color:#f0c040">Unique</strong> — not easily confused with similar features</li>
+        <li><strong style="color:#f0c040">Distinct shape</strong> on the chart (large lake, highway X)</li>
+        <li><strong style="color:#f0c040">Spacing:</strong> 20–30 NM apart (about every 15–20 min)</li>
+        <li>Visible from well ahead — no sudden recognition required</li>
+        <li>Avoid features that change seasonally (e.g. dry riverbeds)</li>
+      </ul>
+    </div>
   </div>
-  <div class="lm-card">
-    <div class="icon" aria-hidden="true">🛤️</div>
-    <h3>Railways</h3>
-    <p>Railway crossing track at right angles = precise fix. Distinctive curves and junctions. Less visible at high altitude.</p>
-    <span class="quality good">Good</span>
+
+  <div class="section-label">Good vs Poor Checkpoints</div>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th>Rating</th>
+          <th>Reason</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Airport (controlled)</strong></td><td class="good">Excellent</td><td>Unique symbol, always on chart, visible pattern</td></tr>
+        <tr><td><strong>Large lake / reservoir</strong></td><td class="good">Excellent</td><td>Distinctive shape, matches chart closely</td></tr>
+        <tr><td><strong>Highway interchange</strong></td><td class="good">Good</td><td>Prominent, labeled on VNC, hard to miss</td></tr>
+        <tr><td><strong>Coastline / river bend</strong></td><td class="good">Good</td><td>Linear feature with unique curves</td></tr>
+        <tr><td><strong>City/town grid</strong></td><td class="good">Good</td><td>Distinctive layout if large enough</td></tr>
+        <tr><td><strong>Small farm pond</strong></td><td class="poor">Poor</td><td>Many look identical, not on chart</td></tr>
+        <tr><td><strong>Single tree / barn</strong></td><td class="poor">Poor</td><td>Invisible from altitude, not on chart</td></tr>
+        <tr><td><strong>Dirt / gravel road</strong></td><td class="poor">Poor</td><td>Not shown on VNC, may not be visible</td></tr>
+        <tr><td><strong>Small creek</strong></td><td class="poor">Poor</td><td>Hard to distinguish, seasonal variation</td></tr>
+      </tbody>
+    </table>
   </div>
-  <div class="lm-card">
-    <div class="icon" aria-hidden="true">🛣️</div>
-    <h3>Highways</h3>
-    <p>Major highways visible from altitude. Interchanges distinctive. Can be confused with parallel routes — check chart carefully.</p>
-    <span class="quality good">Good</span>
-  </div>
-  <div class="lm-card">
-    <div class="icon" aria-hidden="true">⛰️</div>
-    <h3>Terrain Features</h3>
-    <p>Prominent hilltops, ridges, valleys. Best in varied terrain. Verify against elevation contours on VNC. Less useful in flat areas.</p>
-    <span class="quality good">Good</span>
-  </div>
-  <div class="lm-card">
-    <div class="icon" aria-hidden="true">🌲</div>
-    <h3>Boreal Forest / Flat Land</h3>
-    <p>No distinguishing features. High risk of disorientation if only checkpoint available. Supplement with VOR or GPS.</p>
-    <span class="quality poor">Avoid as primary</span>
+
+  <div class="section-label">Memory Hook</div>
+  <div class="memory-hook">
+    <div class="badge">Memory Hook</div>
+    <ul>
+      <li><strong style="color:#80c880">5 NM lookout rule:</strong> Scan ahead 5 NM at all times — identify your next checkpoint before reaching the current one.</li>
+      <li><strong style="color:#80c880">1-in-60 rule hint:</strong> At 120 kt, 1° of track error = 1 NM off after 60 NM — small errors compound quickly without checkpoints.</li>
+      <li><strong style="color:#80c880">30-second rule:</strong> Never look at the chart for more than 30 seconds without scanning outside for traffic and terrain.</li>
+      <li><strong style="color:#80c880">Checkpoint mnemonic — PUVS:</strong> Prominent · Unique · Visible · Spaced 20–30 NM</li>
+    </ul>
   </div>
 </div>
-
-<div class="section-label">The 1-in-60 Rule — Track Error Correction</div>
-<div class="rule-box">
-  <h3>Track Error Angle (TEA)</h3>
-  <div class="formula">TEA° ≈ Track Error (NM) ÷ Distance Flown (NM) × 60</div>
-  <p>If you are <strong style="color:#f0c040">2 NM off track</strong> after flying <strong style="color:#f0c040">20 NM</strong>, your track error angle ≈ 2 ÷ 20 × 60 = <strong style="color:#f0c040">6°</strong>. To regain track by the destination (40 NM remaining), double-correct by 12° initially, then reduce correction by 6° once back on track.</p>
-  <p style="margin-top:10px;">The rule comes from geometry: at 60 NM from a point, 1° of bearing difference = 1 NM of displacement.</p>
-</div>
-
-<div class="section-label">Chart-to-Ground Matching Process</div>
-<div class="process">
-  <div class="proc-step"><div class="proc-num">1</div><div class="proc-text"><strong>Orient the chart</strong> — track up (chart oriented so your direction of flight is away from you). Compare chart to view ahead.</div></div>
-  <div class="proc-step"><div class="proc-num">2</div><div class="proc-text"><strong>Identify the next checkpoint</strong> — know what you're looking for before you get there. Expected ETA from PLOG.</div></div>
-  <div class="proc-step"><div class="proc-num">3</div><div class="proc-text"><strong>Match shape, not just position</strong> — a lake's outline, a river's bend, a town's road network. One feature could be anything; two or three confirming features give a fix.</div></div>
-  <div class="proc-step"><div class="proc-num">4</div><div class="proc-text"><strong>Log actual time over checkpoint</strong> — compare to ETA. Time difference indicates ground speed change (wind changed?) or track error.</div></div>
-  <div class="proc-step"><div class="proc-num">5</div><div class="proc-text"><strong>Correct if necessary</strong> — if late at checkpoint, you may have a headwind component. If early, a tailwind. Revise remaining ETAs accordingly.</div></div>
-</div>
-
-<div class="hook-box">
-  <h2>Exam Memory Hooks</h2>
-  <div class="hook-row"><span class="hook-badge">PERPENDICULAR</span><span class="hook-text">A river or road crossing your track at <strong>right angles</strong> gives a precise fix. Parallel features give no position information across track — only along track.</span></div>
-  <div class="hook-row"><span class="hook-badge">TWO-FEATURE RULE</span><span class="hook-text">Never confirm a fix from a single feature. Use <strong>at least two</strong> independent features (e.g., lake shape + road junction) to positively identify your position.</span></div>
-  <div class="hook-row"><span class="hook-badge">LOST EARLY</span><span class="hook-text">If unsure of position, <strong>maintain heading, altitude, and time</strong>. Continue DR until you can get a fix or reach a definite feature. Do not wander — wandering makes it worse.</span></div>
-</div>
-
 </body>
 </html>
