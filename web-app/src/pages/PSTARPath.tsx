@@ -42,12 +42,12 @@ export default function PSTARPath() {
           PSTAR Path
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          Pre-Solo Standard Test of Air Regulations — pass mark: 90%
+          Pre-Solo Standard Test of Air Regulations — 50 questions · 40 min · pass mark: 90%
         </Typography>
         <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
           Study resource:{' '}
           <Link
-            href="https://tc.canada.ca/en/aviation/publications/transport-canada-aeronautical-information-manual-tc-aim/tp-14371"
+            href="https://tc.canada.ca/en/aviation/publications/study-reference-guide-pre-solo-standard-test-air-regulations-pstar-tp-13014"
             target="_blank"
             rel="noopener noreferrer"
           >
