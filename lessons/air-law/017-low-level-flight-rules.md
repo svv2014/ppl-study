@@ -34,7 +34,7 @@ questions:
     answer: B
     explanation: "CARs 602.13 states that no person shall operate an aircraft at an altitude that would prevent a safe emergency landing in case of engine failure. Over open terrain without a built-up area, there is no fixed numerical minimum — but you must be able to make a safe emergency landing. In practice, this means 500 feet AGL is the conventional minimum over open areas. Source: CARs 602.13."
   - id: q3
-    prompt: "Under CARs 602.15, flights over an open-air assembly of persons must maintain a minimum altitude of:"
+    prompt: "Under CARs 602.14, flights over an open-air assembly of persons must maintain a minimum altitude of:"
     choices:
       A: "500 feet AGL"
       B: "500 feet above the highest obstacle within 500 feet of the assembly"

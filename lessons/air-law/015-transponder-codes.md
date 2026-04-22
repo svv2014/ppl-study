@@ -44,12 +44,12 @@ questions:
   - id: q4
     prompt: "You are flying VFR in uncontrolled airspace and have not been assigned a transponder code. What code should you squawk?"
     choices:
-      A: "1200 (VFR code used in the US)"
+      A: "1200 (standard VFR code in Canada and the US)"
       B: "1000"
       C: "2000"
       D: "0000"
-    answer: C
-    explanation: "In Canada, the standard VFR squawk code when no ATC code is assigned is 1200 in some contexts, but specifically CARs and the AIM specify squawk 2000 for VFR flights in airspace where no code has been assigned. Note: 1200 is the standard US VFR code — in Canada the code is 2000. Source: AIM RAC 1.9, CARs 601.03."
+    answer: A
+    explanation: "In Canada, the standard VFR squawk code when no ATC code has been assigned is 1200. Canada uses 1200 in alignment with the North American standard — the same code used in the US. AIM RAC 1.9 specifies squawk 1200 for VFR operations. Squawk 2000 is the ICAO standard used in European/ICAO airspace for aircraft entering controlled airspace without an assigned code; it is not the Canadian domestic VFR default. Source: AIM RAC 1.9, CARs 601.03."
   - id: q5
     prompt: "When should a pilot squawk 7500?"
     choices:
@@ -115,13 +115,13 @@ A transponder code (squawk code) is a 4-digit octal number — each digit ranges
 
 | Code | Meaning |
 |------|---------|
-| **2000** | VFR — no code assigned (Canadian standard) |
+| **1200** | VFR — no code assigned (Canadian and US standard) |
 | **7700** | Emergency (distress) |
 | **7600** | Radio/communications failure |
 | **7500** | Unlawful interference (hijacking) |
-| **1200** | VFR — US standard (not used in Canada) |
+| **2000** | ICAO standard for entering controlled airspace without assigned code (not the Canadian VFR default) |
 
-**Important distinction for Canadian exam:** The VFR squawk in Canada when no code is assigned is **2000**, not 1200. The 1200 code is the US standard. If an exam question asks for the Canadian VFR code, the answer is 2000.
+**Important fact for Canadian exam:** The VFR squawk in Canada when no code is assigned is **1200**. Canada uses the North American standard of 1200, the same code as the US. Squawk 2000 is the ICAO standard used in European/international airspace — it is not the Canadian domestic VFR default. Source: AIM RAC 1.9.
 
 ---
 
@@ -167,7 +167,7 @@ ATC's radar computer receives the pressure altitude and automatically adds the c
 
 - **Mode A:** Transponder code (squawk) only; no altitude
 - **Mode C:** Squawk code plus pressure altitude encoding — required for Class B and Class C airspace
-- **Canadian VFR squawk code when no code assigned: 2000** (not 1200, which is the US code)
+- **Canadian VFR squawk code when no code assigned: 1200** (North American standard; 2000 is the ICAO/European standard, not used in Canada)
 - **7700** = general emergency; **7600** = radio failure; **7500** = unlawful interference
 - Set 7500 only for hijacking — it triggers an immediate silent security alert
 - Squawk IDENT only when instructed by ATC
