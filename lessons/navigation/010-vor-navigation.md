@@ -7,7 +7,7 @@ title: "VOR Navigation"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav010-vor-navigation.html
 sources:
   - TP 12880E
   - AIM COM 5.0

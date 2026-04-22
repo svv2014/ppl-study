@@ -7,7 +7,7 @@ title: "Wind Correction Angle and Ground Speed"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav005-wind-correction-angle.html
 sources:
   - TP 12880E
   - AIM

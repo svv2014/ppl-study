@@ -7,7 +7,7 @@ title: "GPS Basics"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav011-gps-basics.html
 sources:
   - TP 12880E
   - AIM RAC 1.0

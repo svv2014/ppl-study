@@ -7,7 +7,7 @@ title: "Altitude Types"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav012-altitude-types.html
 sources:
   - TP 12880E
   - AIM AIR 2.0

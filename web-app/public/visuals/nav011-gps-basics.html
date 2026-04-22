@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAV-011: GPS Basics</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+
+  /* ── GPS display terms ───────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .abbr { color: #f0c040; font-weight: 800; font-size: 13px; }
+  .full { color: #c8d8e8; }
+  .meaning { color: #7a9ab5; font-size: 11px; }
+
+  /* ── Moving map mockup ───────────────────────────────────────────── */
+  .map-wrap { display: flex; gap: 24px; margin-bottom: 28px; flex-wrap: wrap; }
+  .map-svg { flex-shrink: 0; }
+  .map-key { flex: 1; min-width: 200px; }
+  .key-item { display: flex; gap: 10px; margin-bottom: 10px; align-items: center; }
+  .key-line { width: 40px; height: 3px; flex-shrink: 0; border-radius: 2px; }
+  .key-text { font-size: 12px; color: #c8d8e8; }
+  .key-text strong { color: #f0c040; }
+
+  /* ── Warning / usage cards ───────────────────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 18px; }
+  .card h3 { font-size: 12px; font-weight: 700; color: #f0c040; margin-bottom: 8px; }
+  .card ul { list-style: none; }
+  .card ul li { font-size: 11px; color: #c8d8e8; padding: 3px 0; line-height: 1.5; }
+  .card ul li::before { content: "· "; color: #f0c040; }
+  .warn-card { background: #1a0a0a; border-color: #5a1a1a; }
+  .warn-card h3 { color: #ff8080; }
+  .warn-card ul li::before { color: #ff8080; }
+
+  /* ── Hook box ────────────────────────────────────────────────────── */
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>NAV-011 — GPS Basics</h1>
+<p class="subtitle">Transport Canada · TP 12880E Ch.9 · AIM COM 3.0 · PPL Written Exam</p>
+
+<div class="section-label">GPS Display Terms — Key Abbreviations</div>
+<table>
+  <tr><th>Abbr.</th><th>Full Name</th><th>What It Means</th></tr>
+  <tr><td class="abbr">DTK</td><td class="full">Desired Track</td><td class="meaning">The planned course from waypoint to waypoint (straight-line intended path)</td></tr>
+  <tr><td class="abbr">TMG</td><td class="full">Track Made Good</td><td class="meaning">Your actual ground track (where you are really going, accounting for wind drift)</td></tr>
+  <tr><td class="abbr">XTE</td><td class="full">Cross-Track Error</td><td class="meaning">Distance left or right of desired track; in NM. Steer to reduce XTE to zero.</td></tr>
+  <tr><td class="abbr">BRG</td><td class="full">Bearing</td><td class="meaning">Direction from your present position to the active waypoint; magnetic degrees</td></tr>
+  <tr><td class="abbr">GS</td><td class="full">Ground Speed</td><td class="meaning">Actual speed over the ground (knots); accounts for wind. Use for time/fuel calc.</td></tr>
+  <tr><td class="abbr">ETE</td><td class="full">Estimated Time Enroute</td><td class="meaning">Time remaining to reach the active waypoint at current ground speed</td></tr>
+  <tr><td class="abbr">ETA</td><td class="full">Estimated Time of Arrival</td><td class="meaning">Predicted clock time at destination (ETE + current UTC time)</td></tr>
+  <tr><td class="abbr">RAIM</td><td class="full">Receiver Autonomous Integrity Monitoring</td><td class="meaning">GPS self-check that verifies signal integrity; required to be active for navigation</td></tr>
+</table>
+
+<div class="section-label">GPS Moving Map — Key Elements</div>
+<div class="map-wrap">
+  <svg class="map-svg" width="260" height="200" viewBox="0 0 260 200" aria-label="GPS moving map showing desired track, actual track, cross-track error, and waypoints">
+    <rect width="260" height="200" fill="#071520" rx="10"/>
+
+    <!-- Background map texture suggestion -->
+    <rect x="0" y="0" width="260" height="200" fill="#071520" rx="10"/>
+
+    <!-- Desired track (DTK) - straight line -->
+    <line x1="40" y1="160" x2="220" y2="40" stroke="#3a7ad5" stroke-width="2" stroke-dasharray="8,4"/>
+
+    <!-- Actual track (TMG) - solid line with wind drift -->
+    <line x1="40" y1="160" x2="185" y2="60" stroke="#f0c040" stroke-width="2.5"/>
+    <!-- Aircraft symbol -->
+    <polygon points="185,52 180,65 185,60 190,65" fill="#f0c040"/>
+
+    <!-- XTE perpendicular indicator -->
+    <line x1="185" y1="60" x2="200" y2="52" stroke="#ff8080" stroke-width="1.5" stroke-dasharray="4,3"/>
+    <text x="194" y="48" fill="#ff8080" font-size="9" font-family="sans-serif" font-weight="bold">XTE</text>
+
+    <!-- Waypoints -->
+    <circle cx="40" cy="160" r="5" fill="#80e080"/>
+    <text x="48" y="165" fill="#80e080" font-size="9" font-family="sans-serif">CYOW</text>
+
+    <circle cx="220" cy="40" r="5" fill="#80e080"/>
+    <text x="206" y="35" fill="#80e080" font-size="9" font-family="sans-serif">CYKF</text>
+
+    <!-- DTK label -->
+    <text x="105" y="115" fill="#3a7ad5" font-size="9" font-family="sans-serif" transform="rotate(-37 105 115)">DTK 247°</text>
+
+    <!-- TMG label -->
+    <text x="85" y="120" fill="#f0c040" font-size="9" font-family="sans-serif" transform="rotate(-42 85 120)">TMG 251°</text>
+
+    <!-- XTE value -->
+    <rect x="5" y="5" width="80" height="50" rx="4" fill="#0a1a35"/>
+    <text x="45" y="20" text-anchor="middle" fill="#7a9ab5" font-size="8" font-family="sans-serif">GS</text>
+    <text x="45" y="33" text-anchor="middle" fill="#f0c040" font-size="14" font-weight="800" font-family="sans-serif">86kt</text>
+    <text x="45" y="50" text-anchor="middle" fill="#7a9ab5" font-size="8" font-family="sans-serif">ETE 1:42</text>
+
+    <rect x="175" y="5" width="80" height="50" rx="4" fill="#0a1a35"/>
+    <text x="215" y="20" text-anchor="middle" fill="#7a9ab5" font-size="8" font-family="sans-serif">XTE</text>
+    <text x="215" y="33" text-anchor="middle" fill="#ff8080" font-size="14" font-weight="800" font-family="sans-serif">R 1.2</text>
+    <text x="215" y="50" text-anchor="middle" fill="#7a9ab5" font-size="8" font-family="sans-serif">NM right</text>
+  </svg>
+
+  <div class="map-key">
+    <div class="key-item">
+      <div class="key-line" style="background:#3a7ad5; height:2px; border-top: 2px dashed #3a7ad5; background:none;"></div>
+      <span class="key-text"><strong>DTK (blue dashed)</strong> — the straight-line desired course</span>
+    </div>
+    <div class="key-item">
+      <div class="key-line" style="background:#f0c040;"></div>
+      <span class="key-text"><strong>TMG (amber)</strong> — actual track made good (wind is pushing you right)</span>
+    </div>
+    <div class="key-item">
+      <div class="key-line" style="background:#ff8080;"></div>
+      <span class="key-text"><strong>XTE (red)</strong> — 1.2 NM right of course; steer left to correct</span>
+    </div>
+    <div class="key-item">
+      <div class="key-line" style="background:#80e080; height:0; border-radius:50%; width:10px; height:10px;"></div>
+      <span class="key-text"><strong>Waypoints (green)</strong> — named fixes in the GPS database</span>
+    </div>
+    <p style="font-size:11px; color:#7a9ab5; margin-top:10px; line-height:1.6;">GPS gives a direct course between waypoints. Wind causes TMG to differ from DTK. Use the BRG field to steer toward the waypoint; XTE shows how far off you are.</p>
+  </div>
+</div>
+
+<div class="two-col">
+  <div class="card">
+    <h3>GPS Database Basics</h3>
+    <ul>
+      <li><strong style="color:#f0c040">AIRAC cycle</strong> — database updates every 28 days; must be current for IFR approach use</li>
+      <li>VFR use: expired database OK for en route reference, but verify waypoint positions on current charts</li>
+      <li>Waypoints: airports (ICAO codes), VORs, intersections, user-defined</li>
+      <li>Direct-To (D→) function: straight line to any waypoint in database</li>
+    </ul>
+  </div>
+  <div class="card warn-card">
+    <h3>GPS Limitations — VFR Use</h3>
+    <ul>
+      <li>Classified as <strong>supplemental aid</strong> for VFR — not sole navigation reference</li>
+      <li>RAIM alert = degraded accuracy; revert to primary nav (chart + pilotage)</li>
+      <li>Satellite signal loss, interference, and solar events can degrade or deny service</li>
+      <li>Always maintain positional awareness visually; GPS is a cross-check, not a replacement for looking outside</li>
+    </ul>
+  </div>
+</div>
+
+<div class="hook-box">
+  <h2>Exam Memory Hooks</h2>
+  <div class="hook-row"><span class="hook-badge">DTK vs TMG</span><span class="hook-text"><strong>DTK = where you want to go; TMG = where you're actually going.</strong> If wind pushes you off, TMG ≠ DTK and XTE increases. Steer toward the waypoint bearing (BRG) to reduce XTE.</span></div>
+  <div class="hook-row"><span class="hook-badge">RAIM</span><span class="hook-text">RAIM = Receiver Autonomous Integrity Monitoring. If the GPS warns of RAIM failure, it cannot guarantee accuracy. <strong>Revert to chart + pilotage + VOR.</strong> Do not continue GPS navigation blindly.</span></div>
+  <div class="hook-row"><span class="hook-badge">SUPPLEMENTAL</span><span class="hook-text">GPS is not a primary nav aid for VFR in Canada. You must still be able to navigate by charts alone. The exam will test this — knowing GPS doesn't replace knowing pilotage and dead reckoning.</span></div>
+</div>
+
+</body>
+</html>

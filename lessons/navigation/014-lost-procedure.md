@@ -7,7 +7,7 @@ title: "Lost Procedure and Diversion"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav014-lost-procedure.html
 sources:
   - TP 12880E
   - AIM RAC 3.0

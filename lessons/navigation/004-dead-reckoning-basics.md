@@ -7,7 +7,7 @@ title: "Dead Reckoning"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav004-dead-reckoning-basics.html
 sources:
   - TP 12880E
 questions:

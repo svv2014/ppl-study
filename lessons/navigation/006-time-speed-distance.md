@@ -7,7 +7,7 @@ title: "Time-Speed-Distance Calculations"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav006-time-speed-distance.html
 sources:
   - TP 12880E
 questions:

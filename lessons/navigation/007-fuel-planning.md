@@ -7,7 +7,7 @@ title: "Fuel Planning"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav007-fuel-planning.html
 sources:
   - TP 12880E
   - CARs 602.88

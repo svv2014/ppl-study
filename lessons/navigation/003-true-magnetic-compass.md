@@ -7,7 +7,7 @@ title: "True vs Magnetic vs Compass Heading"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav003-true-magnetic-compass.html
 sources:
   - TP 12880E
   - AIM GEN 1.1
