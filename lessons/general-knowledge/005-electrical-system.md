@@ -7,7 +7,7 @@ title: "Electrical System"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk005-electrical-system.html
 sources:
   - TP 12880E Chapter 5
   - TP 12880E Chapter 8

@@ -7,7 +7,7 @@ title: "Piston Engines"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk003-piston-engines.html
 sources:
   - TP 12880E Chapter 5
   - TP 12880E Chapter 6

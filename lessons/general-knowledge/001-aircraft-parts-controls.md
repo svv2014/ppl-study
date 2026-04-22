@@ -7,7 +7,7 @@ title: "Aircraft Parts and Controls"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk001-aircraft-parts-controls.html
 sources:
   - TP 12880E Chapter 1
   - TP 12880E Chapter 2

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-005: Electrical System</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; margin-bottom: 24px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .note-box { background: #1a2d3d; border-left: 3px solid #f0c040; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-005 — Electrical System</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="section-title">System Schematic</div>
+  <div class="diagram-box">
+    <svg viewBox="0 0 780 220" width="100%" height="200">
+      <defs>
+        <marker id="arrowE" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#f0c040"/>
+        </marker>
+        <marker id="arrowG" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#4caf7d"/>
+        </marker>
+      </defs>
+
+      <!-- Battery -->
+      <rect x="20" y="70" width="80" height="60" rx="5" fill="#1e3a50" stroke="#5b9bd5" stroke-width="2"/>
+      <text x="60" y="95" text-anchor="middle" fill="#5b9bd5" font-size="10" font-weight="bold">BATTERY</text>
+      <text x="60" y="108" text-anchor="middle" fill="#e8edf2" font-size="9">12V / 24V</text>
+      <text x="60" y="120" text-anchor="middle" fill="#7a9ab5" font-size="8">Lead-acid</text>
+
+      <!-- Alternator -->
+      <rect x="20" y="150" width="80" height="55" rx="5" fill="#1e3a50" stroke="#4caf7d" stroke-width="2"/>
+      <text x="60" y="172" text-anchor="middle" fill="#4caf7d" font-size="10" font-weight="bold">ALTERNATOR</text>
+      <text x="60" y="185" text-anchor="middle" fill="#e8edf2" font-size="9">Engine driven</text>
+      <text x="60" y="197" text-anchor="middle" fill="#7a9ab5" font-size="8">AC → rectified DC</text>
+
+      <!-- Voltage Regulator -->
+      <rect x="150" y="150" width="90" height="55" rx="5" fill="#1e3a50" stroke="#4caf7d" stroke-width="1.5"/>
+      <text x="195" y="172" text-anchor="middle" fill="#4caf7d" font-size="9" font-weight="bold">VOLTAGE</text>
+      <text x="195" y="184" text-anchor="middle" fill="#4caf7d" font-size="9" font-weight="bold">REGULATOR</text>
+      <text x="195" y="196" text-anchor="middle" fill="#7a9ab5" font-size="8">~14V / 28V</text>
+
+      <!-- Master Switch -->
+      <rect x="150" y="70" width="90" height="55" rx="5" fill="#1e3a50" stroke="#f0c040" stroke-width="2"/>
+      <text x="195" y="92" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="bold">MASTER</text>
+      <text x="195" y="104" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="bold">SWITCH</text>
+      <text x="195" y="116" text-anchor="middle" fill="#7a9ab5" font-size="8">BAT + ALT halves</text>
+
+      <!-- Bus Bar -->
+      <rect x="300" y="55" width="110" height="130" rx="5" fill="#243d52" stroke="#7a9ab5" stroke-width="2"/>
+      <text x="355" y="78" text-anchor="middle" fill="#e8edf2" font-size="11" font-weight="bold">BUS BAR</text>
+      <text x="355" y="92" text-anchor="middle" fill="#7a9ab5" font-size="9">Distribution point</text>
+      <!-- CB lines on bus -->
+      <line x1="320" y1="105" x2="395" y2="105" stroke="#7a9ab5" stroke-width="1" stroke-dasharray="3,2"/>
+      <line x1="320" y1="118" x2="395" y2="118" stroke="#7a9ab5" stroke-width="1" stroke-dasharray="3,2"/>
+      <line x1="320" y1="131" x2="395" y2="131" stroke="#7a9ab5" stroke-width="1" stroke-dasharray="3,2"/>
+      <line x1="320" y1="144" x2="395" y2="144" stroke="#7a9ab5" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="355" y="112" text-anchor="middle" fill="#7a9ab5" font-size="8">CB · CB · CB · CB</text>
+      <text x="355" y="125" text-anchor="middle" fill="#7a9ab5" font-size="8">CB · CB · CB · CB</text>
+
+      <!-- Loads -->
+      <!-- Avionics -->
+      <rect x="470" y="40" width="85" height="38" rx="4" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1"/>
+      <text x="512" y="58" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">AVIONICS</text>
+      <text x="512" y="70" text-anchor="middle" fill="#7a9ab5" font-size="8">COM / NAV / GPS</text>
+
+      <!-- Lights -->
+      <rect x="470" y="90" width="85" height="38" rx="4" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1"/>
+      <text x="512" y="110" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">LIGHTS</text>
+      <text x="512" y="122" text-anchor="middle" fill="#7a9ab5" font-size="8">Nav / Landing / Strobe</text>
+
+      <!-- Fuel Pump -->
+      <rect x="470" y="140" width="85" height="38" rx="4" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1"/>
+      <text x="512" y="158" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">FUEL PUMP</text>
+      <text x="512" y="170" text-anchor="middle" fill="#7a9ab5" font-size="8">Electric aux pump</text>
+
+      <!-- Starter -->
+      <rect x="615" y="90" width="85" height="38" rx="4" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1"/>
+      <text x="657" y="110" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">STARTER</text>
+      <text x="657" y="122" text-anchor="middle" fill="#7a9ab5" font-size="8">High current draw</text>
+
+      <!-- Ammeter/Loadmeter -->
+      <rect x="615" y="40" width="85" height="38" rx="4" fill="#1e3a50" stroke="#f0c040" stroke-width="1"/>
+      <text x="657" y="58" text-anchor="middle" fill="#f0c040" font-size="9" font-weight="bold">AMMETER /</text>
+      <text x="657" y="70" text-anchor="middle" fill="#f0c040" font-size="9" font-weight="bold">LOADMETER</text>
+
+      <!-- Arrows: Battery → Master -->
+      <line x1="100" y1="100" x2="148" y2="100" stroke="#f0c040" stroke-width="2" marker-end="url(#arrowE)"/>
+      <!-- Master → Bus -->
+      <line x1="240" y1="100" x2="298" y2="100" stroke="#f0c040" stroke-width="2" marker-end="url(#arrowE)"/>
+      <!-- Alternator → Voltage Reg -->
+      <line x1="100" y1="177" x2="148" y2="177" stroke="#4caf7d" stroke-width="2" marker-end="url(#arrowG)"/>
+      <!-- Voltage Reg → Bus -->
+      <line x1="240" y1="177" x2="355" y2="186" stroke="#4caf7d" stroke-width="2" marker-end="url(#arrowG)"/>
+      <!-- Bus → Avionics -->
+      <line x1="410" y1="90" x2="468" y2="60" stroke="#f0c040" stroke-width="1.5" marker-end="url(#arrowE)"/>
+      <!-- Bus → Lights -->
+      <line x1="410" y1="110" x2="468" y2="110" stroke="#f0c040" stroke-width="1.5" marker-end="url(#arrowE)"/>
+      <!-- Bus → Fuel pump -->
+      <line x1="410" y1="130" x2="468" y2="158" stroke="#f0c040" stroke-width="1.5" marker-end="url(#arrowE)"/>
+      <!-- Bus → Starter -->
+      <line x1="410" y1="120" x2="613" y2="110" stroke="#f0c040" stroke-width="1.5" marker-end="url(#arrowE)"/>
+      <!-- Bus → Ammeter -->
+      <line x1="410" y1="80" x2="613" y2="60" stroke="#f0c040" stroke-width="1.5" marker-end="url(#arrowE)"/>
+    </svg>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="section-title">Key Components</div>
+      <table>
+        <thead>
+          <tr><th>Component</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Battery</strong></td><td>12V (light singles) or 24V. Powers all loads when engine off; enables engine start</td></tr>
+          <tr><td><strong>Alternator</strong></td><td>Engine-driven; primary power source when engine running; charges battery</td></tr>
+          <tr><td><strong>Voltage Regulator</strong></td><td>Maintains constant bus voltage (~14V or ~28V) regardless of engine RPM</td></tr>
+          <tr><td><strong>Master Switch</strong></td><td>Two-part split switch: Battery half + Alternator half (some aircraft)</td></tr>
+          <tr><td><strong>Bus Bar</strong></td><td>Central distribution rail; all loads connect via individual circuit breakers</td></tr>
+          <tr><td><strong>Circuit Breakers</strong></td><td>Protect individual circuits; can be reset once (if trip-free type, cannot be held in)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="section-title">Ammeter vs. Loadmeter</div>
+      <table>
+        <thead>
+          <tr><th>Type</th><th>Reads</th><th>Normal Indication</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Ammeter</strong></td><td>Current flow to/from battery</td><td>Slight positive (charging); zero in steady flight</td></tr>
+          <tr><td><strong>Loadmeter</strong></td><td>Total alternator output load</td><td>Some positive reading proportional to electrical load</td></tr>
+        </tbody>
+      </table>
+      <table style="margin-top:12px;">
+        <thead>
+          <tr><th>Indication</th><th>Meaning</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ammeter discharging</td><td>Alternator not charging — battery draining</td><td>Reduce load; land ASAP</td></tr>
+          <tr><td>Ammeter high charge</td><td>Battery deeply discharged; charging hard</td><td>Monitor; normal after start</td></tr>
+          <tr><td>Loadmeter zero</td><td>Alternator failure</td><td>Check ALT switch; reduce load; land soon</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>Key Rule:</strong> The aircraft electrical system is <strong>independent of the ignition magnetos</strong> — magnetos operate entirely on their own and will keep the engine running even if all electrical power is lost. Conversely, the engine does NOT need electrical power to keep running once started (except fuel-injected engines with electric fuel pumps). Always reduce electrical load during an alternator failure to extend battery life.
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-001: Aircraft Parts and Controls</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .diagrams { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #1a2d3d; border-radius: 8px; padding: 16px; }
+  .diagram-label { font-size: 12px; color: #7a9ab5; text-align: center; margin-bottom: 10px; letter-spacing: 0.5px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .tag-primary { display: inline-block; background: #0d2a1a; color: #4caf7d; font-size: 11px; padding: 2px 8px; border-radius: 3px; border: 1px solid #4caf7d; }
+  .tag-secondary { display: inline-block; background: #2a1a0d; color: #f0a040; font-size: 11px; padding: 2px 8px; border-radius: 3px; border: 1px solid #f0a040; }
+  .tables-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-001 — Aircraft Parts &amp; Controls</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="section-title">Aircraft Structure — Top-Down &amp; Side Views</div>
+  <div class="diagrams">
+    <!-- Top-down view -->
+    <div class="diagram-box">
+      <div class="diagram-label">TOP-DOWN VIEW</div>
+      <svg viewBox="0 0 340 280" width="100%" height="220">
+        <!-- Fuselage -->
+        <ellipse cx="170" cy="140" rx="22" ry="90" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Left wing -->
+        <polygon points="148,120 50,155 50,170 148,165" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Right wing -->
+        <polygon points="192,120 290,155 290,170 192,165" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Left aileron -->
+        <polygon points="60,156 90,153 90,163 60,168" fill="#f0c040" stroke="#f0c040" stroke-width="1"/>
+        <!-- Right aileron -->
+        <polygon points="250,155 280,156 280,168 250,164" fill="#f0c040" stroke="#f0c040" stroke-width="1"/>
+        <!-- Left flap -->
+        <polygon points="95,153 145,145 145,162 95,163" fill="#4a7a9b" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Right flap -->
+        <polygon points="195,145 245,153 245,163 195,162" fill="#4a7a9b" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Horizontal stabilizer left -->
+        <polygon points="148,215 100,230 100,240 148,235" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Horizontal stabilizer right -->
+        <polygon points="192,215 240,230 240,240 192,235" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Left elevator -->
+        <polygon points="104,231 128,228 128,238 104,239" fill="#f0c040" stroke="#f0c040" stroke-width="1"/>
+        <!-- Right elevator -->
+        <polygon points="212,228 236,231 236,239 212,238" fill="#f0c040" stroke="#f0c040" stroke-width="1"/>
+        <!-- Vertical fin top view (thin line) -->
+        <rect x="164" y="220" width="12" height="35" fill="#2a4a5a" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Propeller disc -->
+        <ellipse cx="170" cy="48" rx="38" ry="8" fill="none" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <!-- Nose -->
+        <ellipse cx="170" cy="48" rx="10" ry="10" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1"/>
+
+        <!-- Labels -->
+        <text x="170" y="135" text-anchor="middle" fill="#e8edf2" font-size="9">FUSELAGE</text>
+        <text x="62" y="143" text-anchor="middle" fill="#e8edf2" font-size="8">WING</text>
+        <text x="278" y="143" text-anchor="middle" fill="#e8edf2" font-size="8">WING</text>
+        <text x="75" y="162" text-anchor="middle" fill="#f0c040" font-size="8">AILERON</text>
+        <text x="265" y="162" text-anchor="middle" fill="#f0c040" font-size="8">AILERON</text>
+        <text x="120" y="155" text-anchor="middle" fill="#7ac0e8" font-size="8">FLAP</text>
+        <text x="220" y="155" text-anchor="middle" fill="#7ac0e8" font-size="8">FLAP</text>
+        <text x="108" y="238" text-anchor="middle" fill="#f0c040" font-size="8">ELEVATOR</text>
+        <text x="232" y="238" text-anchor="middle" fill="#f0c040" font-size="8">ELEVATOR</text>
+        <text x="116" y="226" text-anchor="middle" fill="#e8edf2" font-size="8">H. STAB</text>
+        <text x="224" y="226" text-anchor="middle" fill="#e8edf2" font-size="8">H. STAB</text>
+        <text x="170" y="265" text-anchor="middle" fill="#e8edf2" font-size="8">V. FIN</text>
+        <text x="170" y="38" text-anchor="middle" fill="#f0c040" font-size="8">PROP</text>
+      </svg>
+    </div>
+    <!-- Side view -->
+    <div class="diagram-box">
+      <div class="diagram-label">SIDE VIEW</div>
+      <svg viewBox="0 0 340 280" width="100%" height="220">
+        <!-- Fuselage body -->
+        <path d="M60,145 Q90,120 170,118 Q240,118 285,135 Q300,145 285,158 Q240,165 100,165 Q70,165 60,155 Z" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Wing (side) -->
+        <polygon points="150,130 200,128 200,138 150,140" fill="#2a4a6a" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Cockpit canopy -->
+        <path d="M130,118 Q155,98 190,98 Q210,98 215,118" fill="#0d3050" stroke="#7ac0e8" stroke-width="1.5"/>
+        <!-- Nose cowling -->
+        <ellipse cx="65" cy="149" rx="18" ry="14" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Propeller -->
+        <line x1="47" y1="132" x2="47" y2="168" stroke="#f0c040" stroke-width="4" stroke-linecap="round"/>
+        <!-- Horizontal stabilizer -->
+        <polygon points="265,138 310,132 310,140 265,143" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Vertical fin -->
+        <polygon points="270,118 290,95 295,95 285,118" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Elevator -->
+        <polygon points="290,133 310,132 310,138 290,138" fill="#f0c040" stroke="#f0c040" stroke-width="1"/>
+        <!-- Rudder -->
+        <polygon points="286,95 295,95 290,118 284,118" fill="#f0c040" stroke="#f0c040" stroke-width="1"/>
+        <!-- Landing gear -->
+        <line x1="140" y1="165" x2="140" y2="185" stroke="#7a9ab5" stroke-width="2"/>
+        <ellipse cx="140" cy="188" rx="12" ry="6" fill="#1a2d3d" stroke="#7a9ab5" stroke-width="1.5"/>
+        <line x1="230" y1="162" x2="230" y2="182" stroke="#7a9ab5" stroke-width="2"/>
+        <ellipse cx="230" cy="185" rx="12" ry="6" fill="#1a2d3d" stroke="#7a9ab5" stroke-width="1.5"/>
+
+        <!-- Labels -->
+        <text x="170" y="150" text-anchor="middle" fill="#e8edf2" font-size="9">FUSELAGE</text>
+        <text x="175" y="135" text-anchor="middle" fill="#e8edf2" font-size="8">WING</text>
+        <text x="172" y="112" text-anchor="middle" fill="#7ac0e8" font-size="9">COCKPIT</text>
+        <text x="65" y="148" text-anchor="middle" fill="#e8edf2" font-size="8">NOSE</text>
+        <text x="38" y="148" text-anchor="middle" fill="#f0c040" font-size="8">PROP</text>
+        <text x="288" y="110" text-anchor="middle" fill="#e8edf2" font-size="8">V.FIN</text>
+        <text x="292" y="130" text-anchor="middle" fill="#f0c040" font-size="8">RUDDER</text>
+        <text x="290" y="148" text-anchor="middle" fill="#e8edf2" font-size="8">H.STAB</text>
+        <text x="302" y="137" text-anchor="middle" fill="#f0c040" font-size="8">ELEV</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="tables-grid">
+    <div>
+      <div class="section-title">Primary Flight Controls</div>
+      <table>
+        <thead>
+          <tr><th>Control Surface</th><th>Axis</th><th>Motion</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Ailerons</strong></td><td>Longitudinal</td><td>Roll (bank left/right)</td></tr>
+          <tr><td><strong>Elevator</strong></td><td>Lateral</td><td>Pitch (nose up/down)</td></tr>
+          <tr><td><strong>Rudder</strong></td><td>Vertical (normal)</td><td>Yaw (nose left/right)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="section-title">Secondary Flight Controls</div>
+      <table>
+        <thead>
+          <tr><th>Control</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Flaps</strong></td><td>Increase lift &amp; drag; lower stall speed; steepen approach</td></tr>
+          <tr><td><strong>Trim Tabs</strong></td><td>Relieve control pressure; maintain attitude hands-off</td></tr>
+          <tr><td><strong>Elevator Trim</strong></td><td>Most common — pitch trim for cruise/climb/descent</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-title">Structure Reference</div>
+  <table>
+    <thead>
+      <tr><th>Component</th><th>Location</th><th>Function</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Fuselage</td><td>Central body</td><td>Houses cockpit, passengers, cargo; connects all components</td></tr>
+      <tr><td>Wings</td><td>Left &amp; right of fuselage</td><td>Generate lift via airfoil shape; house fuel tanks</td></tr>
+      <tr><td>Horizontal Stabilizer</td><td>Tail — horizontal surface</td><td>Provides longitudinal (pitch) stability</td></tr>
+      <tr><td>Vertical Stabilizer / Fin</td><td>Tail — vertical surface</td><td>Provides directional (yaw) stability</td></tr>
+      <tr><td>Propeller</td><td>Front of engine</td><td>Converts engine torque into thrust</td></tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>

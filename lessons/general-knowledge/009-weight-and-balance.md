@@ -7,7 +7,7 @@ title: "Weight and Balance"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk009-weight-and-balance.html
 sources:
   - TP 12880E Chapter 10
   - POH (aircraft-specific)

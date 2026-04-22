@@ -7,7 +7,7 @@ title: "Fuel System"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk004-fuel-system.html
 sources:
   - TP 12880E Chapter 5
   - CARs 602.88

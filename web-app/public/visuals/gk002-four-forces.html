@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-002: Four Forces of Flight</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .memory-box { background: #1a2d3d; border: 1px solid #f0c040; border-radius: 8px; padding: 20px; margin-top: 24px; }
+  .memory-title { color: #f0c040; font-size: 13px; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .memory-item { font-size: 13px; color: #e8edf2; margin-bottom: 6px; padding-left: 12px; }
+  .force-amber { color: #f0c040; font-weight: bold; }
+  .force-blue { color: #5b9bd5; font-weight: bold; }
+  .force-green { color: #4caf7d; font-weight: bold; }
+  .force-red { color: #e05050; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-002 — Four Forces of Flight</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="layout">
+    <div class="diagram-box">
+      <svg viewBox="0 0 320 300" width="100%" height="280">
+        <!-- Background grid hint -->
+        <line x1="160" y1="20" x2="160" y2="280" stroke="#1e3a50" stroke-width="1" stroke-dasharray="4,4"/>
+        <line x1="20" y1="150" x2="300" y2="150" stroke="#1e3a50" stroke-width="1" stroke-dasharray="4,4"/>
+
+        <!-- Aircraft silhouette (side view) -->
+        <!-- Fuselage -->
+        <path d="M100,140 Q120,128 180,126 Q230,126 250,138 Q258,148 250,158 Q200,165 120,165 Q100,165 95,155 Z" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Wing -->
+        <polygon points="155,130 200,128 200,137 155,140" fill="#243f5a" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Cockpit -->
+        <path d="M150,126 Q168,110 195,110 Q210,110 215,126" fill="#0d3050" stroke="#7ac0e8" stroke-width="1"/>
+        <!-- Nose -->
+        <ellipse cx="102" cy="150" rx="14" ry="12" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Propeller -->
+        <line x1="88" y1="135" x2="88" y2="165" stroke="#7a9ab5" stroke-width="3" stroke-linecap="round"/>
+        <!-- H-stab -->
+        <polygon points="238,140 265,135 265,142 238,145" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- V-fin -->
+        <polygon points="243,126 256,108 260,108 253,126" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1"/>
+
+        <!-- LIFT arrow (up, amber) -->
+        <defs>
+          <marker id="arrowAmber" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <polygon points="0,0 8,4 0,8" fill="#f0c040"/>
+          </marker>
+          <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <polygon points="0,0 8,4 0,8" fill="#5b9bd5"/>
+          </marker>
+          <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <polygon points="0,0 8,4 0,8" fill="#4caf7d"/>
+          </marker>
+          <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+            <polygon points="0,0 8,4 0,8" fill="#e05050"/>
+          </marker>
+        </defs>
+
+        <!-- LIFT: up -->
+        <line x1="175" y1="125" x2="175" y2="50" stroke="#f0c040" stroke-width="3" marker-end="url(#arrowAmber)"/>
+        <text x="178" y="68" fill="#f0c040" font-size="13" font-weight="bold">LIFT</text>
+        <text x="178" y="80" fill="#f0c040" font-size="9">↑ Upward</text>
+
+        <!-- WEIGHT: down -->
+        <line x1="200" y1="165" x2="200" y2="250" stroke="#5b9bd5" stroke-width="3" marker-end="url(#arrowBlue)"/>
+        <text x="204" y="228" fill="#5b9bd5" font-size="13" font-weight="bold">WEIGHT</text>
+        <text x="204" y="240" fill="#5b9bd5" font-size="9">↓ Gravity</text>
+
+        <!-- THRUST: forward (left) -->
+        <line x1="95" y1="150" x2="28" y2="150" stroke="#4caf7d" stroke-width="3" marker-end="url(#arrowGreen)"/>
+        <text x="14" y="138" fill="#4caf7d" font-size="13" font-weight="bold">THRUST</text>
+        <text x="18" y="148" fill="#4caf7d" font-size="9">← Forward</text>
+
+        <!-- DRAG: rearward (right) -->
+        <line x1="255" y1="150" x2="308" y2="150" stroke="#e05050" stroke-width="3" marker-end="url(#arrowRed)"/>
+        <text x="262" y="138" fill="#e05050" font-size="13" font-weight="bold">DRAG</text>
+        <text x="265" y="148" fill="#e05050" font-size="9">→ Rearward</text>
+
+        <!-- Level flight label -->
+        <text x="160" y="290" text-anchor="middle" fill="#7a9ab5" font-size="10">Level Flight — Forces in Balance</text>
+      </svg>
+    </div>
+
+    <div>
+      <div class="section-title">Force Relationships</div>
+      <table>
+        <thead>
+          <tr><th>Pair</th><th>Imbalance</th><th>Result</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="force-amber">Lift</span> &gt; <span class="force-blue">Weight</span></td>
+            <td>Lift exceeds weight</td>
+            <td>Aircraft climbs</td>
+          </tr>
+          <tr>
+            <td><span class="force-blue">Weight</span> &gt; <span class="force-amber">Lift</span></td>
+            <td>Weight exceeds lift</td>
+            <td>Aircraft descends</td>
+          </tr>
+          <tr>
+            <td><span class="force-green">Thrust</span> &gt; <span class="force-red">Drag</span></td>
+            <td>Thrust exceeds drag</td>
+            <td>Aircraft accelerates</td>
+          </tr>
+          <tr>
+            <td><span class="force-red">Drag</span> &gt; <span class="force-green">Thrust</span></td>
+            <td>Drag exceeds thrust</td>
+            <td>Aircraft decelerates</td>
+          </tr>
+          <tr>
+            <td>All equal</td>
+            <td>Forces balanced</td>
+            <td>Straight and level flight</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-title" style="margin-top:16px;">Force Descriptions</div>
+      <table>
+        <thead>
+          <tr><th>Force</th><th>Source</th><th>Direction</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="force-amber">Lift</span></td><td>Wing airfoil (Bernoulli + Newton)</td><td>Perpendicular to relative wind, upward</td></tr>
+          <tr><td><span class="force-blue">Weight</span></td><td>Gravity acting on aircraft mass</td><td>Straight down toward Earth centre</td></tr>
+          <tr><td><span class="force-green">Thrust</span></td><td>Engine + propeller</td><td>Forward, along flight path</td></tr>
+          <tr><td><span class="force-red">Drag</span></td><td>Aerodynamic resistance (parasite + induced)</td><td>Opposite to direction of flight</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="memory-box">
+    <div class="memory-title">Memory Hook — "LDTW" (Level Down Thrust Weight)</div>
+    <div class="memory-item">Think of two pairs: <strong>Lift/Weight</strong> (vertical axis) and <strong>Thrust/Drag</strong> (horizontal axis).</div>
+    <div class="memory-item">In <strong>level, unaccelerated flight</strong>: Lift = Weight AND Thrust = Drag.</div>
+    <div class="memory-item">Climbing requires <strong>excess lift OR reduced weight</strong> — but in sustained climb, thrust must overcome both drag and the weight component along the flight path.</div>
+    <div class="memory-item">Induced drag <strong>increases</strong> with angle of attack (slow flight). Parasite drag <strong>increases</strong> with airspeed squared.</div>
+  </div>
+</div>
+</body>
+</html>

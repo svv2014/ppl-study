@@ -7,7 +7,7 @@ title: "Pitot-Static System"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk006-pitot-static-instruments.html
 sources:
   - TP 12880E Chapter 8
   - CARs 605.14

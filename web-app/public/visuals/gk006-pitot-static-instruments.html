@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-006: Pitot-Static System</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; margin-bottom: 24px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .arc-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-size: 13px; }
+  .arc-swatch { width: 32px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+  .note-box { background: #1a2d3d; border-left: 3px solid #e05050; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-006 — Pitot-Static System</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="section-title">System Diagram</div>
+  <div class="diagram-box">
+    <svg viewBox="0 0 760 200" width="100%" height="185">
+      <defs>
+        <marker id="arrowP" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#f0c040"/>
+        </marker>
+        <marker id="arrowS" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#5b9bd5"/>
+        </marker>
+      </defs>
+
+      <!-- Pitot Tube (left side) -->
+      <rect x="20" y="85" width="70" height="30" rx="4" fill="#1e3a50" stroke="#f0c040" stroke-width="2"/>
+      <polygon points="90,85 110,100 90,115" fill="#f0c040"/>
+      <text x="55" y="102" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="bold">PITOT</text>
+      <text x="55" y="78" text-anchor="middle" fill="#7a9ab5" font-size="8">Ram air pressure</text>
+
+      <!-- Static Port (left lower) -->
+      <rect x="20" y="155" width="70" height="30" rx="4" fill="#1e3a50" stroke="#5b9bd5" stroke-width="2"/>
+      <text x="55" y="173" text-anchor="middle" fill="#5b9bd5" font-size="10" font-weight="bold">STATIC</text>
+      <text x="55" y="148" text-anchor="middle" fill="#7a9ab5" font-size="8">Ambient pressure</text>
+      <text x="55" y="192" text-anchor="middle" fill="#7a9ab5" font-size="8">PORT</text>
+
+      <!-- Pitot line (amber) going to ASI -->
+      <line x1="110" y1="100" x2="320" y2="100" stroke="#f0c040" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowP)"/>
+      <text x="215" y="92" text-anchor="middle" fill="#f0c040" font-size="8">Pitot pressure</text>
+
+      <!-- Static lines (blue) - branch to three instruments -->
+      <line x1="90" y1="170" x2="560" y2="170" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="5,3"/>
+      <!-- static → ASI -->
+      <line x1="355" y1="170" x2="355" y2="130" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowS)"/>
+      <!-- static → Altimeter -->
+      <line x1="480" y1="170" x2="480" y2="130" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowS)"/>
+      <!-- static → VSI -->
+      <line x1="595" y1="170" x2="595" y2="130" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowS)"/>
+      <text x="400" y="185" text-anchor="middle" fill="#5b9bd5" font-size="8">Static pressure line</text>
+
+      <!-- ASI Instrument -->
+      <rect x="320" y="50" width="70" height="80" rx="5" fill="#0d1b2a" stroke="#f0c040" stroke-width="2"/>
+      <circle cx="355" cy="80" r="22" fill="#0d2040" stroke="#7a9ab5" stroke-width="1"/>
+      <text x="355" y="85" text-anchor="middle" fill="#f0c040" font-size="8">ASI</text>
+      <text x="355" y="40" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">AIRSPEED</text>
+      <text x="355" y="145" text-anchor="middle" fill="#7a9ab5" font-size="8">Pitot + Static</text>
+
+      <!-- Altimeter Instrument -->
+      <rect x="445" y="50" width="70" height="80" rx="5" fill="#0d1b2a" stroke="#5b9bd5" stroke-width="2"/>
+      <circle cx="480" cy="80" r="22" fill="#0d2040" stroke="#7a9ab5" stroke-width="1"/>
+      <text x="480" y="85" text-anchor="middle" fill="#5b9bd5" font-size="8">ALT</text>
+      <text x="480" y="40" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">ALTIMETER</text>
+      <text x="480" y="145" text-anchor="middle" fill="#7a9ab5" font-size="8">Static only</text>
+
+      <!-- VSI Instrument -->
+      <rect x="560" y="50" width="70" height="80" rx="5" fill="#0d1b2a" stroke="#5b9bd5" stroke-width="2"/>
+      <circle cx="595" cy="80" r="22" fill="#0d2040" stroke="#7a9ab5" stroke-width="1"/>
+      <text x="595" y="85" text-anchor="middle" fill="#5b9bd5" font-size="8">VSI</text>
+      <text x="595" y="40" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">VERT SPEED</text>
+      <text x="595" y="145" text-anchor="middle" fill="#7a9ab5" font-size="8">Static only</text>
+
+      <!-- Pitot heat label -->
+      <rect x="20" y="40" width="70" height="22" rx="3" fill="#2a1a0d" stroke="#f0a040" stroke-width="1"/>
+      <text x="55" y="55" text-anchor="middle" fill="#f0a040" font-size="8">PITOT HEAT SW</text>
+    </svg>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="section-title">Instruments at a Glance</div>
+      <table>
+        <thead>
+          <tr><th>Instrument</th><th>Pressure Used</th><th>Measures</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Airspeed Indicator (ASI)</strong></td><td>Pitot + Static (differential)</td><td>Indicated airspeed (IAS) in knots or MPH</td></tr>
+          <tr><td><strong>Altimeter</strong></td><td>Static only</td><td>Altitude based on atmospheric pressure; requires QNH setting</td></tr>
+          <tr><td><strong>Vertical Speed Indicator (VSI)</strong></td><td>Static only (rate of change)</td><td>Rate of climb/descent in ft/min; ~6–9 second lag</td></tr>
+        </tbody>
+      </table>
+
+      <div class="section-title" style="margin-top:16px;">Failure Effects</div>
+      <table>
+        <thead>
+          <tr><th>Blockage</th><th>Effect on Instruments</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Pitot blocked (ice/insect)</td><td>ASI reads zero or freezes; ALT and VSI unaffected</td></tr>
+          <tr><td>Static blocked</td><td>ALT and VSI freeze; ASI reads incorrect (over/under reads with altitude change)</td></tr>
+          <tr><td>Both blocked</td><td>All three instruments unreliable</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <div class="section-title">ASI Speed Arcs (Colour Code)</div>
+      <div style="background:#1a2d3d; border-radius:8px; padding:16px;">
+        <svg viewBox="0 0 220 200" width="100%" height="180">
+          <!-- ASI dial background -->
+          <circle cx="110" cy="100" r="85" fill="#0d1b2a" stroke="#7a9ab5" stroke-width="2"/>
+          <!-- White arc: Vso to Vfe (flap operating) -->
+          <path d="M 55 145 A 65 65 0 0 1 90 48" fill="none" stroke="white" stroke-width="10" stroke-linecap="round"/>
+          <!-- Green arc: Vs1 to Vno (normal ops) -->
+          <path d="M 80 150 A 65 65 0 0 1 165 48" fill="none" stroke="#4caf7d" stroke-width="10" stroke-linecap="round"/>
+          <!-- Yellow arc: Vno to Vne (caution) -->
+          <path d="M 165 48 A 65 65 0 0 1 185 105" fill="none" stroke="#f0c040" stroke-width="10" stroke-linecap="round"/>
+          <!-- Red line: Vne -->
+          <line x1="185" y1="100" x2="195" y2="92" stroke="#e05050" stroke-width="4" stroke-linecap="round"/>
+          <!-- Labels -->
+          <text x="110" y="105" text-anchor="middle" fill="#e8edf2" font-size="12" font-weight="bold">KIAS</text>
+          <text x="35" y="140" text-anchor="middle" fill="white" font-size="9">Vso</text>
+          <text x="72" y="35" text-anchor="middle" fill="white" font-size="9">Vfe</text>
+          <text x="165" y="35" text-anchor="middle" fill="#4caf7d" font-size="9">Vno</text>
+          <text x="200" y="92" text-anchor="middle" fill="#e05050" font-size="9">Vne</text>
+          <text x="68" y="158" text-anchor="middle" fill="#4caf7d" font-size="9">Vs1</text>
+        </svg>
+        <table style="margin-top:8px; margin-bottom:0;">
+          <tbody>
+            <tr><td style="padding:5px 8px;"><span style="color:white;font-weight:bold;">White arc</span></td><td style="padding:5px 8px; font-size:12px;">Vso to Vfe — flap operating range</td></tr>
+            <tr><td style="padding:5px 8px;"><span style="color:#4caf7d;font-weight:bold;">Green arc</span></td><td style="padding:5px 8px; font-size:12px;">Vs1 to Vno — normal operating range</td></tr>
+            <tr><td style="padding:5px 8px;"><span style="color:#f0c040;font-weight:bold;">Yellow arc</span></td><td style="padding:5px 8px; font-size:12px;">Vno to Vne — caution (smooth air only)</td></tr>
+            <tr><td style="padding:5px 8px;"><span style="color:#e05050;font-weight:bold;">Red line</span></td><td style="padding:5px 8px; font-size:12px;">Vne — never exceed speed</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>Pitot Heat:</strong> Turn on pitot heat before entering visible moisture (clouds, rain, freezing temps) to prevent ice from blocking the pitot tube. A blocked pitot in IMC is extremely dangerous. The alternate static source (if installed) bypasses a blocked static port — opens to cockpit interior pressure, which causes slight ASI over-read and ALT over-read.
+  </div>
+</div>
+</body>
+</html>

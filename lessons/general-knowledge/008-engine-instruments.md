@@ -7,7 +7,7 @@ title: "Engine Instruments"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk008-engine-instruments.html
 sources:
   - TP 12880E Chapter 5
   - TP 12880E Chapter 8

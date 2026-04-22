@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-011: Takeoff and Landing Performance</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; margin-bottom: 24px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .speeds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .speed-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; text-align: center; }
+  .speed-label { font-size: 22px; color: #f0c040; font-weight: bold; margin-bottom: 4px; }
+  .speed-name { font-size: 11px; color: #7a9ab5; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .speed-desc { font-size: 12px; color: #e8edf2; line-height: 1.5; }
+  .note-box { background: #1a2d3d; border-left: 3px solid #f0c040; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-011 — Takeoff &amp; Landing Performance</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="layout">
+    <!-- Takeoff diagram -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 320 190" width="100%" height="170">
+        <defs>
+          <marker id="arrowT" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <polygon points="0,0 7,3.5 0,7" fill="#7a9ab5"/>
+          </marker>
+          <marker id="arrowTA" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <polygon points="0,0 7,3.5 0,7" fill="#f0c040"/>
+          </marker>
+        </defs>
+
+        <!-- Runway -->
+        <rect x="20" y="145" width="290" height="14" fill="#243d52" stroke="#7a9ab5" stroke-width="1"/>
+        <line x1="165" y1="145" x2="165" y2="159" stroke="white" stroke-width="1.5" stroke-dasharray="4,6"/>
+
+        <!-- Ground roll distance label -->
+        <line x1="20" y1="138" x2="180" y2="138" stroke="#4caf7d" stroke-width="1"/>
+        <line x1="20" y1="133" x2="20" y2="143" stroke="#4caf7d" stroke-width="1"/>
+        <line x1="180" y1="133" x2="180" y2="143" stroke="#4caf7d" stroke-width="1"/>
+        <text x="100" y="131" text-anchor="middle" fill="#4caf7d" font-size="9">Ground Roll</text>
+
+        <!-- 50 ft obstacle clearance line -->
+        <line x1="20" y1="85" x2="290" y2="85" stroke="#e05050" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="292" y="88" fill="#e05050" font-size="8">50 ft</text>
+
+        <!-- Takeoff profile (aircraft climbing) -->
+        <path d="M 40 145 Q 100 144 180 138 Q 220 120 280 70" fill="none" stroke="#f0c040" stroke-width="2"/>
+        <!-- Aircraft at rotation point -->
+        <circle cx="185" cy="136" r="5" fill="#f0c040"/>
+        <!-- Vr label -->
+        <text x="188" y="128" fill="#f0c040" font-size="8">Vr</text>
+
+        <!-- Total distance bracket -->
+        <line x1="20" y1="162" x2="280" y2="162" stroke="#5b9bd5" stroke-width="1"/>
+        <line x1="20" y1="157" x2="20" y2="167" stroke="#5b9bd5" stroke-width="1"/>
+        <line x1="280" y1="157" x2="280" y2="167" stroke="#5b9bd5" stroke-width="1"/>
+        <text x="150" y="176" text-anchor="middle" fill="#5b9bd5" font-size="9">Total Distance over 50 ft obstacle</text>
+
+        <!-- Title -->
+        <text x="160" y="20" text-anchor="middle" fill="#e8edf2" font-size="11" font-weight="bold">TAKEOFF PROFILE</text>
+        <text x="160" y="33" text-anchor="middle" fill="#7a9ab5" font-size="9">Normal TO with 10° flap</text>
+      </svg>
+    </div>
+
+    <!-- Landing diagram -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 320 190" width="100%" height="170">
+        <defs>
+          <marker id="arrowL" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <polygon points="0,0 7,3.5 0,7" fill="#7a9ab5"/>
+          </marker>
+        </defs>
+
+        <!-- Runway -->
+        <rect x="100" y="145" width="200" height="14" fill="#243d52" stroke="#7a9ab5" stroke-width="1"/>
+
+        <!-- 50 ft threshold clearance -->
+        <line x1="20" y1="85" x2="320" y2="85" stroke="#e05050" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="292" y="88" fill="#e05050" font-size="8">50 ft</text>
+
+        <!-- Approach/landing profile -->
+        <path d="M 20 60 L 120 145" fill="none" stroke="#5b9bd5" stroke-width="2"/>
+        <!-- Flare and rollout -->
+        <path d="M 120 145 Q 180 144 280 145" fill="none" stroke="#4caf7d" stroke-width="2"/>
+
+        <!-- Threshold marker -->
+        <line x1="120" y1="140" x2="120" y2="165" stroke="white" stroke-width="2" stroke-dasharray="3,3"/>
+        <text x="115" y="178" text-anchor="middle" fill="#e8edf2" font-size="8">Threshold</text>
+
+        <!-- Touchdown point -->
+        <circle cx="150" cy="145" r="5" fill="#f0c040"/>
+        <text x="155" y="140" fill="#f0c040" font-size="8">TD</text>
+
+        <!-- Stop point -->
+        <line x1="280" y1="140" x2="280" y2="165" stroke="#e05050" stroke-width="2"/>
+        <text x="280" y="178" text-anchor="middle" fill="#e05050" font-size="8">Stop</text>
+
+        <!-- Ground roll -->
+        <line x1="150" y1="162" x2="280" y2="162" stroke="#f0c040" stroke-width="1"/>
+        <line x1="150" y1="157" x2="150" y2="167" stroke="#f0c040" stroke-width="1"/>
+        <line x1="280" y1="157" x2="280" y2="167" stroke="#f0c040" stroke-width="1"/>
+        <text x="215" y="176" text-anchor="middle" fill="#f0c040" font-size="9">Landing Roll</text>
+
+        <!-- Approach glide slope angle -->
+        <text x="55" y="55" text-anchor="middle" fill="#5b9bd5" font-size="8">~3° approach</text>
+
+        <!-- Title -->
+        <text x="160" y="20" text-anchor="middle" fill="#e8edf2" font-size="11" font-weight="bold">LANDING PROFILE</text>
+        <text x="160" y="33" text-anchor="middle" fill="#7a9ab5" font-size="9">Normal approach over 50 ft obstacle</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="section-title">Reference Speeds</div>
+  <div class="speeds-grid">
+    <div class="speed-card">
+      <div class="speed-label">Vr</div>
+      <div class="speed-name">ROTATION SPEED</div>
+      <div class="speed-desc">Speed at which pilot applies back pressure to lift nose off runway. Aircraft becomes airborne shortly after.</div>
+    </div>
+    <div class="speed-card">
+      <div class="speed-label">Vx</div>
+      <div class="speed-name">BEST ANGLE OF CLIMB</div>
+      <div class="speed-desc">Maximum altitude gain per unit of horizontal distance. Used for obstacle clearance after takeoff. Slower than Vy.</div>
+    </div>
+    <div class="speed-card">
+      <div class="speed-label">Vy</div>
+      <div class="speed-name">BEST RATE OF CLIMB</div>
+      <div class="speed-desc">Maximum altitude gain per unit of time (highest ft/min). Normal climb speed after clearing obstacles.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Factors Affecting Performance</div>
+  <table>
+    <thead>
+      <tr><th>Factor</th><th>Takeoff Effect</th><th>Landing Effect</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Higher weight</strong></td><td>Longer ground roll; higher Vr; reduced climb rate</td><td>Higher approach speed; longer landing roll</td></tr>
+      <tr><td><strong>Higher density altitude</strong></td><td>Significantly longer ground roll; reduced acceleration</td><td>Higher true airspeed at landing; longer roll</td></tr>
+      <tr><td><strong>Headwind</strong></td><td>Shorter ground roll (subtract ~10% ground roll per 10% headwind)</td><td>Shorter approach; shorter landing roll</td></tr>
+      <tr><td><strong>Tailwind</strong></td><td>Significantly longer ground roll (add ~20% per 10% headwind-equivalent)</td><td>Longer approach; much longer landing roll</td></tr>
+      <tr><td><strong>Upslope runway</strong></td><td>Longer takeoff roll (gravity opposing)</td><td>Shorter landing roll (gravity assisting braking)</td></tr>
+      <tr><td><strong>Downslope runway</strong></td><td>Shorter takeoff roll</td><td>Longer landing roll (gravity works against braking)</td></tr>
+      <tr><td><strong>Soft/grass surface</strong></td><td>Longer roll due to increased rolling resistance (+15–25%)</td><td>Shorter roll (surface friction increases stopping)</td></tr>
+      <tr><td><strong>Wet/icy surface</strong></td><td>Similar to soft; may reduce tire traction</td><td>Longer roll — reduced braking friction on wet/ice</td></tr>
+      <tr><td><strong>Flap setting</strong></td><td>Partial flap: shorter roll, lower Vr, better angle; full flap: may reduce performance</td><td>Full flap: steeper approach, shorter landing roll</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <strong>Rule of Thumb — Tailwind:</strong> A tailwind of 10% of liftoff speed approximately increases takeoff distance by <strong>20%</strong> and landing distance by <strong>10%</strong>. Exam questions often test tailwind penalty. Always use actual POH charts — never rely on rules of thumb for actual flight planning. V1 (decision speed) applies to multi-engine aircraft only; not relevant for single-engine PPL.
+  </div>
+</div>
+</body>
+</html>
