@@ -7,7 +7,7 @@ title: "Wake Turbulence — Categories, Avoidance Rules, Timing"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/al016-wake-turbulence.html
 sources:
   - CARs 602.19
   - AIM AIR 2.0

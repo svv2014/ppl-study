@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-018: Special Use Airspace — Class F(R), MOAs, ADIZs</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+
+  .type-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .type-card { border-radius: 10px; padding: 18px; border: 1.5px solid; }
+  .card-fr { background: rgba(255,80,80,0.06); border-color: rgba(255,80,80,0.3); }
+  .card-fa { background: rgba(255,200,0,0.06); border-color: rgba(255,200,0,0.3); }
+  .card-moa { background: rgba(100,160,255,0.06); border-color: rgba(100,160,255,0.3); }
+  .card-adiz { background: rgba(130,100,255,0.06); border-color: rgba(130,100,255,0.3); }
+  .type-label { font-size: 18px; font-weight: 900; margin-bottom: 4px; letter-spacing: 1px; }
+  .label-fr { color: #ff7070; }
+  .label-fa { color: #f0c040; }
+  .label-moa { color: #64a0ff; }
+  .label-adiz { color: #a080ff; }
+  .type-name { font-size: 12px; color: #7a9ab5; margin-bottom: 10px; font-weight: 600; }
+  .type-body { font-size: 13px; color: #c8d8e8; line-height: 1.6; }
+  .type-body strong { color: #e8edf2; }
+  .entry-rule { font-size: 12px; font-weight: 700; margin-top: 8px; padding: 4px 8px; border-radius: 4px; display: inline-block; }
+  .rule-restricted { background: rgba(255,80,80,0.15); color: #ff7070; }
+  .rule-advisory { background: rgba(255,200,0,0.12); color: #f0c040; }
+  .rule-restricted-moa { background: rgba(100,160,255,0.15); color: #64a0ff; }
+  .rule-adiz { background: rgba(130,100,255,0.15); color: #a080ff; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .yes { color: #80e080; font-weight: 700; }
+  .no  { color: #ff8080; font-weight: 700; }
+  .cond { color: #f0c040; font-weight: 600; }
+
+  .adiz-box { background: rgba(130,100,255,0.06); border: 1.5px solid rgba(130,100,255,0.25); border-radius: 10px; padding: 18px 20px; margin-bottom: 28px; }
+  .adiz-box h2 { font-size: 12px; color: #a080ff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600; }
+  .adiz-step { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .adiz-num { background: rgba(130,100,255,0.2); color: #a080ff; font-size: 10px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .adiz-text { font-size: 13px; color: #c8d8e8; line-height: 1.5; }
+  .adiz-text strong { color: #f0c040; }
+
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>AL-018 — Special Use Airspace: Class F(R), MOAs, ADIZs</h1>
+<p class="subtitle">Transport Canada · CARs 601.14–601.17 · AIM RAC 2.8, 9.0 · TP 12880E Ch.7 · PPL Written Exam</p>
+
+<!-- Special use types -->
+<div class="section-label">Types of Special Use Airspace</div>
+<div class="type-grid">
+  <div class="type-card card-fr">
+    <div class="type-label label-fr">Class F(R)</div>
+    <div class="type-name">Restricted Airspace</div>
+    <div class="type-body">Airspace in which flight is <strong>prohibited unless specific authorization</strong> is obtained from the controlling authority (usually DND, TC, or NAV CANADA). Listed in the Canada Flight Supplement (CFS).<br><span class="entry-rule rule-restricted">Entry requires authorization</span></div>
+  </div>
+  <div class="type-card card-fa">
+    <div class="type-label label-fa">Class F(A)</div>
+    <div class="type-name">Advisory Airspace</div>
+    <div class="type-body">Airspace that <strong>warns pilots of a hazard</strong> (training, parachuting, glider ops, etc.) but does not prohibit entry. VFR pilots may enter but should exercise caution and may receive ATC advisories.<br><span class="entry-rule rule-advisory">Entry permitted — caution advised</span></div>
+  </div>
+  <div class="type-card card-moa">
+    <div class="type-label label-moa">MOA</div>
+    <div class="type-name">Military Operations Area</div>
+    <div class="type-body">Designated block of airspace for <strong>military flight training</strong>. When active, civil VFR flight is not prohibited but is strongly discouraged. Check NOTAMs and contact the controlling unit before entering an active MOA.<br><span class="entry-rule rule-restricted-moa">Check NOTAM — avoid when active</span></div>
+  </div>
+  <div class="type-card card-adiz">
+    <div class="type-label label-adiz">ADIZ</div>
+    <div class="type-name">Air Defence Identification Zone</div>
+    <div class="type-body">Airspace boundary around Canada requiring identification of all inbound aircraft. VFR aircraft must file a <strong>DVFR (Defence VFR) flight plan</strong> before entering. Failure to do so can trigger a military intercept.<br><span class="entry-rule rule-adiz">DVFR flight plan required before entry</span></div>
+  </div>
+</div>
+
+<!-- Comparison table -->
+<div class="section-label">Entry Requirements — Comparison</div>
+<table>
+  <thead>
+    <tr>
+      <th>Airspace Type</th>
+      <th>Authorization Required?</th>
+      <th>Flight Plan Required?</th>
+      <th>NOTAM Check?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Class F(R) — Restricted</td>
+      <td class="no">Yes — must get specific auth</td>
+      <td class="cond">Depends on authorization</td>
+      <td class="yes">Always</td>
+    </tr>
+    <tr>
+      <td>Class F(A) — Advisory</td>
+      <td class="yes">No — entry permitted</td>
+      <td class="yes">No (unless otherwise noted)</td>
+      <td class="yes">Recommended</td>
+    </tr>
+    <tr>
+      <td>MOA (Military Operations Area)</td>
+      <td class="cond">Contact controlling unit</td>
+      <td class="yes">No specific requirement</td>
+      <td class="yes">Always</td>
+    </tr>
+    <tr>
+      <td>ADIZ (VFR entry)</td>
+      <td class="yes">No — but DVFR plan required</td>
+      <td class="no">Yes — DVFR flight plan</td>
+      <td class="yes">Always</td>
+    </tr>
+    <tr>
+      <td>Temporary Flight Restriction (TFR)</td>
+      <td class="no">Yes — per NOTAM terms</td>
+      <td class="cond">Depends on TFR type</td>
+      <td class="yes">Always — issued by NOTAM</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- ADIZ procedure -->
+<div class="adiz-box">
+  <h2>ADIZ Entry Procedure — VFR Aircraft</h2>
+  <div class="adiz-step"><span class="adiz-num">1</span><span class="adiz-text"><strong>File a DVFR (Defence VFR) flight plan</strong> before departure. Include entry point, estimated time of entry, and transponder code.</span></div>
+  <div class="adiz-step"><span class="adiz-num">2</span><span class="adiz-text"><strong>Squawk assigned code</strong> — ATC assigns a discrete code for ADIZ tracking. Squawk it from departure.</span></div>
+  <div class="adiz-step"><span class="adiz-num">3</span><span class="adiz-text"><strong>Maintain schedule</strong> — cross the ADIZ boundary within ±5 minutes of the filed ETA. Deviations beyond this may trigger an interception.</span></div>
+  <div class="adiz-step"><span class="adiz-num">4</span><span class="adiz-text"><strong>Report to ATC</strong> — position report at the ADIZ boundary if instructed, and maintain continuous monitoring of the assigned frequency.</span></div>
+  <div class="adiz-step"><span class="adiz-num">5</span><span class="adiz-text"><strong>Close flight plan</strong> on landing as required. Failure to close may trigger a search and rescue response.</span></div>
+</div>
+
+<!-- Hook -->
+<div class="hook-box">
+  <h2>Memory Hook</h2>
+  <div class="hook-row"><span class="hook-badge">R = Restricted</span><span class="hook-text">F(R) = <strong>Restricted</strong> = you need permission to enter. F(A) = <strong>Advisory</strong> = you can enter but be careful.</span></div>
+  <div class="hook-row"><span class="hook-badge">ADIZ = DVFR</span><span class="hook-text">Crossing into Canadian ADIZ requires a <strong>DVFR flight plan filed before departure</strong>. No plan = possible intercept by CF-18.</span></div>
+  <div class="hook-row"><span class="hook-badge">NOTAM ALWAYS</span><span class="hook-text">For any special use airspace — F(R), F(A), MOA, TFR — <strong>always check NOTAMs</strong>. Activation and deactivation are notified via NOTAM.</span></div>
+</div>
+
+</body>
+</html>

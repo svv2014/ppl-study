@@ -7,7 +7,7 @@ title: "Low-Level Flight Rules — 500 ft Rule, Congested Areas, Noise Abatement
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/al017-low-level-flight-rules.html
 sources:
   - CARs 602.13
   - CARs 602.14
