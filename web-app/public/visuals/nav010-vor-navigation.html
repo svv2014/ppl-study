@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAV-010: VOR Navigation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+
+  /* ── VOR instrument ──────────────────────────────────────────────── */
+  .vor-layout { display: flex; gap: 28px; margin-bottom: 32px; flex-wrap: wrap; }
+  .vor-instrument { flex-shrink: 0; }
+  .vor-legend { flex: 1; min-width: 240px; }
+  .legend-item { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
+  .legend-num { width: 22px; height: 22px; border-radius: 50%; background: #f0c040; color: #0d1b2a; font-size: 10px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .legend-text { font-size: 12px; color: #c8d8e8; line-height: 1.5; }
+  .legend-text strong { color: #f0c040; }
+
+  /* ── Radial / course table ───────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .to-flag   { background: rgba(80,200,80,0.1); }
+  .from-flag { background: rgba(80,130,255,0.1); }
+  .label-col { color: #f0c040; font-weight: 600; }
+  .to   { color: #80e080; font-weight: 700; }
+  .from { color: #5ba3f5; font-weight: 700; }
+
+  /* ── Procedure cards ─────────────────────────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 18px; }
+  .card h3 { font-size: 12px; font-weight: 700; color: #f0c040; margin-bottom: 8px; }
+  .card ol { padding-left: 16px; }
+  .card ol li { font-size: 11px; color: #c8d8e8; line-height: 1.7; }
+
+  /* ── Hook box ────────────────────────────────────────────────────── */
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>NAV-010 — VOR Navigation</h1>
+<p class="subtitle">Transport Canada · TP 12880E Ch.9 · AIM COM 3.0 · PPL Written Exam</p>
+
+<div class="section-label">VOR Instrument — Components</div>
+<div class="vor-layout">
+  <!-- VOR CDI diagram -->
+  <svg class="vor-instrument" width="220" height="240" viewBox="0 0 220 240" aria-label="VOR CDI instrument showing OBS selector, course deviation indicator needle, and TO/FROM flag">
+    <rect width="220" height="240" fill="#071520" rx="10"/>
+    <!-- Instrument bezel -->
+    <circle cx="110" cy="105" r="88" fill="#0a1020" stroke="#3a5a7a" stroke-width="2"/>
+    <circle cx="110" cy="105" r="84" fill="none" stroke="#1a3a5a" stroke-width="1"/>
+
+    <!-- Compass rose (simplified tick marks) -->
+    <g stroke="#3a5a7a" stroke-width="1">
+      <!-- N -->
+      <line x1="110" y1="22" x2="110" y2="30"/>
+      <!-- S -->
+      <line x1="110" y1="180" x2="110" y2="188"/>
+      <!-- E -->
+      <line x1="192" y1="105" x2="184" y2="105"/>
+      <!-- W -->
+      <line x1="28" y1="105" x2="36" y2="105"/>
+      <!-- NE -->
+      <line x1="168" y1="47" x2="162" y2="53"/>
+      <!-- NW -->
+      <line x1="52" y1="47" x2="58" y2="53"/>
+      <!-- SE -->
+      <line x1="168" y1="163" x2="162" y2="157"/>
+      <!-- SW -->
+      <line x1="52" y1="163" x2="58" y2="157"/>
+    </g>
+
+    <!-- OBS selected course label -->
+    <text x="110" y="35" text-anchor="middle" fill="#f0c040" font-size="14" font-weight="800" font-family="sans-serif">270</text>
+    <text x="110" y="46" text-anchor="middle" fill="#7a9ab5" font-size="8" font-family="sans-serif">OBS SET</text>
+
+    <!-- CDI center post -->
+    <rect x="107" y="55" width="6" height="100" rx="3" fill="#1a2d3d"/>
+    <!-- CDI needle (deflected slightly right) -->
+    <rect x="118" y="53" width="4" height="104" rx="2" fill="#f0c040"/>
+    <!-- Dot markers (deviation dots) -->
+    <circle cx="82" cy="105" r="3" fill="none" stroke="#3a5a7a" stroke-width="1.5"/>
+    <circle cx="96" cy="105" r="3" fill="none" stroke="#3a5a7a" stroke-width="1.5"/>
+    <circle cx="124" cy="105" r="3" fill="none" stroke="#3a5a7a" stroke-width="1.5"/>
+    <circle cx="138" cy="105" r="3" fill="none" stroke="#3a5a7a" stroke-width="1.5"/>
+
+    <!-- TO flag -->
+    <rect x="86" y="155" width="48" height="22" rx="4" fill="#1a4a1a" stroke="#2d7a2d"/>
+    <text x="110" y="170" text-anchor="middle" fill="#80e080" font-size="11" font-weight="800" font-family="sans-serif">TO</text>
+
+    <!-- OBS knob -->
+    <rect x="5" y="88" width="20" height="34" rx="4" fill="#1a2d3d" stroke="#3a5a7a"/>
+    <text x="15" y="109" text-anchor="middle" fill="#7a9ab5" font-size="8" font-family="sans-serif" transform="rotate(-90 15 109)">OBS</text>
+
+    <!-- Labels -->
+    <text x="110" y="225" text-anchor="middle" fill="#7a9ab5" font-size="9" font-family="sans-serif">VOR / CDI Instrument</text>
+
+    <!-- Number callouts -->
+    <text x="110" y="18" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="800" font-family="sans-serif">①</text>
+    <text x="195" y="109" fill="#f0c040" font-size="10" font-weight="800" font-family="sans-serif">②</text>
+    <text x="125" y="78" fill="#f0c040" font-size="10" font-weight="800" font-family="sans-serif">③</text>
+    <text x="110" y="152" text-anchor="middle" fill="#80e080" font-size="10" font-weight="800" font-family="sans-serif">④</text>
+  </svg>
+
+  <div class="vor-legend">
+    <div class="legend-item">
+      <div class="legend-num">①</div>
+      <div class="legend-text"><strong>OBS (Omni Bearing Selector)</strong> — Rotary knob that sets the course you want to track. Dial in the desired radial or inbound course. Clicking around changes the number displayed at top.</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-num">②</div>
+      <div class="legend-text"><strong>Deviation Dots</strong> — Each dot = 2° of course deviation. Full-scale deflection (5 dots) = 10° off course. The needle shows you which side of the selected course you are on.</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-num">③</div>
+      <div class="legend-text"><strong>CDI Needle</strong> — Deflected right means the selected course is to your right. <em>Fly toward the needle</em> to return to course.</div>
+    </div>
+    <div class="legend-item">
+      <div class="legend-num">④</div>
+      <div class="legend-text"><strong>TO / FROM Flag</strong> — <span class="to">TO</span> = flying toward the station on the selected course. <span class="from">FROM</span> = flying away from station. Flag reverses when you pass overhead.</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">Radials, Courses, and TO/FROM</div>
+<table>
+  <tr><th>Scenario</th><th>Flag</th><th>OBS Set</th><th>What it means</th></tr>
+  <tr class="to-flag">
+    <td class="label-col">Flying inbound on the 090 radial</td>
+    <td class="to">TO</td>
+    <td>270° (reciprocal of 090)</td>
+    <td>You are east of the VOR, flying westbound toward it</td>
+  </tr>
+  <tr class="from-flag">
+    <td class="label-col">Tracking outbound on the 270 radial</td>
+    <td class="from">FROM</td>
+    <td>270°</td>
+    <td>You are west of the VOR, flying westbound away from it</td>
+  </tr>
+  <tr>
+    <td class="label-col">Passing directly overhead VOR</td>
+    <td style="color:#888;">FLAG OFF</td>
+    <td>Any</td>
+    <td>Brief flag removal indicates station passage; needle may swing</td>
+  </tr>
+</table>
+
+<div class="two-col">
+  <div class="card">
+    <h3>Intercepting and Tracking a Radial — Inbound</h3>
+    <ol>
+      <li>Identify VOR by Morse code audio</li>
+      <li>Set desired inbound course on OBS</li>
+      <li>Check flag = TO</li>
+      <li>Turn to intercept course; fly toward needle</li>
+      <li>When needle centers, fly the set course</li>
+      <li>Apply wind correction to stay on track</li>
+    </ol>
+  </div>
+  <div class="card">
+    <h3>Determining Position (Cross-Fix)</h3>
+    <ol>
+      <li>Tune and identify VOR #1; centre needle (FROM)</li>
+      <li>Read OBS — this is the radial you are on</li>
+      <li>Draw that radial on chart from VOR #1</li>
+      <li>Tune and identify VOR #2; repeat</li>
+      <li>Draw second radial — intersection = your position</li>
+      <li>One VOR + DME distance also gives a fix</li>
+    </ol>
+  </div>
+</div>
+
+<div class="hook-box">
+  <h2>Exam Memory Hooks</h2>
+  <div class="hook-row"><span class="hook-badge">RADIALS</span><span class="hook-text"><strong>Radials go FROM the station</strong> — the 090 radial extends eastbound from the VOR. To fly inbound on the 090 radial, set 270° on OBS (reciprocal). Flag should read TO.</span></div>
+  <div class="hook-row"><span class="hook-badge">CDI</span><span class="hook-text"><strong>Fly toward the needle</strong> — if needle is right, turn right. Valid only when TO/FROM flag matches your intent. A FROM flag with a right needle means the course is to your right flying away from station.</span></div>
+  <div class="hook-row"><span class="hook-badge">IDENT</span><span class="hook-text">Always <strong>identify the VOR by Morse code</strong> before using it for navigation. Many VORs are co-located with ILS or TACAN — wrong freq = wrong station. Listen for the 3-letter ident.</span></div>
+</div>
+
+</body>
+</html>

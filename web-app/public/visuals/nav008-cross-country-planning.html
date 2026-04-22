@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAV-008: Cross-Country Planning</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+
+  /* ── Checklist ───────────────────────────────────────────────────── */
+  .checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .check-item { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 18px; display: flex; gap: 14px; }
+  .check-num { width: 32px; height: 32px; border-radius: 50%; background: #1a3a5a; color: #f0c040; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .check-body h3 { font-size: 12px; font-weight: 700; color: #f0c040; margin-bottom: 4px; }
+  .check-body p { font-size: 11px; color: #c8d8e8; line-height: 1.5; }
+  .check-body .ref { font-size: 10px; color: #7a9ab5; margin-top: 4px; }
+
+  /* ── Altitude table ──────────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .label-col { color: #f0c040; font-weight: 600; }
+  .alt-val { color: #80e080; font-weight: 700; font-size: 13px; }
+
+  /* ── Weather sources ─────────────────────────────────────────────── */
+  .wx-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .wx-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 8px; padding: 14px; }
+  .wx-card .name { font-size: 13px; font-weight: 800; color: #f0c040; margin-bottom: 4px; }
+  .wx-card .full { font-size: 10px; color: #7a9ab5; margin-bottom: 8px; }
+  .wx-card p { font-size: 11px; color: #c8d8e8; line-height: 1.5; }
+
+  /* ── Hook box ────────────────────────────────────────────────────── */
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>NAV-008 — Cross-Country Planning</h1>
+<p class="subtitle">Transport Canada · CARs 602.34, 602.73 · TP 12880E Ch.9 · PPL Written Exam</p>
+
+<div class="section-label">Eight-Step Planning Workflow</div>
+<div class="checklist">
+  <div class="check-item">
+    <div class="check-num">1</div>
+    <div class="check-body">
+      <h3>Study Route and Airspace</h3>
+      <p>Examine VNC/WAC for airspace, terrain, restricted areas (Class F), and suitable alternate aerodromes. Mark controlled zone boundaries.</p>
+    </div>
+  </div>
+  <div class="check-item">
+    <div class="check-num">2</div>
+    <div class="check-body">
+      <h3>Select Cruise Altitude</h3>
+      <p>Apply the VFR cruising altitude rule (CARs 602.34). Must be at least 1,000 ft above terrain (500 ft built-up areas).</p>
+      <span class="ref">→ See altitude table below</span>
+    </div>
+  </div>
+  <div class="check-item">
+    <div class="check-num">3</div>
+    <div class="check-body">
+      <h3>Measure True Track &amp; Distance</h3>
+      <p>Use a plotter on the VNC. Read true bearing at meridian crossing. Measure distance with plotter scale or dividers.</p>
+    </div>
+  </div>
+  <div class="check-item">
+    <div class="check-num">4</div>
+    <div class="check-body">
+      <h3>Obtain Weather Briefing</h3>
+      <p>Get METAR, TAF, GFA (Graphical Forecast), winds aloft (FD), and NOTAMs for departure, en route, and destination.</p>
+    </div>
+  </div>
+  <div class="check-item">
+    <div class="check-num">5</div>
+    <div class="check-body">
+      <h3>Solve Wind Triangle (E6B)</h3>
+      <p>Using winds aloft at planned altitude: calculate True Heading, Wind Correction Angle, and Ground Speed for each leg.</p>
+    </div>
+  </div>
+  <div class="check-item">
+    <div class="check-num">6</div>
+    <div class="check-body">
+      <h3>Calculate Fuel</h3>
+      <p>En route fuel (using GS) + 30-min day VFR reserve. Verify usable fuel ≥ total required. Plan fuel stop if needed.</p>
+      <span class="ref">→ CARs 602.88</span>
+    </div>
+  </div>
+  <div class="check-item">
+    <div class="check-num">7</div>
+    <div class="check-body">
+      <h3>File VFR Flight Plan (if required)</h3>
+      <p>Required for flights beyond 25 NM from departure aerodrome or when overflying sparsely populated areas. File with Nav Canada.</p>
+      <span class="ref">→ CARs 602.73</span>
+    </div>
+  </div>
+  <div class="check-item">
+    <div class="check-num">8</div>
+    <div class="check-body">
+      <h3>Pre-Departure Checks</h3>
+      <p>Complete PLOG, aircraft documents (AROW), fuel and oil check, weather go/no-go decision, notify a responsible person.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">VFR Cruising Altitudes — CARs 602.34</div>
+<table>
+  <tr><th>Magnetic Track</th><th>Direction (approx.)</th><th>Required VFR Altitude</th><th>Examples</th></tr>
+  <tr>
+    <td class="label-col">000° to 179°</td>
+    <td>Northbound / Eastbound</td>
+    <td class="alt-val">Odd thousands + 500 ft</td>
+    <td>3,500 · 5,500 · 7,500 · 9,500 ft</td>
+  </tr>
+  <tr>
+    <td class="label-col">180° to 359°</td>
+    <td>Southbound / Westbound</td>
+    <td class="alt-val">Even thousands + 500 ft</td>
+    <td>4,500 · 6,500 · 8,500 · 10,500 ft</td>
+  </tr>
+</table>
+<p style="font-size:11px;color:#7a9ab5;margin-bottom:28px;">Applies above 3,000 ft AGL. Below 3,000 ft AGL, the rule does not apply but good airmanship recommends following it. Rule uses <strong style="color:#f0c040">magnetic</strong> track, not true track.</p>
+
+<div class="section-label">Weather Products — What to Get</div>
+<div class="wx-grid">
+  <div class="wx-card">
+    <div class="name">METAR</div>
+    <div class="full">Aviation Routine Weather Report</div>
+    <p>Current surface conditions at a station. Check departure and destination. Valid at time of observation.</p>
+  </div>
+  <div class="wx-card">
+    <div class="name">TAF</div>
+    <div class="full">Terminal Aerodrome Forecast</div>
+    <p>24–30 hr forecast for airport area. Check destination for arrival window. Note TEMPO and BECMG groups.</p>
+  </div>
+  <div class="wx-card">
+    <div class="name">GFA</div>
+    <div class="full">Graphical Forecast for Aviation</div>
+    <p>En route weather (clouds, precipitation, icing, turbulence). Covers large areas every 6 hours.</p>
+  </div>
+  <div class="wx-card">
+    <div class="name">FD / FB</div>
+    <div class="full">Winds and Temps Aloft Forecast</div>
+    <p>Winds at your planned altitude. Use to solve wind triangle. Given in True degrees; convert to Magnetic.</p>
+  </div>
+  <div class="wx-card">
+    <div class="name">NOTAM</div>
+    <div class="full">Notice to Air Missions</div>
+    <p>Temporary airspace restrictions, closed runways, unlit cranes. Check departure, en route, destination.</p>
+  </div>
+  <div class="wx-card">
+    <div class="name">PIREP</div>
+    <div class="full">Pilot Weather Report</div>
+    <p>Real-time reports from other pilots. Valuable for icing, turbulence, or cloud tops at your planned altitude.</p>
+  </div>
+</div>
+
+<div class="hook-box">
+  <h2>Exam Memory Hooks</h2>
+  <div class="hook-row"><span class="hook-badge">ALTITUDE</span><span class="hook-text"><strong>North/East = Odd+500, South/West = Even+500.</strong> Memory hook: "NEO" — North-East-Odd. Or picture a compass: going north is climbing the "odd" side.</span></div>
+  <div class="hook-row"><span class="hook-badge">FLIGHT PLAN</span><span class="hook-text">VFR flight plan is not legally mandatory for local flights but IS required for cross-country (&gt;25 NM from departure). SAR cannot be alerted if you're overdue without one.</span></div>
+  <div class="hook-row"><span class="hook-badge">WEATHER</span><span class="hook-text">Get weather <strong>within 2 hours</strong> of departure. METARs older than 1 hour at destination should be supplemented with a TAF. Use the most pessimistic forecast for go/no-go decisions.</span></div>
+</div>
+
+</body>
+</html>

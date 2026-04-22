@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAV-013: Density Altitude</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+
+  /* ── Formula card ────────────────────────────────────────────────── */
+  .formula-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; }
+  .formula-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 12px; }
+  .formula-card .formula { font-size: 18px; font-weight: 800; color: #f0c040; background: #071520; border-radius: 6px; padding: 12px 16px; text-align: center; letter-spacing: 1px; margin-bottom: 12px; }
+  .formula-card p { font-size: 12px; color: #c8d8e8; line-height: 1.7; }
+  .formula-card .worked { background: #071520; border-radius: 6px; padding: 12px 16px; margin-top: 12px; }
+  .formula-card .worked-row { display: flex; gap: 10px; margin-bottom: 6px; }
+  .formula-card .worked-label { font-size: 11px; color: #7a9ab5; width: 180px; flex-shrink: 0; }
+  .formula-card .worked-val { font-size: 11px; color: #e8edf2; }
+  .formula-card .worked-val.result { color: #f0c040; font-weight: 700; font-size: 13px; }
+
+  /* ── Four factors ────────────────────────────────────────────────── */
+  .four-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+  .factor { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 18px; }
+  .factor .icon { font-size: 22px; margin-bottom: 6px; }
+  .factor h3 { font-size: 12px; font-weight: 700; color: #f0c040; margin-bottom: 6px; }
+  .factor p { font-size: 11px; color: #c8d8e8; line-height: 1.5; }
+  .factor .effect { font-size: 10px; font-weight: 700; color: #ff8080; margin-top: 6px; }
+
+  /* ── Performance table ───────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .label-col { color: #f0c040; font-weight: 600; }
+  .da-low  { color: #80e080; }
+  .da-med  { color: #f0c040; }
+  .da-high { color: #ff8080; font-weight: 700; }
+  .danger  { background: rgba(255,80,80,0.08); }
+
+  /* ── ISA reference ───────────────────────────────────────────────── */
+  .isa-card { background: #0a1525; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 20px; margin-bottom: 28px; }
+  .isa-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
+  .isa-row { display: grid; grid-template-columns: 120px 1fr 1fr; gap: 8px; margin-bottom: 6px; }
+  .isa-row.header { font-size: 10px; color: #7a9ab5; font-weight: 700; text-transform: uppercase; }
+  .isa-row.data { font-size: 12px; color: #c8d8e8; }
+  .isa-row.data:nth-child(even) { background: rgba(255,255,255,0.02); }
+
+  /* ── Hook box ────────────────────────────────────────────────────── */
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>NAV-013 — Density Altitude</h1>
+<p class="subtitle">Transport Canada · TP 12880E Ch.9, Ch.10 · PPL Written Exam</p>
+
+<div class="section-label">Density Altitude Formula</div>
+<div class="formula-card">
+  <h3>Calculating Density Altitude</h3>
+  <div class="formula">DA = PA + 120 × (OAT − ISA Temp)</div>
+  <p>Where <strong style="color:#f0c040">PA</strong> = Pressure Altitude (set altimeter to 29.92" Hg and read), <strong style="color:#f0c040">OAT</strong> = Outside Air Temperature (°C), <strong style="color:#f0c040">ISA Temp</strong> = 15°C − (2°C × altitude in thousands of ft).</p>
+
+  <div class="worked">
+    <div class="worked-row"><span class="worked-label">Airport elevation:</span><span class="worked-val">3,000 ft ASL</span></div>
+    <div class="worked-row"><span class="worked-label">QNH:</span><span class="worked-val">29.72" Hg (low pressure)</span></div>
+    <div class="worked-row"><span class="worked-label">Pressure Altitude:</span><span class="worked-val">3,000 + (29.92−29.72) × 1,000 = 3,200 ft PA</span></div>
+    <div class="worked-row"><span class="worked-label">OAT:</span><span class="worked-val">+30°C (hot summer day)</span></div>
+    <div class="worked-row"><span class="worked-label">ISA Temp at 3,200 ft:</span><span class="worked-val">15 − (2 × 3.2) = 15 − 6.4 = <strong>8.6°C</strong></span></div>
+    <div class="worked-row"><span class="worked-label">Temperature deviation:</span><span class="worked-val">30 − 8.6 = +21.4°C above ISA</span></div>
+    <div class="worked-row"><span class="worked-label">Density Altitude:</span><span class="worked-val result">3,200 + (120 × 21.4) = 3,200 + 2,568 ≈ 5,768 ft DA</span></div>
+    <div class="worked-row" style="margin-top:6px;"><span class="worked-label"></span><span class="worked-val" style="color:#ff8080;">Nearly 6,000 ft DA at a 3,000 ft airport!</span></div>
+  </div>
+</div>
+
+<div class="section-label">Four Factors That Raise Density Altitude</div>
+<div class="four-grid">
+  <div class="factor">
+    <div class="icon" aria-hidden="true">🌡️</div>
+    <h3>High Temperature</h3>
+    <p>Hot air is less dense. Each 1°C above ISA raises DA by ~120 ft. Summer afternoons at southern airports are prime DA risk.</p>
+    <div class="effect">↑ DA by 120 ft per °C above ISA</div>
+  </div>
+  <div class="factor">
+    <div class="icon" aria-hidden="true">⛰️</div>
+    <h3>High Elevation</h3>
+    <p>Higher airports have less air above them — lower air density. Mountain airports combine elevation + temperature for extreme DA.</p>
+    <div class="effect">↑ DA = airport elevation (baseline)</div>
+  </div>
+  <div class="factor">
+    <div class="icon" aria-hidden="true">📉</div>
+    <h3>Low Atmospheric Pressure</h3>
+    <p>Low QNH = higher pressure altitude for the same elevation. Frontal troughs can add hundreds of feet to effective DA.</p>
+    <div class="effect">↑ DA when QNH &lt; 29.92" Hg</div>
+  </div>
+  <div class="factor">
+    <div class="icon" aria-hidden="true">💧</div>
+    <h3>High Humidity</h3>
+    <p>Humid air is slightly less dense than dry air (water vapour is lighter than N₂/O₂). Effect is smaller than temp/pressure but additive.</p>
+    <div class="effect">↑ DA (modest effect vs temp)</div>
+  </div>
+</div>
+
+<div class="section-label">Performance Effects of High Density Altitude</div>
+<table>
+  <tr><th>Density Altitude</th><th>Takeoff Roll</th><th>Rate of Climb</th><th>Assessment</th></tr>
+  <tr><td class="label-col da-low">Sea level (ISA)</td><td>Reference (100%)</td><td>Reference (100%)</td><td class="da-low">Normal operations</td></tr>
+  <tr><td class="label-col da-med">2,000 ft DA</td><td>≈ +20% longer</td><td>≈ −15% less</td><td class="da-med">Moderate; note in planning</td></tr>
+  <tr><td class="label-col da-med">4,000 ft DA</td><td>≈ +40–50% longer</td><td>≈ −30% less</td><td class="da-med">Significant; weight limits apply</td></tr>
+  <tr class="danger"><td class="label-col da-high">6,000 ft DA</td><td>≈ +70% longer</td><td>≈ −45% less</td><td class="da-high">Dangerous without POH check</td></tr>
+  <tr class="danger"><td class="label-col da-high">8,000 ft DA</td><td>≈ +100% (doubled!)</td><td>Very low — may be unable to climb</td><td class="da-high">Go/no-go decision required</td></tr>
+</table>
+<p style="font-size:11px; color:#7a9ab5; margin-bottom:28px;">Values are approximate. Always consult the aircraft's POH performance charts using actual PA and OAT for the departure aerodrome.</p>
+
+<div class="isa-card">
+  <h3>ISA (International Standard Atmosphere) Reference</h3>
+  <div class="isa-row header"><span>Altitude</span><span>ISA Temp</span><span>ISA Pressure</span></div>
+  <div class="isa-row data"><span>Sea level</span><span>+15°C (59°F)</span><span>29.92" Hg (1013 hPa)</span></div>
+  <div class="isa-row data"><span>2,000 ft</span><span>+11°C</span><span>27.82" Hg</span></div>
+  <div class="isa-row data"><span>4,000 ft</span><span>+7°C</span><span>25.84" Hg</span></div>
+  <div class="isa-row data"><span>6,000 ft</span><span>+3°C</span><span>23.98" Hg</span></div>
+  <div class="isa-row data"><span>8,000 ft</span><span>−1°C</span><span>22.22" Hg</span></div>
+  <div class="isa-row data"><span>10,000 ft</span><span>−5°C</span><span>20.57" Hg</span></div>
+  <p style="font-size:10px; color:#7a9ab5; margin-top:8px;">Lapse rate: 2°C per 1,000 ft (3.5°F). Pressure decreases ~1" Hg per 1,000 ft at lower altitudes.</p>
+</div>
+
+<div class="hook-box">
+  <h2>Exam Memory Hooks</h2>
+  <div class="hook-row"><span class="hook-badge">HHHI</span><span class="hook-text"><strong>High, Hot, Humid = High Density Altitude = poor performance.</strong> The three Hs that kill aircraft performance. Add "Low pressure" for the full picture: H³L.</span></div>
+  <div class="hook-row"><span class="hook-badge">FORMULA</span><span class="hook-text">DA = PA + 120 × (OAT − ISA). Or use the E6B density altitude scale, or POH density altitude chart. All give the same result — use whichever the exam question provides data for.</span></div>
+  <div class="hook-row"><span class="hook-badge">POH FIRST</span><span class="hook-text">Always check the POH takeoff performance chart before flight. Calculate DA for departure. If takeoff distance exceeds available runway, <strong>do not depart</strong> — reduce weight or wait for cooler conditions.</span></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NAV-003: True vs Magnetic vs Compass Heading</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+
+  /* ── TVMDC Chain ─────────────────────────────────────────────────── */
+  .chain { display: flex; align-items: center; gap: 0; margin-bottom: 32px; flex-wrap: wrap; }
+  .chain-node { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 18px; text-align: center; min-width: 110px; }
+  .chain-node .letter { font-size: 28px; font-weight: 800; color: #f0c040; display: block; }
+  .chain-node .word { font-size: 11px; color: #7a9ab5; margin-top: 2px; }
+  .chain-node .op { font-size: 10px; color: #80e080; font-weight: 700; margin-top: 6px; display: block; }
+  .chain-arrow { font-size: 22px; color: #1a3a5a; padding: 0 8px; }
+
+  /* ── Variation table ─────────────────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  .east { color: #80e080; font-weight: 700; }
+  .west { color: #5ba3f5; font-weight: 700; }
+  .label-col { color: #f0c040; font-weight: 600; }
+
+  /* ── Two-col grid ────────────────────────────────────────────────── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; }
+  .card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 12px; }
+  .card p { font-size: 12px; color: #c8d8e8; line-height: 1.7; }
+  .card ul { list-style: none; padding: 0; }
+  .card ul li { font-size: 12px; color: #c8d8e8; padding: 4px 0; line-height: 1.5; }
+  .card ul li::before { content: "· "; color: #f0c040; }
+
+  /* ── Mnemonic ────────────────────────────────────────────────────── */
+  .mnemonic { background: #0a200a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 16px 22px; margin-bottom: 28px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .mnemonic .big { font-size: 18px; font-weight: 800; color: #80e080; letter-spacing: 2px; white-space: nowrap; }
+  .mnemonic .desc { font-size: 13px; color: #c8d8c8; }
+
+  /* ── Hook box ────────────────────────────────────────────────────── */
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>NAV-003 — True vs Magnetic vs Compass Heading</h1>
+<p class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</p>
+
+<div class="section-label">TVMDC Conversion Chain — True → Compass</div>
+<div class="chain">
+  <div class="chain-node">
+    <span class="letter">T</span>
+    <span class="word">True Heading</span>
+    <span class="op">± Variation</span>
+  </div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-node">
+    <span class="letter">V</span>
+    <span class="word">Variation</span>
+    <span class="op">East = subtract</span>
+  </div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-node">
+    <span class="letter">M</span>
+    <span class="word">Magnetic Heading</span>
+    <span class="op">± Deviation</span>
+  </div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-node">
+    <span class="letter">D</span>
+    <span class="word">Deviation</span>
+    <span class="op">East = subtract</span>
+  </div>
+  <div class="chain-arrow">→</div>
+  <div class="chain-node">
+    <span class="letter">C</span>
+    <span class="word">Compass Heading</span>
+    <span class="op">what you fly</span>
+  </div>
+</div>
+
+<div class="mnemonic">
+  <span class="big">T V M D C</span>
+  <span class="desc"><strong style="color:#f0c040">True Virgins Make Dull Company</strong> — remember the order and direction of corrections</span>
+</div>
+
+<div class="section-label">Variation Rules</div>
+<table>
+  <tr><th>Direction</th><th>Effect on Compass</th><th>Rule</th><th>Canadian Examples</th></tr>
+  <tr>
+    <td class="east">Easterly (+E)</td>
+    <td>Magnetic north is east of true north</td>
+    <td><span class="east">East = Subtract from True</span> to get Magnetic</td>
+    <td>Atlantic Canada: ~20°W<br><span style="color:#7a9ab5">Wait — Atlantic is westerly</span></td>
+  </tr>
+  <tr>
+    <td class="west">Westerly (W)</td>
+    <td>Magnetic north is west of true north</td>
+    <td><span class="west">West = Add to True</span> to get Magnetic</td>
+    <td>Western Canada: 15–22°E (easterly)<!-- deliberate label per isogonic map --></td>
+  </tr>
+</table>
+
+<div class="section-label">Canadian Magnetic Variation (approximate)</div>
+<table>
+  <tr><th>Region</th><th>Variation</th><th>True → Magnetic</th><th>Example</th></tr>
+  <tr><td>Atlantic (NS, NB, NL)</td><td class="west">~18–20°W</td><td>Add ~19° to True</td><td>TH 090° → MH 109°</td></tr>
+  <tr><td>Ontario / Quebec</td><td class="west">~10–14°W</td><td>Add ~12° to True</td><td>TH 270° → MH 282°</td></tr>
+  <tr><td>Prairies (SK, MB)</td><td class="east">~4–8°E</td><td>Subtract ~6° from True</td><td>TH 180° → MH 174°</td></tr>
+  <tr><td>BC / Rockies</td><td class="east">~16–22°E</td><td>Subtract ~18° from True</td><td>TH 360° → MH 342°</td></tr>
+</table>
+
+<div class="two-col">
+  <div class="card">
+    <h3>Variation vs Deviation</h3>
+    <ul>
+      <li><strong style="color:#f0c040">Variation</strong> — Earth's magnetic field offset from geographic north; shown as isogonic lines on VNC; applies to all aircraft in the area</li>
+      <li><strong style="color:#f0c040">Deviation</strong> — Aircraft-specific error caused by onboard metal, electronics, magnets; recorded on the compass deviation card in the cockpit</li>
+      <li>Both use same rule: <strong style="color:#80e080">East → subtract, West → add</strong></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Three Norths</h3>
+    <ul>
+      <li><strong style="color:#f0c040">True North</strong> — Geographic North Pole; basis of VNC charts and most navigation calculations</li>
+      <li><strong style="color:#f0c040">Magnetic North</strong> — Where compass needles point; currently near Ellesmere Island; moves ~25 km/year</li>
+      <li><strong style="color:#f0c040">Compass North</strong> — What your aircraft compass reads; affected by local magnetic disturbances (deviation)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="hook-box">
+  <h2>Exam Memory Hooks</h2>
+  <div class="hook-row"><span class="hook-badge">RULE</span><span class="hook-text"><strong>East is least, West is best</strong> — Easterly variation: subtract (less) to convert True→Magnetic. Westerly: add (more).</span></div>
+  <div class="hook-row"><span class="hook-badge">CHAIN</span><span class="hook-text">To go from Compass → True: <strong>add back East, subtract West</strong> (reverse the chain). Useful when reading a compass and wanting True track.</span></div>
+  <div class="hook-row"><span class="hook-badge">CHART</span><span class="hook-text">Isogonic lines on the VNC are labelled "15°E" or "20°W" — the label tells you the variation directly. Lines of zero variation are called <strong>agonic lines</strong>.</span></div>
+</div>
+
+</body>
+</html>

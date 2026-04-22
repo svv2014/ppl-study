@@ -7,7 +7,7 @@ title: "Density Altitude"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/nav013-density-altitude.html
 sources:
   - TP 12880E
   - AIM AIR 2.0
