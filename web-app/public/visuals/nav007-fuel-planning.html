@@ -55,31 +55,31 @@
     <!-- Total bar outline -->
     <rect x="30" y="55" width="700" height="60" fill="#0a1a35" rx="5" stroke="#2a4a6a" stroke-width="1.5"/>
 
-    <!-- Taxi / contingency: 5L (3.5% of 700px = ~24px) -->
-    <rect x="30" y="55" width="24" height="60" fill="#8040c0" rx="5 0 0 5"/>
+    <!-- Taxi / contingency: 5L / 93L * 700 = ~38px -->
+    <rect x="30" y="55" width="38" height="60" fill="#8040c0" rx="5 0 0 5"/>
 
-    <!-- Trip fuel: 70L / 101L total → 70/101 * 700 = ~485px -->
-    <rect x="54" y="55" width="485" height="60" fill="#2a5a9a"/>
+    <!-- Trip fuel: 70L / 93L total → 70/93 * 700 = ~527px -->
+    <rect x="68" y="55" width="527" height="60" fill="#2a5a9a"/>
 
-    <!-- Reserve: 26L / 101L * 700 = ~180px -->
-    <rect x="539" y="55" width="180" height="60" fill="#c05020"/>
+    <!-- Reserve: 18L / 93L * 700 = ~135px -->
+    <rect x="595" y="55" width="135" height="60" fill="#c05020"/>
 
     <!-- Remainder/margin line -->
-    <line x1="719" y1="55" x2="719" y2="115" stroke="#2a4a6a" stroke-width="1"/>
+    <line x1="729" y1="55" x2="729" y2="115" stroke="#2a4a6a" stroke-width="1"/>
 
     <!-- Bar labels inside -->
     <text x="66" y="79" font-size="10" fill="#ffffff" font-weight="600">Trip Fuel</text>
     <text x="66" y="93" font-size="10" fill="#c8d8e8">70 L (2.0 hr × 35 L/hr)</text>
-    <text x="560" y="79" font-size="10" fill="#ffffff" font-weight="600">Reserve</text>
-    <text x="560" y="93" font-size="10" fill="#c8d8e8">26 L (45 min)</text>
+    <text x="610" y="79" font-size="10" fill="#ffffff" font-weight="600">Reserve</text>
+    <text x="610" y="93" font-size="10" fill="#c8d8e8">18 L (30 min)</text>
     <text x="32" y="79" font-size="8" fill="#c0a0e0" font-weight="600">Taxi</text>
     <text x="32" y="91" font-size="8" fill="#c0a0e0">5 L</text>
 
     <!-- Bracket below showing total -->
     <line x1="30"  y1="125" x2="30"  y2="135" stroke="#7a9ab5" stroke-width="1.5"/>
-    <line x1="719" y1="125" x2="719" y2="135" stroke="#7a9ab5" stroke-width="1.5"/>
-    <line x1="30"  y1="130" x2="719" y2="130" stroke="#7a9ab5" stroke-width="1.5"/>
-    <text x="374" y="148" text-anchor="middle" font-size="12" fill="#f0c040" font-weight="700">Total Required: 101 L</text>
+    <line x1="729" y1="125" x2="729" y2="135" stroke="#7a9ab5" stroke-width="1.5"/>
+    <line x1="30"  y1="130" x2="729" y2="130" stroke="#7a9ab5" stroke-width="1.5"/>
+    <text x="374" y="148" text-anchor="middle" font-size="12" fill="#f0c040" font-weight="700">Total Required: 93 L</text>
 
     <!-- Legend row at bottom -->
     <rect x="30"  y="165" width="14" height="14" fill="#8040c0" rx="2"/>
@@ -87,10 +87,10 @@
     <rect x="220" y="165" width="14" height="14" fill="#2a5a9a" rx="2"/>
     <text x="240" y="176" font-size="11" fill="#c8d8e8">Trip Fuel (70 L)</text>
     <rect x="380" y="165" width="14" height="14" fill="#c05020" rx="2"/>
-    <text x="400" y="176" font-size="11" fill="#c8d8e8">VFR Reserve — 45 min (26 L)</text>
+    <text x="400" y="176" font-size="11" fill="#c8d8e8">VFR Reserve — 30 min (18 L)</text>
 
     <!-- CAR reference -->
-    <text x="380" y="198" text-anchor="middle" font-size="10" fill="#7a9ab5">CAR 602.88 — VFR Day: minimum 45 min reserve at normal cruise power</text>
+    <text x="380" y="198" text-anchor="middle" font-size="10" fill="#7a9ab5">CAR 602.88 — VFR Day: minimum 30 min reserve at normal cruise power</text>
 
   </svg>
 </div>
@@ -108,11 +108,11 @@
   </div>
   <div class="info-card">
     <h3>VFR Reserve Requirement</h3>
-    <div class="big">45 min</div>
+    <div class="big">30 min</div>
     <div class="sub">CAR 602.88 — VFR Day minimum</div>
-    <p style="margin-top:12px;"><strong>Reserve fuel = FF × 0.75 hr</strong><br>
+    <p style="margin-top:12px;"><strong>Reserve fuel = FF × 0.5 hr</strong><br>
     Example: FF = 35 L/hr<br>
-    <strong>Reserve = 35 × 0.75 = 26.25 L ≈ 26 L</strong><br><br>
+    <strong>Reserve = 35 × 0.5 = 17.5 L ≈ 18 L</strong><br><br>
     Reserve is calculated at <strong>normal cruise power</strong>, not full throttle.</p>
   </div>
 </div>
@@ -140,7 +140,7 @@
     </tr>
     <tr>
       <td><strong>3</strong></td>
-      <td>Add 45-min VFR reserve: FF × 0.75 hr</td>
+      <td>Add 30-min VFR reserve: FF × 0.5 hr</td>
       <td>CAR 602.88 requirement</td>
     </tr>
     <tr>
@@ -175,10 +175,10 @@
       <td><strong>70 L</strong></td>
     </tr>
     <tr>
-      <td>VFR reserve (45 min)</td>
+      <td>VFR reserve (30 min)</td>
       <td>35 L/hr</td>
-      <td>0.75 hr</td>
-      <td><strong>26 L</strong></td>
+      <td>0.5 hr</td>
+      <td><strong>18 L</strong></td>
     </tr>
     <tr>
       <td>Taxi / contingency</td>
@@ -189,8 +189,8 @@
     <tr>
       <td class="total-row">Total Required</td>
       <td class="total-row">—</td>
-      <td class="total-row">2.75 hr endurance</td>
-      <td class="total-row">101 L</td>
+      <td class="total-row">2.5 hr endurance</td>
+      <td class="total-row">93 L</td>
     </tr>
   </tbody>
 </table>
@@ -200,8 +200,8 @@
 <div class="hook-box">
   <h2>Key Concepts to Remember</h2>
   <div class="hook-row">
-    <span class="hook-badge">45 MIN</span>
-    <span class="hook-text">VFR day minimum reserve is <strong>45 minutes at normal cruise</strong> per CAR 602.88. This is a legal minimum — plan to land with more. Night VFR requires 45 min + additional contingency.</span>
+    <span class="hook-badge">30 MIN</span>
+    <span class="hook-text">VFR day minimum reserve is <strong>30 minutes at normal cruise</strong> per CAR 602.88. Night VFR requires <strong>45 minutes</strong>. These are legal minimums — plan to land with more.</span>
   </div>
   <div class="hook-row">
     <span class="hook-badge">LITRES</span>
