@@ -1,9 +1,9 @@
 ---
-id: MET-006
+id: MET-013
 topic: meteorology
-order: 6
-slug: air-masses-and-fronts
-title: "Air Masses and Fronts"
+order: 13
+slug: fronts
+title: "Fronts"
 duration_min: 20
 status: complete
 audio: null

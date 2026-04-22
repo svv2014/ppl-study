@@ -2,8 +2,8 @@
 id: MET-001
 topic: meteorology
 order: 1
-slug: the-atmosphere
-title: "The Atmosphere"
+slug: atmosphere-structure
+title: "Atmosphere Structure"
 duration_min: 20
 status: complete
 audio: null

@@ -2,8 +2,8 @@
 id: MET-002
 topic: meteorology
 order: 2
-slug: temperature-and-pressure
-title: "Temperature and Pressure"
+slug: temp-pressure-humidity
+title: "Temperature, Pressure, Humidity"
 duration_min: 20
 status: complete
 audio: null

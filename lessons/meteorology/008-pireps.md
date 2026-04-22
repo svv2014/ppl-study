@@ -1,9 +1,9 @@
 ---
-id: MET-013
+id: MET-008
 topic: meteorology
-order: 13
-slug: pireps-and-sigmets
-title: "PIREPs and SIGMETs"
+order: 8
+slug: pireps
+title: "PIREPs"
 duration_min: 20
 status: complete
 audio: null

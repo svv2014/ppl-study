@@ -1,9 +1,9 @@
 ---
-id: MET-010
+id: MET-005
 topic: meteorology
-order: 10
-slug: metar
-title: "METAR — Aviation Routine Weather Report"
+order: 5
+slug: metar-decoding
+title: "METAR Decoding"
 duration_min: 20
 status: complete
 audio: null

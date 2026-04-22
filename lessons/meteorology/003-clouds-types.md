@@ -1,9 +1,9 @@
 ---
-id: MET-004
+id: MET-003
 topic: meteorology
-order: 4
-slug: moisture-and-clouds
-title: "Moisture and Clouds"
+order: 3
+slug: clouds-types
+title: "Cloud Types and Formation"
 duration_min: 20
 status: complete
 audio: null

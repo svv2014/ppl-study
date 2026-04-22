@@ -1,9 +1,9 @@
 ---
-id: MET-011
+id: MET-006
 topic: meteorology
-order: 11
-slug: taf
-title: "TAF — Terminal Aerodrome Forecast"
+order: 6
+slug: taf-decoding
+title: "TAF Decoding"
 duration_min: 20
 status: complete
 audio: null

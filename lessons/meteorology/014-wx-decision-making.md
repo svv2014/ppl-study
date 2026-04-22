@@ -2,8 +2,8 @@
 id: MET-014
 topic: meteorology
 order: 14
-slug: weather-decision-making
-title: "Aviation Weather Decision Making"
+slug: wx-decision-making
+title: "Weather Decision-Making"
 duration_min: 20
 status: complete
 audio: null

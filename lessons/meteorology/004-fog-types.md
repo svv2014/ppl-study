@@ -1,9 +1,9 @@
 ---
-id: MET-009
+id: MET-004
 topic: meteorology
-order: 9
-slug: fog
-title: "Fog"
+order: 4
+slug: fog-types
+title: "Fog Formation and Types"
 duration_min: 20
 status: complete
 audio: null

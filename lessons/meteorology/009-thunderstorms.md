@@ -1,7 +1,7 @@
 ---
-id: MET-007
+id: MET-009
 topic: meteorology
-order: 7
+order: 9
 slug: thunderstorms
 title: "Thunderstorms"
 duration_min: 20
