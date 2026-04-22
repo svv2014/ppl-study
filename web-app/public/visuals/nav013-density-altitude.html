@@ -3,141 +3,289 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NAV-013: Density Altitude</title>
+<title>NAV-013 — Density Altitude</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
-  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
-  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
-  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
-
-  /* ── Formula card ────────────────────────────────────────────────── */
-  .formula-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 20px 24px; margin-bottom: 28px; }
-  .formula-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 12px; }
-  .formula-card .formula { font-size: 18px; font-weight: 800; color: #f0c040; background: #071520; border-radius: 6px; padding: 12px 16px; text-align: center; letter-spacing: 1px; margin-bottom: 12px; }
-  .formula-card p { font-size: 12px; color: #c8d8e8; line-height: 1.7; }
-  .formula-card .worked { background: #071520; border-radius: 6px; padding: 12px 16px; margin-top: 12px; }
-  .formula-card .worked-row { display: flex; gap: 10px; margin-bottom: 6px; }
-  .formula-card .worked-label { font-size: 11px; color: #7a9ab5; width: 180px; flex-shrink: 0; }
-  .formula-card .worked-val { font-size: 11px; color: #e8edf2; }
-  .formula-card .worked-val.result { color: #f0c040; font-weight: 700; font-size: 13px; }
-
-  /* ── Four factors ────────────────────────────────────────────────── */
-  .four-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
-  .factor { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 18px; }
-  .factor .icon { font-size: 22px; margin-bottom: 6px; }
-  .factor h3 { font-size: 12px; font-weight: 700; color: #f0c040; margin-bottom: 6px; }
-  .factor p { font-size: 11px; color: #c8d8e8; line-height: 1.5; }
-  .factor .effect { font-size: 10px; font-weight: 700; color: #ff8080; margin-top: 6px; }
-
-  /* ── Performance table ───────────────────────────────────────────── */
-  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
-  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
-  tr:last-child td { border-bottom: none; }
-  .label-col { color: #f0c040; font-weight: 600; }
-  .da-low  { color: #80e080; }
-  .da-med  { color: #f0c040; }
-  .da-high { color: #ff8080; font-weight: 700; }
-  .danger  { background: rgba(255,80,80,0.08); }
-
-  /* ── ISA reference ───────────────────────────────────────────────── */
-  .isa-card { background: #0a1525; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 20px; margin-bottom: 28px; }
-  .isa-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
-  .isa-row { display: grid; grid-template-columns: 120px 1fr 1fr; gap: 8px; margin-bottom: 6px; }
-  .isa-row.header { font-size: 10px; color: #7a9ab5; font-weight: 700; text-transform: uppercase; }
-  .isa-row.data { font-size: 12px; color: #c8d8e8; }
-  .isa-row.data:nth-child(even) { background: rgba(255,255,255,0.02); }
-
-  /* ── Hook box ────────────────────────────────────────────────────── */
-  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
-  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
-  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
-  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
-  .hook-text strong { color: #f0c040; }
+  body { background: #0d1b2a; color: #c8d8e8; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; line-height: 1.6; padding: 32px 16px; }
+  .container { max-width: 860px; margin: auto; padding: 0; }
+  h1 { color: #f0c040; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: #7a9ab5; font-size: 13px; margin-bottom: 32px; }
+  .section-label { color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; margin-top: 28px; }
+  .card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; margin-bottom: 16px; }
+  .card h3 { color: #f0c040; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .card p, .card li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+  .card ul { padding-left: 18px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  th { background: #1a2d3d; color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px; text-align: left; }
+  td { padding: 8px 12px; border-bottom: 1px solid #1a2d3d; color: #c8d8e8; font-size: 12px; }
+  td strong { color: #f0c040; }
+  .formula { background: #0d1b2a; border: 1.5px solid #1a3a5a; border-radius: 8px; padding: 14px 18px; margin: 12px 0; color: #f0c040; font-weight: 700; font-size: 15px; text-align: center; letter-spacing: 0.5px; }
+  .memory-hook { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #80c880; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; margin-bottom: 10px; }
+  .memory-hook p, .memory-hook li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+  .memory-hook ul { padding-left: 18px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
 </style>
 </head>
 <body>
+<div class="container">
+  <h1>NAV-013 — Density Altitude</h1>
+  <div class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</div>
 
-<h1>NAV-013 — Density Altitude</h1>
-<p class="subtitle">Transport Canada · TP 12880E Ch.9, Ch.10 · PPL Written Exam</p>
+  <div class="section-label">Density Altitude Chart</div>
+  <div class="card" style="padding: 12px 16px;">
+    <svg viewBox="0 0 820 360" width="100%" style="display:block;">
+      <rect width="820" height="360" fill="#0d1a30" rx="8"/>
 
-<div class="section-label">Density Altitude Formula</div>
-<div class="formula-card">
-  <h3>Calculating Density Altitude</h3>
-  <div class="formula">DA = PA + 120 × (OAT − ISA Temp)</div>
-  <p>Where <strong style="color:#f0c040">PA</strong> = Pressure Altitude (set altimeter to 29.92" Hg and read), <strong style="color:#f0c040">OAT</strong> = Outside Air Temperature (°C), <strong style="color:#f0c040">ISA Temp</strong> = 15°C − (2°C × altitude in thousands of ft).</p>
+      <!-- Chart area -->
+      <!-- Axes -->
+      <!-- Y axis: Pressure Altitude 0-10000 ft. Bottom=320, top=40. Range=280px for 10000ft. 28px/1000ft -->
+      <!-- X axis: OAT -20 to +40 C. Left=80, right=760. Range=680px for 60deg. ~11.3px/deg -->
 
-  <div class="worked">
-    <div class="worked-row"><span class="worked-label">Airport elevation:</span><span class="worked-val">3,000 ft ASL</span></div>
-    <div class="worked-row"><span class="worked-label">QNH:</span><span class="worked-val">29.72" Hg (low pressure)</span></div>
-    <div class="worked-row"><span class="worked-label">Pressure Altitude:</span><span class="worked-val">3,000 + (29.92−29.72) × 1,000 = 3,200 ft PA</span></div>
-    <div class="worked-row"><span class="worked-label">OAT:</span><span class="worked-val">+30°C (hot summer day)</span></div>
-    <div class="worked-row"><span class="worked-label">ISA Temp at 3,200 ft:</span><span class="worked-val">15 − (2 × 3.2) = 15 − 6.4 = <strong>8.6°C</strong></span></div>
-    <div class="worked-row"><span class="worked-label">Temperature deviation:</span><span class="worked-val">30 − 8.6 = +21.4°C above ISA</span></div>
-    <div class="worked-row"><span class="worked-label">Density Altitude:</span><span class="worked-val result">3,200 + (120 × 21.4) = 3,200 + 2,568 ≈ 5,768 ft DA</span></div>
-    <div class="worked-row" style="margin-top:6px;"><span class="worked-label"></span><span class="worked-val" style="color:#ff8080;">Nearly 6,000 ft DA at a 3,000 ft airport!</span></div>
+      <line x1="80" y1="40" x2="80" y2="320" stroke="#3a6a8a" stroke-width="2"/>
+      <line x1="80" y1="320" x2="760" y2="320" stroke="#3a6a8a" stroke-width="2"/>
+
+      <!-- Y axis labels (Pressure Altitude) -->
+      <text x="72" y="324" text-anchor="end" fill="#7a9ab5" font-size="10">0</text>
+      <line x1="76" y1="320" x2="80" y2="320" stroke="#3a6a8a" stroke-width="1"/>
+
+      <text x="72" y="296" text-anchor="end" fill="#7a9ab5" font-size="10">1000</text>
+      <line x1="76" y1="292" x2="80" y2="292" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="80" y1="292" x2="760" y2="292" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="72" y="268" text-anchor="end" fill="#7a9ab5" font-size="10">2000</text>
+      <line x1="76" y1="264" x2="80" y2="264" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="80" y1="264" x2="760" y2="264" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="72" y="240" text-anchor="end" fill="#7a9ab5" font-size="10">3000</text>
+      <line x1="76" y1="236" x2="80" y2="236" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="80" y1="236" x2="760" y2="236" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="72" y="212" text-anchor="end" fill="#7a9ab5" font-size="10">4000</text>
+      <line x1="76" y1="208" x2="80" y2="208" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="80" y1="208" x2="760" y2="208" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="72" y="184" text-anchor="end" fill="#7a9ab5" font-size="10">5000</text>
+      <line x1="76" y1="180" x2="80" y2="180" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="80" y1="180" x2="760" y2="180" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="72" y="156" text-anchor="end" fill="#7a9ab5" font-size="10">6000</text>
+      <line x1="76" y1="152" x2="80" y2="152" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="80" y1="152" x2="760" y2="152" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="72" y="128" text-anchor="end" fill="#7a9ab5" font-size="10">7000</text>
+      <line x1="76" y1="124" x2="80" y2="124" stroke="#3a6a8a" stroke-width="1"/>
+
+      <text x="72" y="100" text-anchor="end" fill="#7a9ab5" font-size="10">8000</text>
+      <line x1="76" y1="96" x2="80" y2="96" stroke="#3a6a8a" stroke-width="1"/>
+
+      <text x="72" y="72" text-anchor="end" fill="#7a9ab5" font-size="10">9000</text>
+      <line x1="76" y1="68" x2="80" y2="68" stroke="#3a6a8a" stroke-width="1"/>
+
+      <text x="72" y="44" text-anchor="end" fill="#7a9ab5" font-size="10">10000</text>
+      <line x1="76" y1="40" x2="80" y2="40" stroke="#3a6a8a" stroke-width="1"/>
+
+      <!-- Y axis title -->
+      <text transform="translate(18,185) rotate(-90)" text-anchor="middle" fill="#7a9ab5" font-size="11">Pressure Altitude (ft)</text>
+
+      <!-- X axis labels (OAT °C) -->
+      <!-- OAT range: -20 to +40. x = 80 + (OAT+20) * (680/60) = 80 + (OAT+20) * 11.33 -->
+      <!-- -20: x=80, -10: x=193, 0: x=307, 10: x=420, 20: x=533, 30: x=647, 40: x=760 -->
+      <text x="80" y="336" text-anchor="middle" fill="#7a9ab5" font-size="10">−20</text>
+      <line x1="80" y1="320" x2="80" y2="325" stroke="#3a6a8a" stroke-width="1"/>
+
+      <text x="193" y="336" text-anchor="middle" fill="#7a9ab5" font-size="10">−10</text>
+      <line x1="193" y1="320" x2="193" y2="325" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="193" y1="40" x2="193" y2="320" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="307" y="336" text-anchor="middle" fill="#7a9ab5" font-size="10">0</text>
+      <line x1="307" y1="320" x2="307" y2="325" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="307" y1="40" x2="307" y2="320" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="420" y="336" text-anchor="middle" fill="#7a9ab5" font-size="10">+10</text>
+      <line x1="420" y1="320" x2="420" y2="325" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="420" y1="40" x2="420" y2="320" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="533" y="336" text-anchor="middle" fill="#7a9ab5" font-size="10">+20</text>
+      <line x1="533" y1="320" x2="533" y2="325" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="533" y1="40" x2="533" y2="320" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="647" y="336" text-anchor="middle" fill="#7a9ab5" font-size="10">+30</text>
+      <line x1="647" y1="320" x2="647" y2="325" stroke="#3a6a8a" stroke-width="1"/>
+      <line x1="647" y1="40" x2="647" y2="320" stroke="#1a3a5a" stroke-width="0.5" stroke-dasharray="3,4"/>
+
+      <text x="760" y="336" text-anchor="middle" fill="#7a9ab5" font-size="10">+40</text>
+      <line x1="760" y1="320" x2="760" y2="325" stroke="#3a6a8a" stroke-width="1"/>
+
+      <!-- X axis title -->
+      <text x="420" y="352" text-anchor="middle" fill="#7a9ab5" font-size="11">OAT (°C)</text>
+
+      <!-- ISA temperature line (standard lapse 2°C/1000ft) -->
+      <!-- At PA=0: ISA=15°C; at PA=10000: ISA=-5°C -->
+      <!-- x(15°C) = 80 + (15+20)*11.33 = 80+396 = 476 -->
+      <!-- x(-5°C) = 80 + (-5+20)*11.33 = 80+170 = 250 -->
+      <!-- But we're plotting DA lines: DA = PA when OAT = ISA temp at that altitude -->
+      <!-- DA lines: one for DA=0, DA=2000, DA=4000, DA=6000, DA=8000 -->
+      <!-- DA = PA + (OAT - ISA_temp) * 120 -->
+      <!-- For a given DA, points: at various PA, OAT = ISA_temp + (DA-PA)/120 = (15-2*PA/1000) + (DA-PA)/120 -->
+      <!-- Let's compute some points for DA lines -->
+
+      <!-- DA = 0 line: OAT = ISA temp = 15 - 2*PA/1000 -->
+      <!-- PA=0: OAT=15, PA=5000: OAT=5, PA=10000: OAT=-5 -->
+      <!-- x(15)=476, y(0)=320; x(5)=363, y(5000)=180; x(-5)=250, y(10000)=40 -->
+      <polyline points="476,320 363,180 250,40" fill="none" stroke="#3a6a8a" stroke-width="1.5"/>
+      <text x="478" y="318" fill="#3a6a8a" font-size="9">DA=0</text>
+
+      <!-- DA = 2000: OAT = (15 - 2*PA/1000) + (2000-PA)/120 -->
+      <!-- PA=0: OAT = 15 + 2000/120 = 15+16.67 = 31.67; x=80+(31.67+20)*11.33=80+585=665 -->
+      <!-- PA=2000: OAT = 11 + 0 = 11; x=80+(11+20)*11.33=80+351=431, y=264 -->
+      <!-- PA=5000: OAT = 5 + (2000-5000)/120 = 5-25 = -20; x=80, y=180 -->
+      <!-- Actually DA=2000 means at PA=2000 OAT=ISA(2000)=11°C. Let me parameterize by fixed DA line -->
+      <!-- At PA=0, OAT = 15 + 2000/120 ≈ 31.7°C -->
+      <!-- At PA=2000, OAT = 11 + 0 = 11°C -->
+      <!-- At PA=4000, OAT = 7 + (2000-4000)/120 = 7-16.7 = -9.7°C — off left edge -->
+      <!-- So clamp: -->
+      <!-- At OAT=-20 (x=80): DA=2000 means PA + (OAT-ISA)*120=2000 → PA + (-20-(15-2PA/1000))*120=2000 -->
+      <!-- This gets complex, let's just use 2 anchor points and extend -->
+      <polyline points="665,320 431,264" fill="none" stroke="#4a8ab5" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="668" y="318" fill="#4a8ab5" font-size="9">DA=2000</text>
+
+      <!-- DA = 4000 -->
+      <!-- PA=0: OAT=15+4000/120=48.3 — off right edge -->
+      <!-- PA=2000: OAT=11+(4000-2000)/120=11+16.7=27.7; x=80+(27.7+20)*11.33=80+540=620, y=264 -->
+      <!-- PA=4000: OAT=7+0=7; x=80+(7+20)*11.33=80+306=386, y=208 -->
+      <!-- PA=6000: OAT=3+(4000-6000)/120=3-16.7=-13.7; x=80+(-13.7+20)*11.33=80+71=151, y=152 -->
+      <polyline points="620,264 386,208 151,152" fill="none" stroke="#6aaaaaa" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="622" y="262" fill="#6aaaaa" font-size="9">DA=4000</text>
+
+      <!-- DA = 6000 -->
+      <!-- PA=4000: OAT=7+(6000-4000)/120=7+16.7=23.7; x=80+(23.7+20)*11.33=80+495=575, y=208 -->
+      <!-- PA=6000: OAT=3+0=3; x=80+(3+20)*11.33=80+261=341, y=152 -->
+      <!-- PA=8000: OAT=-1+(6000-8000)/120=-1-16.7=-17.7; x=80+(-17.7+20)*11.33=80+26=106, y=96 -->
+      <polyline points="575,208 341,152 106,96" fill="none" stroke="#c87040" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="578" y="206" fill="#c87040" font-size="9">DA=6000</text>
+
+      <!-- DA = 8000 -->
+      <!-- PA=6000: OAT=3+(8000-6000)/120=3+16.7=19.7; x=80+(19.7+20)*11.33=80+450=530, y=152 -->
+      <!-- PA=8000: OAT=-1+0=-1; x=80+(-1+20)*11.33=80+215=295, y=96 -->
+      <!-- PA=10000: OAT=-5+(8000-10000)/120=-5-16.7=-21.7 — off left edge, clamp to -20 at: -->
+      <!-- DA=8000, OAT=-20: PA=8000+(-20-(-1))*120... actually let me just use 2 points -->
+      <polyline points="530,152 295,96" fill="none" stroke="#e07070" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <text x="533" y="150" fill="#e07070" font-size="9">DA=8000</text>
+
+      <!-- Hot day example point: PA=3500ft, OAT=30°C → DA≈5600ft -->
+      <!-- x(30°C) = 80+(30+20)*11.33 = 80+566 = 646 -->
+      <!-- y(3500ft) = 320 - 3500*0.028 = 320-98 = 222 -->
+      <!-- DA=5600: midway between DA=4000 and DA=6000 lines at this point -->
+      <!-- Plot the example point and annotation -->
+      <!-- Step 1: PA point on x-axis up to OAT=30°C -->
+      <line x1="647" y1="222" x2="647" y2="320" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <!-- Step 2: PA horizontal line -->
+      <line x1="80" y1="222" x2="647" y2="222" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <!-- Result point: DA ≈ 5600 -->
+      <!-- y(5600) = 320 - 5600*0.028 = 320-156.8 = 163 -->
+      <!-- Intersection with OAT=30 vertical (x=647) and DA~5600: roughly at y=163 -->
+      <line x1="647" y1="222" x2="647" y2="163" stroke="#e07070" stroke-width="2"/>
+      <circle cx="647" cy="163" r="5" fill="#e07070" stroke="#ff9090" stroke-width="1.5"/>
+
+      <!-- Example point label -->
+      <rect x="655" y="100" width="115" height="70" fill="#1a0a0a" stroke="#c87040" stroke-width="1" rx="4"/>
+      <text x="712" y="116" text-anchor="middle" fill="#f0c040" font-size="9" font-weight="700">HOT DAY EXAMPLE</text>
+      <text x="660" y="130" fill="#c8d8e8" font-size="8">PA = 3,500 ft</text>
+      <text x="660" y="142" fill="#c8d8e8" font-size="8">OAT = +30°C</text>
+      <text x="660" y="154" fill="#c8d8e8" font-size="8">ISA at 3500ft ≈ +8°C</text>
+      <text x="660" y="166" fill="#e07070" font-size="9" font-weight="700">DA ≈ 5,600 ft</text>
+
+      <!-- Entry point dot -->
+      <circle cx="647" cy="222" r="5" fill="#f0c040" stroke="#c09000" stroke-width="1.5"/>
+      <text x="540" y="218" fill="#f0c040" font-size="9">Enter: PA=3500 ft, OAT=+30°C</text>
+
+      <!-- Chart title -->
+      <text x="420" y="24" text-anchor="middle" fill="#7a9ab5" font-size="11" font-weight="700">DENSITY ALTITUDE CHART (simplified)</text>
+    </svg>
+  </div>
+
+  <div class="section-label">Core Concepts</div>
+  <div class="two-col">
+    <div class="card">
+      <h3>What is Density Altitude?</h3>
+      <ul>
+        <li><strong style="color:#f0c040">Pressure altitude corrected for non-standard temperature</strong></li>
+        <li>Represents the air density — how "thick" the air actually is</li>
+        <li>High temperature = lower air density = higher density altitude</li>
+        <li>High elevation = lower pressure = higher density altitude</li>
+        <li>Humidity also reduces density slightly (moist air is less dense)</li>
+        <li>DA tells you what altitude the aircraft "thinks" it is flying at</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Why Density Altitude Matters</h3>
+      <ul>
+        <li><strong style="color:#f0c040">Engine produces less power</strong> — less oxygen per intake stroke</li>
+        <li><strong style="color:#f0c040">Wings produce less lift</strong> — thinner air, less molecules over airfoil</li>
+        <li><strong style="color:#f0c040">Longer takeoff roll</strong> — both effects combined, plus higher groundspeed at rotation</li>
+        <li>Slower initial climb rate — critical near terrain</li>
+        <li>Propeller less efficient — reduced thrust</li>
+        <li>Never skip DA calculation at high-elevation or hot-day airports</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">ISA Standard Atmosphere Values</div>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr><th>Parameter</th><th>Sea Level (ISA)</th><th>Lapse Rate</th><th>At 5,000 ft</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Temperature</strong></td><td>+15°C / +59°F</td><td>−2°C per 1,000 ft</td><td>+5°C</td></tr>
+        <tr><td><strong>Pressure</strong></td><td>29.92 inHg / 1013.25 hPa</td><td>~1 inHg per 1,000 ft</td><td>~24.90 inHg</td></tr>
+        <tr><td><strong>Pressure (hPa)</strong></td><td>1013.25 hPa</td><td>~1 hPa = ~27 ft</td><td>~843 hPa</td></tr>
+        <tr><td><strong>Density</strong></td><td>1.225 kg/m³</td><td>Decreases with altitude</td><td>~1.056 kg/m³</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">Density Altitude Formula</div>
+  <div class="formula">DA ≈ PA + (OAT − ISA Temp at PA) × 120 ft/°C</div>
+  <div class="card">
+    <h3>Worked Example</h3>
+    <ul>
+      <li>Airport elevation = 3,500 ft → Pressure Altitude ≈ 3,500 ft (assuming QNH near standard)</li>
+      <li>ISA temperature at 3,500 ft = 15 − (2 × 3.5) = <strong style="color:#f0c040">8°C</strong></li>
+      <li>Actual OAT = <strong style="color:#f0c040">+30°C</strong></li>
+      <li>Temperature excess above ISA = 30 − 8 = <strong style="color:#f0c040">22°C above ISA</strong></li>
+      <li>DA ≈ 3,500 + (22 × 120) = 3,500 + 2,640 = <strong style="color:#e07070">~6,140 ft</strong></li>
+      <li>Aircraft performs as if at 6,140 ft on a standard day — significantly degraded</li>
+    </ul>
+  </div>
+
+  <div class="section-label">Airport Examples — Hot/High DA Variation</div>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr><th>Airport / Condition</th><th>Elevation</th><th>OAT</th><th>Approx DA</th><th>Impact</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Calgary (YYC) — Winter</strong></td><td>3,557 ft</td><td>−15°C</td><td>~1,200 ft</td><td>Near-normal performance</td></tr>
+        <tr><td><strong>Calgary (YYC) — Summer</strong></td><td>3,557 ft</td><td>+30°C</td><td>~6,200 ft</td><td>Significantly degraded — long roll</td></tr>
+        <tr><td><strong>Toronto (CYTZ) — Summer</strong></td><td>252 ft</td><td>+30°C</td><td>~2,000 ft</td><td>Minor effect</td></tr>
+        <tr><td><strong>High-altitude strip — Summer</strong></td><td>6,000 ft</td><td>+25°C</td><td>~9,000 ft</td><td>Severe — may exceed aircraft limits</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">Memory Hook</div>
+  <div class="memory-hook">
+    <div class="badge">Memory Hook</div>
+    <ul>
+      <li><strong style="color:#80c880">Hot + High = High DA = Hazard:</strong> Both high temperature and high elevation push DA up. Together they can double the apparent altitude.</li>
+      <li><strong style="color:#80c880">ISA lapse rate = 2°C per 1,000 ft:</strong> At 3,000 ft, ISA = 15 − 6 = 9°C. Memorize this: start at 15°C at sea level, subtract 2°C for every 1,000 ft.</li>
+      <li><strong style="color:#80c880">120 ft per °C:</strong> Each 1°C above ISA adds 120 ft to your density altitude. On a 10°C-above-ISA day, add 1,200 ft.</li>
+      <li><strong style="color:#80c880">Check POH performance charts:</strong> Always calculate DA before takeoff and compare to your aircraft's POH climb/takeoff charts — especially on short runways or near terrain.</li>
+    </ul>
   </div>
 </div>
-
-<div class="section-label">Four Factors That Raise Density Altitude</div>
-<div class="four-grid">
-  <div class="factor">
-    <div class="icon" aria-hidden="true">🌡️</div>
-    <h3>High Temperature</h3>
-    <p>Hot air is less dense. Each 1°C above ISA raises DA by ~120 ft. Summer afternoons at southern airports are prime DA risk.</p>
-    <div class="effect">↑ DA by 120 ft per °C above ISA</div>
-  </div>
-  <div class="factor">
-    <div class="icon" aria-hidden="true">⛰️</div>
-    <h3>High Elevation</h3>
-    <p>Higher airports have less air above them — lower air density. Mountain airports combine elevation + temperature for extreme DA.</p>
-    <div class="effect">↑ DA = airport elevation (baseline)</div>
-  </div>
-  <div class="factor">
-    <div class="icon" aria-hidden="true">📉</div>
-    <h3>Low Atmospheric Pressure</h3>
-    <p>Low QNH = higher pressure altitude for the same elevation. Frontal troughs can add hundreds of feet to effective DA.</p>
-    <div class="effect">↑ DA when QNH &lt; 29.92" Hg</div>
-  </div>
-  <div class="factor">
-    <div class="icon" aria-hidden="true">💧</div>
-    <h3>High Humidity</h3>
-    <p>Humid air is slightly less dense than dry air (water vapour is lighter than N₂/O₂). Effect is smaller than temp/pressure but additive.</p>
-    <div class="effect">↑ DA (modest effect vs temp)</div>
-  </div>
-</div>
-
-<div class="section-label">Performance Effects of High Density Altitude</div>
-<table>
-  <tr><th>Density Altitude</th><th>Takeoff Roll</th><th>Rate of Climb</th><th>Assessment</th></tr>
-  <tr><td class="label-col da-low">Sea level (ISA)</td><td>Reference (100%)</td><td>Reference (100%)</td><td class="da-low">Normal operations</td></tr>
-  <tr><td class="label-col da-med">2,000 ft DA</td><td>≈ +20% longer</td><td>≈ −15% less</td><td class="da-med">Moderate; note in planning</td></tr>
-  <tr><td class="label-col da-med">4,000 ft DA</td><td>≈ +40–50% longer</td><td>≈ −30% less</td><td class="da-med">Significant; weight limits apply</td></tr>
-  <tr class="danger"><td class="label-col da-high">6,000 ft DA</td><td>≈ +70% longer</td><td>≈ −45% less</td><td class="da-high">Dangerous without POH check</td></tr>
-  <tr class="danger"><td class="label-col da-high">8,000 ft DA</td><td>≈ +100% (doubled!)</td><td>Very low — may be unable to climb</td><td class="da-high">Go/no-go decision required</td></tr>
-</table>
-<p style="font-size:11px; color:#7a9ab5; margin-bottom:28px;">Values are approximate. Always consult the aircraft's POH performance charts using actual PA and OAT for the departure aerodrome.</p>
-
-<div class="isa-card">
-  <h3>ISA (International Standard Atmosphere) Reference</h3>
-  <div class="isa-row header"><span>Altitude</span><span>ISA Temp</span><span>ISA Pressure</span></div>
-  <div class="isa-row data"><span>Sea level</span><span>+15°C (59°F)</span><span>29.92" Hg (1013 hPa)</span></div>
-  <div class="isa-row data"><span>2,000 ft</span><span>+11°C</span><span>27.82" Hg</span></div>
-  <div class="isa-row data"><span>4,000 ft</span><span>+7°C</span><span>25.84" Hg</span></div>
-  <div class="isa-row data"><span>6,000 ft</span><span>+3°C</span><span>23.98" Hg</span></div>
-  <div class="isa-row data"><span>8,000 ft</span><span>−1°C</span><span>22.22" Hg</span></div>
-  <div class="isa-row data"><span>10,000 ft</span><span>−5°C</span><span>20.57" Hg</span></div>
-  <p style="font-size:10px; color:#7a9ab5; margin-top:8px;">Lapse rate: 2°C per 1,000 ft (3.5°F). Pressure decreases ~1" Hg per 1,000 ft at lower altitudes.</p>
-</div>
-
-<div class="hook-box">
-  <h2>Exam Memory Hooks</h2>
-  <div class="hook-row"><span class="hook-badge">HHHI</span><span class="hook-text"><strong>High, Hot, Humid = High Density Altitude = poor performance.</strong> The three Hs that kill aircraft performance. Add "Low pressure" for the full picture: H³L.</span></div>
-  <div class="hook-row"><span class="hook-badge">FORMULA</span><span class="hook-text">DA = PA + 120 × (OAT − ISA). Or use the E6B density altitude scale, or POH density altitude chart. All give the same result — use whichever the exam question provides data for.</span></div>
-  <div class="hook-row"><span class="hook-badge">POH FIRST</span><span class="hook-text">Always check the POH takeoff performance chart before flight. Calculate DA for departure. If takeoff distance exceeds available runway, <strong>do not depart</strong> — reduce weight or wait for cooler conditions.</span></div>
-</div>
-
 </body>
 </html>

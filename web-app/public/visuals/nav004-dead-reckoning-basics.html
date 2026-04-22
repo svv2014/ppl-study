@@ -3,42 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NAV-004: Dead Reckoning</title>
+<title>NAV-004: Dead Reckoning Basics</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; margin: auto; }
   h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
   .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
   .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
 
-  /* ── PLOG table ──────────────────────────────────────────────────── */
-  .plog { width: 100%; border-collapse: collapse; font-size: 11px; margin-bottom: 28px; }
-  .plog th { background: #1a2d3d; color: #7a9ab5; padding: 8px 6px; text-align: center; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid #243a4d; }
-  .plog td { padding: 9px 6px; border: 1px solid #1a2d3d; text-align: center; vertical-align: middle; }
-  .plog .leg { background: #0a1525; }
-  .plog .calc { background: #071520; }
-  .col-t  { color: #f0c040; font-weight: 700; }
-  .col-m  { color: #5ba3f5; font-weight: 700; }
-  .col-c  { color: #80e080; font-weight: 700; }
-  .col-gs { color: #c880c8; font-weight: 700; }
-  .step-arrow { color: #7a9ab5; }
+  .grid-wrap { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 20px; margin-bottom: 32px; display: flex; justify-content: center; }
 
-  /* ── Step flow ───────────────────────────────────────────────────── */
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
-  .step { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px; }
-  .step .num { font-size: 20px; font-weight: 800; color: #f0c040; margin-bottom: 6px; }
-  .step .title { font-size: 12px; font-weight: 700; color: #c8d8e8; margin-bottom: 6px; }
-  .step .desc { font-size: 11px; color: #7a9ab5; line-height: 1.5; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
+  .info-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; }
+  .info-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
+  .info-card p  { font-size: 12px; color: #c8d8e8; line-height: 1.75; }
+  .info-card .big { font-size: 26px; font-weight: 800; color: #f0c040; text-align: center; padding: 8px 0; letter-spacing: 1px; }
+  .info-card .sub { font-size: 11px; color: #7a9ab5; text-align: center; margin-top: 2px; }
 
-  /* ── Checkpoint timing ───────────────────────────────────────────── */
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
-  .card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; }
-  .card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
-  .card ul { list-style: none; }
-  .card ul li { font-size: 12px; color: #c8d8e8; padding: 4px 0; line-height: 1.5; }
-  .card ul li::before { content: "· "; color: #f0c040; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px; border-bottom: 1px solid #1a2d3d; color: #c8d8e8; vertical-align: middle; }
+  tr:last-child td { border-bottom: none; }
+  td strong { color: #f0c040; }
 
-  /* ── Hook box ────────────────────────────────────────────────────── */
   .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
   .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
   .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
@@ -49,111 +37,171 @@
 </head>
 <body>
 
-<h1>NAV-004 — Dead Reckoning</h1>
+<h1>NAV-004 — Dead Reckoning Basics</h1>
 <p class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</p>
 
-<div class="section-label">PLOG — Pilot's Navigation Log (Sample Leg)</div>
-<table class="plog">
-  <tr>
-    <th>From / To</th>
-    <th class="col-t">True<br>Track (TT)</th>
-    <th>WCA</th>
-    <th class="col-t">True<br>Hdg (TH)</th>
-    <th>Var</th>
-    <th class="col-m">Mag<br>Hdg (MH)</th>
-    <th>Dev</th>
-    <th class="col-c">Compass<br>Hdg (CH)</th>
-    <th>TAS<br>(kt)</th>
-    <th class="col-gs">GS<br>(kt)</th>
-    <th>Dist<br>(NM)</th>
-    <th>Time<br>(min)</th>
-    <th>ETA</th>
-  </tr>
-  <tr class="leg">
-    <td>CYOW→CYKF</td>
-    <td class="col-t">247°</td>
-    <td>+6° (R)</td>
-    <td class="col-t">253°</td>
-    <td>12°W</td>
-    <td class="col-m">265°</td>
-    <td>−2°E</td>
-    <td class="col-c">263°</td>
-    <td>100</td>
-    <td class="col-gs">92</td>
-    <td>148</td>
-    <td>97</td>
-    <td>1247Z</td>
-  </tr>
-  <tr class="calc" style="background:#060f1a;">
-    <td colspan="13" style="color:#7a9ab5; font-size:10px; text-align:left; padding: 8px 10px;">
-      <strong style="color:#f0c040">Calculation path:</strong>
-      True Track 247° &nbsp;→&nbsp; apply WCA +6° → True Heading 253° &nbsp;→&nbsp; apply Var 12°W (add West) → Mag Hdg 265° &nbsp;→&nbsp; apply Dev −2° → Compass Hdg 263° &nbsp;|&nbsp;
-      Time = 148 NM ÷ 92 kt × 60 = 97 min
-    </td>
-  </tr>
+<!-- ── FLIGHT PATH DIAGRAM ──────────────────────────────────────────── -->
+<div class="section-label">DR Flight Path — Checkpoints &amp; Distance</div>
+<div class="grid-wrap">
+  <svg width="780" height="300" viewBox="0 0 780 300" style="max-width:100%;">
+
+    <!-- Background -->
+    <rect x="10" y="10" width="760" height="280" fill="#0d2040" rx="6"/>
+
+    <!-- Grid lines -->
+    <line x1="10" y1="60"  x2="770" y2="60"  stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+    <line x1="10" y1="110" x2="770" y2="110" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+    <line x1="10" y1="160" x2="770" y2="160" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+    <line x1="10" y1="210" x2="770" y2="210" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+    <line x1="10" y1="260" x2="770" y2="260" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+    <line x1="110" y1="10" x2="110" y2="290" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+    <line x1="260" y1="10" x2="260" y2="290" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+    <line x1="410" y1="10" x2="410" y2="290" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+    <line x1="560" y1="10" x2="560" y2="290" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+    <line x1="710" y1="10" x2="710" y2="290" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
+
+    <!-- Flight track line -->
+    <line x1="70" y1="155" x2="700" y2="155" stroke="#3a7ad5" stroke-width="2.5"/>
+
+    <!-- Arrowhead at destination -->
+    <polygon points="700,150 715,155 700,160" fill="#3a7ad5"/>
+
+    <!-- Departure point A -->
+    <circle cx="70" cy="155" r="8" fill="#f0c040" stroke="#0d2040" stroke-width="2"/>
+    <text x="70" y="185" text-anchor="middle" font-size="12" fill="#f0c040" font-weight="700">A</text>
+    <text x="70" y="198" text-anchor="middle" font-size="10" fill="#7a9ab5">Departure</text>
+
+    <!-- CP1 at 30min / 50NM -->
+    <circle cx="260" cy="155" r="7" fill="#2a6a3a" stroke="#80c880" stroke-width="2"/>
+    <text x="260" y="185" text-anchor="middle" font-size="12" fill="#80c880" font-weight="700">CP1</text>
+    <text x="260" y="198" text-anchor="middle" font-size="10" fill="#7a9ab5">30 min</text>
+    <text x="260" y="210" text-anchor="middle" font-size="10" fill="#7a9ab5">50 NM</text>
+
+    <!-- CP2 at 60min / 100NM -->
+    <circle cx="450" cy="155" r="7" fill="#2a6a3a" stroke="#80c880" stroke-width="2"/>
+    <text x="450" y="185" text-anchor="middle" font-size="12" fill="#80c880" font-weight="700">CP2</text>
+    <text x="450" y="198" text-anchor="middle" font-size="10" fill="#7a9ab5">60 min</text>
+    <text x="450" y="210" text-anchor="middle" font-size="10" fill="#7a9ab5">100 NM</text>
+
+    <!-- Destination at 90min / 150NM -->
+    <circle cx="700" cy="155" r="8" fill="#c04040" stroke="#ff8080" stroke-width="2"/>
+    <text x="700" y="185" text-anchor="middle" font-size="12" fill="#ff8080" font-weight="700">B</text>
+    <text x="700" y="198" text-anchor="middle" font-size="10" fill="#7a9ab5">90 min</text>
+    <text x="700" y="210" text-anchor="middle" font-size="10" fill="#7a9ab5">150 NM</text>
+
+    <!-- Distance segments -->
+    <line x1="70" y1="130" x2="260" y2="130" stroke="#f0c040" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="165" y="125" text-anchor="middle" font-size="10" fill="#f0c040">50 NM</text>
+    <line x1="260" y1="130" x2="450" y2="130" stroke="#f0c040" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="355" y="125" text-anchor="middle" font-size="10" fill="#f0c040">50 NM</text>
+    <line x1="450" y1="130" x2="700" y2="130" stroke="#f0c040" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="575" y="125" text-anchor="middle" font-size="10" fill="#f0c040">50 NM</text>
+
+    <!-- North arrow -->
+    <line x1="740" y1="70" x2="740" y2="35" stroke="#c8d8e8" stroke-width="1.5"/>
+    <polygon points="740,30 735,45 745,45" fill="#c8d8e8"/>
+    <text x="740" y="85" text-anchor="middle" font-size="11" fill="#c8d8e8" font-weight="700">N</text>
+
+    <!-- Formula box -->
+    <rect x="20" y="230" width="220" height="50" fill="#0a1a35" rx="5" stroke="#1a3a5a" stroke-width="1"/>
+    <text x="130" y="248" text-anchor="middle" font-size="10" fill="#7a9ab5" font-weight="600">FORMULA</text>
+    <text x="130" y="264" text-anchor="middle" font-size="12" fill="#f0c040" font-weight="800">D = GS × T</text>
+    <text x="130" y="276" text-anchor="middle" font-size="10" fill="#80c880">100 kt × 1.5 hr = 150 NM</text>
+
+    <!-- Speed label -->
+    <text x="385" y="148" text-anchor="middle" font-size="10" fill="#7a9ab5">GS = 100 kt</text>
+
+  </svg>
+</div>
+
+<!-- ── FORMULA CARDS ──────────────────────────────────────────────────── -->
+<div class="section-label">The Three DR Formulas</div>
+<div class="three-col">
+  <div class="info-card">
+    <h3>Distance</h3>
+    <div class="big">D = GS × T</div>
+    <div class="sub">Ground Speed × Time</div>
+    <p style="margin-top:12px;">Example: GS 120 kt, time 45 min (0.75 hr)<br><strong>D = 120 × 0.75 = 90 NM</strong></p>
+  </div>
+  <div class="info-card">
+    <h3>Time</h3>
+    <div class="big">T = D ÷ GS</div>
+    <div class="sub">Distance ÷ Ground Speed</div>
+    <p style="margin-top:12px;">Example: 75 NM at GS 100 kt<br><strong>T = 75 ÷ 100 = 0.75 hr = 45 min</strong></p>
+  </div>
+  <div class="info-card">
+    <h3>Ground Speed</h3>
+    <div class="big">GS = D ÷ T</div>
+    <div class="sub">Distance ÷ Time</div>
+    <p style="margin-top:12px;">Example: 90 NM in 54 min (0.9 hr)<br><strong>GS = 90 ÷ 0.9 = 100 kt</strong></p>
+  </div>
+</div>
+
+<!-- ── DR PARAMETERS TABLE ────────────────────────────────────────────── -->
+<div class="section-label">DR Parameters — Required Inputs</div>
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Symbol</th>
+      <th>Description</th>
+      <th>Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>True Track</strong></td>
+      <td><strong>TT</strong></td>
+      <td>Intended path over the ground, measured from True North</td>
+      <td>VNC / WAC chart</td>
+    </tr>
+    <tr>
+      <td><strong>True Airspeed</strong></td>
+      <td><strong>TAS</strong></td>
+      <td>Aircraft speed through the airmass (corrected for altitude/temp)</td>
+      <td>Flight manual, E6-B</td>
+    </tr>
+    <tr>
+      <td><strong>Wind</strong></td>
+      <td><strong>W/V</strong></td>
+      <td>Wind direction (°True) and speed (kt) — affects GS and heading</td>
+      <td>TAF, GFA, METAR</td>
+    </tr>
+    <tr>
+      <td><strong>Magnetic Variation</strong></td>
+      <td><strong>VAR</strong></td>
+      <td>Angle between True North and Magnetic North at your location</td>
+      <td>VNC isogonic lines</td>
+    </tr>
+    <tr>
+      <td><strong>Compass Deviation</strong></td>
+      <td><strong>DEV</strong></td>
+      <td>Error in aircraft magnetic compass due to local magnetic influences</td>
+      <td>Aircraft deviation card</td>
+    </tr>
+  </tbody>
 </table>
 
-<div class="section-label">Dead Reckoning — Five Steps</div>
-<div class="steps">
-  <div class="step">
-    <div class="num">1</div>
-    <div class="title">Measure True Track</div>
-    <div class="desc">Use plotter on VNC. Draw the route line; read the bearing where it crosses a meridian (true north reference).</div>
-  </div>
-  <div class="step">
-    <div class="num">2</div>
-    <div class="title">Apply Wind (WCA + GS)</div>
-    <div class="desc">Solve the wind triangle on E6B. Get Wind Correction Angle and Ground Speed based on forecast winds aloft.</div>
-  </div>
-  <div class="step">
-    <div class="num">3</div>
-    <div class="title">TVMDC Conversion</div>
-    <div class="desc">Convert True Heading → Magnetic Heading (apply Variation) → Compass Heading (apply Deviation).</div>
-  </div>
-  <div class="step">
-    <div class="num">4</div>
-    <div class="title">Calculate Time</div>
-    <div class="desc">Distance ÷ Ground Speed × 60 = time in minutes. Mark checkpoints at regular intervals (every 10–15 min).</div>
-  </div>
-  <div class="step">
-    <div class="num">5</div>
-    <div class="title">Verify In-Flight</div>
-    <div class="desc">At each checkpoint compare actual position to planned. Revise heading and ETA if drifting off track.</div>
-  </div>
-  <div class="step">
-    <div class="num">6</div>
-    <div class="title">Log ETAs &amp; ATAs</div>
-    <div class="desc">Record estimated and actual times. ATC and search-and-rescue use PLOG times if you go overdue.</div>
-  </div>
-</div>
-
-<div class="two-col">
-  <div class="card">
-    <h3>Good Checkpoints</h3>
-    <ul>
-      <li>Distinctive, unlikely to be confused with surroundings</li>
-      <li>Perpendicular to track (easy to cross-confirm)</li>
-      <li>Spaced 10–20 NM apart (≈ every 10–15 min cruise)</li>
-      <li>Examples: towns, lakes, river bends, railway junctions, highways crossing track</li>
-    </ul>
-  </div>
-  <div class="card">
-    <h3>DR vs Other Nav Methods</h3>
-    <ul>
-      <li><strong style="color:#f0c040">Dead Reckoning</strong> — calculations only; no external reference</li>
-      <li><strong style="color:#f0c040">Pilotage</strong> — visual landmark matching (NAV-009)</li>
-      <li><strong style="color:#f0c040">VOR</strong> — radio nav from ground station (NAV-010)</li>
-      <li><strong style="color:#f0c040">GPS</strong> — satellite position fix (NAV-011)</li>
-      <li>DR underpins all methods — always have a PLOG</li>
-    </ul>
-  </div>
-</div>
-
+<!-- ── MEMORY HOOK ────────────────────────────────────────────────────── -->
+<div class="section-label">Memory Hooks</div>
 <div class="hook-box">
-  <h2>Exam Memory Hooks</h2>
-  <div class="hook-row"><span class="hook-badge">FORMULA</span><span class="hook-text"><strong>Time = Distance ÷ GS × 60</strong> — use Ground Speed, not TAS, because GS is your actual speed over the ground.</span></div>
-  <div class="hook-row"><span class="hook-badge">WCA</span><span class="hook-text">Wind from the right → turn right (add WCA). Wind from the left → turn left (subtract WCA). WCA is measured from True Track to True Heading.</span></div>
-  <div class="hook-row"><span class="hook-badge">PLOG</span><span class="hook-text">Always file your PLOG with a responsible person before departure. If you go overdue, SAR uses your planned route and timings.</span></div>
+  <h2>Key Concepts to Remember</h2>
+  <div class="hook-row">
+    <span class="hook-badge">CONCEPT</span>
+    <span class="hook-text">Dead Reckoning means navigating by <strong>calculation alone</strong> — no visual landmarks, no GPS. You use your known track, TAS, wind, and elapsed time to predict your position.</span>
+  </div>
+  <div class="hook-row">
+    <span class="hook-badge">CHECKPOINTS</span>
+    <span class="hook-text">Plan checkpoints every <strong>30–50 NM</strong> (or 15–20 min). Cross-check your estimated position against ground features to detect navigation errors early.</span>
+  </div>
+  <div class="hook-row">
+    <span class="hook-badge">ETA TIP</span>
+    <span class="hook-text">Note your actual time over CP1. If <strong>early → GS is higher than planned</strong>; if late → GS is lower. Revise your ETA for the destination accordingly.</span>
+  </div>
+  <div class="hook-row">
+    <span class="hook-badge">UNITS</span>
+    <span class="hook-text">Always convert minutes to hours before using <strong>D = GS × T</strong>. Divide minutes by 60 (e.g. 45 min = 0.75 hr).</span>
+  </div>
 </div>
 
 </body>

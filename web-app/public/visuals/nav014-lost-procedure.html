@@ -3,186 +3,253 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NAV-014: Lost Procedure and Diversion</title>
+<title>NAV-014 — Lost Procedure and Diversion</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 860px; }
-  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
-  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
-  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
-
-  /* ── 5 Cs flowchart ──────────────────────────────────────────────── */
-  .five-cs { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
-  .c-step { display: flex; gap: 0; }
-  .c-left { display: flex; flex-direction: column; align-items: center; width: 70px; flex-shrink: 0; }
-  .c-badge { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; flex-shrink: 0; }
-  .c-letter { font-size: 20px; font-weight: 800; }
-  .c-word   { font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 1px; }
-  .c-line { width: 3px; flex: 1; min-height: 12px; background: #1a3a5a; }
-  .c-content { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 14px 18px; margin-bottom: 12px; flex: 1; }
-  .c-content h3 { font-size: 13px; font-weight: 700; margin-bottom: 6px; }
-  .c-content p { font-size: 12px; color: #c8d8e8; line-height: 1.6; }
-  .c-content .action { font-size: 11px; font-weight: 700; margin-top: 8px; padding: 4px 10px; border-radius: 4px; display: inline-block; }
-
-  /* 5 Cs colors */
-  .c1 .c-badge { background: #1a3a5a; } .c1 .c-letter { color: #5ba3f5; } .c1 .c-word { color: #5ba3f5; }
-  .c2 .c-badge { background: #1a3a2a; } .c2 .c-letter { color: #80e080; } .c2 .c-word { color: #80e080; }
-  .c3 .c-badge { background: #2a1a0a; } .c3 .c-letter { color: #f0a040; } .c3 .c-word { color: #f0a040; }
-  .c4 .c-badge { background: #1a2a1a; } .c4 .c-letter { color: #80c880; } .c4 .c-word { color: #80c880; }
-  .c5 .c-badge { background: #1a1a3a; } .c5 .c-letter { color: #c080f0; } .c5 .c-word { color: #c080f0; }
-
-  /* ── Transponder codes ───────────────────────────────────────────── */
-  .squawk-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 28px; }
-  .sq-card { border-radius: 10px; padding: 16px; text-align: center; border: 2px solid; }
-  .sq-card .code { font-size: 28px; font-weight: 800; letter-spacing: 2px; display: block; margin-bottom: 4px; }
-  .sq-card .name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-  .sq-card .desc { font-size: 11px; line-height: 1.5; }
-  .sq7700 { background: #1a0a0a; border-color: #aa2222; }
-  .sq7700 .code { color: #ff5050; } .sq7700 .name { color: #ff8080; } .sq7700 .desc { color: #c8a8a8; }
-  .sq7600 { background: #0a1a1a; border-color: #226666; }
-  .sq7600 .code { color: #50c0d0; } .sq7600 .name { color: #80d0e0; } .sq7600 .desc { color: #a8c8d0; }
-  .sq7500 { background: #1a1a0a; border-color: #666622; }
-  .sq7500 .code { color: #d0c050; } .sq7500 .name { color: #e0d080; } .sq7500 .desc { color: #c8c8a0; }
-
-  /* ── Diversion steps ─────────────────────────────────────────────── */
-  .div-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
-  .div-step { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 8px; padding: 14px 16px; }
-  .div-step .num { font-size: 18px; font-weight: 800; color: #f0c040; margin-bottom: 4px; }
-  .div-step h3 { font-size: 12px; font-weight: 700; color: #c8d8e8; margin-bottom: 4px; }
-  .div-step p { font-size: 11px; color: #7a9ab5; line-height: 1.5; }
-
-  /* ── Hook box ────────────────────────────────────────────────────── */
-  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
-  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
-  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
-  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
-  .hook-text strong { color: #f0c040; }
+  body { background: #0d1b2a; color: #c8d8e8; font-family: 'Segoe UI', system-ui, sans-serif; font-size: 13px; line-height: 1.6; padding: 32px 16px; }
+  .container { max-width: 860px; margin: auto; padding: 0; }
+  h1 { color: #f0c040; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .subtitle { color: #7a9ab5; font-size: 13px; margin-bottom: 32px; }
+  .section-label { color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; margin-top: 28px; }
+  .card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; margin-bottom: 16px; }
+  .card h3 { color: #f0c040; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .card p, .card li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+  .card ul { padding-left: 18px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 4px; }
+  th { background: #1a2d3d; color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; padding: 8px 12px; text-align: left; }
+  td { padding: 8px 12px; border-bottom: 1px solid #1a2d3d; color: #c8d8e8; font-size: 12px; vertical-align: top; }
+  td strong { color: #f0c040; }
+  .memory-hook { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #80c880; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; margin-bottom: 10px; }
+  .memory-hook p, .memory-hook li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+  .memory-hook ul { padding-left: 18px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  .squawk-7700 { color: #e07070; font-weight: 700; }
+  .squawk-7600 { color: #f0c040; font-weight: 700; }
+  .squawk-7500 { color: #c87040; font-weight: 700; }
 </style>
 </head>
 <body>
+<div class="container">
+  <h1>NAV-014 — Lost Procedure and Diversion</h1>
+  <div class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</div>
 
-<h1>NAV-014 — Lost Procedure and Diversion</h1>
-<p class="subtitle">Transport Canada · TP 12880E Ch.9 · CARs 602.128 · PPL Written Exam</p>
+  <div class="section-label">Lost Procedure Flowchart — The 4 Cs</div>
+  <div class="card" style="padding: 12px 16px;">
+    <svg viewBox="0 0 820 380" width="100%" style="display:block;">
+      <rect width="820" height="380" fill="#0d1a30" rx="8"/>
 
-<div class="section-label">The 5 Cs — What to Do If You're Lost</div>
-<div class="five-cs">
-  <div class="c-step c1">
-    <div class="c-left">
-      <div class="c-badge"><span class="c-letter">C</span><span class="c-word">Climb</span></div>
-      <div class="c-line"></div>
+      <!-- Main flow: top to bottom, centered at x=300 -->
+      <!-- START box -->
+      <rect x="200" y="20" width="200" height="44" fill="#1a1010" stroke="#e07070" stroke-width="2" rx="6"/>
+      <text x="300" y="37" text-anchor="middle" fill="#e07070" font-size="12" font-weight="700">DISORIENTED</text>
+      <text x="300" y="53" text-anchor="middle" fill="#c8d8e8" font-size="10">Unsure of position</text>
+
+      <!-- Arrow down -->
+      <line x1="300" y1="64" x2="300" y2="82" stroke="#3a6a8a" stroke-width="2"/>
+      <polygon points="300,82 295,72 305,72" fill="#3a6a8a"/>
+
+      <!-- STOP — THINK box -->
+      <rect x="200" y="82" width="200" height="36" fill="#2a1a00" stroke="#f0c040" stroke-width="2" rx="6"/>
+      <text x="300" y="97" text-anchor="middle" fill="#f0c040" font-size="12" font-weight="700">STOP — DON'T PANIC</text>
+      <text x="300" y="111" text-anchor="middle" fill="#c8d8e8" font-size="9">Maintain control. Think clearly.</text>
+
+      <!-- Arrow down -->
+      <line x1="300" y1="118" x2="300" y2="136" stroke="#3a6a8a" stroke-width="2"/>
+      <polygon points="300,136 295,126 305,126" fill="#3a6a8a"/>
+
+      <!-- C1: CLIMB -->
+      <rect x="185" y="136" width="230" height="54" fill="#0a1828" stroke="#4a9ab5" stroke-width="2" rx="6"/>
+      <text x="220" y="155" fill="#4a9ab5" font-size="14" font-weight="900">C1</text>
+      <text x="255" y="155" fill="#f0c040" font-size="13" font-weight="700">CLIMB</text>
+      <text x="300" y="170" text-anchor="middle" fill="#c8d8e8" font-size="10">Gain altitude for better visibility,</text>
+      <text x="300" y="182" text-anchor="middle" fill="#c8d8e8" font-size="10">wider radio range, broader view</text>
+
+      <!-- Arrow down -->
+      <line x1="300" y1="190" x2="300" y2="208" stroke="#3a6a8a" stroke-width="2"/>
+      <polygon points="300,208 295,198 305,198" fill="#3a6a8a"/>
+
+      <!-- C2: CONFESS -->
+      <rect x="185" y="208" width="230" height="54" fill="#0a1828" stroke="#4a9ab5" stroke-width="2" rx="6"/>
+      <text x="220" y="227" fill="#4a9ab5" font-size="14" font-weight="900">C2</text>
+      <text x="255" y="227" fill="#f0c040" font-size="13" font-weight="700">CONFESS</text>
+      <text x="300" y="242" text-anchor="middle" fill="#c8d8e8" font-size="10">Admit you are lost — to yourself</text>
+      <text x="300" y="254" text-anchor="middle" fill="#c8d8e8" font-size="10">and to ATC / FSS immediately</text>
+
+      <!-- Arrow down -->
+      <line x1="300" y1="262" x2="300" y2="280" stroke="#3a6a8a" stroke-width="2"/>
+      <polygon points="300,280 295,270 305,270" fill="#3a6a8a"/>
+
+      <!-- C3: COMMUNICATE -->
+      <rect x="185" y="280" width="230" height="54" fill="#0a1828" stroke="#4a9ab5" stroke-width="2" rx="6"/>
+      <text x="220" y="299" fill="#4a9ab5" font-size="14" font-weight="900">C3</text>
+      <text x="263" y="299" fill="#f0c040" font-size="13" font-weight="700">COMMUNICATE</text>
+      <text x="300" y="314" text-anchor="middle" fill="#c8d8e8" font-size="10">Call ATC on current freq or 121.5 MHz</text>
+      <text x="300" y="326" text-anchor="middle" fill="#c8d8e8" font-size="10">Squawk 7700 if emergency declared</text>
+
+      <!-- Arrow down -->
+      <line x1="300" y1="334" x2="300" y2="352" stroke="#3a6a8a" stroke-width="2"/>
+      <polygon points="300,352 295,342 305,342" fill="#3a6a8a"/>
+
+      <!-- C4: COMPLY -->
+      <rect x="185" y="352" width="230" height="22" fill="#0a1828" stroke="#80c880" stroke-width="2" rx="6"/>
+      <text x="220" y="367" fill="#80c880" font-size="14" font-weight="900">C4</text>
+      <text x="255" y="367" fill="#f0c040" font-size="13" font-weight="700">COMPLY</text>
+
+      <!-- Diversion branch: right side -->
+      <!-- Branch line from CONFESS box -->
+      <line x1="415" y1="235" x2="510" y2="235" stroke="#c87040" stroke-width="1.5" stroke-dasharray="5,3"/>
+      <polygon points="510,235 500,230 500,240" fill="#c87040"/>
+      <text x="458" y="228" text-anchor="middle" fill="#c87040" font-size="9">if fuel/wx</text>
+      <text x="458" y="240" text-anchor="middle" fill="#c87040" font-size="9">concern</text>
+
+      <!-- Diversion box -->
+      <rect x="510" y="200" width="270" height="140" fill="#100a00" stroke="#c87040" stroke-width="1.5" rx="6"/>
+      <text x="645" y="220" text-anchor="middle" fill="#c87040" font-size="11" font-weight="700">DIVERSION TO ALTERNATE</text>
+      <text x="520" y="240" fill="#c8d8e8" font-size="10">1. Identify nearest suitable airport</text>
+      <text x="520" y="256" fill="#c8d8e8" font-size="10">2. Mark position on chart (best guess)</text>
+      <text x="520" y="272" fill="#c8d8e8" font-size="10">3. Estimate heading, distance, ETE</text>
+      <text x="520" y="288" fill="#c8d8e8" font-size="10">4. Declare intentions to ATC</text>
+      <text x="520" y="304" fill="#c8d8e8" font-size="10">5. Squawk 7700 if emergency</text>
+      <text x="520" y="320" fill="#c8d8e8" font-size="10">6. Maintain VMC — do not press into IMC</text>
+      <text x="520" y="336" fill="#e07070" font-size="10" font-weight="700">Priority: Aviate · Navigate · Communicate</text>
+
+      <!-- Emergency freq label -->
+      <rect x="510" y="148" width="270" height="44" fill="#0a1828" stroke="#1a3a5a" stroke-width="1" rx="5"/>
+      <text x="645" y="165" text-anchor="middle" fill="#7a9ab5" font-size="10" font-weight="700">EMERGENCY FREQUENCY</text>
+      <text x="645" y="181" text-anchor="middle" fill="#f0c040" font-size="12" font-weight="700">121.5 MHz — Distress / Urgency</text>
+
+      <!-- 121.5 line to COMMUNICATE box -->
+      <line x1="510" y1="175" x2="415" y2="305" stroke="#4a9ab5" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <div class="section-label">The 4 Cs — Lost Procedure Steps</div>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr><th>Step</th><th>Action</th><th>Why</th><th>How</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>C1 — Climb</strong></td>
+          <td>Gain altitude immediately</td>
+          <td>Better visibility, wider radio coverage, more time to think</td>
+          <td>Climb to highest safe altitude; watch for controlled airspace</td>
+        </tr>
+        <tr>
+          <td><strong>C2 — Confess</strong></td>
+          <td>Admit you are lost</td>
+          <td>Delays worsen the situation; ATC can only help if you ask</td>
+          <td>Say "LOST" to ATC or FSS; do not guess and press on</td>
+        </tr>
+        <tr>
+          <td><strong>C3 — Communicate</strong></td>
+          <td>Contact ATC or FSS</td>
+          <td>ATC has radar and can vector you; FSS can relay information</td>
+          <td>Use current freq; if no contact, try 121.5 MHz (guard freq)</td>
+        </tr>
+        <tr>
+          <td><strong>C4 — Comply</strong></td>
+          <td>Follow ATC instructions</td>
+          <td>ATC sees the full picture — trust their guidance</td>
+          <td>Read back instructions, fly assigned headings, report as requested</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-label">Emergency Calls — Mayday vs Pan-Pan</div>
+  <div class="two-col">
+    <div class="card">
+      <h3>MAYDAY — Distress Call</h3>
+      <ul>
+        <li>Used when aircraft, crew, or passengers are in <strong style="color:#e07070">grave and imminent danger</strong></li>
+        <li>Repeated 3 times: "MAYDAY MAYDAY MAYDAY"</li>
+        <li>Followed by: callsign, nature of emergency, position, altitude, intentions, POB, any other relevant info</li>
+        <li>Frequency: current ATC freq or <strong style="color:#f0c040">121.5 MHz</strong></li>
+        <li>Squawk: <span class="squawk-7700">7700</span></li>
+        <li>Examples: engine failure, fire, incapacitation</li>
+      </ul>
     </div>
-    <div class="c-content">
-      <h3 style="color:#5ba3f5;">1 — Climb</h3>
-      <p>Gain altitude immediately. Higher altitude expands your visual range, improves VHF radio range, and extends VOR/GPS reception. You can see more landmarks to match against your chart.</p>
-      <span class="action" style="background:rgba(91,163,245,0.15);color:#5ba3f5;border:1px solid rgba(91,163,245,0.3);">Action: Climb to a safe altitude; check terrain on chart first</span>
+    <div class="card">
+      <h3>PAN-PAN — Urgency Call</h3>
+      <ul>
+        <li>Used when aircraft has a serious but <strong style="color:#f0c040">non-immediately life-threatening</strong> condition</li>
+        <li>Repeated 3 times: "PAN-PAN PAN-PAN PAN-PAN"</li>
+        <li>Followed by: same information as Mayday</li>
+        <li>Frequency: current ATC freq or 121.5 MHz</li>
+        <li>Examples: lost, low fuel, medical problem, technical issue</li>
+        <li>Can be upgraded to Mayday if situation deteriorates</li>
+      </ul>
     </div>
   </div>
-  <div class="c-step c2">
-    <div class="c-left">
-      <div class="c-badge"><span class="c-letter">C</span><span class="c-word">Circle</span></div>
-      <div class="c-line"></div>
-    </div>
-    <div class="c-content">
-      <h3 style="color:#80e080;">2 — Circle</h3>
-      <p>Hold your position — maintain a constant circle around your last known position. This gives time to analyse the situation without moving further from a known point. Do not wander randomly.</p>
-      <span class="action" style="background:rgba(80,200,80,0.15);color:#80e080;border:1px solid rgba(80,200,80,0.3);">Action: Orbit a landmark while you problem-solve</span>
-    </div>
+
+  <div class="section-label">Transponder Squawk Codes</div>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr><th>Squawk Code</th><th>Meaning</th><th>When to Use</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="squawk-7700">7700</span></td>
+          <td><strong>Emergency</strong></td>
+          <td>Any emergency (engine failure, fire, Mayday call). ATC sees this immediately on radar.</td>
+        </tr>
+        <tr>
+          <td><span class="squawk-7600">7600</span></td>
+          <td><strong>Radio Failure (NORDO)</strong></td>
+          <td>Complete loss of communications — both transmit and receive. ATC will try blind transmissions.</td>
+        </tr>
+        <tr>
+          <td><span class="squawk-7500">7500</span></td>
+          <td><strong>Unlawful Interference / Hijack</strong></td>
+          <td>Aircraft is being hijacked. Do not squawk by accident — controllers will immediately scramble intercept.</td>
+        </tr>
+        <tr>
+          <td><strong>1200</strong></td>
+          <td>VFR — uncontrolled airspace</td>
+          <td>Standard VFR squawk in Canada when not assigned a specific code by ATC</td>
+        </tr>
+        <tr>
+          <td><strong>Assigned code</strong></td>
+          <td>ATC-assigned discrete code</td>
+          <td>Always use ATC-assigned code when in Class C, D, or receiving radar service</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
-  <div class="c-step c3">
-    <div class="c-left">
-      <div class="c-badge"><span class="c-letter">C</span><span class="c-word">Confess</span></div>
-      <div class="c-line"></div>
-    </div>
-    <div class="c-content">
-      <h3 style="color:#f0a040;">3 — Confess</h3>
-      <p>Admit you are lost — to yourself and to ATC. There is no shame. Pilots who delay confessing waste valuable time and fuel. ATC can only help if you tell them you need it.</p>
-      <span class="action" style="background:rgba(240,160,64,0.15);color:#f0a040;border:1px solid rgba(240,160,64,0.3);">Action: Declare MAYDAY or PAN-PAN on 121.5 MHz or current frequency</span>
-    </div>
+
+  <div class="section-label">Diversion Checklist</div>
+  <div class="card" style="padding: 0; overflow: hidden;">
+    <table>
+      <thead>
+        <tr><th>Step</th><th>Action</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1. Identify</strong></td><td>Find nearest suitable airport on chart</td><td>Consider runway length, fuel availability, wx conditions</td></tr>
+        <tr><td><strong>2. Mark position</strong></td><td>Estimate current position on chart (best guess)</td><td>Use last known position + elapsed time + heading</td></tr>
+        <tr><td><strong>3. Measure</strong></td><td>Estimate heading and distance to alternate</td><td>Use chart scale; rough compass heading is fine</td></tr>
+        <tr><td><strong>4. Time</strong></td><td>Calculate ETE (distance ÷ groundspeed)</td><td>Use 1 NM/min for ~60 kt, 2 NM/min for ~120 kt</td></tr>
+        <tr><td><strong>5. Declare</strong></td><td>Inform ATC of diversion intention and squawk if needed</td><td>"Diverting to [airport], estimate [time], request advisories"</td></tr>
+        <tr><td><strong>6. Fly</strong></td><td>Aviate first — maintain VMC, avoid terrain</td><td>Do not let chart work distract from flying the aircraft</td></tr>
+      </tbody>
+    </table>
   </div>
-  <div class="c-step c4">
-    <div class="c-left">
-      <div class="c-badge"><span class="c-letter">C</span><span class="c-word">Communicate</span></div>
-      <div class="c-line"></div>
-    </div>
-    <div class="c-content">
-      <h3 style="color:#80c880;">4 — Communicate</h3>
-      <p>Contact ATC. Use current frequency first, then 121.5 MHz (emergency). Squawk 7700. Provide: aircraft type, position (best estimate), altitude, fuel remaining, souls on board.</p>
-      <span class="action" style="background:rgba(128,200,128,0.15);color:#80c880;border:1px solid rgba(128,200,128,0.3);">Action: 121.5 MHz + squawk 7700; state position, altitude, fuel</span>
-    </div>
-  </div>
-  <div class="c-step c5">
-    <div class="c-left">
-      <div class="c-badge"><span class="c-letter">C</span><span class="c-word">Comply</span></div>
-    </div>
-    <div class="c-content">
-      <h3 style="color:#c080f0;">5 — Comply</h3>
-      <p>Follow ATC instructions exactly. ATC may ask you to fly specific headings (for radar identification), climb, descend, or proceed to a specific airport. Trust and follow their guidance.</p>
-      <span class="action" style="background:rgba(192,128,240,0.15);color:#c080f0;border:1px solid rgba(192,128,240,0.3);">Action: Do as directed by ATC; confirm readback each instruction</span>
-    </div>
+
+  <div class="section-label">Memory Hook</div>
+  <div class="memory-hook">
+    <div class="badge">Memory Hook</div>
+    <ul>
+      <li><strong style="color:#80c880">4 Cs — Climb, Confess, Communicate, Comply:</strong> The standard lost procedure. In that order — climb first to give yourself more options, confess quickly, communicate with ATC, then comply with instructions.</li>
+      <li><strong style="color:#80c880">Squawk codes — "7700 is heaven, 7600 is mute, 7500 is hijacked":</strong> 7700 = emergency (worst), 7600 = radio out (silent), 7500 = hijack (severe).</li>
+      <li><strong style="color:#80c880">Mayday = grave danger, Pan-Pan = urgent but not immediately fatal.</strong> When in doubt, say Mayday — downgrading is easy, upgrading too late is not.</li>
+      <li><strong style="color:#80c880">121.5 MHz is always monitored:</strong> ATC, SAR, and other aircraft monitor the guard frequency. If on any other freq and no contact, try 121.5.</li>
+      <li><strong style="color:#80c880">Aviate · Navigate · Communicate — in that order.</strong> Never let radio work cause you to fly into terrain or lose control.</li>
+    </ul>
   </div>
 </div>
-
-<div class="section-label">Emergency Transponder Codes</div>
-<div class="squawk-grid">
-  <div class="sq-card sq7700">
-    <span class="code">7700</span>
-    <span class="name">General Emergency</span>
-    <span class="desc">Any emergency: engine failure, lost, medical, structural. Alerts all ATC facilities simultaneously. Use with MAYDAY call on 121.5 MHz.</span>
-  </div>
-  <div class="sq-card sq7600">
-    <span class="code">7600</span>
-    <span class="name">Radio Failure</span>
-    <span class="desc">Lost communications. ATC will attempt to contact you. Follow published light-gun signals if at a towered airport. Listen on 121.5 MHz.</span>
-  </div>
-  <div class="sq-card sq7500">
-    <span class="code">7500</span>
-    <span class="name">Unlawful Interference</span>
-    <span class="desc">Hijack or threat. ATC will NOT ask you to confirm — this avoids alerting the threat. Military may be scrambled. Do not use accidentally.</span>
-  </div>
-</div>
-<p style="font-size:11px; color:#7a9ab5; margin-bottom:28px;"><strong style="color:#f0c040">Emergency frequency:</strong> 121.5 MHz — guarded 24/7 by ATC, airlines, and military. Always try 121.5 if you cannot reach ATC on your working frequency.</p>
-
-<div class="section-label">Diversion to an Alternate — Five Steps</div>
-<div class="div-steps">
-  <div class="div-step">
-    <div class="num">1</div>
-    <h3>Identify a Suitable Alternate</h3>
-    <p>Check VNC for nearby airports. Consider runway length, fuel availability, and weather. Choose the closest suitable option given your fuel state.</p>
-  </div>
-  <div class="div-step">
-    <div class="num">2</div>
-    <h3>Estimate Track and Distance</h3>
-    <p>Draw a rough line on the chart to the alternate. Measure approximate distance. Note any airspace or terrain between here and there.</p>
-  </div>
-  <div class="div-step">
-    <div class="num">3</div>
-    <h3>Calculate Fuel Required</h3>
-    <p>Estimate time to alternate using current GS. Add 30-min reserve. Verify you have enough — if not, choose a closer alternate.</p>
-  </div>
-  <div class="div-step">
-    <div class="num">4</div>
-    <h3>Notify ATC / Close/Amend Flight Plan</h3>
-    <p>Tell ATC of your new intention. Amend the flight plan. A responsible person on the ground should also know your new destination.</p>
-  </div>
-  <div class="div-step">
-    <div class="num">5</div>
-    <h3>Fly to the Alternate</h3>
-    <p>Maintain controlled flight. Use a prominent landmark or VOR to navigate. Do not rush — calm, methodical flying is the priority.</p>
-  </div>
-  <div class="div-step">
-    <div class="num">6</div>
-    <h3>Brief ATC on Landing</h3>
-    <p>Advise ATC of arrival at alternate. Report fuel state and any maintenance issues. Cancel flight plan to prevent SAR activation.</p>
-  </div>
-</div>
-
-<div class="hook-box">
-  <h2>Exam Memory Hooks</h2>
-  <div class="hook-row"><span class="hook-badge">5 Cs ORDER</span><span class="hook-text"><strong>Climb · Circle · Confess · Communicate · Comply</strong> — in that order. Climbing first is non-obvious but critical: it expands your range of options before you do anything else.</span></div>
-  <div class="hook-row"><span class="hook-badge">7700</span><span class="hook-text">Squawk <strong>7700 = general emergency</strong>. It appears on every ATC radar screen simultaneously. Combine with MAYDAY on 121.5 MHz: "MAYDAY MAYDAY MAYDAY, [callsign], [nature], [position], [altitude], [fuel], [souls on board]."</span></div>
-  <div class="hook-row"><span class="hook-badge">121.5</span><span class="hook-text"><strong>121.5 MHz</strong> is the universal emergency frequency. It's also monitored by overflying airliners. If you're lost and can't reach anyone, transmit on 121.5 — someone is almost certainly listening.</span></div>
-</div>
-
 </body>
 </html>
