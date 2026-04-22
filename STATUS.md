@@ -1,6 +1,6 @@
 # PPL Study — Status
 
-Last updated: 2026-04-21
+Last updated: 2026-04-21 (AL-014 through AL-018 added)
 
 ## Goal
 Pass Transport Canada PPL (Aeroplane) written exam. Target score: 80%+.
@@ -13,6 +13,21 @@ In Progress — lessons being authored.
 - **AL-001** `lessons/air-law/001-airspace-classifications.md`
 - **AL-002** `lessons/air-law/002-controlled-vs-uncontrolled.md`
 - **AL-003** `lessons/air-law/003-vfr-weather-minimums.md`
+- **AL-004** `lessons/air-law/004-altimeter-settings.md`
+- **AL-005** `lessons/air-law/005-right-of-way-rules.md`
+- **AL-006** `lessons/air-law/006-aerodrome-traffic-circuit.md`
+- **AL-007** `lessons/air-law/007-radio-communications.md`
+- **AL-008** `lessons/air-law/008-atc-services-clearances.md`
+- **AL-009** `lessons/air-law/009-flight-plans-itineraries.md`
+- **AL-010** `lessons/air-law/010-notams.md`
+- **AL-011** `lessons/air-law/011-cars-structure.md`
+- **AL-012** `lessons/air-law/012-pilot-licences-recency.md`
+- **AL-013** `lessons/air-law/013-aircraft-documents.md`
+- **AL-014** `lessons/air-law/014-emergency-procedures-law.md`
+- **AL-015** `lessons/air-law/015-transponder-codes.md`
+- **AL-016** `lessons/air-law/016-wake-turbulence.md`
+- **AL-017** `lessons/air-law/017-low-level-flight-rules.md`
+- **AL-018** `lessons/air-law/018-special-use-airspace.md`
 - **NAV-001** `lessons/navigation/001-vfr-charts.md`
 - **NAV-002** `lessons/navigation/002-lat-lon-map-reading.md`
 - **NAV-003** `lessons/navigation/003-true-magnetic-compass.md`
