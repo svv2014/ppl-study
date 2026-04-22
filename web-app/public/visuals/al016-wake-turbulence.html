@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-016: Wake Turbulence — Categories, Avoidance, Timing</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .cat-heavy { color: #ff7070; font-weight: 700; }
+  .cat-medium { color: #f0c040; font-weight: 700; }
+  .cat-light { color: #80e080; font-weight: 700; }
+
+  .vortex-diagram { background: #1a2d3d; border-radius: 10px; padding: 20px; margin-bottom: 28px; }
+  .vortex-diagram h2 { font-size: 12px; color: #7a9ab5; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 600; }
+  .runway-svg { width: 100%; height: auto; display: block; }
+
+  .facts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .fact-card { background: #1a2d3d; border-radius: 8px; padding: 14px 16px; border-left: 3px solid #f0c040; }
+  .fact-title { font-size: 12px; color: #f0c040; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .fact-value { font-size: 22px; font-weight: 900; color: #e8edf2; margin-bottom: 4px; }
+  .fact-unit { font-size: 11px; color: #7a9ab5; }
+
+  .avoid-list { background: #1a2d3d; border-radius: 10px; padding: 18px; margin-bottom: 28px; }
+  .avoid-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); align-items: flex-start; }
+  .avoid-item:last-child { border-bottom: none; }
+  .avoid-icon { font-size: 16px; flex-shrink: 0; }
+  .avoid-text { font-size: 13px; color: #c8d8e8; line-height: 1.5; }
+  .avoid-text strong { color: #f0c040; }
+
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>AL-016 — Wake Turbulence: Categories, Avoidance, Timing</h1>
+<p class="subtitle">Transport Canada · CARs 602.19 · AIM AIR 2.0 · TP 12880E Ch.12 · PPL Written Exam</p>
+
+<!-- Vortex behaviour diagram -->
+<div class="vortex-diagram">
+  <h2>How Wake Vortices Behave</h2>
+  <svg class="runway-svg" viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing wake vortices sinking and drifting downwind after a large aircraft passes">
+    <!-- Sky/ground -->
+    <rect width="700" height="200" fill="#0d1b2a"/>
+    <!-- Ground line -->
+    <line x1="0" y1="170" x2="700" y2="170" stroke="#1a2d3d" stroke-width="2"/>
+    <text x="10" y="185" fill="#7a9ab5" font-size="11" font-family="sans-serif">Ground</text>
+    <!-- Aircraft body (generic silhouette) -->
+    <g transform="translate(40,70)">
+      <!-- Fuselage -->
+      <ellipse cx="60" cy="20" rx="55" ry="9" fill="#4a6a8a"/>
+      <!-- Wings -->
+      <polygon points="35,20 90,20 110,8 15,8" fill="#3a5a7a"/>
+      <!-- Tail -->
+      <polygon points="100,20 115,20 115,5 108,5" fill="#3a5a7a"/>
+      <text x="0" y="45" fill="#7a9ab5" font-size="10" font-family="sans-serif">Large/Heavy aircraft</text>
+    </g>
+    <!-- Vortex left (port) -->
+    <g>
+      <ellipse cx="220" cy="80" rx="22" ry="22" fill="none" stroke="#ff7070" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8"/>
+      <text x="198" y="72" fill="#ff7070" font-size="11" font-family="sans-serif">Port vortex</text>
+      <!-- Sinking arrow -->
+      <line x1="220" y1="102" x2="220" y2="148" stroke="#ff7070" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+    </g>
+    <!-- Vortex right (starboard) — drifts downwind -->
+    <g>
+      <ellipse cx="350" cy="80" rx="22" ry="22" fill="none" stroke="#ff7070" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.8"/>
+      <text x="328" y="72" fill="#ff7070" font-size="11" font-family="sans-serif">Stbd vortex</text>
+      <line x1="350" y1="102" x2="350" y2="148" stroke="#ff7070" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+    </g>
+    <!-- Crosswind arrow -->
+    <line x1="450" y1="90" x2="550" y2="90" stroke="#7a9ab5" stroke-width="1.5" marker-end="url(#arrowGrey)"/>
+    <text x="455" y="82" fill="#7a9ab5" font-size="11" font-family="sans-serif">Crosswind →</text>
+    <!-- Drifted vortex position -->
+    <ellipse cx="590" cy="115" rx="22" ry="22" fill="none" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="4,3" opacity="0.7"/>
+    <text x="563" y="150" fill="#f0c040" font-size="10" font-family="sans-serif">Drifted downwind</text>
+    <!-- Labels: sink rate -->
+    <text x="230" y="135" fill="#7a9ab5" font-size="10" font-family="sans-serif">~300–500 ft/min sink</text>
+    <!-- Arrow defs -->
+    <defs>
+      <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#ff7070"/>
+      </marker>
+      <marker id="arrowGrey" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#7a9ab5"/>
+      </marker>
+    </defs>
+  </svg>
+</div>
+
+<!-- Weight categories -->
+<div class="section-label">Aircraft Weight Categories — ICAO / Transport Canada</div>
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Maximum Certificated Take-off Weight</th>
+      <th>Vortex Strength</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="cat-heavy">Heavy</td>
+      <td>Greater than 136,000 kg (300,000 lb)</td>
+      <td class="cat-heavy">Strongest — can roll a light aircraft</td>
+    </tr>
+    <tr>
+      <td class="cat-medium">Medium</td>
+      <td>7,000 kg – 136,000 kg</td>
+      <td class="cat-medium">Moderate — dangerous to light aircraft</td>
+    </tr>
+    <tr>
+      <td class="cat-light">Light</td>
+      <td>7,000 kg or less</td>
+      <td class="cat-light">Weakest</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Key facts -->
+<div class="section-label">Key Physical Facts</div>
+<div class="facts-grid">
+  <div class="fact-card">
+    <div class="fact-title">Vortex Sink Rate</div>
+    <div class="fact-value">300–500</div>
+    <div class="fact-unit">feet per minute — sink below flight path</div>
+  </div>
+  <div class="fact-card">
+    <div class="fact-title">Recommended Time Sep.</div>
+    <div class="fact-value">2 min</div>
+    <div class="fact-unit">light aircraft behind heavy on same runway</div>
+  </div>
+  <div class="fact-card">
+    <div class="fact-title">Crosswind Hazard</div>
+    <div class="fact-value">Upwind</div>
+    <div class="fact-unit">vortex held near centreline; downwind one drifts away</div>
+  </div>
+  <div class="fact-card">
+    <div class="fact-title">Strongest Vortices</div>
+    <div class="fact-value">Slow, Heavy</div>
+    <div class="fact-unit">heavy aircraft at low speed (clean config, high angle of attack)</div>
+  </div>
+</div>
+
+<!-- Avoidance rules -->
+<div class="section-label">Avoidance Rules</div>
+<div class="avoid-list">
+  <div class="avoid-item">
+    <span class="avoid-icon" aria-hidden="true">▶</span>
+    <span class="avoid-text"><strong>Landing behind heavy:</strong> Stay above the heavy's approach path and land beyond its touchdown point. Wait at least 2 minutes if same runway.</span>
+  </div>
+  <div class="avoid-item">
+    <span class="avoid-icon" aria-hidden="true">▶</span>
+    <span class="avoid-text"><strong>Departing behind heavy:</strong> Rotate before the heavy's rotation point and turn to avoid its flight path. Vortices begin at rotation.</span>
+  </div>
+  <div class="avoid-item">
+    <span class="avoid-icon" aria-hidden="true">▶</span>
+    <span class="avoid-text"><strong>Crossing traffic:</strong> Fly above the flight path of the preceding aircraft, not below it, as vortices sink.</span>
+  </div>
+  <div class="avoid-item">
+    <span class="avoid-icon" aria-hidden="true">▶</span>
+    <span class="avoid-text"><strong>Crosswind caution:</strong> A light crosswind can hold the upwind vortex near the centreline. Allow extra separation in calm or light wind conditions.</span>
+  </div>
+</div>
+
+<!-- Hook -->
+<div class="hook-box">
+  <h2>Memory Hook</h2>
+  <div class="hook-row"><span class="hook-badge">SINK</span><span class="hook-text">Vortices always <strong>sink and drift downwind</strong> — fly above and upwind of a preceding heavy aircraft.</span></div>
+  <div class="hook-row"><span class="hook-badge">2 MIN</span><span class="hook-text">Light behind heavy, same runway = <strong>2 minutes</strong> minimum wait after the heavy departs or lands.</span></div>
+  <div class="hook-row"><span class="hook-badge">ROTATION</span><span class="hook-text">Vortices start at <strong>rotation</strong> on departure, at <strong>touchdown</strong> on landing. The zone in between is clear.</span></div>
+</div>
+
+</body>
+</html>

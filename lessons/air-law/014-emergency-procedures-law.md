@@ -7,7 +7,7 @@ title: "Emergency Procedures (Legal) — Distress and Urgency"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/al014-emergency-procedures-law.html
 sources:
   - CARs Part VI (601, 602)
   - CARs 602.135 (Distress)

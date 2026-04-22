@@ -7,7 +7,7 @@ title: "Special Use Airspace — Restricted, Class F(R), MOAs, ADIZs"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/al018-special-use-airspace.html
 sources:
   - CARs Part VI (601.14 – 601.17)
   - AIM RAC 2.8

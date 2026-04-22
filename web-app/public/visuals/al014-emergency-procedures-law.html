@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-014: Emergency Procedures — Distress and Urgency</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 36px; }
+  .card { background: #1a2d3d; border-radius: 10px; border: 1.5px solid #1a2d3d; padding: 20px; }
+  .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .signal-badge { font-size: 18px; font-weight: 900; padding: 6px 14px; border-radius: 6px; letter-spacing: 2px; }
+  .mayday-badge { background: rgba(255,80,80,0.2); color: #ff7070; border: 1.5px solid rgba(255,80,80,0.4); }
+  .panpan-badge { background: rgba(255,200,0,0.15); color: #f0c040; border: 1.5px solid rgba(255,200,0,0.35); }
+  .card-title { font-size: 15px; font-weight: 700; color: #e8edf2; }
+  .card-sub { font-size: 11px; color: #7a9ab5; margin-top: 2px; }
+  .card p { font-size: 13px; color: #c8d8e8; line-height: 1.6; margin-bottom: 8px; }
+  .card p:last-child { margin-bottom: 0; }
+  .highlight { color: #f0c040; font-weight: 700; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .col-signal { color: #f0c040; font-weight: 700; }
+  .col-distress { color: #ff7070; font-weight: 600; }
+  .col-urgency { color: #f0c040; font-weight: 600; }
+
+  .squawk-row { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+  .squawk-box { background: #1a2d3d; border-radius: 10px; border: 1.5px solid #1a2d3d; padding: 16px; flex: 1; min-width: 180px; }
+  .squawk-code { font-size: 28px; font-weight: 900; letter-spacing: 4px; margin-bottom: 8px; }
+  .squawk-7700 { color: #ff7070; }
+  .squawk-7600 { color: #f0c040; }
+  .squawk-7500 { color: #ff8080; }
+  .squawk-label { font-size: 12px; font-weight: 700; color: #e8edf2; margin-bottom: 4px; }
+  .squawk-desc { font-size: 12px; color: #7a9ab5; line-height: 1.5; }
+
+  .procedure-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
+  .procedure-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .proc-item { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .proc-num { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .proc-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .proc-text strong { color: #f0c040; }
+</style>
+</head>
+<body>
+
+<h1>AL-014 — Emergency Procedures: Distress and Urgency</h1>
+<p class="subtitle">Transport Canada · CARs 602.135 · AIM COM 5.0 · TP 12880E Ch.11 · PPL Written Exam</p>
+
+<!-- Emergency signals -->
+<div class="section-label">Emergency Signal Types</div>
+<div class="cards">
+  <div class="card">
+    <div class="card-header">
+      <span class="signal-badge mayday-badge">MAYDAY</span>
+      <div>
+        <div class="card-title">Distress</div>
+        <div class="card-sub">Life-threatening emergency</div>
+      </div>
+    </div>
+    <p>Declare when the aircraft or persons on board are in <span class="highlight">grave and imminent danger</span> requiring immediate assistance.</p>
+    <p>Spoken <span class="highlight">three times</span>: <em>MAYDAY MAYDAY MAYDAY</em></p>
+    <p>Examples: engine failure over water, fire on board, pilot incapacitation, structural failure.</p>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      <span class="signal-badge panpan-badge">PAN-PAN</span>
+      <div>
+        <div class="card-title">Urgency</div>
+        <div class="card-sub">Serious but not immediately life-threatening</div>
+      </div>
+    </div>
+    <p>Declare when there is a <span class="highlight">serious but not yet life-threatening</span> situation — the safety of the aircraft or persons is at risk but immediate assistance is not required at this instant.</p>
+    <p>Spoken <span class="highlight">three times</span>: <em>PAN-PAN PAN-PAN PAN-PAN</em></p>
+    <p>Examples: lost communications, medical issue on board (non-critical), fuel concern with airport in range.</p>
+  </div>
+</div>
+
+<!-- Comparison table -->
+<div class="section-label">Distress vs Urgency — Key Differences</div>
+<table>
+  <thead>
+    <tr>
+      <th>Factor</th>
+      <th>Distress (MAYDAY)</th>
+      <th>Urgency (PAN-PAN)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Severity</td>
+      <td class="col-distress">Grave and imminent danger</td>
+      <td class="col-urgency">Serious but not immediate threat</td>
+    </tr>
+    <tr>
+      <td>ATC Priority</td>
+      <td class="col-distress">Highest — all other traffic holds</td>
+      <td class="col-urgency">High — expedited handling</td>
+    </tr>
+    <tr>
+      <td>Squawk code</td>
+      <td class="col-distress">7700</td>
+      <td class="col-urgency">7700 (if declared emergency) or assigned</td>
+    </tr>
+    <tr>
+      <td>Frequency</td>
+      <td colspan="2">121.5 MHz (emergency) or any assigned frequency</td>
+    </tr>
+    <tr>
+      <td>Legal source</td>
+      <td colspan="2">CARs 602.135 — pilot's responsibility to declare</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Emergency squawk codes -->
+<div class="section-label">Emergency Transponder Codes</div>
+<div class="squawk-row">
+  <div class="squawk-box">
+    <div class="squawk-code squawk-7700">7700</div>
+    <div class="squawk-label">General Emergency</div>
+    <div class="squawk-desc">Any emergency situation — distress or urgency. Set when declaring MAYDAY or PAN-PAN.</div>
+  </div>
+  <div class="squawk-box">
+    <div class="squawk-code squawk-7600">7600</div>
+    <div class="squawk-label">Radio Failure (NORDO)</div>
+    <div class="squawk-desc">Lost communications with ATC. Proceed to destination per regulations; ATC will look for light signals.</div>
+  </div>
+  <div class="squawk-box">
+    <div class="squawk-code squawk-7500">7500</div>
+    <div class="squawk-label">Hijacking / Unlawful Interference</div>
+    <div class="squawk-desc">Set only if subject to unlawful seizure. ATC will alert authorities immediately.</div>
+  </div>
+</div>
+
+<!-- MAYDAY call procedure -->
+<div class="procedure-box">
+  <h2>Standard MAYDAY Call — What to Say</h2>
+  <div class="proc-item"><span class="proc-num">1</span><span class="proc-text"><strong>MAYDAY MAYDAY MAYDAY</strong> — spoken three times to identify as distress</span></div>
+  <div class="proc-item"><span class="proc-num">2</span><span class="proc-text"><strong>Callsign</strong> — the aircraft's radio callsign (e.g. "Golf-Foxtrot Alpha Bravo Charlie")</span></div>
+  <div class="proc-item"><span class="proc-num">3</span><span class="proc-text"><strong>Nature of emergency</strong> — e.g. "engine failure", "fire on board", "pilot incapacitated"</span></div>
+  <div class="proc-item"><span class="proc-num">4</span><span class="proc-text"><strong>Position</strong> — bearing and distance from a known fix, or latitude/longitude if known</span></div>
+  <div class="proc-item"><span class="proc-num">5</span><span class="proc-text"><strong>Altitude</strong> — current altitude</span></div>
+  <div class="proc-item"><span class="proc-num">6</span><span class="proc-text"><strong>Heading</strong> — current magnetic heading</span></div>
+  <div class="proc-item"><span class="proc-num">7</span><span class="proc-text"><strong>Pilot's intentions</strong> — e.g. "proceeding to CYWG", "forced landing on highway 1"</span></div>
+  <div class="proc-item"><span class="proc-num">8</span><span class="proc-text"><strong>Squawk 7700</strong> — set transponder emergency code and ident if able</span></div>
+</div>
+
+</body>
+</html>

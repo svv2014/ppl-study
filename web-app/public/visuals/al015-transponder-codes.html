@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-015: Transponder Codes and Mode C Requirements</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+
+  .modes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .mode-card { background: #1a2d3d; border-radius: 10px; padding: 16px 18px; border: 1.5px solid #1a2d3d; }
+  .mode-label { font-size: 20px; font-weight: 900; color: #f0c040; margin-bottom: 6px; letter-spacing: 1px; }
+  .mode-name { font-size: 13px; font-weight: 700; color: #e8edf2; margin-bottom: 6px; }
+  .mode-desc { font-size: 12px; color: #7a9ab5; line-height: 1.5; }
+  .mode-req { font-size: 11px; color: #80c880; margin-top: 8px; font-weight: 600; }
+
+  .codes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .code-card { background: #1a2d3d; border-radius: 8px; padding: 14px 16px; text-align: center; }
+  .code-num { font-size: 30px; font-weight: 900; letter-spacing: 4px; margin-bottom: 6px; }
+  .code-1200 { color: #80c880; }
+  .code-7700 { color: #ff7070; }
+  .code-7600 { color: #f0c040; }
+  .code-7500 { color: #ff8080; }
+  .code-1000 { color: #7a9ab5; }
+  .code-label { font-size: 12px; font-weight: 700; color: #e8edf2; margin-bottom: 4px; }
+  .code-desc { font-size: 11px; color: #7a9ab5; line-height: 1.4; }
+
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-bottom: 0; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+
+  .yes { color: #80e080; font-weight: 700; }
+  .no  { color: #ff8080; font-weight: 700; }
+  .req { color: #f0c040; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<h1>AL-015 — Transponder Codes, Squawks, Mode C Requirements</h1>
+<p class="subtitle">Transport Canada · CARs 601.03, 605.35 · AIM RAC 1.9 · TP 12880E Ch.7 · PPL Written Exam</p>
+
+<!-- Transponder modes -->
+<div class="section-label">Transponder Modes</div>
+<div class="modes-grid">
+  <div class="mode-card">
+    <div class="mode-label">Mode A</div>
+    <div class="mode-name">4-Digit Identity Code (Squawk)</div>
+    <div class="mode-desc">Transmits the 4-digit octal code set by the pilot (e.g. 1200, 7700). Allows ATC radar to identify the return. No altitude information.</div>
+    <div class="mode-req">Squawk code range: 0000–7777 (octal)</div>
+  </div>
+  <div class="mode-card">
+    <div class="mode-label">Mode C</div>
+    <div class="mode-name">Pressure Altitude Encoding</div>
+    <div class="mode-desc">Transmits pressure altitude from the encoding altimeter. Gives ATC an independent altitude readout alongside the radar return. Required in designated airspace.</div>
+    <div class="mode-req">Pressure altitude — not indicated altitude</div>
+  </div>
+  <div class="mode-card">
+    <div class="mode-label">Mode S</div>
+    <div class="mode-name">Selective Address / ADS-B</div>
+    <div class="mode-desc">Each aircraft has a unique 24-bit address. Supports advanced ATC surveillance and is the basis for ADS-B. Provides identity, altitude, and enhanced data.</div>
+    <div class="mode-req">Required in some controlled airspace</div>
+  </div>
+</div>
+
+<!-- Special codes -->
+<div class="section-label">Special Squawk Codes — Memorize These</div>
+<div class="codes-grid">
+  <div class="code-card">
+    <div class="code-num code-1200">1200</div>
+    <div class="code-label">VFR Default (Canada)</div>
+    <div class="code-desc">Standard VFR code when ATC has not assigned a specific code</div>
+  </div>
+  <div class="code-card">
+    <div class="code-num code-7700">7700</div>
+    <div class="code-label">Emergency</div>
+    <div class="code-desc">Any emergency — distress or urgency. Set immediately when declaring MAYDAY or PAN-PAN</div>
+  </div>
+  <div class="code-card">
+    <div class="code-num code-7600">7600</div>
+    <div class="code-label">Radio Failure (NORDO)</div>
+    <div class="code-desc">Lost communications. ATC will attempt light signals; continue to destination per AIM</div>
+  </div>
+  <div class="code-card">
+    <div class="code-num code-7500">7500</div>
+    <div class="code-label">Hijack / Unlawful Seizure</div>
+    <div class="code-desc">Set only under unlawful interference. ATC alerts authorities immediately</div>
+  </div>
+  <div class="code-card">
+    <div class="code-num code-1000">1000</div>
+    <div class="code-label">IFR (assigned)</div>
+    <div class="code-desc">ATC-assigned code for IFR flights. Only set when instructed</div>
+  </div>
+</div>
+
+<!-- Mode C airspace requirements -->
+<div class="section-label">Mode C Requirement — Where It's Mandatory</div>
+<table>
+  <thead>
+    <tr>
+      <th>Airspace / Condition</th>
+      <th>Mode C Required?</th>
+      <th>Rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Class A (18,000 ft+)</td>
+      <td class="yes">Yes</td>
+      <td>CARs 605.35</td>
+    </tr>
+    <tr>
+      <td>Class B airspace</td>
+      <td class="yes">Yes</td>
+      <td>CARs 605.35</td>
+    </tr>
+    <tr>
+      <td>Class C airspace</td>
+      <td class="yes">Yes</td>
+      <td>CARs 605.35</td>
+    </tr>
+    <tr>
+      <td>Class D airspace</td>
+      <td class="yes">Yes</td>
+      <td>CARs 605.35</td>
+    </tr>
+    <tr>
+      <td>Above 12,500 ft ASL in Class E</td>
+      <td class="yes">Yes</td>
+      <td>CARs 605.35</td>
+    </tr>
+    <tr>
+      <td>Class G airspace (uncontrolled)</td>
+      <td class="no">Not required</td>
+      <td>No Mode C mandate below 12,500 ft in Class G</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Memory hook -->
+<div class="hook-box">
+  <h2>Memory Hook</h2>
+  <div class="hook-row"><span class="hook-badge">1200</span><span class="hook-text"><strong>VFR default.</strong> "1200 = I'm just cruising VFR." Set when no code assigned.</span></div>
+  <div class="hook-row"><span class="hook-badge">75 / 76 / 77</span><span class="hook-text"><strong>7500 = Hijack · 7600 = No radio · 7700 = Emergency.</strong> Remember: 5-6-7 = hijack, lost comms, emergency.</span></div>
+  <div class="hook-row"><span class="hook-badge">Mode C</span><span class="hook-text">Transmits <strong>pressure altitude</strong> — not indicated altitude. ATC sees the same number as your altimeter at standard setting (29.92 / 1013 hPa).</span></div>
+</div>
+
+</body>
+</html>
