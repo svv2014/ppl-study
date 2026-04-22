@@ -7,7 +7,7 @@ title: "Pre-Flight Inspection and Maintenance"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk014-preflight-inspection.html
 sources:
   - CARs Part V (Airworthiness)
   - CARs 605.03

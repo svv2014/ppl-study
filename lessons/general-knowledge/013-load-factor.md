@@ -7,7 +7,7 @@ title: "Load Factor and Maneuvering Speed"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk013-load-factor.html
 sources:
   - TP 12880E Chapter 3
   - TP 12880E Chapter 4

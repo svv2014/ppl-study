@@ -7,7 +7,7 @@ title: "Stalls and Spins"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk012-stalls-spins.html
 sources:
   - TP 12880E Chapter 3
   - TP 12880E Chapter 12

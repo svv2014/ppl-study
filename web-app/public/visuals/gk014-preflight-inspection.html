@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-014: Preflight Inspection</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 12px; color: #e8edf2; padding: 8px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .zone-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: #f0c040; color: #0d1b2a; border-radius: 50%; font-size: 11px; font-weight: bold; margin-right: 6px; flex-shrink: 0; }
+  .zone-title { display: flex; align-items: center; font-size: 13px; color: #f0c040; font-weight: bold; margin-bottom: 6px; }
+  .checklist-item { font-size: 12px; color: #e8edf2; padding: 3px 0 3px 28px; display: flex; align-items: flex-start; gap: 6px; }
+  .check-box { width: 12px; height: 12px; border: 1px solid #7a9ab5; border-radius: 2px; flex-shrink: 0; margin-top: 1px; }
+  .zone-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; margin-bottom: 14px; }
+  .arrow-box { background: #0d2040; border: 2px solid #f0c040; border-radius: 8px; padding: 16px; margin-top: 16px; }
+  .arrow-title { font-size: 13px; color: #f0c040; font-weight: bold; letter-spacing: 1px; margin-bottom: 10px; }
+  .arrow-row { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 13px; }
+  .arrow-letter { font-size: 22px; color: #f0c040; font-weight: bold; width: 28px; flex-shrink: 0; }
+  .note-box { background: #1a2d3d; border-left: 3px solid #4caf7d; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-014 — Preflight Inspection Walkaround</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="layout">
+    <!-- Aircraft diagram with numbered stations -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 310 300" width="100%" height="280">
+
+        <!-- Top-down aircraft silhouette -->
+        <!-- Fuselage -->
+        <ellipse cx="155" cy="155" rx="20" ry="88" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Left wing -->
+        <polygon points="135,130 38,160 38,175 135,172" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Right wing -->
+        <polygon points="175,130 272,160 272,175 175,172" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Left aileron -->
+        <polygon points="42,161 70,158 70,169 42,172" fill="#243d52" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Right aileron -->
+        <polygon points="240,159 268,161 268,172 240,168" fill="#243d52" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Left HS -->
+        <polygon points="135,222 88,236 88,245 135,240" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Right HS -->
+        <polygon points="175,222 222,236 222,245 175,240" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Left elevator -->
+        <polygon points="92,237 116,234 116,243 92,244" fill="#243d52" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Right elevator -->
+        <polygon points="194,234 218,237 218,244 194,243" fill="#243d52" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- V-fin -->
+        <rect x="149" y="228" width="12" height="30" fill="#243d52" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Prop disc -->
+        <ellipse cx="155" cy="62" rx="36" ry="8" fill="none" stroke="#7a9ab5" stroke-width="1" stroke-dasharray="3,3"/>
+        <!-- Nose -->
+        <ellipse cx="155" cy="62" rx="10" ry="10" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+
+        <!-- Walkaround direction arrow (dashed circle) -->
+        <path d="M 155 260 A 120 120 0 1 0 154 260" fill="none" stroke="#f0c040" stroke-width="1" stroke-dasharray="3,4" opacity="0.4"/>
+
+        <!-- Station markers with numbers -->
+        <!-- 1: Cockpit (inside) - center -->
+        <circle cx="155" cy="148" r="12" fill="#0d1b2a" stroke="#f0c040" stroke-width="2"/>
+        <text x="155" y="153" text-anchor="middle" fill="#f0c040" font-size="11" font-weight="bold">1</text>
+        <text x="155" y="120" text-anchor="middle" fill="#f0c040" font-size="8">COCKPIT</text>
+
+        <!-- 2: Left wing tip -->
+        <circle cx="25" cy="168" r="10" fill="#0d1b2a" stroke="#4caf7d" stroke-width="2"/>
+        <text x="25" y="172" text-anchor="middle" fill="#4caf7d" font-size="11" font-weight="bold">2</text>
+
+        <!-- 3: Nose -->
+        <circle cx="155" cy="40" r="10" fill="#0d1b2a" stroke="#5b9bd5" stroke-width="2"/>
+        <text x="155" y="44" text-anchor="middle" fill="#5b9bd5" font-size="11" font-weight="bold">3</text>
+
+        <!-- 4: Right wing tip -->
+        <circle cx="285" cy="168" r="10" fill="#0d1b2a" stroke="#4caf7d" stroke-width="2"/>
+        <text x="285" y="172" text-anchor="middle" fill="#4caf7d" font-size="11" font-weight="bold">4</text>
+
+        <!-- 5: Empennage -->
+        <circle cx="155" cy="278" r="10" fill="#0d1b2a" stroke="#f0a040" stroke-width="2"/>
+        <text x="155" y="282" text-anchor="middle" fill="#f0a040" font-size="11" font-weight="bold">5</text>
+
+        <!-- 6: Left main gear -->
+        <circle cx="90" cy="200" r="8" fill="#0d1b2a" stroke="#7a9ab5" stroke-width="1.5"/>
+        <text x="90" y="204" text-anchor="middle" fill="#7a9ab5" font-size="10" font-weight="bold">6</text>
+
+        <!-- 7: Right main gear -->
+        <circle cx="220" cy="200" r="8" fill="#0d1b2a" stroke="#7a9ab5" stroke-width="1.5"/>
+        <text x="220" y="204" text-anchor="middle" fill="#7a9ab5" font-size="10" font-weight="bold">7</text>
+
+        <!-- Left fuel point -->
+        <circle cx="65" cy="145" r="6" fill="#0d1b2a" stroke="#e8edf2" stroke-width="1"/>
+        <text x="65" y="149" text-anchor="middle" fill="#e8edf2" font-size="8" font-weight="bold">F</text>
+
+        <!-- Right fuel point -->
+        <circle cx="245" cy="145" r="6" fill="#0d1b2a" stroke="#e8edf2" stroke-width="1"/>
+        <text x="245" y="149" text-anchor="middle" fill="#e8edf2" font-size="8" font-weight="bold">F</text>
+
+        <!-- Legend -->
+        <rect x="10" y="8" width="8" height="8" rx="2" fill="#0d1b2a" stroke="#f0c040" stroke-width="1.5"/>
+        <text x="22" y="16" fill="#f0c040" font-size="7">Inspection zone</text>
+        <rect x="10" y="20" width="8" height="8" rx="2" fill="#0d1b2a" stroke="#e8edf2" stroke-width="1"/>
+        <text x="22" y="28" fill="#e8edf2" font-size="7">F = Fuel sump drain</text>
+      </svg>
+    </div>
+
+    <!-- Checklist by zone -->
+    <div>
+      <div class="zone-card">
+        <div class="zone-title"><span class="zone-num">1</span> Cockpit / Pre-Walk</div>
+        <div class="checklist-item"><div class="check-box"></div>Documents check (ARROW — see below)</div>
+        <div class="checklist-item"><div class="check-box"></div>Fuel quantity — check gauges vs. visual</div>
+        <div class="checklist-item"><div class="check-box"></div>Oil quantity — dipstick check (min qty)</div>
+        <div class="checklist-item"><div class="check-box"></div>Flight controls — free and correct</div>
+        <div class="checklist-item"><div class="check-box"></div>Instruments, switches, circuit breakers</div>
+        <div class="checklist-item"><div class="check-box"></div>Brakes — set parking brake</div>
+      </div>
+
+      <div class="zone-card">
+        <div class="zone-title"><span class="zone-num">2</span> Left Wing</div>
+        <div class="checklist-item"><div class="check-box"></div>Fuel cap — secure; correct colour fuel</div>
+        <div class="checklist-item"><div class="check-box"></div>Fuel sump drain — check for water</div>
+        <div class="checklist-item"><div class="check-box"></div>Leading edge — no dents, damage</div>
+        <div class="checklist-item"><div class="check-box"></div>Aileron — hinges, freedom of movement</div>
+        <div class="checklist-item"><div class="check-box"></div>Flap — condition, attachment</div>
+        <div class="checklist-item"><div class="check-box"></div>Navigation light — lens intact</div>
+        <div class="checklist-item"><div class="check-box"></div>Left main gear — tire condition, wear</div>
+      </div>
+
+      <div class="zone-card">
+        <div class="zone-title"><span class="zone-num">3</span> Nose / Engine</div>
+        <div class="checklist-item"><div class="check-box"></div>Propeller — nicks, cracks, security</div>
+        <div class="checklist-item"><div class="check-box"></div>Spinner — secure</div>
+        <div class="checklist-item"><div class="check-box"></div>Oil level — correct grade, no leaks</div>
+        <div class="checklist-item"><div class="check-box"></div>Cowling — latched, no damage</div>
+        <div class="checklist-item"><div class="check-box"></div>Nose gear / nosewheel — tire, strut</div>
+        <div class="checklist-item"><div class="check-box"></div>Air inlets — clear of obstructions</div>
+        <div class="checklist-item"><div class="check-box"></div>Pitot tube — clear of insects/covers</div>
+      </div>
+
+      <div class="zone-card">
+        <div class="zone-title"><span class="zone-num">4</span> Right Wing</div>
+        <div class="checklist-item"><div class="check-box"></div>Mirror of left wing checks</div>
+        <div class="checklist-item"><div class="check-box"></div>Fuel sump drain — check for water</div>
+        <div class="checklist-item"><div class="check-box"></div>Fuel cap — secure</div>
+        <div class="checklist-item"><div class="check-box"></div>Right main gear — tire, brake</div>
+      </div>
+
+      <div class="zone-card">
+        <div class="zone-title"><span class="zone-num">5</span> Empennage (Tail)</div>
+        <div class="checklist-item"><div class="check-box"></div>Horizontal stabilizer — no damage</div>
+        <div class="checklist-item"><div class="check-box"></div>Elevators — free movement, no play</div>
+        <div class="checklist-item"><div class="check-box"></div>Trim tab — condition and attachment</div>
+        <div class="checklist-item"><div class="check-box"></div>Vertical fin — condition</div>
+        <div class="checklist-item"><div class="check-box"></div>Rudder — movement, hinges</div>
+        <div class="checklist-item"><div class="check-box"></div>Antennas — secure, no damage</div>
+        <div class="checklist-item"><div class="check-box"></div>Static wicks — condition</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">ARROW — Required Aircraft Documents</div>
+  <div class="arrow-box">
+    <div class="arrow-title">ARROW — Must be on board for every flight (CAR 605.03)</div>
+    <div class="arrow-row"><div class="arrow-letter">A</div><div><strong>Airworthiness Certificate</strong> — issued by Transport Canada; valid as long as aircraft maintained per CARs</div></div>
+    <div class="arrow-row"><div class="arrow-letter">R</div><div><strong>Registration Certificate</strong> — aircraft registration (C-FXXX); must match aircraft markings</div></div>
+    <div class="arrow-row"><div class="arrow-letter">R</div><div><strong>Radio Station Licence</strong> — required for any radio equipment on board</div></div>
+    <div class="arrow-row"><div class="arrow-letter">O</div><div><strong>Operating Handbook (POH/AFM)</strong> — Pilot's Operating Handbook or Aircraft Flight Manual approved for that specific aircraft</div></div>
+    <div class="arrow-row"><div class="arrow-letter">W</div><div><strong>Weight &amp; Balance</strong> — current W&amp;B data for the aircraft (may be part of the POH)</div></div>
+  </div>
+
+  <div class="note-box">
+    <strong>Exam Tip:</strong> The preflight walkaround is not just procedural — it is <strong>legally required</strong> under CAR 602.72 (pilot-in-command must ensure airworthiness before flight). If the aircraft has a defect listed in the journey log, it must be assessed against the MEL (Minimum Equipment List) before flight. Always drain fuel sumps <em>after</em> fueling, and after temperature changes that could cause condensation. The ARROW acronym is a frequent exam topic — know all five documents.
+  </div>
+</div>
+</body>
+</html>

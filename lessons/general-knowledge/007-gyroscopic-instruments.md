@@ -7,7 +7,7 @@ title: "Gyroscopic Instruments"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk007-gyroscopic-instruments.html
 sources:
   - TP 12880E Chapter 8
   - CARs 605.14

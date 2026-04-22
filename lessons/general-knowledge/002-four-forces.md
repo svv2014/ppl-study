@@ -7,7 +7,7 @@ title: "Four Forces of Flight"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk002-four-forces.html
 sources:
   - TP 12880E Chapter 3
   - TP 12880E Chapter 4

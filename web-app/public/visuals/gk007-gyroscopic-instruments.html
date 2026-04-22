@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-007: Gyroscopic Instruments</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .instruments-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 32px; }
+  .instrument-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; text-align: center; }
+  .inst-name { font-size: 14px; color: #f0c040; font-weight: bold; margin-bottom: 4px; }
+  .inst-abbr { font-size: 11px; color: #7a9ab5; margin-bottom: 12px; letter-spacing: 1px; }
+  .inst-desc { font-size: 12px; color: #e8edf2; line-height: 1.5; margin-top: 10px; text-align: left; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .note-box { background: #1a2d3d; border-left: 3px solid #f0c040; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+  .warn { color: #e05050; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-007 — Gyroscopic Instruments</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="section-title">The Three Gyroscopic Instruments</div>
+  <div class="instruments-grid">
+
+    <!-- Attitude Indicator -->
+    <div class="instrument-card">
+      <div class="inst-name">Attitude Indicator</div>
+      <div class="inst-abbr">AI — ARTIFICIAL HORIZON</div>
+      <svg viewBox="0 0 140 140" width="100%" height="130">
+        <!-- Instrument bezel -->
+        <circle cx="70" cy="70" r="62" fill="#0d1b2a" stroke="#7a9ab5" stroke-width="2"/>
+        <circle cx="70" cy="70" r="58" fill="#0d1b2a" stroke="#243d52" stroke-width="1"/>
+        <!-- Sky (blue upper half) -->
+        <path d="M 12 70 A 58 58 0 0 1 128 70 L 128 12 A 58 58 0 0 0 12 12 Z" fill="#1a3060"/>
+        <!-- Ground (brown lower half) -->
+        <path d="M 12 70 A 58 58 0 0 0 128 70 L 128 128 A 58 58 0 0 1 12 128 Z" fill="#3d2010"/>
+        <!-- Horizon line -->
+        <line x1="12" y1="70" x2="128" y2="70" stroke="white" stroke-width="2"/>
+        <!-- Bank scale marks -->
+        <line x1="70" y1="12" x2="70" y2="20" stroke="white" stroke-width="1.5"/>
+        <line x1="42" y1="18" x2="45" y2="26" stroke="white" stroke-width="1.5"/>
+        <line x1="98" y1="18" x2="95" y2="26" stroke="white" stroke-width="1.5"/>
+        <!-- Miniature aircraft symbol -->
+        <line x1="40" y1="70" x2="60" y2="70" stroke="#f0c040" stroke-width="3" stroke-linecap="round"/>
+        <line x1="80" y1="70" x2="100" y2="70" stroke="#f0c040" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="70" cy="70" r="4" fill="#f0c040"/>
+        <!-- Pitch lines -->
+        <line x1="50" y1="58" x2="90" y2="58" stroke="white" stroke-width="1" opacity="0.5"/>
+        <line x1="50" y1="82" x2="90" y2="82" stroke="white" stroke-width="1" opacity="0.5"/>
+        <!-- Labels -->
+        <text x="70" y="135" text-anchor="middle" fill="#7a9ab5" font-size="8">Vacuum or Electric</text>
+      </svg>
+      <div class="inst-desc">Shows aircraft pitch and bank attitude relative to the horizon. Rigidity in space keeps gyro fixed. Allows flight reference in IMC. Vacuum powered (typically) or electric on some aircraft.</div>
+    </div>
+
+    <!-- Heading Indicator -->
+    <div class="instrument-card">
+      <div class="inst-name">Heading Indicator</div>
+      <div class="inst-abbr">HI — DIRECTIONAL GYRO (DI)</div>
+      <svg viewBox="0 0 140 140" width="100%" height="130">
+        <circle cx="70" cy="70" r="62" fill="#0d1b2a" stroke="#7a9ab5" stroke-width="2"/>
+        <circle cx="70" cy="70" r="58" fill="#0d2040" stroke="#243d52" stroke-width="1"/>
+        <!-- Compass rose -->
+        <circle cx="70" cy="70" r="48" fill="none" stroke="#7a9ab5" stroke-width="1"/>
+        <!-- Compass points -->
+        <text x="70" y="26" text-anchor="middle" fill="#f0c040" font-size="11" font-weight="bold">N</text>
+        <text x="114" y="74" text-anchor="middle" fill="#e8edf2" font-size="11">E</text>
+        <text x="70" y="122" text-anchor="middle" fill="#e8edf2" font-size="11">S</text>
+        <text x="26" y="74" text-anchor="middle" fill="#e8edf2" font-size="11">W</text>
+        <!-- Tick marks -->
+        <line x1="70" y1="22" x2="70" y2="30" stroke="#7a9ab5" stroke-width="1.5"/>
+        <line x1="118" y1="70" x2="110" y2="70" stroke="#7a9ab5" stroke-width="1.5"/>
+        <line x1="70" y1="118" x2="70" y2="110" stroke="#7a9ab5" stroke-width="1.5"/>
+        <line x1="22" y1="70" x2="30" y2="70" stroke="#7a9ab5" stroke-width="1.5"/>
+        <!-- Heading bug (index) -->
+        <polygon points="70,35 66,44 74,44" fill="#f0c040"/>
+        <!-- Aircraft index -->
+        <line x1="40" y1="70" x2="58" y2="70" stroke="#f0c040" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="82" y1="70" x2="100" y2="70" stroke="#f0c040" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="70" cy="70" r="5" fill="#f0c040"/>
+        <text x="70" y="135" text-anchor="middle" fill="#7a9ab5" font-size="8">Vacuum powered</text>
+      </svg>
+      <div class="inst-desc">Shows magnetic heading via gyro stability. Does NOT sense magnetic north directly — must be set to match magnetic compass. Precesses ~3°/hr — must reset every 15 minutes. Free of compass turning/acceleration errors.</div>
+    </div>
+
+    <!-- Turn Coordinator -->
+    <div class="instrument-card">
+      <div class="inst-name">Turn Coordinator</div>
+      <div class="inst-abbr">TC — TURN &amp; SLIP INDICATOR</div>
+      <svg viewBox="0 0 140 140" width="100%" height="130">
+        <circle cx="70" cy="70" r="62" fill="#0d1b2a" stroke="#7a9ab5" stroke-width="2"/>
+        <circle cx="70" cy="70" r="58" fill="#0d2040" stroke="#243d52" stroke-width="1"/>
+        <!-- Background turn marks -->
+        <text x="30" y="88" text-anchor="middle" fill="#7a9ab5" font-size="9">L</text>
+        <text x="110" y="88" text-anchor="middle" fill="#7a9ab5" font-size="9">R</text>
+        <!-- Standard rate marks -->
+        <line x1="32" y1="60" x2="40" y2="68" stroke="#f0c040" stroke-width="1.5"/>
+        <line x1="108" y1="60" x2="100" y2="68" stroke="#f0c040" stroke-width="1.5"/>
+        <text x="32" y="55" text-anchor="middle" fill="#f0c040" font-size="7">2 MIN</text>
+        <text x="108" y="55" text-anchor="middle" fill="#f0c040" font-size="7">2 MIN</text>
+        <!-- Miniature aircraft (level) -->
+        <line x1="38" y1="72" x2="58" y2="68" stroke="#f0c040" stroke-width="3" stroke-linecap="round"/>
+        <line x1="82" y1="68" x2="102" y2="72" stroke="#f0c040" stroke-width="3" stroke-linecap="round"/>
+        <rect x="65" y="65" width="10" height="8" rx="2" fill="#f0c040"/>
+        <!-- Inclinometer (ball) tube -->
+        <rect x="30" y="105" width="80" height="16" rx="8" fill="#0d1b2a" stroke="#7a9ab5" stroke-width="1.5"/>
+        <circle cx="70" cy="113" r="7" fill="#e8edf2"/>
+        <text x="70" y="132" text-anchor="middle" fill="#7a9ab5" font-size="8">Inclinometer ball</text>
+        <text x="70" y="20" text-anchor="middle" fill="#7a9ab5" font-size="8">Electric powered</text>
+      </svg>
+      <div class="inst-desc">Shows rate and quality of turn. Miniature aircraft indicates turn rate. Inclinometer ball: centred = coordinated; skid = ball to outside; slip = ball to inside. Standard rate = 3°/sec (360° in 2 min).</div>
+    </div>
+  </div>
+
+  <div class="section-title">Gyroscopic Instruments Summary</div>
+  <table>
+    <thead>
+      <tr><th>Instrument</th><th>Power Source</th><th>Gyro Principle</th><th>Key Error / Limitation</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Attitude Indicator (AI)</strong></td>
+        <td>Vacuum system (engine-driven pump) or electric</td>
+        <td>Rigidity in space — gyro maintains fixed orientation</td>
+        <td>Topples if bank exceeds ~60–70°; unreliable during prolonged unusual attitudes</td>
+      </tr>
+      <tr>
+        <td><strong>Heading Indicator (HI/DI)</strong></td>
+        <td>Vacuum system (engine-driven pump)</td>
+        <td>Rigidity in space — resists precession short-term</td>
+        <td>Precesses ~3°/hour; <span class="warn">must reset from magnetic compass every 15 minutes</span></td>
+      </tr>
+      <tr>
+        <td><strong>Turn Coordinator (TC)</strong></td>
+        <td>Electric (usually)</td>
+        <td>Precession — gyro tilts in proportion to roll/turn rate</td>
+        <td>Shows turn rate and coordination; does NOT show bank angle directly</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Vacuum System Note</div>
+  <table>
+    <thead>
+      <tr><th>Component</th><th>Function</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Engine-driven vacuum pump</td><td>Creates suction to spin gyros in AI and HI via filtered air flow</td></tr>
+      <tr><td>Suction gauge (in-hg)</td><td>Indicates vacuum system serviceability; typical range 4.5–5.5 in Hg</td></tr>
+      <tr><td>Filter</td><td>Removes contaminants from air before entering gyro instruments</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <strong>Exam Key Points:</strong> The magnetic compass is the only instrument that directly senses magnetic north — the HI must be aligned to it periodically. In a vacuum failure, both AI and HI become unreliable; only the electric Turn Coordinator and magnetic compass remain. The ball in the inclinometer always falls to the low side of a slip/skid — "step on the ball" to correct.
+  </div>
+</div>
+</body>
+</html>

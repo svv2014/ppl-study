@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-009: Weight and Balance</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; text-align: right; }
+  td:first-child { text-align: left; }
+  tr:last-child td { border-bottom: none; }
+  .formula-box { background: #1a2d3d; border: 1px solid #f0c040; border-radius: 8px; padding: 18px; margin-bottom: 20px; text-align: center; }
+  .formula { font-size: 18px; color: #f0c040; font-weight: bold; letter-spacing: 1px; margin-bottom: 6px; }
+  .formula-sub { font-size: 12px; color: #7a9ab5; }
+  .total-row td { background: #243d52; color: #f0c040; font-weight: bold; }
+  .note-box { background: #1a2d3d; border-left: 3px solid #f0c040; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+  .warning { color: #e05050; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-009 — Weight &amp; Balance</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="formula-box">
+    <div class="formula">CG = Total Moment ÷ Total Weight</div>
+    <div class="formula-sub">Moment = Weight × Arm &nbsp;|&nbsp; CG must fall within the approved envelope</div>
+  </div>
+
+  <div class="layout">
+    <!-- CG Envelope diagram -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 320 280" width="100%" height="260">
+        <defs>
+          <marker id="arrowWB" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <polygon points="0,0 7,3.5 0,7" fill="#7a9ab5"/>
+          </marker>
+        </defs>
+
+        <!-- Axes -->
+        <!-- Y-axis (weight) -->
+        <line x1="60" y1="220" x2="60" y2="30" stroke="#7a9ab5" stroke-width="1.5" marker-end="url(#arrowWB)"/>
+        <!-- X-axis (CG/arm) -->
+        <line x1="60" y1="220" x2="300" y2="220" stroke="#7a9ab5" stroke-width="1.5" marker-end="url(#arrowWB)"/>
+
+        <!-- Axis labels -->
+        <text x="25" y="130" text-anchor="middle" fill="#7a9ab5" font-size="10" transform="rotate(-90, 25, 130)">Gross Weight (lbs)</text>
+        <text x="180" y="242" text-anchor="middle" fill="#7a9ab5" font-size="10">CG Position (inches aft of datum)</text>
+
+        <!-- Envelope polygon -->
+        <polygon points="100,210 100,80 140,60 220,60 250,80 250,210" fill="#0d2a40" stroke="#f0c040" stroke-width="2"/>
+
+        <!-- Max gross weight line -->
+        <line x1="60" y1="80" x2="255" y2="80" stroke="#e05050" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="270" y="83" fill="#e05050" font-size="9">Max GW</text>
+
+        <!-- Forward CG limit -->
+        <line x1="100" y1="220" x2="100" y2="60" stroke="#5b9bd5" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="100" y="232" text-anchor="middle" fill="#5b9bd5" font-size="9">Fwd CG</text>
+
+        <!-- Aft CG limit -->
+        <line x1="250" y1="220" x2="250" y2="60" stroke="#f0a040" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="250" y="232" text-anchor="middle" fill="#f0a040" font-size="9">Aft CG</text>
+
+        <!-- Sample CG point -->
+        <circle cx="185" cy="130" r="7" fill="#4caf7d" stroke="#4caf7d" stroke-width="2"/>
+        <text x="198" y="128" fill="#4caf7d" font-size="9">Sample CG</text>
+        <text x="198" y="139" fill="#4caf7d" font-size="9">(within envelope)</text>
+
+        <!-- Y-axis tick marks and values -->
+        <line x1="55" y1="210" x2="65" y2="210" stroke="#7a9ab5" stroke-width="1"/>
+        <text x="50" y="213" text-anchor="end" fill="#7a9ab5" font-size="8">1500</text>
+        <line x1="55" y1="145" x2="65" y2="145" stroke="#7a9ab5" stroke-width="1"/>
+        <text x="50" y="148" text-anchor="end" fill="#7a9ab5" font-size="8">1800</text>
+        <line x1="55" y1="80" x2="65" y2="80" stroke="#7a9ab5" stroke-width="1"/>
+        <text x="50" y="83" text-anchor="end" fill="#7a9ab5" font-size="8">2150</text>
+
+        <!-- X-axis tick marks -->
+        <line x1="100" y1="215" x2="100" y2="225" stroke="#7a9ab5" stroke-width="1"/>
+        <text x="100" y="237" text-anchor="middle" fill="#7a9ab5" font-size="8">82"</text>
+        <line x1="175" y1="215" x2="175" y2="225" stroke="#7a9ab5" stroke-width="1"/>
+        <text x="175" y="237" text-anchor="middle" fill="#7a9ab5" font-size="8">90"</text>
+        <line x1="250" y1="215" x2="250" y2="225" stroke="#7a9ab5" stroke-width="1"/>
+        <text x="250" y="237" text-anchor="middle" fill="#7a9ab5" font-size="8">98"</text>
+
+        <!-- Region labels -->
+        <text x="175" y="120" text-anchor="middle" fill="#4caf7d" font-size="9">APPROVED</text>
+        <text x="175" y="132" text-anchor="middle" fill="#4caf7d" font-size="9">CG ENVELOPE</text>
+      </svg>
+    </div>
+
+    <!-- Calculation table -->
+    <div>
+      <div class="section-title">Sample W&amp;B Calculation</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th style="text-align:right;">Weight (lbs)</th>
+            <th style="text-align:right;">Arm (in.)</th>
+            <th style="text-align:right;">Moment (lb·in)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Empty Aircraft</td>
+            <td>1,340</td>
+            <td>87.2</td>
+            <td>116,848</td>
+          </tr>
+          <tr>
+            <td>Pilot (front left)</td>
+            <td>170</td>
+            <td>85.0</td>
+            <td>14,450</td>
+          </tr>
+          <tr>
+            <td>Passenger (front right)</td>
+            <td>150</td>
+            <td>85.0</td>
+            <td>12,750</td>
+          </tr>
+          <tr>
+            <td>Rear Passengers</td>
+            <td>0</td>
+            <td>117.0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>Baggage</td>
+            <td>30</td>
+            <td>140.0</td>
+            <td>4,200</td>
+          </tr>
+          <tr>
+            <td>Fuel (30 USG × 6 lb/USG)</td>
+            <td>180</td>
+            <td>96.0</td>
+            <td>17,280</td>
+          </tr>
+          <tr class="total-row">
+            <td>TOTALS</td>
+            <td>1,870</td>
+            <td>—</td>
+            <td>165,528</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="formula-box" style="margin-top:0;">
+        <div class="formula">CG = 165,528 ÷ 1,870 = <span style="color:#4caf7d;">88.5 inches</span></div>
+        <div class="formula-sub">CG is aft of datum by 88.5 inches — check against envelope limits</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Key Definitions</div>
+  <table>
+    <thead>
+      <tr><th>Term</th><th>Definition</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Datum</strong></td><td>Reference point (often nose of aircraft or firewall) from which all arms are measured. Defined in the POH.</td></tr>
+      <tr><td><strong>Arm</strong></td><td>Horizontal distance (inches) from the datum to the item's centre of gravity. Forward = negative (usually); aft = positive.</td></tr>
+      <tr><td><strong>Moment</strong></td><td>Product of weight × arm. Represents the turning force about the datum. Units: lb·in or kg·m.</td></tr>
+      <tr><td><strong>Centre of Gravity (CG)</strong></td><td>Point where aircraft balances. Must stay within forward and aft limits for the given gross weight.</td></tr>
+      <tr><td><strong>Max Gross Weight</strong></td><td>Maximum allowable total weight — certified structural limit.</td></tr>
+      <tr><td><strong>Useful Load</strong></td><td>Max gross weight minus empty weight. Available for crew, passengers, fuel, baggage.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <strong>CG Effects:</strong> <span class="warning">Forward CG</span> — more stable, nose-heavy, higher stall speed, requires more back pressure, may lack elevator authority at low speeds (e.g. landing flare). <span class="warning">Aft CG</span> — less stable, harder to recover from stalls/spins, lighter control feel. Both out-of-limits conditions are <strong>illegal and unsafe</strong> — the flight must not be conducted.
+  </div>
+</div>
+</body>
+</html>

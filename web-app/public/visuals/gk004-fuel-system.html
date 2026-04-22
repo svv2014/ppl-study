@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-004: Fuel System</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; font-size: 11px; font-weight: bold; padding: 2px 10px; border-radius: 12px; }
+  .badge-blue { background: #0d1a3a; color: #5b9bd5; border: 1px solid #5b9bd5; }
+  .badge-red { background: #2a0d0d; color: #e05050; border: 1px solid #e05050; }
+  .badge-green { background: #0d2a1a; color: #4caf7d; border: 1px solid #4caf7d; }
+  .warning-box { background: #1a2d3d; border-left: 3px solid #e05050; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-004 — Fuel System</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="section-title">System Flow Diagram</div>
+  <div class="diagram-box" style="margin-bottom:24px;">
+    <svg viewBox="0 0 760 180" width="100%" height="160">
+      <defs>
+        <marker id="arrowF" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#f0c040"/>
+        </marker>
+      </defs>
+
+      <!-- Left wing tank -->
+      <rect x="20" y="50" width="90" height="80" rx="6" fill="#1e3a50" stroke="#5b9bd5" stroke-width="2"/>
+      <text x="65" y="82" text-anchor="middle" fill="#5b9bd5" font-size="11" font-weight="bold">LEFT WING</text>
+      <text x="65" y="96" text-anchor="middle" fill="#5b9bd5" font-size="10">FUEL TANK</text>
+      <text x="65" y="118" text-anchor="middle" fill="#7a9ab5" font-size="9">Sump drain ↓</text>
+
+      <!-- Right wing tank -->
+      <rect x="650" y="50" width="90" height="80" rx="6" fill="#1e3a50" stroke="#5b9bd5" stroke-width="2"/>
+      <text x="695" y="82" text-anchor="middle" fill="#5b9bd5" font-size="11" font-weight="bold">RIGHT WING</text>
+      <text x="695" y="96" text-anchor="middle" fill="#5b9bd5" font-size="10">FUEL TANK</text>
+      <text x="695" y="118" text-anchor="middle" fill="#7a9ab5" font-size="9">Sump drain ↓</text>
+
+      <!-- Fuel selector -->
+      <rect x="310" y="55" width="140" height="70" rx="6" fill="#1e3a50" stroke="#f0c040" stroke-width="2"/>
+      <text x="380" y="82" text-anchor="middle" fill="#f0c040" font-size="11" font-weight="bold">FUEL SELECTOR</text>
+      <text x="380" y="96" text-anchor="middle" fill="#e8edf2" font-size="10">LEFT / RIGHT / BOTH / OFF</text>
+      <text x="380" y="112" text-anchor="middle" fill="#7a9ab5" font-size="9">Cockpit control</text>
+
+      <!-- Fuel strainer / gascolator -->
+      <rect x="185" y="120" width="100" height="45" rx="5" fill="#1e3a50" stroke="#4caf7d" stroke-width="1.5"/>
+      <text x="235" y="138" text-anchor="middle" fill="#4caf7d" font-size="10" font-weight="bold">FUEL STRAINER</text>
+      <text x="235" y="152" text-anchor="middle" fill="#e8edf2" font-size="9">Gascolator — sump drain</text>
+
+      <!-- Carburetor/Fuel injector -->
+      <rect x="475" y="120" width="100" height="45" rx="5" fill="#1e3a50" stroke="#4caf7d" stroke-width="1.5"/>
+      <text x="525" y="138" text-anchor="middle" fill="#4caf7d" font-size="10" font-weight="bold">CARBURETOR</text>
+      <text x="525" y="152" text-anchor="middle" fill="#e8edf2" font-size="9">or Fuel Injector</text>
+
+      <!-- Engine -->
+      <rect x="330" y="122" width="100" height="40" rx="5" fill="#243d52" stroke="#7a9ab5" stroke-width="1.5"/>
+      <text x="380" y="143" text-anchor="middle" fill="#e8edf2" font-size="12" font-weight="bold">ENGINE</text>
+
+      <!-- Flow arrows: left tank → selector -->
+      <line x1="110" y1="90" x2="308" y2="90" stroke="#f0c040" stroke-width="2" marker-end="url(#arrowF)"/>
+      <!-- right tank → selector -->
+      <line x1="650" y1="90" x2="452" y2="90" stroke="#f0c040" stroke-width="2" marker-end="url(#arrowF)"/>
+      <!-- selector → strainer -->
+      <line x1="340" y1="126" x2="286" y2="140" stroke="#f0c040" stroke-width="2" marker-end="url(#arrowF)"/>
+      <!-- strainer → carb -->
+      <line x1="285" y1="143" x2="474" y2="143" stroke="#f0c040" stroke-width="2" marker-end="url(#arrowF)"/>
+      <!-- carb → engine -->
+      <line x1="475" y1="142" x2="432" y2="142" stroke="#f0c040" stroke-width="2" marker-end="url(#arrowF)"/>
+    </svg>
+  </div>
+
+  <div class="layout">
+    <div>
+      <div class="section-title">Fuel Grades</div>
+      <table>
+        <thead>
+          <tr><th>Grade</th><th>Colour</th><th>Use</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>AVGAS 100LL</strong></td>
+            <td><span class="badge badge-blue">Blue</span></td>
+            <td>Most common aviation gasoline. Low-lead. Used in piston engines requiring 100 octane.</td>
+          </tr>
+          <tr>
+            <td><strong>AVGAS 80</strong></td>
+            <td><span class="badge badge-red">Red</span></td>
+            <td>Lower octane — only for engines specifically approved for 80 octane.</td>
+          </tr>
+          <tr>
+            <td><strong>Mogas (auto)</strong></td>
+            <td><span class="badge badge-green">Clear/Yellow</span></td>
+            <td>Only if STC (Supplemental Type Certificate) approves it for that aircraft. Not standard.</td>
+          </tr>
+          <tr>
+            <td><strong>Jet-A / Jet B</strong></td>
+            <td><span class="badge" style="background:#2a2a0d;color:#d0c040;border:1px solid #d0c040;">Clear/Straw</span></td>
+            <td>Turbine (jet/turboprop) fuel ONLY. <strong>Fatal if used in piston engine.</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="section-title">Sump Drains &amp; Pre-flight</div>
+      <table>
+        <thead>
+          <tr><th>Location</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Each wing tank low point</td><td>Drain sediment and water from each tank</td></tr>
+          <tr><td>Gascolator / fuel strainer</td><td>Main low-point drain — catches water before carb</td></tr>
+          <tr><td>Carburetor bowl</td><td>Drain any accumulated water from carb bowl</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+          <tr><th>Contaminant</th><th>Appearance</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Water</td><td>Drops settle to bottom; clear/blue separation</td><td>Drain until only pure fuel flows — repeat if necessary</td></tr>
+          <tr><td>Sediment / dirt</td><td>Cloudiness or particles</td><td>Continue draining; inspect fuel source</td></tr>
+          <tr><td>Wrong fuel grade</td><td>Wrong colour</td><td>Do NOT fly — drain and refuel with correct grade</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    <strong>Critical Safety Rule:</strong> Always check for water contamination by draining fuel from ALL sump points before flight. Water is denser than AVGAS and sinks to the bottom — it <strong>will stop the engine</strong>. Never fly immediately after refuelling without re-draining (temperature changes can cause condensation). The fuel selector must be on <strong>BOTH</strong> (or the fuller tank) for takeoff and landing — <em>as specified in the POH</em>.
+  </div>
+</div>
+</body>
+</html>

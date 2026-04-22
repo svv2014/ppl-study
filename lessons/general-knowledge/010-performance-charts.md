@@ -7,7 +7,7 @@ title: "Performance Charts"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/gk010-performance-charts.html
 sources:
   - TP 12880E Chapter 11
   - POH (aircraft-specific)

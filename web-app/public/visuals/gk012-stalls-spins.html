@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GK-012: Stalls and Spins</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .recovery-steps { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  .step { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; }
+  .step:last-child { margin-bottom: 0; }
+  .step-num { background: #f0c040; color: #0d1b2a; font-weight: bold; font-size: 12px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 13px; color: #e8edf2; line-height: 1.5; }
+  .step-label { color: #f0c040; font-weight: bold; }
+  .pare-box { background: #0d2040; border: 2px solid #f0c040; border-radius: 8px; padding: 16px; margin-top: 16px; }
+  .pare-title { font-size: 13px; color: #f0c040; font-weight: bold; margin-bottom: 10px; letter-spacing: 1px; }
+  .pare-row { display: flex; gap: 10px; align-items: center; margin-bottom: 8px; font-size: 13px; }
+  .pare-letter { font-size: 22px; color: #f0c040; font-weight: bold; width: 28px; flex-shrink: 0; }
+  .note-box { background: #1a2d3d; border-left: 3px solid #e05050; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>GK-012 — Stalls &amp; Spins</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <div class="layout">
+    <!-- Airfoil stall diagram -->
+    <div class="diagram-box">
+      <svg viewBox="0 0 300 220" width="100%" height="200">
+        <!-- Title -->
+        <text x="150" y="16" text-anchor="middle" fill="#e8edf2" font-size="10" font-weight="bold">AIRFOIL: Normal vs. Stalled Flow</text>
+
+        <!-- === Normal airflow === -->
+        <text x="10" y="36" fill="#4caf7d" font-size="9">NORMAL FLOW (low AoA)</text>
+
+        <!-- Airfoil shape (normal AoA ~4°) -->
+        <path d="M 30 75 Q 80 45 160 50 Q 220 52 240 70 Q 220 80 160 78 Q 80 75 30 75 Z" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+
+        <!-- Smooth flow lines top -->
+        <path d="M 15 52 Q 100 35 250 55" fill="none" stroke="#4caf7d" stroke-width="1.2"/>
+        <path d="M 15 58 Q 100 40 250 62" fill="none" stroke="#4caf7d" stroke-width="1.2"/>
+        <!-- Bottom flow -->
+        <path d="M 15 80 Q 100 85 250 75" fill="none" stroke="#4caf7d" stroke-width="1.2"/>
+        <path d="M 15 86 Q 100 92 250 82" fill="none" stroke="#4caf7d" stroke-width="1.2"/>
+
+        <!-- Relative wind arrow -->
+        <defs>
+          <marker id="arrowST" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <polygon points="0,0 7,3.5 0,7" fill="#7a9ab5"/>
+          </marker>
+          <marker id="arrowRW" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+            <polygon points="0,0 7,3.5 0,7" fill="#5b9bd5"/>
+          </marker>
+        </defs>
+        <line x1="10" y1="68" x2="28" y2="74" stroke="#5b9bd5" stroke-width="2" marker-end="url(#arrowRW)"/>
+        <text x="8" y="62" fill="#5b9bd5" font-size="8">Rel.</text>
+        <text x="8" y="72" fill="#5b9bd5" font-size="8">Wind</text>
+
+        <!-- Lift arrow (normal) -->
+        <line x1="135" y1="48" x2="135" y2="30" stroke="#f0c040" stroke-width="2" marker-end="url(#arrowST)"/>
+        <text x="142" y="30" fill="#f0c040" font-size="8">LIFT</text>
+
+        <!-- === Stalled airflow === -->
+        <text x="10" y="108" fill="#e05050" font-size="9">STALLED FLOW (high AoA ~15-18°)</text>
+
+        <!-- Airfoil at high AoA -->
+        <path d="M 30 165 Q 60 130 130 125 Q 200 122 240 145 Q 200 160 130 158 Q 60 162 30 165 Z" fill="#1e3a50" stroke="#e05050" stroke-width="1.5"/>
+
+        <!-- Separated flow (turbulent) on top surface -->
+        <path d="M 60 125 Q 70 108 80 118 Q 90 105 100 115 Q 115 100 125 112 Q 140 98 155 110 Q 170 98 185 108" fill="none" stroke="#e05050" stroke-width="1.2" stroke-dasharray="3,2"/>
+        <path d="M 55 128 Q 65 112 75 122 Q 88 108 98 120 Q 113 106 128 118 Q 145 104 160 116" fill="none" stroke="#e05050" stroke-width="1.2" stroke-dasharray="3,2"/>
+
+        <!-- Smooth flow below -->
+        <path d="M 20 170 Q 100 178 250 162" fill="none" stroke="#4caf7d" stroke-width="1.2"/>
+
+        <!-- Separation point indicator -->
+        <line x1="65" y1="128" x2="62" y2="138" stroke="#f0c040" stroke-width="1.5"/>
+        <text x="40" y="150" fill="#f0c040" font-size="8">Separation</text>
+        <text x="40" y="160" fill="#f0c040" font-size="8">point</text>
+
+        <!-- Critical AoA label -->
+        <text x="240" y="130" fill="#e05050" font-size="8">Critical</text>
+        <text x="240" y="140" fill="#e05050" font-size="8">AoA ~15°</text>
+
+        <!-- Relative wind arrow for stall -->
+        <line x1="8" y1="156" x2="28" y2="165" stroke="#5b9bd5" stroke-width="2" marker-end="url(#arrowRW)"/>
+
+        <!-- Reduced lift at stall -->
+        <line x1="135" y1="125" x2="135" y2="112" stroke="#e05050" stroke-width="2" marker-end="url(#arrowST)"/>
+        <text x="142" y="114" fill="#e05050" font-size="8">↓ LIFT</text>
+      </svg>
+    </div>
+
+    <div>
+      <!-- Stall recovery -->
+      <div class="section-title" style="margin-top:0;">Stall Recovery Steps</div>
+      <div class="recovery-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text"><span class="step-label">Reduce AoA</span> — push forward on the yoke/stick to lower nose and reduce angle of attack. This is the most critical step.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text"><span class="step-label">Apply Full Power</span> — advance throttle to maximum to minimize altitude loss and enable recovery.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text"><span class="step-label">Level the Wings</span> — use coordinated aileron and rudder to roll wings level. Avoid excessive aileron if still near stall speed.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text"><span class="step-label">Recover Altitude</span> — once airspeed builds above Vs, gently raise nose to level/climb attitude. Avoid secondary stall.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Spin Phases &amp; Recovery (PARE)</div>
+  <div class="layout">
+    <div>
+      <table>
+        <thead>
+          <tr><th>Spin Phase</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Incipient</strong></td>
+            <td>First 1–2 turns. Stall combined with yaw. Aircraft enters autorotation. Recovery is easy at this stage.</td>
+          </tr>
+          <tr>
+            <td><strong>Developed</strong></td>
+            <td>Stable autorotation established. Nose pitched steeply down. Requires specific PARE procedure to recover.</td>
+          </tr>
+          <tr>
+            <td><strong>Recovery</strong></td>
+            <td>PARE applied → rotation stops → pull out of dive. Allow full stop of rotation before pulling out.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="pare-box">
+        <div class="pare-title">PARE — Spin Recovery Procedure</div>
+        <div class="pare-row"><div class="pare-letter">P</div><div><strong>Power</strong> — Throttle to IDLE. Power increases spin rate.</div></div>
+        <div class="pare-row"><div class="pare-letter">A</div><div><strong>Ailerons</strong> — Neutral. Ailerons worsen spin entry.</div></div>
+        <div class="pare-row"><div class="pare-letter">R</div><div><strong>Rudder</strong> — Full OPPOSITE to spin direction (stop rotation).</div></div>
+        <div class="pare-row"><div class="pare-letter">E</div><div><strong>Elevator</strong> — Briskly FORWARD to break stall, then recover from dive.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Stall Speed Reference</div>
+  <table>
+    <thead>
+      <tr><th>Speed</th><th>Definition</th><th>Note</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Vso</strong></td><td>Stall speed in landing configuration (full flaps, gear down)</td><td>Bottom of white arc on ASI</td></tr>
+      <tr><td><strong>Vs1</strong></td><td>Stall speed in clean configuration (flaps up)</td><td>Bottom of green arc on ASI</td></tr>
+      <tr><td><strong>Critical AoA</strong></td><td>~15–18° for most light aircraft — beyond this lift decreases sharply</td><td>Same regardless of airspeed/weight/attitude</td></tr>
+      <tr><td><strong>Load Factor Effect</strong></td><td>Stall speed increases with bank angle and load factor</td><td>At 60° bank: stall speed = Vs × √2 ≈ 1.41 × Vs</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <strong>Critical Concept:</strong> A stall occurs when the <strong>critical angle of attack is exceeded</strong> — not necessarily at low airspeed. An aircraft can stall at any airspeed, any attitude, any power setting. Stall recognition cues: buffet, mushy controls, stall warning horn (if installed), high deck angle with low airspeed. Never attempt to stop a wing drop in a stall with aileron alone — use rudder to prevent spin entry.
+  </div>
+</div>
+</body>
+</html>
