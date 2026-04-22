@@ -8,6 +8,7 @@ import LessonDetail from './pages/LessonDetail';
 import LessonQuiz from './pages/LessonQuiz';
 import Exam from './pages/Exam';
 import Plan from './pages/Plan';
+import Playlist from './pages/Playlist';
 
 export default function App() {
   return (
@@ -42,6 +43,8 @@ export default function App() {
             <Route path="/lessons/:topic/:slug/quiz" element={<LessonQuiz />} />
             <Route path="/exam" element={<Exam />} />
             <Route path="/plan" element={<Plan />} />
+            <Route path="/playlist" element={<Playlist />} />
+            <Route path="/playlist/:topic" element={<Playlist />} />
           </Routes>
         </Box>
       </BrowserRouter>
