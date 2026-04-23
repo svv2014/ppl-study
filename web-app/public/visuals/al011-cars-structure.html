@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/visuals/_common.css">
+<title>AL-011: CARs Structure</title>
+<style>
+  .hierarchy-wrap { margin-bottom: 32px; }
+  .hierarchy-level { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .level-badge { background: var(--surface2); color: var(--accent); font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 4px 10px; border-radius: 4px; white-space: nowrap; min-width: 90px; text-align: center; flex-shrink: 0; }
+  .level-line { width: 24px; border-top: 2px solid var(--border); flex-shrink: 0; }
+  .level-desc { font-size: 13px; color: var(--text); }
+  .level-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  .indent1 { margin-left: 24px; }
+  .indent2 { margin-left: 48px; }
+  .indent3 { margin-left: 72px; }
+
+  .parts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 32px; }
+  .part-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .part-num { font-size: 22px; font-weight: 900; color: var(--accent); margin-bottom: 4px; letter-spacing: 1px; }
+  .part-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .part-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+  .part-key { border-color: var(--accent-dim); }
+
+  .cite-box { background: var(--surface); border: 1.5px solid var(--border-hi); border-radius: 8px; padding: 18px 20px; margin-bottom: 32px; }
+  .cite-box h2 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+  .cite-example { font-size: 16px; color: var(--accent); font-weight: 700; font-family: monospace; margin-bottom: 10px; letter-spacing: 1px; }
+  .cite-breakdown { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .cite-part { background: var(--surface2); border-radius: 4px; padding: 6px 10px; text-align: center; }
+  .cite-part .val { font-size: 16px; font-weight: 700; color: var(--accent); }
+  .cite-part .lbl { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+  .cite-note { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  .hook-box { margin-bottom: 32px; }
+  .hook-text strong { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .parts-grid { grid-template-columns: 1fr; }
+    .cite-breakdown { gap: 4px; }
+    body { font-size: 14px; }
+    td, .part-desc, .hook-text { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<div class="container">
+
+<h1>AL-011 — Canadian Aviation Regulations (CARs) Structure</h1>
+<p class="subtitle">Transport Canada · CARs SOR/96-433 · TP 12880E · PPL Written Exam</p>
+
+<!-- Hierarchy diagram -->
+<div class="section-label">Regulatory Hierarchy</div>
+<div class="hierarchy-wrap">
+  <div class="hierarchy-level">
+    <span class="level-badge">Aeronautics Act</span>
+    <div class="level-line"></div>
+    <div><div class="level-desc">Federal statute — the parent law enabling all aviation regulation in Canada</div></div>
+  </div>
+  <div class="hierarchy-level indent1">
+    <span class="level-badge">CARs</span>
+    <div class="level-line"></div>
+    <div><div class="level-desc">Canadian Aviation Regulations (SOR/96-433) — day-to-day rules</div><div class="level-sub">Divided into numbered Parts → Subparts → Divisions</div></div>
+  </div>
+  <div class="hierarchy-level indent2">
+    <span class="level-badge">Standards</span>
+    <div class="level-line"></div>
+    <div><div class="level-desc">Technical standards attached to each Part — more detail, may be amended more easily</div></div>
+  </div>
+  <div class="hierarchy-level indent3">
+    <span class="level-badge">AIM / TP Docs</span>
+    <div class="level-line"></div>
+    <div><div class="level-desc">Aeronautical Information Manual and TP publications — guidance, not law</div></div>
+  </div>
+</div>
+
+<!-- Key Parts -->
+<div class="section-label">Key CARs Parts for PPL Exam</div>
+<div class="parts-grid">
+  <div class="part-card part-key">
+    <div class="part-num">100</div>
+    <div class="part-name">General Provisions</div>
+    <div class="part-desc">Definitions, abbreviations, and interpretation rules used throughout the CARs</div>
+  </div>
+  <div class="part-card part-key">
+    <div class="part-num">200</div>
+    <div class="part-name">Aircraft Registration &amp; Marking</div>
+    <div class="part-desc">Registration certificates, nationality marks (C-), aircraft markings</div>
+  </div>
+  <div class="part-card">
+    <div class="part-num">300</div>
+    <div class="part-name">Aerodromes &amp; Airports</div>
+    <div class="part-desc">Aerodrome standards, certification, lighting, markings, reporting</div>
+  </div>
+  <div class="part-card part-key">
+    <div class="part-num">400</div>
+    <div class="part-name">Personnel Licensing &amp; Training</div>
+    <div class="part-desc">Pilot licences, medical standards, rating requirements, recency</div>
+  </div>
+  <div class="part-card">
+    <div class="part-num">500</div>
+    <div class="part-name">Airworthiness</div>
+    <div class="part-desc">Type certificates, airworthiness directives, maintenance release</div>
+  </div>
+  <div class="part-card part-key">
+    <div class="part-num">600</div>
+    <div class="part-name">General Operating &amp; Flight Rules</div>
+    <div class="part-desc">VFR/IFR rules, altitudes, right-of-way, weather minima — most exam questions</div>
+  </div>
+  <div class="part-card">
+    <div class="part-num">700</div>
+    <div class="part-name">Air Carrier Operations</div>
+    <div class="part-desc">Commercial air services, crew requirements, flight/duty time</div>
+  </div>
+  <div class="part-card">
+    <div class="part-num">800</div>
+    <div class="part-name">Dangerous Goods</div>
+    <div class="part-desc">Transport of hazardous materials by air — classification, packaging</div>
+  </div>
+</div>
+
+<!-- How to read a citation -->
+<div class="section-label">How to Read a CARs Citation</div>
+<div class="cite-box">
+  <h2>Example Citation</h2>
+  <div class="cite-example">CAR 602.96(2)(b)</div>
+  <div class="cite-breakdown">
+    <div class="cite-part"><div class="val">6</div><div class="lbl">Part</div></div>
+    <div class="cite-part"><div class="val">02</div><div class="lbl">Subpart</div></div>
+    <div class="cite-part"><div class="val">96</div><div class="lbl">Section</div></div>
+    <div class="cite-part"><div class="val">(2)</div><div class="lbl">Subsection</div></div>
+    <div class="cite-part"><div class="val">(b)</div><div class="lbl">Paragraph</div></div>
+  </div>
+  <div class="cite-note">Part 6 = General Operating Rules · Subpart 02 = VFR flight rules · Section 96 = VFR cruising altitudes</div>
+</div>
+
+<!-- Subpart 01 vs 02 key distinction -->
+<div class="section-label">Part 600 Subparts — Most Tested</div>
+<table>
+  <thead>
+    <tr><th>Subpart</th><th>Topic</th><th>Key Sections</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>601</strong></td><td>Airspace — classifications, controlled, restricted</td><td>601.01–601.14</td></tr>
+    <tr><td><strong>602</strong></td><td>Operating &amp; flight rules (VFR minima, altitudes, right-of-way)</td><td>602.14, 602.96, 602.115</td></tr>
+    <tr><td><strong>603</strong></td><td>Aircraft equipment requirements</td><td>603.16–603.25</td></tr>
+    <tr><td><strong>604</strong></td><td>Private operators</td><td>604.01–604.29</td></tr>
+  </tbody>
+</table>
+
+<!-- Memory hook -->
+<div class="hook-box">
+  <h2>Memory Hook — Part Numbers</h2>
+  <div class="hook-row"><span class="hook-badge">2</span><span class="hook-text"><strong>Registration</strong> — "2 wheels needed to register" (Part 200)</span></div>
+  <div class="hook-row"><span class="hook-badge">4</span><span class="hook-text"><strong>Licensing</strong> — "4 years of school to get a licence" (Part 400)</span></div>
+  <div class="hook-row"><span class="hook-badge">6</span><span class="hook-text"><strong>Operations</strong> — "6 sides to a cube, operations are complex" (Part 600)</span></div>
+  <div class="hook-row"><span class="hook-badge">7</span><span class="hook-text"><strong>Air Carriers</strong> — "7 days a week air carriers fly" (Part 700)</span></div>
+</div>
+
+</div>
+</body>
+</html>

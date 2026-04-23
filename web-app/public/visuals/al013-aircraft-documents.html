@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/visuals/_common.css">
+<title>AL-013: Aircraft Documents</title>
+<style>
+  .arrow-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-bottom: 32px; }
+  .arrow-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 16px; }
+  .arrow-letter { font-size: 36px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 4px; }
+  .arrow-word { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .arrow-desc { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+  .arrow-desc strong { color: var(--text); }
+  .arrow-cite { font-size: 11px; color: var(--accent-dim); margin-top: 6px; font-style: italic; }
+
+  .acronym-banner { background: var(--surface2); border: 1.5px solid var(--border-hi); border-radius: 8px; padding: 14px 20px; margin-bottom: 28px; display: flex; justify-content: center; gap: 4px; flex-wrap: wrap; }
+  .al { font-size: 32px; font-weight: 900; color: var(--accent); letter-spacing: 6px; }
+
+  .jl-box { background: var(--surface); border: 1.5px solid var(--border-hi); border-radius: 8px; padding: 18px 20px; margin-bottom: 28px; }
+  .jl-box h2 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+  .jl-item { display: flex; gap: 12px; margin-bottom: 10px; align-items: flex-start; }
+  .jl-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 5px; }
+  .jl-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .jl-text span { color: var(--text-muted); font-size: 12px; }
+
+  .status-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 32px; }
+  .status-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .status-card.warn { border-color: rgba(240,192,64,0.4); }
+  .status-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .status-val { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .status-note { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  .hook-box { margin-bottom: 32px; }
+  .hook-text strong { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    .arrow-grid, .status-grid { grid-template-columns: 1fr; }
+    .arrow-letter { font-size: 28px; }
+    .al { font-size: 26px; letter-spacing: 4px; }
+    body { font-size: 14px; }
+    td, .arrow-desc, .jl-text, .hook-text { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<div class="container">
+
+<h1>AL-013 — Aircraft Documents Required on Board</h1>
+<p class="subtitle">Transport Canada · CARs 605.03 · TP 12880E · PPL Written Exam</p>
+
+<!-- ARROW acronym banner -->
+<div class="section-label">The ARROW Acronym — Required Documents</div>
+<div class="acronym-banner">
+  <span class="al">A &nbsp; R &nbsp; R &nbsp; O &nbsp; W</span>
+</div>
+
+<!-- ARROW cards -->
+<div class="arrow-grid">
+  <div class="arrow-card">
+    <div class="arrow-letter">A</div>
+    <div class="arrow-word">Airworthiness Certificate</div>
+    <div class="arrow-desc">A valid <strong>Certificate of Airworthiness</strong> issued by Transport Canada. Must be carried on board and displayed (if aircraft design allows). Valid as long as aircraft is maintained in airworthy condition.</div>
+    <div class="arrow-cite">CARs 605.03(1)(a)</div>
+  </div>
+  <div class="arrow-card">
+    <div class="arrow-letter">R</div>
+    <div class="arrow-word">Registration Certificate</div>
+    <div class="arrow-desc">Proof the aircraft is registered in Canada. Shows owner information, registration marks (C-XXXX). Must be on board — <strong>not required to be displayed</strong> but must be produced on request.</div>
+    <div class="arrow-cite">CARs 202.26 / 605.03(1)(b)</div>
+  </div>
+  <div class="arrow-card">
+    <div class="arrow-letter">R</div>
+    <div class="arrow-word">Radio Licence (Station Licence)</div>
+    <div class="arrow-desc">An <strong>aeronautical station licence</strong> issued by ISED (Industry, Science and Economic Development Canada) for the aircraft's radio equipment. Required when operating outside Canada or if carrying a radio.</div>
+    <div class="arrow-cite">Radiocommunication Act / CARs 605.03</div>
+  </div>
+  <div class="arrow-card">
+    <div class="arrow-letter">O</div>
+    <div class="arrow-word">Operating Limitations / POH</div>
+    <div class="arrow-desc">The aircraft <strong>Flight Manual, Pilot's Operating Handbook (POH)</strong>, or equivalent approved document containing operating limitations. Must be accessible to the flight crew. Includes performance data, checklists, limitations.</div>
+    <div class="arrow-cite">CARs 605.03(1)(d) / 605.84</div>
+  </div>
+  <div class="arrow-card">
+    <div class="arrow-letter">W</div>
+    <div class="arrow-word">Weight &amp; Balance</div>
+    <div class="arrow-desc">Current <strong>weight and balance documentation</strong> — either in the flight manual or a separate approved document. Includes empty weight, CG datum, and equipment list. Must reflect actual aircraft configuration.</div>
+    <div class="arrow-cite">CARs 605.03(1)(e) / 605.92</div>
+  </div>
+</div>
+
+<!-- Journey Log -->
+<div class="section-label">Journey Log Requirements (CARs 605.94)</div>
+<div class="jl-box">
+  <h2>What Must Be Recorded in the Journey Log</h2>
+  <div class="jl-item"><div class="jl-dot"></div><div class="jl-text">Date of each flight</div></div>
+  <div class="jl-item"><div class="jl-dot"></div><div class="jl-text">Aircraft registration and type</div></div>
+  <div class="jl-item"><div class="jl-dot"></div><div class="jl-text">Name of PIC (and other crew if required)</div></div>
+  <div class="jl-item"><div class="jl-dot"></div><div class="jl-text">Departure and destination aerodromes</div></div>
+  <div class="jl-item"><div class="jl-dot"></div><div class="jl-text">Time of departure and arrival (block times)</div></div>
+  <div class="jl-item"><div class="jl-dot"></div><div class="jl-text">Total flight time for each leg</div></div>
+  <div class="jl-item"><div class="jl-dot"></div><div class="jl-text">Any defects identified during the flight</div></div>
+  <div class="jl-item"><div class="jl-dot"></div><div class="jl-text">Maintenance release signature after any maintenance</div></div>
+</div>
+
+<!-- Maintenance release -->
+<div class="section-label">Airworthiness — Key Rules</div>
+<div class="status-grid">
+  <div class="status-card warn">
+    <div class="status-label">Maintenance Release</div>
+    <div class="status-val">Required after maintenance</div>
+    <div class="status-note">Any maintenance work must be followed by a signed maintenance release in the journey log before the aircraft can fly again (CARs 571.10)</div>
+  </div>
+  <div class="status-card">
+    <div class="status-label">Annual Inspection</div>
+    <div class="status-val">Every 12 months</div>
+    <div class="status-note">Canadian-registered aircraft must have a maintenance review (annual inspection) at least once every 12 months (CARs 625)</div>
+  </div>
+  <div class="status-card">
+    <div class="status-label">Airworthiness Directives</div>
+    <div class="status-val">Mandatory compliance</div>
+    <div class="status-note">ADs issued by TC must be complied with. Aircraft cannot be flown with an outstanding AD that prohibits flight</div>
+  </div>
+  <div class="status-card">
+    <div class="status-label">Defects</div>
+    <div class="status-val">Must be recorded</div>
+    <div class="status-note">Any defect found during flight must be entered in the journey log. PIC decides if the defect affects airworthiness before next flight</div>
+  </div>
+</div>
+
+<!-- Documents vs. ground only -->
+<div class="section-label">On Board vs. Records Only</div>
+<table>
+  <thead>
+    <tr><th>Document</th><th>Must Be On Board?</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Certificate of Airworthiness</td>
+      <td class="yes">Yes</td>
+      <td>Always on board during flight</td>
+    </tr>
+    <tr>
+      <td>Registration Certificate</td>
+      <td class="yes">Yes</td>
+      <td>Must be produced on demand by an inspector</td>
+    </tr>
+    <tr>
+      <td>Radio Station Licence</td>
+      <td class="yes">Yes</td>
+      <td>Required when operating in international airspace</td>
+    </tr>
+    <tr>
+      <td>POH / Flight Manual</td>
+      <td class="yes">Yes</td>
+      <td>Must be accessible to crew in flight</td>
+    </tr>
+    <tr>
+      <td>Weight &amp; Balance data</td>
+      <td class="yes">Yes</td>
+      <td>Must reflect current aircraft config</td>
+    </tr>
+    <tr>
+      <td>Journey Log</td>
+      <td class="yes">Yes</td>
+      <td>Must accompany the aircraft on every flight</td>
+    </tr>
+    <tr>
+      <td>Maintenance records</td>
+      <td class="no">No</td>
+      <td>Kept at maintenance facility or owner's base</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Memory hook -->
+<div class="hook-box">
+  <h2>Memory Hook</h2>
+  <div class="hook-row"><span class="hook-badge">ARROW</span><span class="hook-text">Like an arrow pointing to safety: <strong>A</strong>irworthiness · <strong>R</strong>egistration · <strong>R</strong>adio · <strong>O</strong>perating handbook · <strong>W</strong>eight &amp; balance. If any is missing — don't fly.</span></div>
+  <div class="hook-row"><span class="hook-badge">Journey Log</span><span class="hook-text">Think of the journey log as the aircraft's <strong>diary</strong> — every trip, every defect, every maintenance event is recorded. It travels with the aircraft.</span></div>
+</div>
+
+</div>
+</body>
+</html>
