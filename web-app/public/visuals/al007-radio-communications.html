@@ -7,25 +7,25 @@
 <title>AL-007: Radio Communications</title>
 <style>
   /* Phonetic alphabet — two-column grid */
-  .alphabet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 28px; border-radius: 8px; overflow: hidden; border: 1.5px solid #1a2d3d; }
+  .alphabet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 28px; border-radius: 8px; overflow: hidden; border: 1.5px solid var(--border); }
   .alpha-row { display: grid; grid-template-columns: 36px 1fr; align-items: center; padding: 7px 12px; background: var(--bg2); border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .alpha-row:nth-child(even) { background: #0a1520; }
+  .alpha-row:nth-child(even) { background: var(--bg); }
   .alpha-letter { font-size: 16px; font-weight: 800; color: var(--accent); }
-  .alpha-word { font-size: 13px; color: #e8edf2; }
+  .alpha-word { font-size: 13px; color: var(--text); }
 
   /* Phraseology table */
   table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
-  th { background: #1a2d3d; color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  th { background: var(--surface2); color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
   .word-col { font-weight: 800; color: var(--accent); font-size: 14px; }
-  .meaning-col { color: #e8edf2; }
+  .meaning-col { color: var(--text); }
   .trap-col { font-size: 12px; color: #ff9090; }
 
   /* Light gun table */
   .gun-table td:first-child { font-weight: 700; }
   .gun-green { color: #80e080; }
   .gun-red { color: #ff9090; }
-  .gun-white { color: #e8edf2; }
+  .gun-white { color: var(--text); }
   .gun-alt { color: var(--accent); }
 
   @media (max-width: 500px) { .alphabet-grid { grid-template-columns: 1fr; } }

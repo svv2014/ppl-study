@@ -7,7 +7,7 @@
 <title>AL-006: Aerodrome Traffic Circuit</title>
 <style>
   /* Circuit diagram using CSS grid */
-  .circuit-container { background: #0a1520; border: 1.5px solid #1a2d3d; border-radius: 10px; padding: 24px; margin-bottom: 28px; }
+  .circuit-container { background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 24px; margin-bottom: 28px; }
   .circuit-diagram { display: grid; grid-template-columns: 1fr 180px 1fr; grid-template-rows: auto auto auto auto auto; gap: 0; max-width: 600px; margin: 0 auto; }
 
   /* Runway */
@@ -45,14 +45,14 @@
 
   /* Legs reference table */
   table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
-  th { background: #1a2d3d; color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  th { background: var(--surface2); color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
   .leg-name-col { font-weight: 700; color: var(--accent); }
-  .leg-order { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background: #1a2d3d; color: var(--text-muted); font-size: 10px; font-weight: 800; text-align: center; line-height: 20px; margin-right: 6px; }
+  .leg-order { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background: var(--border); color: var(--text-muted); font-size: 10px; font-weight: 800; text-align: center; line-height: 20px; margin-right: 6px; }
 
   /* Standards panel */
   .standards-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 28px; }
-  .std-card { background: #1a2d3d; border-radius: 8px; padding: 14px 16px; }
+  .std-card { background: var(--surface2); border-radius: 8px; padding: 14px 16px; }
   .std-card h3 { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
   .std-value { font-size: 16px; font-weight: 800; color: var(--accent); }
   .std-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
