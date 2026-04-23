@@ -7,17 +7,18 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
   .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .chart-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
-  .chart-card h3 { font-size: 14px; color: #f0c040; margin-bottom: 4px; letter-spacing: 0.5px; }
-  .chart-card .sub { font-size: 11px; color: #7a9ab5; margin-bottom: 12px; letter-spacing: 0.5px; }
-  .chart-card ul { margin-left: 18px; font-size: 12px; color: #e8edf2; line-height: 1.7; }
+  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+  .chart-card h3 { font-size: 14px; color: var(--accent); margin-bottom: 4px; letter-spacing: 0.5px; }
+  .chart-card .sub { font-size: 11px; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 0.5px; }
+  .chart-card ul { margin-left: 18px; font-size: 12px; color: var(--text); line-height: 1.7; }
   .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
-  .t-panel { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
-  .t-panel .t-label { font-size: 11px; color: #7a9ab5; letter-spacing: 0.5px; }
-  .t-panel .t-time  { font-size: 18px; color: #f0c040; font-weight: bold; margin: 4px 0 2px; }
-  .t-panel .t-use   { font-size: 11px; color: #e8edf2; }
-  .symbol { display: inline-block; min-width: 28px; text-align: center; font-weight: bold; color: #f0c040; font-family: 'Consolas', monospace; }
+  .t-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+  .t-panel .t-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; }
+  .t-panel .t-time  { font-size: 18px; color: var(--accent); font-weight: bold; margin: 4px 0 2px; }
+  .t-panel .t-use   { font-size: 11px; color: var(--text); }
+  .symbol { display: inline-block; min-width: 28px; text-align: center; font-weight: bold; color: var(--accent); font-family: 'Consolas', monospace; }
   @media (max-width: 640px) { .chart-grid { grid-template-columns: 1fr; } .timeline { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { body { font-size: 14px; } }
 </style>
 </head>
 <body>
@@ -59,7 +60,7 @@
     <div class="t-panel"><div class="t-label">T+12</div><div class="t-time">+12 hr</div><div class="t-use">End-of-day planning</div></div>
     <div class="t-panel"><div class="t-label">IFO</div><div class="t-time">+24 hr</div><div class="t-use">Outlook only (text)</div></div>
   </div>
-  <p style="font-size:12px; color:#7a9ab5; margin-bottom:10px;">Issued four times daily: <strong>0000Z, 0600Z, 1200Z, 1800Z</strong> — new set available within ~30 min of issue time.</p>
+  <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Issued four times daily: <strong>0000Z, 0600Z, 1200Z, 1800Z</strong> — new set available within ~30 min of issue time.</p>
 
   <div class="section-title">Symbol Legend (Essentials)</div>
   <table>
