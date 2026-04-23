@@ -36,6 +36,9 @@ const theme = createTheme({
     success: {
       main: colorTokens.success.main,
     },
+    error: {
+      main: colorTokens.error.main,
+    },
     text: {
       primary: colorTokens.text.primary,
       secondary: colorTokens.text.secondary,
