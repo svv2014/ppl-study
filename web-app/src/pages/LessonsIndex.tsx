@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { CURRICULUM, TOPIC_LABELS, TOPICS } from '../lib/curriculum';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
+import { useExamTrack } from '../context/ExamTrackContext';
 import type { LessonStatus } from '../lib/types';
 
 function statusChipProps(status: LessonStatus) {
@@ -21,7 +22,8 @@ function statusChipProps(status: LessonStatus) {
 }
 
 export default function LessonsIndex() {
-  const { isComplete } = useProgress();
+  const { store } = useExamTrack();
+  const { isComplete } = useProgress(store);
 
   const lessonMap = useMemo(() => {
     const map = new Map(getAllLessons().map((l) => [l.id, l]));

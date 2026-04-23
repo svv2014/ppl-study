@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useMemo, useEffect } from '
 import type { ExamTrack } from '../lib/exam-tracks';
 import { EXAM_TRACKS, getTrack } from '../lib/exam-tracks';
 import type { Progress } from '../lib/types';
-import { LocalStorageProgressStore } from '../lib/progress';
+import { LocalStorageProgressStore, PPL_PROGRESS_EVENT } from '../lib/progress';
 
 const STORAGE_KEY = 'ppl.active-track';
 const DEFAULT_TRACK_ID = 'ppl-a';
@@ -12,6 +12,7 @@ export interface ExamTrackContextValue {
   setActiveTrack: (trackId: string) => void;
   availableTracks: ExamTrack[];
   trackProgress: Progress;
+  store: LocalStorageProgressStore;
 }
 
 const ExamTrackContext = createContext<ExamTrackContextValue | null>(null);
@@ -38,7 +39,7 @@ export function ExamTrackProvider({ children }: { children: React.ReactNode }) {
     setTrackProgress(store.getProgress());
   }, [store]);
 
-  // Cross-tab sync for active track
+  // Cross-tab sync for active track and progress
   useEffect(() => {
     function onStorage(e: StorageEvent) {
       if (e.key === STORAGE_KEY && e.newValue) {
@@ -50,6 +51,18 @@ export function ExamTrackProvider({ children }: { children: React.ReactNode }) {
     }
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
+  }, [store]);
+
+  // Same-tab progress refresh — StorageEvent doesn't fire for same-tab writes
+  useEffect(() => {
+    function onProgressUpdate(e: Event) {
+      const ev = e as CustomEvent<{ key: string }>;
+      if (ev.detail?.key === store.storageKey) {
+        setTrackProgress(store.getProgress());
+      }
+    }
+    window.addEventListener(PPL_PROGRESS_EVENT, onProgressUpdate);
+    return () => window.removeEventListener(PPL_PROGRESS_EVENT, onProgressUpdate);
   }, [store]);
 
   const setActiveTrack = (trackId: string) => {
@@ -67,9 +80,10 @@ export function ExamTrackProvider({ children }: { children: React.ReactNode }) {
       setActiveTrack,
       availableTracks: EXAM_TRACKS,
       trackProgress,
+      store,
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [activeTrack, trackProgress],
+    [activeTrack, trackProgress, store],
   );
 
   return <ExamTrackContext.Provider value={value}>{children}</ExamTrackContext.Provider>;

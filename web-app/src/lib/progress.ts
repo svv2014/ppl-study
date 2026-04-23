@@ -3,6 +3,16 @@ import type { Progress, ProgressStore, QuizAttempt } from './types';
 
 const LEGACY_KEY = 'ppl-study-progress';
 
+export const PPL_PROGRESS_EVENT = 'ppl:progress-update';
+
+function dispatchProgressUpdate(key: string): void {
+  try {
+    window.dispatchEvent(new CustomEvent(PPL_PROGRESS_EVENT, { detail: { key } }));
+  } catch {
+    // ignore
+  }
+}
+
 function storageKey(trackId: string): string {
   return `ppl.progress.${trackId}`;
 }
@@ -69,6 +79,7 @@ export class LocalStorageProgressStore implements ProgressStore {
       p.completed = [...p.completed, lessonId];
       p.lastUpdated = new Date().toISOString();
       saveRaw(this.storageKey, p);
+      dispatchProgressUpdate(this.storageKey);
     }
   }
 
@@ -77,6 +88,7 @@ export class LocalStorageProgressStore implements ProgressStore {
     p.completed = p.completed.filter((id) => id !== lessonId);
     p.lastUpdated = new Date().toISOString();
     saveRaw(this.storageKey, p);
+    dispatchProgressUpdate(this.storageKey);
   }
 
   recordQuizAttempt(attempt: QuizAttempt): void {
@@ -85,6 +97,7 @@ export class LocalStorageProgressStore implements ProgressStore {
     p.lastExamScores[attempt.lessonId] = attempt.percent;
     p.lastUpdated = new Date().toISOString();
     saveRaw(this.storageKey, p);
+    dispatchProgressUpdate(this.storageKey);
   }
 
   setLastExamScore(lessonId: string, percent: number): void {
