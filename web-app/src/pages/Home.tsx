@@ -4,9 +4,10 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { typographyTokens } from '../tokens';
+import { useExamTrack } from '../context/ExamTrackContext';
 import { CURRICULUM } from '../lib/curriculum';
-import { getAllLessons } from '../lib/lesson-loader';
-import { useProgress } from '../lib/progress';
+import { getLessonsByTrack } from '../lib/lesson-loader';
+import type { Lesson } from '../lib/types';
 import StatusBar, { LAST_SESSION_KEY } from '../components/home/StatusBar';
 import ReadinessGauge from '../components/home/ReadinessGauge';
 import TopicCoverageGrid from '../components/home/TopicCoverageGrid';
@@ -49,31 +50,41 @@ function SectionHead({ title, meta }: { title: string; meta: string }) {
 }
 
 export default function Home() {
-  const { isComplete } = useProgress();
+  const { activeTrack, trackProgress } = useExamTrack();
   const [lastSession] = useState<string | null>(() => localStorage.getItem(LAST_SESSION_KEY));
 
-  const allLessons = useMemo(() => getAllLessons(), []);
+  const allLessons = useMemo(() => getLessonsByTrack(activeTrack.id), [activeTrack.id]);
 
-  const topicStats: TopicStat[] = useMemo(() =>
-    TOPIC_CONFIG.map(({ key, code, label, weight }) => {
+  // Filter topic config to the active track's topics (e.g. PSTAR = air-law only)
+  const activeTopicConfig = useMemo(() => {
+    return TOPIC_CONFIG.filter((tc) => activeTrack.lessonFilter({ topic: tc.key } as Lesson));
+  }, [activeTrack]);
+
+  const topicStats: TopicStat[] = useMemo(() => {
+    // Renormalize weights so the readiness gauge reads 100% when track is fully complete
+    const totalWeight = activeTopicConfig.reduce((s, tc) => s + tc.weight, 0) || 1;
+    return activeTopicConfig.map(({ key, code, label, weight }) => {
       const slots = CURRICULUM.filter((s) => s.topic === key);
-      const done = slots.filter((s) => isComplete(s.id)).length;
+      const done = slots.filter((s) => trackProgress.completed.includes(s.id)).length;
       const pct = slots.length > 0 ? Math.round((done / slots.length) * 100) : 0;
-      return { code, label, weight, pct, done, total: slots.length };
-    }),
-    [isComplete],
-  );
+      return { code, label, weight: weight / totalWeight, pct, done, total: slots.length };
+    });
+  }, [activeTopicConfig, trackProgress.completed]);
 
   const weightedPct = useMemo(
     () => Math.round(topicStats.reduce((sum, s) => sum + s.pct * s.weight, 0)),
     [topicStats],
   );
 
-  const totalLessons = CURRICULUM.length;
-  const completedCount = CURRICULUM.filter((s) => isComplete(s.id)).length;
+  const trackCurriculum = useMemo(() => {
+    return CURRICULUM.filter((s) => activeTrack.lessonFilter({ topic: s.topic } as Lesson));
+  }, [activeTrack]);
+
+  const totalLessons = trackCurriculum.length;
+  const completedCount = trackCurriculum.filter((s) => trackProgress.completed.includes(s.id)).length;
 
   const nextLesson: NextLesson | null = useMemo(() => {
-    const lesson = allLessons.find((l) => !isComplete(l.id)) ?? null;
+    const lesson = allLessons.find((l) => !trackProgress.completed.includes(l.id)) ?? null;
     if (!lesson) return null;
     return {
       id: lesson.id,
@@ -84,7 +95,7 @@ export default function Home() {
       hasAudio: !!lesson.audio,
       questionCount: lesson.questions.length,
     };
-  }, [allLessons, isComplete]);
+  }, [allLessons, trackProgress.completed]);
 
   const lastSessionAgo = useMemo((): string => {
     if (!lastSession) return '—';
@@ -103,7 +114,6 @@ export default function Home() {
   return (
     <Box id="main-content" tabIndex={-1} sx={{ minHeight: '100vh', pb: 8 }}>
       <Container maxWidth="lg" sx={{ pt: { xs: 3, md: 5 } }}>
-
         <StatusBar completedCount={completedCount} totalLessons={totalLessons} lastSession={lastSession} />
 
         {/* Hero */}

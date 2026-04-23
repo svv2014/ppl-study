@@ -20,10 +20,12 @@ import Typography from '@mui/material/Typography';
 import { CURRICULUM, TOPIC_LABELS, TOPICS } from '../lib/curriculum';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
+import { useExamTrack } from '../context/ExamTrackContext';
 
 export default function Plan() {
   const [resetOpen, setResetOpen] = useState(false);
-  const { progress, markComplete, markIncomplete, isComplete, reset } = useProgress();
+  const { store } = useExamTrack();
+  const { progress, markComplete, markIncomplete, isComplete, reset } = useProgress(store);
 
   const { authoredIds, lessonTitleMap } = useMemo(() => {
     const lessons = getAllLessons();

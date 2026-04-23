@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
+import { useExamTrack } from '../context/ExamTrackContext';
 import { scoreQuiz } from '../lib/quiz';
 import type { QuizResult } from '../lib/quiz';
 import type { QuizAttempt } from '../lib/types';
@@ -40,7 +41,8 @@ function deriveOptionState(
 
 export default function Exam() {
   const [searchParams] = useSearchParams();
-  const { progress, store } = useProgress();
+  const { store: activeStore } = useExamTrack();
+  const { progress, store } = useProgress(activeStore);
 
   const lessons = getAllLessons().filter((l) => l.questions.length > 0);
 

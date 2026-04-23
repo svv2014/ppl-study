@@ -13,6 +13,7 @@ import LessonPrevNext from '../components/LessonPrevNext';
 import SourceList from '../components/SourceList';
 import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
+import { useExamTrack } from '../context/ExamTrackContext';
 import { TOPIC_LABELS } from '../lib/curriculum';
 import { LAST_SESSION_KEY } from '../components/home/StatusBar';
 
@@ -80,7 +81,8 @@ const mdOptions = {
 export default function LessonDetail() {
   const { topic, slug } = useParams<{ topic: string; slug: string }>();
   const navigate = useNavigate();
-  const { isComplete, markComplete } = useProgress();
+  const { store } = useExamTrack();
+  const { isComplete, markComplete } = useProgress(store);
   const [showSuccess, setShowSuccess] = useState(false);
 
   const lesson = topic && slug ? getLessonBySlug(topic, slug) : undefined;
