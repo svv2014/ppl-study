@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-007: GFA</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .chart-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  .chart-card h3 { font-size: 14px; color: #f0c040; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .chart-card .sub { font-size: 11px; color: #7a9ab5; margin-bottom: 12px; letter-spacing: 0.5px; }
+  .chart-card ul { margin-left: 18px; font-size: 12px; color: #e8edf2; line-height: 1.7; }
+  .timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 14px; }
+  .t-panel { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
+  .t-panel .t-label { font-size: 11px; color: #7a9ab5; letter-spacing: 0.5px; }
+  .t-panel .t-time  { font-size: 18px; color: #f0c040; font-weight: bold; margin: 4px 0 2px; }
+  .t-panel .t-use   { font-size: 11px; color: #e8edf2; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .symbol { display: inline-block; min-width: 28px; text-align: center; font-weight: bold; color: #f0c040; font-family: 'Consolas', monospace; }
+  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+  @media (max-width: 640px) { body { padding: 16px; } .chart-grid { grid-template-columns: 1fr; } .timeline { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>MET-007 — Graphical Forecast for Aviation (GFA)</h1>
+  <p class="subtitle">NAV CANADA · AIM MET 3.5 · Surface to 24,000 ft · 7 GFA regions over Canada</p>
+
+  <div class="section-title" style="margin-top: 0;">Two Charts Per Valid Time</div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>Clouds &amp; Weather</h3>
+      <div class="sub">CLDWX — what you'll see, where, and when</div>
+      <ul>
+        <li>Cloud areas with coverage, bases, tops (AGL unless MSL noted)</li>
+        <li>Precipitation type &amp; intensity</li>
+        <li>Visibility restrictions (haze, fog, precip)</li>
+        <li>Fronts, troughs, pressure systems</li>
+        <li>Surface winds &gt; 20 kt</li>
+      </ul>
+    </div>
+    <div class="chart-card">
+      <h3>Icing, Turbulence &amp; Freezing Level</h3>
+      <div class="sub">ICG TURBC — what could hurt you</div>
+      <ul>
+        <li>Icing areas, type, intensity, altitude band</li>
+        <li>Turbulence intensity &amp; altitude band</li>
+        <li>Freezing-level contours (at surface, 4k, 8k, etc.)</li>
+        <li>LLWS, CAT, mountain-wave zones</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Valid Time Blocks</div>
+  <div class="timeline">
+    <div class="t-panel"><div class="t-label">T+0</div><div class="t-time">Now</div><div class="t-use">Issue time snapshot</div></div>
+    <div class="t-panel"><div class="t-label">T+6</div><div class="t-time">+6 hr</div><div class="t-use">Mid-flight look-ahead</div></div>
+    <div class="t-panel"><div class="t-label">T+12</div><div class="t-time">+12 hr</div><div class="t-use">End-of-day planning</div></div>
+    <div class="t-panel"><div class="t-label">IFO</div><div class="t-time">+24 hr</div><div class="t-use">Outlook only (text)</div></div>
+  </div>
+  <p style="font-size:12px; color:#7a9ab5; margin-bottom:10px;">Issued four times daily: <strong>0000Z, 0600Z, 1200Z, 1800Z</strong> — new set available within ~30 min of issue time.</p>
+
+  <div class="section-title">Symbol Legend (Essentials)</div>
+  <table>
+    <thead><tr><th>Symbol</th><th>Meaning</th><th>Symbol</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><span class="symbol">▲▲▲</span></td><td>Cold front (cold air advancing)</td><td><span class="symbol">●●●</span></td><td>Warm front (warm air advancing)</td></tr>
+      <tr><td><span class="symbol">▲●▲●</span></td><td>Occluded front</td><td><span class="symbol">~~~</span></td><td>Trough (line of low pressure)</td></tr>
+      <tr><td><span class="symbol">H / L</span></td><td>High / Low pressure centre</td><td><span class="symbol">RA</span></td><td>Rain area (use METAR codes)</td></tr>
+      <tr><td><span class="symbol">⟟</span></td><td>Icing area outline</td><td><span class="symbol">∿</span></td><td>Turbulence area outline</td></tr>
+      <tr><td><span class="symbol">FZLVL</span></td><td>Freezing level contour (surface, 040, 080 …)</td><td><span class="symbol">BKN025 / 080</span></td><td>Cloud: coverage, base (AGL ×100 ft) / tops</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">GFA Rules of Thumb</div>
+  <table>
+    <thead><tr><th>Rule</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>Altitudes AGL unless tagged MSL</td><td>Tops usually MSL, bases usually AGL — read labels carefully.</td></tr>
+      <tr><td>Use two charts together</td><td>CLDWX tells you what you'll <em>fly through</em>; ICG TURBC tells you what will <em>fly back at you</em>.</td></tr>
+      <tr><td>Cross-check with SIGMETs / AIRMETs / PIREPs</td><td>GFA is baseline; SIGMETs flag hazards that developed since issue.</td></tr>
+      <tr><td>IFO is text-only</td><td>+24 hr outlook is general (no chart).</td></tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    Every GFA issue contains <strong>two charts at three valid times</strong> (now, +6, +12), plus a text <strong>IFO</strong> outlook at +24. Issued <strong>four times daily</strong>. For a complete pre-flight picture you also need current <strong>METAR/TAF, SIGMET/AIRMET, PIREP</strong> — GFA is the map, the others are the updates.
+  </div>
+</div>
+</body>
+</html>

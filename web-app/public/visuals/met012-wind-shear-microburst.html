@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-012: Wind Shear & Microburst</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+  .caption { font-size: 11px; color: #7a9ab5; text-align: center; margin-top: 8px; }
+  .stages { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .stage-card { background: #1a2d3d; border-left: 3px solid #f0c040; padding: 10px 14px; font-size: 12px; color: #e8edf2; line-height: 1.5; }
+  .stage-card .n { color: #f0c040; font-weight: bold; font-size: 13px; }
+  @media (max-width: 640px) { body { padding: 16px; } .stages { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>MET-012 — Wind Shear &amp; Microburst</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · AIM MET 2.7 · LLWS = within 2,000 ft AGL</p>
+
+  <div class="section-title" style="margin-top: 0;">Microburst Side-View — Approach Profile</div>
+  <div class="diagram-box">
+    <svg viewBox="0 0 720 260" width="100%" height="240">
+      <!-- Runway -->
+      <rect x="20" y="230" width="680" height="12" fill="#2a3a45" stroke="#7a9ab5"/>
+      <line x1="30" y1="236" x2="690" y2="236" stroke="#e8edf2" stroke-width="0.5" stroke-dasharray="6,6"/>
+
+      <!-- Microburst cloud (top) -->
+      <ellipse cx="380" cy="70" rx="110" ry="32" fill="#3a3a5a" stroke="#e05050" stroke-width="1.5"/>
+      <text x="380" y="74" text-anchor="middle" fill="#e8edf2" font-size="11" font-weight="bold">Microburst</text>
+
+      <!-- Downdraft shaft -->
+      <rect x="345" y="100" width="70" height="90" fill="#5b9bd5" opacity="0.25"/>
+      <g stroke="#5b9bd5" stroke-width="2" fill="none">
+        <path d="M 355 105 L 355 195" marker-end="url(#dn)"/>
+        <path d="M 380 100 L 380 200" marker-end="url(#dn)"/>
+        <path d="M 405 105 L 405 195" marker-end="url(#dn)"/>
+      </g>
+      <text x="380" y="140" text-anchor="middle" fill="#5b9bd5" font-size="10" font-weight="bold">DOWNDRAFT</text>
+
+      <!-- Outflow arrows -->
+      <g stroke="#f0c040" stroke-width="2.2" fill="none">
+        <path d="M 340 210 L 120 210" marker-end="url(#lf)"/>
+        <path d="M 420 210 L 640 210" marker-end="url(#rt)"/>
+      </g>
+      <text x="220" y="224" text-anchor="middle" fill="#f0c040" font-size="10">OUTFLOW ←</text>
+      <text x="540" y="224" text-anchor="middle" fill="#f0c040" font-size="10">→ OUTFLOW</text>
+
+      <!-- Aircraft on approach (3 positions) -->
+      <g font-size="9" fill="#e8edf2">
+        <!-- Pos 1: headwind boost -->
+        <polygon points="160,168 180,165 180,171" fill="#e8edf2"/>
+        <text x="170" y="158" text-anchor="middle" fill="#4caf7d" font-weight="bold">HW ↑</text>
+        <text x="170" y="185" text-anchor="middle" fill="#7a9ab5">Lift up → tends to rise</text>
+
+        <!-- Pos 2: downdraft -->
+        <polygon points="370,195 390,192 390,198" fill="#e8edf2"/>
+        <text x="380" y="180" text-anchor="middle" fill="#5b9bd5" font-weight="bold">DOWN ↓</text>
+        <text x="380" y="212" text-anchor="middle" fill="#7a9ab5">Sinks fast</text>
+
+        <!-- Pos 3: tailwind loss -->
+        <polygon points="560,225 580,222 580,228" fill="#e8edf2"/>
+        <text x="570" y="218" text-anchor="middle" fill="#e05050" font-weight="bold">TW ↓</text>
+        <text x="570" y="245" text-anchor="middle" fill="#7a9ab5">Airspeed lost → undershoot</text>
+      </g>
+
+      <defs>
+        <marker id="dn" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <polygon points="0,0 3.5,7 7,0" fill="#5b9bd5"/>
+        </marker>
+        <marker id="lf" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <polygon points="7,0 0,3.5 7,7" fill="#f0c040"/>
+        </marker>
+        <marker id="rt" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#f0c040"/>
+        </marker>
+      </defs>
+
+      <text x="360" y="30" text-anchor="middle" fill="#f0c040" font-size="12" font-weight="bold">Approach sequence: Headwind gain → Downdraft → Tailwind loss</text>
+    </svg>
+    <div class="caption">Classic microburst "trap": the initial performance boost is followed by a dramatic loss — power may be insufficient to recover close to the ground.</div>
+  </div>
+
+  <div class="section-title">Three Stages a Pilot Experiences</div>
+  <div class="stages">
+    <div class="stage-card"><span class="n">1.</span> <strong>Headwind gain</strong> — airspeed and lift increase; pilot reduces power, trims nose-down to hold glidepath.</div>
+    <div class="stage-card"><span class="n">2.</span> <strong>Downdraft / calm</strong> — sudden sink rate; aircraft drops below path.</div>
+    <div class="stage-card"><span class="n">3.</span> <strong>Tailwind loss</strong> — airspeed and lift collapse; stall or ground contact imminent.</div>
+  </div>
+
+  <div class="section-title">Wet vs Dry Microburst</div>
+  <table>
+    <thead><tr><th>Type</th><th>Clue</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>Wet</td><td>Heavy rain shaft to the surface</td><td>Mature thunderstorm with high liquid water.</td></tr>
+      <tr><td>Dry</td><td>Rain evaporates before ground; visible virga only. Dust ring on surface.</td><td>High-based convection in dry air — prairie summers.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">LLWS Clues &amp; Actions</div>
+  <table>
+    <thead><tr><th>Clue</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>Convective cloud / TS within 10 NM of aerodrome</td><td>Delay departure/approach until cell clears.</td></tr>
+      <tr><td>Gust front, temperature drop, wind shift on surface</td><td>Hold; allow outflow to pass.</td></tr>
+      <tr><td>PIREP of ±15 kt IAS or ±500 fpm near surface</td><td>Go-around; re-plan.</td></tr>
+      <tr><td>Virga below convective cloud</td><td>Dry microburst risk — avoid overflying.</td></tr>
+      <tr><td>Encounter in flight</td><td>Max power, pitch for best-climb attitude, accept altitude loss; announce &amp; escape.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>LLWS = low-level wind shear</strong>, below <strong>2,000 ft AGL</strong> — most dangerous where no altitude exists to trade for airspeed. A microburst cycle on approach goes <strong>headwind → downdraft → tailwind</strong>. The initial headwind boost can fool you into cutting power — don't. Any <strong>virga</strong> below a convective cloud in dry air means a possible <strong>dry microburst</strong>.
+  </div>
+</div>
+</body>
+</html>

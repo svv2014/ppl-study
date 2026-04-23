@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-005: METAR Decoding</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
+  .metar-sample { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 18px 20px; font-family: 'Consolas', 'Menlo', monospace; font-size: 15px; line-height: 1.9; margin-bottom: 14px; word-break: break-word; }
+  .seg { padding: 2px 6px; border-radius: 3px; margin: 0 2px; display: inline-block; }
+  .s-type { background: #2d3e50; color: #e8edf2; }
+  .s-icao { background: #3d5a80; color: #e8edf2; }
+  .s-time { background: #4c5b8c; color: #e8edf2; }
+  .s-wind { background: #5a7a3a; color: #e8edf2; }
+  .s-vis  { background: #806030; color: #e8edf2; }
+  .s-wx   { background: #903a3a; color: #e8edf2; }
+  .s-sky  { background: #3a7a70; color: #e8edf2; }
+  .s-temp { background: #3a5a7a; color: #e8edf2; }
+  .s-alt  { background: #6a4a7a; color: #e8edf2; }
+  .s-rmk  { background: #3d3d3d; color: #e8edf2; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td code { font-family: 'Consolas', 'Menlo', monospace; background: #0d1b2a; color: #f0c040; padding: 1px 6px; border-radius: 3px; font-size: 12px; }
+  .sky-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .sky-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
+  .sky-code { font-size: 18px; color: #f0c040; font-weight: bold; font-family: 'Consolas', monospace; }
+  .sky-name { font-size: 11px; color: #e8edf2; margin-top: 4px; }
+  .sky-oktas { font-size: 10px; color: #7a9ab5; margin-top: 2px; }
+  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+  @media (max-width: 640px) { body { padding: 16px; } .sky-grid { grid-template-columns: repeat(2, 1fr); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>MET-005 — METAR Decoding</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · AIM MET 3.0 · Hourly aerodrome observation</p>
+
+  <div class="section-title" style="margin-top: 0;">Annotated METAR — CYYZ</div>
+  <div class="metar-sample">
+    <span class="seg s-type">METAR</span>
+    <span class="seg s-icao">CYYZ</span>
+    <span class="seg s-time">121700Z</span>
+    <span class="seg s-wind">24015G22KT</span>
+    <span class="seg s-vis">6SM</span>
+    <span class="seg s-wx">-SHRA</span>
+    <span class="seg s-sky">BKN025 OVC080</span>
+    <span class="seg s-temp">18/14</span>
+    <span class="seg s-alt">A2987</span>
+    <span class="seg s-rmk">RMK SC6SC2 SLP112</span>
+  </div>
+
+  <table>
+    <thead><tr><th>Segment</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>METAR</code></td><td>Routine hourly report (vs <code>SPECI</code> = special, off-hour).</td></tr>
+      <tr><td><code>CYYZ</code></td><td>ICAO station identifier (Toronto/Pearson).</td></tr>
+      <tr><td><code>121700Z</code></td><td>Day 12, 1700 UTC ("Z" = Zulu / UTC).</td></tr>
+      <tr><td><code>24015G22KT</code></td><td>Wind from 240° true at 15 kt, gusting 22 kt. Prefix <code>VRB</code> = variable; <code>00000KT</code> = calm.</td></tr>
+      <tr><td><code>6SM</code></td><td>Prevailing visibility 6 statute miles. <code>1/2SM</code>, <code>P6SM</code> (&gt; 6), <code>M1/4SM</code> (&lt; 1/4).</td></tr>
+      <tr><td><code>-SHRA</code></td><td>Light rain showers. Intensity: <code>-</code> light, (blank) moderate, <code>+</code> heavy. Descriptors: <code>SH</code> shower, <code>TS</code> thunderstorm, <code>FZ</code> freezing.</td></tr>
+      <tr><td><code>BKN025 OVC080</code></td><td>Broken layer at 2,500 ft AGL; overcast at 8,000 ft AGL.</td></tr>
+      <tr><td><code>18/14</code></td><td>Temperature 18 °C / dew point 14 °C. Prefix <code>M</code> = minus (e.g., <code>M05/M08</code>).</td></tr>
+      <tr><td><code>A2987</code></td><td>Altimeter 29.87 inHg. Canadian METARs use "A" (inches); European <code>Q</code> format is hPa.</td></tr>
+      <tr><td><code>RMK SC6SC2 SLP112</code></td><td>Remarks: cloud oktas (Canadian supplementary), sea-level pressure 1011.2 hPa.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Sky Cover — FEW / SCT / BKN / OVC</div>
+  <div class="sky-grid">
+    <div class="sky-card">
+      <div class="sky-code">FEW</div>
+      <div class="sky-name">Few</div>
+      <div class="sky-oktas">1 – 2 oktas</div>
+    </div>
+    <div class="sky-card">
+      <div class="sky-code">SCT</div>
+      <div class="sky-name">Scattered</div>
+      <div class="sky-oktas">3 – 4 oktas</div>
+    </div>
+    <div class="sky-card">
+      <div class="sky-code" style="color:#ffb040;">BKN</div>
+      <div class="sky-name">Broken</div>
+      <div class="sky-oktas">5 – 7 oktas — <strong>ceiling!</strong></div>
+    </div>
+    <div class="sky-card">
+      <div class="sky-code" style="color:#e05050;">OVC</div>
+      <div class="sky-name">Overcast</div>
+      <div class="sky-oktas">8 oktas — <strong>ceiling!</strong></div>
+    </div>
+  </div>
+
+  <div class="section-title">Common Weather Codes</div>
+  <table>
+    <thead><tr><th>Code</th><th>Phenomenon</th><th>Code</th><th>Phenomenon</th></tr></thead>
+    <tbody>
+      <tr><td><code>RA</code></td><td>Rain</td><td><code>SN</code></td><td>Snow</td></tr>
+      <tr><td><code>DZ</code></td><td>Drizzle</td><td><code>FZRA</code></td><td>Freezing rain</td></tr>
+      <tr><td><code>TSRA</code></td><td>Thunderstorm with rain</td><td><code>GR</code></td><td>Hail (&gt; 5 mm)</td></tr>
+      <tr><td><code>BR</code></td><td>Mist (vis ≥ 5/8 SM)</td><td><code>FG</code></td><td>Fog (vis &lt; 5/8 SM)</td></tr>
+      <tr><td><code>HZ</code></td><td>Haze</td><td><code>BLSN</code></td><td>Blowing snow</td></tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    A <strong>ceiling</strong> is the lowest <strong>BKN or OVC</strong> layer (FEW/SCT do not count). Wind direction in METARs is <strong>true</strong> (ATIS/tower gives magnetic). Heights in sky groups are <strong>AGL at the reporting aerodrome</strong>, in hundreds of feet. Temperatures use <strong>M</strong> for minus, never a minus sign.
+  </div>
+</div>
+</body>
+</html>

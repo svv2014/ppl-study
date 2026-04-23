@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-002: Temperature, Pressure, Humidity</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
+  .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+  .caption { font-size: 12px; color: #7a9ab5; text-align: center; margin-top: 8px; }
+  @media (max-width: 640px) {
+    body { padding: 16px; }
+    .layout { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>MET-002 — Temperature, Pressure, Humidity</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · AIM MET 2.0</p>
+
+  <div class="section-title" style="margin-top: 0;">Pressure Systems — Northern Hemisphere Flow</div>
+  <div class="layout">
+    <div class="diagram-box">
+      <svg viewBox="0 0 320 260" width="100%" height="240">
+        <!-- LOW -->
+        <circle cx="80" cy="130" r="60" fill="none" stroke="#5b9bd5" stroke-width="2"/>
+        <circle cx="80" cy="130" r="36" fill="none" stroke="#5b9bd5" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <text x="80" y="128" text-anchor="middle" fill="#5b9bd5" font-size="28" font-weight="bold">L</text>
+        <text x="80" y="146" text-anchor="middle" fill="#7a9ab5" font-size="10">LOW</text>
+        <!-- CCW arrows around LOW -->
+        <g fill="none" stroke="#5b9bd5" stroke-width="1.5">
+          <path d="M 80 78 A 52 52 0 0 0 28 130" marker-end="url(#arrL)"/>
+          <path d="M 28 130 A 52 52 0 0 0 80 182" marker-end="url(#arrL)"/>
+          <path d="M 80 182 A 52 52 0 0 0 132 130" marker-end="url(#arrL)"/>
+          <path d="M 132 130 A 52 52 0 0 0 80 78" marker-end="url(#arrL)"/>
+        </g>
+
+        <!-- HIGH -->
+        <circle cx="240" cy="130" r="60" fill="none" stroke="#e05050" stroke-width="2"/>
+        <circle cx="240" cy="130" r="36" fill="none" stroke="#e05050" stroke-width="1.2" stroke-dasharray="4,3"/>
+        <text x="240" y="128" text-anchor="middle" fill="#e05050" font-size="28" font-weight="bold">H</text>
+        <text x="240" y="146" text-anchor="middle" fill="#7a9ab5" font-size="10">HIGH</text>
+        <!-- CW arrows around HIGH -->
+        <g fill="none" stroke="#e05050" stroke-width="1.5">
+          <path d="M 240 78 A 52 52 0 0 1 292 130" marker-end="url(#arrH)"/>
+          <path d="M 292 130 A 52 52 0 0 1 240 182" marker-end="url(#arrH)"/>
+          <path d="M 240 182 A 52 52 0 0 1 188 130" marker-end="url(#arrH)"/>
+          <path d="M 188 130 A 52 52 0 0 1 240 78" marker-end="url(#arrH)"/>
+        </g>
+
+        <defs>
+          <marker id="arrL" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <polygon points="0,0 6,3 0,6" fill="#5b9bd5"/>
+          </marker>
+          <marker id="arrH" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <polygon points="0,0 6,3 0,6" fill="#e05050"/>
+          </marker>
+        </defs>
+
+        <!-- Labels below -->
+        <text x="80" y="220" text-anchor="middle" fill="#5b9bd5" font-size="11" font-weight="bold">Counter-clockwise</text>
+        <text x="80" y="234" text-anchor="middle" fill="#e8edf2" font-size="10">Converging · Rising air</text>
+        <text x="80" y="247" text-anchor="middle" fill="#7a9ab5" font-size="10">Cloud, precip, bumpy</text>
+
+        <text x="240" y="220" text-anchor="middle" fill="#e05050" font-size="11" font-weight="bold">Clockwise</text>
+        <text x="240" y="234" text-anchor="middle" fill="#e8edf2" font-size="10">Diverging · Sinking air</text>
+        <text x="240" y="247" text-anchor="middle" fill="#7a9ab5" font-size="10">Clear, stable, smooth</text>
+
+        <!-- Title -->
+        <text x="160" y="18" text-anchor="middle" fill="#f0c040" font-size="11" font-weight="bold">Surface Flow — Northern Hemisphere</text>
+      </svg>
+      <div class="caption">Buys Ballot: in the NH, wind at your back → low on your left.</div>
+    </div>
+
+    <div>
+      <table>
+        <thead><tr><th>System</th><th>Pressure Trend</th><th>Typical WX</th></tr></thead>
+        <tbody>
+          <tr><td style="color:#5b9bd5;"><strong>Low</strong></td><td>Falling</td><td>Cloud, precip, poor vis</td></tr>
+          <tr><td style="color:#e05050;"><strong>High</strong></td><td>Rising</td><td>Clear, good vis, stable</td></tr>
+          <tr><td>Trough</td><td>Elongated low</td><td>Line of showers/storms</td></tr>
+          <tr><td>Ridge</td><td>Elongated high</td><td>Fair-weather belt</td></tr>
+          <tr><td>Col</td><td>Neutral between systems</td><td>Light &amp; variable winds</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-title">Humidity &amp; Dew Point Spread</div>
+  <table>
+    <thead>
+      <tr><th>T − Td spread</th><th>Relative Humidity</th><th>Expect</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>&gt; 10 °C</td><td>Low (&lt; 50%)</td><td>Dry air, no fog/cloud risk near surface</td></tr>
+      <tr><td>5 – 10 °C</td><td>Moderate</td><td>Some cumulus possible if lifted</td></tr>
+      <tr><td>2 – 4 °C</td><td>High (&gt; 70%)</td><td>Haze, low cloud bases, early-morning fog watch</td></tr>
+      <tr><td>0 – 1 °C</td><td>Saturated (100%)</td><td>Fog / low stratus forming or imminent</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Cloud-Base Formula</div>
+  <table>
+    <thead><tr><th>Formula</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:#f0c040;">Base AGL = (T − Td) × 400 ft</strong></td>
+        <td>T = 18 °C, Td = 12 °C → spread 6 °C → cumulus base ≈ 2,400 ft AGL</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>Lows = Lousy</strong> (CCW inflow, rising, cloudy). <strong>Highs = Happy</strong> (CW outflow, sinking, clear). Temperature–dew-point spread of <strong>2 °C or less</strong> means saturation is close — watch for fog. Multiply the spread by <strong>400 ft</strong> to estimate a convective cloud base.
+  </div>
+</div>
+</body>
+</html>

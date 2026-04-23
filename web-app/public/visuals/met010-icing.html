@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-010: Icing</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
+  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .ice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .ice-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; }
+  .ice-card h3 { font-size: 14px; color: #f0c040; margin-bottom: 4px; letter-spacing: 0.5px; }
+  .ice-card .temp { font-size: 11px; color: #7a9ab5; margin-bottom: 8px; }
+  .ice-card ul { margin-left: 18px; font-size: 11px; color: #e8edf2; line-height: 1.6; }
+  .effects { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .eff-card { background: #1a2d3d; border-left: 3px solid #e05050; padding: 10px 14px; font-size: 12px; color: #e8edf2; line-height: 1.5; }
+  .eff-card strong { color: #e05050; }
+  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+  @media (max-width: 640px) { body { padding: 16px; } .ice-grid { grid-template-columns: 1fr; } .effects { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>MET-010 — Structural Icing</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · AIM MET 2.4 · Two conditions required: visible moisture + OAT ≤ 0 °C</p>
+
+  <div class="section-title" style="margin-top: 0;">Icing Temperature Envelope</div>
+  <div class="diagram-box">
+    <svg viewBox="0 0 720 200" width="100%" height="180">
+      <!-- Temperature scale bar -->
+      <rect x="40" y="70" width="640" height="50" fill="#2a4a5a" stroke="#243d52"/>
+
+      <!-- Zones: clear ice (0 to -10), mixed (-10 to -15), rime (-15 to -40) -->
+      <rect x="40" y="70" width="160" height="50" fill="#5b9bd5" opacity="0.55"/>
+      <rect x="200" y="70" width="80" height="50" fill="#c08040" opacity="0.6"/>
+      <rect x="280" y="70" width="400" height="50" fill="#e8edf2" opacity="0.35"/>
+
+      <text x="120" y="98" text-anchor="middle" fill="#e8edf2" font-size="13" font-weight="bold">CLEAR ICE</text>
+      <text x="120" y="113" text-anchor="middle" fill="#e8edf2" font-size="10">Large drops · freezing rain</text>
+
+      <text x="240" y="98" text-anchor="middle" fill="#0d1b2a" font-size="12" font-weight="bold">MIXED</text>
+      <text x="240" y="113" text-anchor="middle" fill="#0d1b2a" font-size="10">Worst shapes</text>
+
+      <text x="480" y="98" text-anchor="middle" fill="#0d1b2a" font-size="13" font-weight="bold">RIME ICE</text>
+      <text x="480" y="113" text-anchor="middle" fill="#0d1b2a" font-size="10">Small drops · stratus · low risk &lt; −20 °C</text>
+
+      <!-- Scale ticks -->
+      <g font-size="10" fill="#7a9ab5">
+        <line x1="40"  y1="120" x2="40"  y2="130" stroke="#7a9ab5"/>
+        <text x="40"  y="145" text-anchor="middle">0 °C</text>
+        <line x1="200" y1="120" x2="200" y2="130" stroke="#7a9ab5"/>
+        <text x="200" y="145" text-anchor="middle">−10 °C</text>
+        <line x1="280" y1="120" x2="280" y2="130" stroke="#7a9ab5"/>
+        <text x="280" y="145" text-anchor="middle">−15 °C</text>
+        <line x1="440" y1="120" x2="440" y2="130" stroke="#7a9ab5"/>
+        <text x="440" y="145" text-anchor="middle">−25 °C</text>
+        <line x1="680" y1="120" x2="680" y2="130" stroke="#7a9ab5"/>
+        <text x="680" y="145" text-anchor="middle">−40 °C</text>
+      </g>
+
+      <!-- Peak risk band -->
+      <rect x="40" y="55" width="240" height="12" fill="#e05050" opacity="0.7"/>
+      <text x="160" y="64" text-anchor="middle" fill="#0d1b2a" font-size="11" font-weight="bold">HIGHEST RISK · 0 to −15 °C</text>
+
+      <!-- Title -->
+      <text x="360" y="30" text-anchor="middle" fill="#f0c040" font-size="12" font-weight="bold">Liquid Water Available for Airframe Icing</text>
+      <text x="360" y="180" text-anchor="middle" fill="#7a9ab5" font-size="11">Below −40 °C water is fully crystallised — almost no icing risk.</text>
+    </svg>
+  </div>
+
+  <div class="section-title">Three Ice Types</div>
+  <div class="ice-grid">
+    <div class="ice-card">
+      <h3>Rime</h3>
+      <div class="temp">−10 °C to −40 °C · small droplets</div>
+      <ul>
+        <li>Milky, opaque, rough</li>
+        <li>Freezes on impact; traps air</li>
+        <li>Mostly in stratus clouds</li>
+        <li>Breaks off cleanly when shed</li>
+      </ul>
+    </div>
+    <div class="ice-card">
+      <h3>Clear / Glaze</h3>
+      <div class="temp">0 °C to −10 °C · large droplets</div>
+      <ul>
+        <li>Smooth, transparent, heavy</li>
+        <li>Spreads over wing before freezing</li>
+        <li>Cumuliform cloud &amp; freezing rain</li>
+        <li><strong>Most dangerous</strong> — hard to shed</li>
+      </ul>
+    </div>
+    <div class="ice-card">
+      <h3>Mixed</h3>
+      <div class="temp">−10 °C to −15 °C · varied droplets</div>
+      <ul>
+        <li>Irregular, brittle, rough surface</li>
+        <li>Worst aerodynamic shape</li>
+        <li>Common in TCU with varied drop sizes</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Effects on the Aircraft</div>
+  <div class="effects">
+    <div class="eff-card"><strong>Weight ↑</strong> — reduces useful load, climb performance.</div>
+    <div class="eff-card"><strong>Lift ↓</strong> — wing contour disrupted, stall speed rises.</div>
+    <div class="eff-card"><strong>Drag ↑</strong> — substantial; cruise speed falls, fuel burn climbs.</div>
+    <div class="eff-card"><strong>Thrust ↓</strong> — blocked carb/inlet, iced prop imbalance.</div>
+    <div class="eff-card"><strong>Control ↓</strong> — frozen hinges, jammed surfaces.</div>
+    <div class="eff-card"><strong>Instruments ↓</strong> — pitot/static block, false readings.</div>
+  </div>
+
+  <div class="section-title">Pilot Actions</div>
+  <table>
+    <thead><tr><th>Condition</th><th>Action</th></tr></thead>
+    <tbody>
+      <tr><td>Freezing rain / drizzle</td><td>Climb to above-freezing air, or descend below cloud immediately; turn back.</td></tr>
+      <tr><td>In-cloud icing starts</td><td>Change altitude to exit cloud or find warmer air (check freezing-level chart).</td></tr>
+      <tr><td>Suspected pitot/static ice</td><td>Pitot heat ON, alt. static source if equipped; cross-check GPS ground speed.</td></tr>
+      <tr><td>Suspected induction / carb ice</td><td>Carb heat full ON; watch for initial RPM drop then recovery.</td></tr>
+      <tr><td>Any severe icing</td><td>Declare &amp; divert; file a <strong>UUA</strong> PIREP.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    Two conditions are required for structural icing: <strong>visible moisture</strong> AND <strong>OAT ≤ 0 °C</strong>. Highest risk band is <strong>0 to −15 °C</strong>. <strong>Freezing rain</strong> means warmer air above — <strong>climb</strong> to escape (or turn back). Most non-ice-protected GA aircraft are prohibited from flight into known icing conditions.
+  </div>
+</div>
+</body>
+</html>

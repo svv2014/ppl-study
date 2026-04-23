@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-014: Weather Decision-Making</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
+  .flow { display: flex; flex-direction: column; gap: 10px; }
+  .flow-row { background: #1a2d3d; border-left: 4px solid #f0c040; border-radius: 6px; padding: 14px 18px; }
+  .flow-row h3 { font-size: 13px; color: #f0c040; margin-bottom: 6px; letter-spacing: 0.5px; }
+  .flow-row p { font-size: 12px; color: #e8edf2; line-height: 1.55; }
+  .flow-row.ok { border-left-color: #4caf7d; }
+  .flow-row.warn { border-left-color: #f0c040; }
+  .flow-row.stop { border-left-color: #e05050; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .imsafe { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
+  .im-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
+  .im-letter { font-size: 20px; color: #f0c040; font-weight: bold; font-family: 'Consolas', monospace; }
+  .im-word { font-size: 12px; color: #e8edf2; margin-top: 4px; font-weight: bold; }
+  .im-sub { font-size: 10px; color: #7a9ab5; margin-top: 3px; line-height: 1.4; }
+  .risk-matrix { display: grid; grid-template-columns: 120px repeat(3, 1fr); gap: 1px; background: #243d52; border: 1px solid #243d52; border-radius: 8px; overflow: hidden; }
+  .r-cell { background: #1a2d3d; padding: 10px 12px; font-size: 12px; text-align: center; color: #e8edf2; }
+  .r-cell.hdr { background: #243d52; color: #f0c040; font-weight: bold; letter-spacing: 0.5px; font-size: 11px; }
+  .r-cell.low { background: #1e3a28; }
+  .r-cell.med { background: #4a3a1a; }
+  .r-cell.high { background: #4a1a1a; }
+  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+  @media (max-width: 640px) { body { padding: 16px; } .risk-matrix { grid-template-columns: 80px repeat(3, 1fr); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>MET-014 — Weather Decision-Making</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · CARs 602.71 · Pre-flight &amp; in-flight decision framework</p>
+
+  <div class="section-title" style="margin-top: 0;">Decision Flow</div>
+  <div class="flow">
+    <div class="flow-row">
+      <h3>1 · Gather</h3>
+      <p>METAR, TAF, GFA (Clouds &amp; Weather + Icing/Turb), SIGMETs, AIRMETs, PIREPs. Cover whole route plus alternates.</p>
+    </div>
+    <div class="flow-row">
+      <h3>2 · Check CARs 602.71 — Pre-flight Information</h3>
+      <p>Legal requirement: the PIC must be familiar with all available weather information relevant to the flight before take-off.</p>
+    </div>
+    <div class="flow-row ok">
+      <h3>3 · Test against regulatory minima</h3>
+      <p>VFR minima by airspace (CAR 602.114/602.115), destination/alternate (for flight plan), fuel reserve. If fail → <strong>no-go</strong>.</p>
+    </div>
+    <div class="flow-row warn">
+      <h3>4 · Test against personal minima</h3>
+      <p>Your own limits on ceiling, vis, wind, crosswind, turbulence, night, terrain. These are tighter than legal minima — if any fails → <strong>no-go</strong>.</p>
+    </div>
+    <div class="flow-row warn">
+      <h3>5 · Run IMSAFE self-check</h3>
+      <p>If you fail any letter, you are unfit to fly regardless of the weather.</p>
+    </div>
+    <div class="flow-row ok">
+      <h3>6 · Identify outs</h3>
+      <p>Alternates, reversals, VFR-on-top option, fuel reserve to reach next suitable aerodrome. If no out → <strong>no-go</strong>.</p>
+    </div>
+    <div class="flow-row stop">
+      <h3>7 · In flight: re-evaluate every 30 min</h3>
+      <p>Update METAR/TAF via FSS/NAV CANADA, watch for trend vs forecast. A divergence is a trigger to divert — <strong>don't press on</strong>.</p>
+    </div>
+  </div>
+
+  <div class="section-title">IMSAFE Self-Check</div>
+  <div class="imsafe">
+    <div class="im-card"><div class="im-letter">I</div><div class="im-word">Illness</div><div class="im-sub">Symptoms even mild</div></div>
+    <div class="im-card"><div class="im-letter">M</div><div class="im-word">Medication</div><div class="im-sub">OTC or Rx; read labels</div></div>
+    <div class="im-card"><div class="im-letter">S</div><div class="im-word">Stress</div><div class="im-sub">Work, life, news</div></div>
+    <div class="im-card"><div class="im-letter">A</div><div class="im-word">Alcohol</div><div class="im-sub">≥ 8 hr "bottle to throttle"; zero residual</div></div>
+    <div class="im-card"><div class="im-letter">F</div><div class="im-word">Fatigue</div><div class="im-sub">Rest, not caffeine</div></div>
+    <div class="im-card"><div class="im-letter">E</div><div class="im-word">Emotion / Eating</div><div class="im-sub">Stable mood, fuelled body</div></div>
+  </div>
+
+  <div class="section-title">Risk Matrix</div>
+  <div class="risk-matrix">
+    <div class="r-cell hdr">Likelihood →<br>Severity ↓</div>
+    <div class="r-cell hdr">Unlikely</div>
+    <div class="r-cell hdr">Possible</div>
+    <div class="r-cell hdr">Likely</div>
+
+    <div class="r-cell hdr">Minor</div>
+    <div class="r-cell low">Low</div>
+    <div class="r-cell low">Low</div>
+    <div class="r-cell med">Medium</div>
+
+    <div class="r-cell hdr">Moderate</div>
+    <div class="r-cell low">Low</div>
+    <div class="r-cell med">Medium</div>
+    <div class="r-cell high">High</div>
+
+    <div class="r-cell hdr">Severe / Catastrophic</div>
+    <div class="r-cell med">Medium</div>
+    <div class="r-cell high">High</div>
+    <div class="r-cell high">High</div>
+  </div>
+  <p style="font-size: 12px; color: #7a9ab5; margin-top: 10px;">
+    Any cell shaded <strong style="color:#e8a060;">medium</strong> needs a mitigation (alternate, delay, extra fuel, second pilot). Any <strong style="color:#e05050;">high</strong> cell = no-go until mitigated.
+  </p>
+
+  <div class="section-title">Hazardous Attitudes — Antidotes</div>
+  <table>
+    <thead><tr><th>Attitude</th><th>Sample Thought</th><th>Antidote</th></tr></thead>
+    <tbody>
+      <tr><td>Anti-authority</td><td>"Regs don't apply to me today."</td><td>Follow the rules. They're usually right.</td></tr>
+      <tr><td>Impulsivity</td><td>"Quick — just go."</td><td>Not so fast. Think first.</td></tr>
+      <tr><td>Invulnerability</td><td>"It won't happen to me."</td><td>It could happen to me.</td></tr>
+      <tr><td>Macho</td><td>"I can do it."</td><td>Taking chances is foolish.</td></tr>
+      <tr><td>Resignation</td><td>"What's the use?"</td><td>I'm not helpless; I can make a difference.</td></tr>
+      <tr><td>Press-on-itis</td><td>"We're so close to destination."</td><td>Divert and live. Nothing at destination is worth a crash.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    The <strong>PIC</strong> is legally required by <strong>CARs 602.71</strong> to have all available weather information before departure. Apply two tests: <strong>regulatory minima</strong> (hard floor) AND <strong>personal minima</strong> (your floor). Add <strong>IMSAFE</strong> for the pilot. Always have an <strong>out</strong>. The most dangerous attitude is <strong>press-on-itis</strong> — when "just a few more miles" kills experienced pilots.
+  </div>
+</div>
+</body>
+</html>
