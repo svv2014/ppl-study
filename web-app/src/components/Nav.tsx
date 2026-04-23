@@ -18,6 +18,8 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { colorTokens } from '../tokens';
+import { useThemeMode } from '../context/ThemeModeContext';
+import ModeToggle from './ModeToggle';
 
 const NAV_LINKS = [
   { label: 'Home', shortLabel: 'Home', to: '/', icon: <HomeIcon /> },
@@ -37,6 +39,8 @@ function isActiveRoute(pathname: string, to: string): boolean {
 
 export default function Nav() {
   const theme = useTheme();
+  const { mode } = useThemeMode();
+  const c = colorTokens[mode];
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const location = useLocation();
   const navigate = useNavigate();
@@ -70,8 +74,8 @@ export default function Nav() {
           '& .MuiDrawer-paper': {
             width: railWidth,
             boxSizing: 'border-box',
-            backgroundColor: colorTokens.background.paper,
-            borderRight: `1px solid ${colorTokens.divider}`,
+            backgroundColor: c.background.paper,
+            borderRight: `1px solid ${c.divider}`,
             overflowX: 'hidden',
             transition: theme.transitions.create('width', {
               easing: theme.transitions.easing.sharp,
@@ -90,7 +94,7 @@ export default function Nav() {
             px: 2,
             py: 2,
             minHeight: 56,
-            borderBottom: `1px solid ${colorTokens.divider}`,
+            borderBottom: `1px solid ${c.divider}`,
             overflow: 'hidden',
             whiteSpace: 'nowrap',
           }}
@@ -98,7 +102,7 @@ export default function Nav() {
           <Typography
             component="span"
             sx={{
-              color: colorTokens.primary.main,
+              color: c.primary.main,
               fontWeight: 700,
               fontSize: '1.1rem',
               letterSpacing: '0.01em',
@@ -137,17 +141,15 @@ export default function Nav() {
                     overflow: 'hidden',
                     whiteSpace: 'nowrap',
                     borderLeft: active
-                      ? `3px solid ${colorTokens.primary.main}`
+                      ? `3px solid ${c.primary.main}`
                       : '3px solid transparent',
-                    color: active
-                      ? colorTokens.primary.main
-                      : colorTokens.text.secondary,
-                    backgroundColor: active ? colorTokens.primary.muted : 'transparent',
+                    color: active ? c.primary.main : c.text.secondary,
+                    backgroundColor: active ? c.primary.muted : 'transparent',
                     transition: 'color 0.15s, background-color 0.15s',
                     justifyContent: collapsed ? 'center' : 'flex-start',
                     '&:hover': {
-                      color: colorTokens.primary.main,
-                      backgroundColor: colorTokens.primary.muted,
+                      color: c.primary.main,
+                      backgroundColor: c.primary.muted,
                     },
                     '& svg': {
                       flexShrink: 0,
@@ -176,10 +178,23 @@ export default function Nav() {
           })}
         </Box>
 
+        {/* Mode toggle — bottom of sidebar */}
+        <Box
+          sx={{
+            borderTop: `1px solid ${c.divider}`,
+            display: 'flex',
+            justifyContent: collapsed ? 'center' : 'flex-start',
+            px: collapsed ? 0 : 1,
+            py: 0.5,
+          }}
+        >
+          <ModeToggle />
+        </Box>
+
         {/* Collapse toggle */}
         <Box
           sx={{
-            borderTop: `1px solid ${colorTokens.divider}`,
+            borderTop: `1px solid ${c.divider}`,
             display: 'flex',
             justifyContent: collapsed ? 'center' : 'flex-end',
             px: collapsed ? 0 : 1,
@@ -187,10 +202,10 @@ export default function Nav() {
           }}
         >
           <IconButton
-            onClick={() => setCollapsed((c) => !c)}
+            onClick={() => setCollapsed((cv) => !cv)}
             aria-label={collapsed ? 'Expand navigation' : 'Collapse navigation'}
             size="small"
-            sx={{ color: colorTokens.text.secondary }}
+            sx={{ color: c.text.secondary }}
           >
             {collapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
@@ -199,7 +214,7 @@ export default function Nav() {
     );
   }
 
-  // Mobile: bottom nav
+  // Mobile: bottom nav with mode toggle
   return (
     <Paper
       elevation={3}
@@ -210,21 +225,46 @@ export default function Nav() {
         right: 0,
         zIndex: theme.zIndex.appBar,
         pb: 'env(safe-area-inset-bottom)',
-        backgroundColor: colorTokens.background.paper,
-        borderTop: `1px solid ${colorTokens.divider}`,
+        backgroundColor: c.background.paper,
+        borderTop: `1px solid ${c.divider}`,
       }}
     >
+      {/* Mode toggle strip above bottom nav */}
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          px: 1,
+          borderBottom: `1px solid ${c.divider}`,
+          height: 0,
+          overflow: 'visible',
+          position: 'relative',
+        }}
+      >
+        <Box sx={{ position: 'absolute', top: -48, right: 4 }}>
+          <Paper
+            elevation={2}
+            sx={{
+              backgroundColor: c.background.paper,
+              border: `1px solid ${c.divider}`,
+              borderRadius: '4px',
+            }}
+          >
+            <ModeToggle />
+          </Paper>
+        </Box>
+      </Box>
       <BottomNavigation
         value={activeIndex}
         onChange={(_, newValue: number) => navigate(NAV_LINKS[newValue].to)}
         sx={{
-          backgroundColor: colorTokens.background.paper,
+          backgroundColor: c.background.paper,
           '& .MuiBottomNavigationAction-root': {
-            color: colorTokens.text.secondary,
+            color: c.text.secondary,
             minWidth: 0,
           },
           '& .MuiBottomNavigationAction-root.Mui-selected': {
-            color: colorTokens.primary.main,
+            color: c.primary.main,
           },
           '& .MuiBottomNavigationAction-label': {
             fontSize: '0.7rem',
