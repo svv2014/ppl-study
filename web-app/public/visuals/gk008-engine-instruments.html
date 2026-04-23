@@ -7,17 +7,23 @@
 <link rel="stylesheet" href="_common.css">
 <style>
   .panel-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 32px; }
-  .gauge-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
-  .gauge-name { font-size: 11px; color: #f0c040; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px; }
-  .gauge-abbr { font-size: 10px; color: #7a9ab5; margin-bottom: 8px; }
-  .arc-green { color: #4caf7d; font-weight: bold; }
-  .arc-yellow { color: #f0c040; font-weight: bold; }
-  .arc-red { color: #e05050; font-weight: bold; }
-  .note-box { border-left-color: #e05050; }
+  .gauge-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+  .gauge-name { font-size: 11px; color: var(--accent); font-weight: bold; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .gauge-abbr { font-size: 10px; color: var(--text-muted); margin-bottom: 8px; }
+  .arc-green { color: var(--success); font-weight: bold; }
+  .arc-yellow { color: var(--accent); font-weight: bold; }
+  .arc-red { color: var(--danger); font-weight: bold; }
+  .note-box { border-left-color: var(--danger); }
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .panel-grid { grid-template-columns: repeat(2, 1fr); }
+    table { display: block; overflow-x: auto; }
+    button { min-height: 44px; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 <div class="container">
   <h1>GK-008 — Engine Instruments Panel</h1>
