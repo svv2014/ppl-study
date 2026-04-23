@@ -9,15 +9,21 @@
   .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
   td { text-align: right; }
   td:first-child { text-align: left; }
-  .formula-box { background: #1a2d3d; border: 1px solid #f0c040; border-radius: 8px; padding: 18px; margin-bottom: 20px; text-align: center; }
-  .formula { font-size: 18px; color: #f0c040; font-weight: bold; letter-spacing: 1px; margin-bottom: 6px; }
-  .formula-sub { font-size: 12px; color: #7a9ab5; }
-  .total-row td { background: #243d52; color: #f0c040; font-weight: bold; }
-  .warning { color: #e05050; font-weight: bold; }
+  .formula-box { background: #1a2d3d; border: 1px solid var(--accent); border-radius: 8px; padding: 18px; margin-bottom: 20px; text-align: center; }
+  .formula { font-size: 18px; color: var(--accent); font-weight: bold; letter-spacing: 1px; margin-bottom: 6px; }
+  .formula-sub { font-size: 12px; color: var(--text-muted); }
+  .total-row td { background: #243d52; color: var(--accent); font-weight: bold; }
+  .warning { color: var(--danger); font-weight: bold; }
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .layout { grid-template-columns: 1fr; }
+    table { display: block; overflow-x: auto; }
+    button { min-height: 44px; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 <div class="container">
   <h1>GK-009 — Weight &amp; Balance</h1>
@@ -148,7 +154,7 @@
         </tbody>
       </table>
       <div class="formula-box" style="margin-top:0;">
-        <div class="formula">CG = 165,528 ÷ 1,870 = <span style="color:#4caf7d;">88.5 inches</span></div>
+        <div class="formula">CG = 165,528 ÷ 1,870 = <span style="color:var(--success);">88.5 inches</span></div>
         <div class="formula-sub">CG is aft of datum by 88.5 inches — check against envelope limits</div>
       </div>
     </div>
