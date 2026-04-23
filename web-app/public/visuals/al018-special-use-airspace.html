@@ -17,27 +17,33 @@
   .label-fa { color: #f0c040; }
   .label-moa { color: #64a0ff; }
   .label-adiz { color: #a080ff; }
-  .type-name { font-size: 12px; color: #7a9ab5; margin-bottom: 10px; font-weight: 600; }
-  .type-body { font-size: 13px; color: #c8d8e8; line-height: 1.6; }
-  .type-body strong { color: #e8edf2; }
+  .type-name { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600; }
+  .type-body { font-size: 13px; color: var(--text); line-height: 1.6; }
+  .type-body strong { color: var(--text); }
   .entry-rule { font-size: 12px; font-weight: 700; margin-top: 8px; padding: 4px 8px; border-radius: 4px; display: inline-block; }
   .rule-restricted { background: rgba(255,80,80,0.15); color: #ff7070; }
   .rule-advisory { background: rgba(255,200,0,0.12); color: #f0c040; }
   .rule-restricted-moa { background: rgba(100,160,255,0.15); color: #64a0ff; }
   .rule-adiz { background: rgba(130,100,255,0.15); color: #a080ff; }
 
-  .cond { color: #f0c040; font-weight: 600; }
+  .cond { color: var(--accent); font-weight: 600; }
 
   .adiz-box { background: rgba(130,100,255,0.06); border: 1.5px solid rgba(130,100,255,0.25); border-radius: 10px; padding: 18px 20px; margin-bottom: 28px; }
   .adiz-box h2 { font-size: 12px; color: #a080ff; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 600; }
   .adiz-step { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
   .adiz-num { background: rgba(130,100,255,0.2); color: #a080ff; font-size: 10px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-  .adiz-text { font-size: 13px; color: #c8d8e8; line-height: 1.5; }
-  .adiz-text strong { color: #f0c040; }
+  .adiz-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .adiz-text strong { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .type-grid { grid-template-columns: 1fr; }
+    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 
 <h1>AL-018 — Special Use Airspace: Class F(R), MOAs, ADIZs</h1>
