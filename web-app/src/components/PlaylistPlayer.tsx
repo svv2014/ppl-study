@@ -9,7 +9,8 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import type { Lesson } from '../lib/types';
 import { TOPIC_LABELS } from '../lib/curriculum';
-import { readSpeed, writeSpeed } from '../lib/audio-state';
+import { readSpeed, writeSpeed, readPosition, writePosition } from '../lib/audio-state';
+import PlaylistQueue from './player/PlaylistQueue';
 
 const SPEEDS = [0.75, 1, 1.1, 1.25, 1.5, 1.75, 2] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -23,18 +24,39 @@ interface PlaylistPlayerProps {
 export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
   const [playlist] = useState<Lesson[]>(() => lessons.filter((l) => l.audio !== null));
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [playedIndices, setPlayedIndices] = useState<ReadonlySet<number>>(() => new Set());
   const [speed, setSpeed] = useState<Speed>(() => {
     const saved = readSpeed();
     return (SPEEDS as readonly number[]).includes(saved) ? (saved as Speed) : 1;
   });
   const audioRef = useRef<HTMLAudioElement>(null);
+  const savePositionRef = useRef<() => void>(() => {});
+
+  // Keep savePositionRef current without recreating effects
+  savePositionRef.current = () => {
+    const audio = audioRef.current;
+    const lesson = playlist[currentIndex];
+    if (audio && lesson) {
+      writePosition(lesson.id, audio.currentTime);
+    }
+  };
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     audio.load();
     audio.playbackRate = speed;
-    audio.play().catch(() => {});
+    const savedPos = readPosition(playlist[currentIndex]?.id ?? '');
+    const onCanPlay = () => {
+      if (savedPos > 0) {
+        audio.currentTime = savedPos;
+      }
+      audio.play().catch(() => {});
+    };
+    audio.addEventListener('canplay', onCanPlay, { once: true });
+    return () => {
+      audio.removeEventListener('canplay', onCanPlay);
+    };
   }, [currentIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -43,21 +65,50 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
     }
   }, [speed]);
 
+  // Save position periodically and on pause
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const onTimeUpdate = () => savePositionRef.current();
+    const onPause = () => savePositionRef.current();
+    audio.addEventListener('timeupdate', onTimeUpdate);
+    audio.addEventListener('pause', onPause);
+    return () => {
+      audio.removeEventListener('timeupdate', onTimeUpdate);
+      audio.removeEventListener('pause', onPause);
+    };
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   if (playlist.length === 0) return null;
 
   const current = playlist[currentIndex];
 
+  function jumpTo(index: number) {
+    savePositionRef.current();
+    setPlayedIndices((prev: ReadonlySet<number>) => {
+      const next = new Set(prev);
+      next.add(currentIndex);
+      return next;
+    });
+    setCurrentIndex(index);
+  }
+
   function handlePrev() {
-    setCurrentIndex((i) => Math.max(0, i - 1));
+    jumpTo(Math.max(0, currentIndex - 1));
   }
 
   function handleNext() {
-    setCurrentIndex((i) => Math.min(playlist.length - 1, i + 1));
+    jumpTo(Math.min(playlist.length - 1, currentIndex + 1));
   }
 
   function handleEnded() {
+    setPlayedIndices((prev: ReadonlySet<number>) => {
+      const next = new Set(prev);
+      next.add(currentIndex);
+      return next;
+    });
     if (currentIndex < playlist.length - 1) {
-      setCurrentIndex((i) => i + 1);
+      setCurrentIndex((i: number) => i + 1);
     }
   }
 
@@ -152,6 +203,12 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
         <source src={current.audio!} type="audio/mp4" />
         Your browser does not support the audio element.
       </audio>
+      <PlaylistQueue
+        playlist={playlist}
+        currentIndex={currentIndex}
+        playedIndices={playedIndices}
+        onJump={jumpTo}
+      />
     </Box>
   );
 }
