@@ -77,6 +77,14 @@ export function getLessonsByTopic(topic: string): Lesson[] {
   return getAllLessons().filter((l) => l.topic === topic);
 }
 
+export function getLessonsByTrack(trackId: string): Lesson[] {
+  const all = getAllLessons();
+  if (trackId === 'pstar') {
+    return all.filter((l) => l.topic === 'air-law');
+  }
+  return all;
+}
+
 export function getAdjacentLessons(
   topic: string,
   slug: string,

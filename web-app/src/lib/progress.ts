@@ -1,7 +1,11 @@
 import { useState, useEffect, useCallback } from 'react';
 import type { Progress, ProgressStore, QuizAttempt } from './types';
 
-const STORAGE_KEY = 'ppl-study-progress';
+const LEGACY_KEY = 'ppl-study-progress';
+
+function storageKey(trackId: string): string {
+  return `ppl.progress.${trackId}`;
+}
 
 function emptyProgress(): Progress {
   return {
@@ -12,9 +16,9 @@ function emptyProgress(): Progress {
   };
 }
 
-function load(): Progress {
+function loadRaw(key: string): Progress {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(key);
     if (!raw) return emptyProgress();
     const parsed = JSON.parse(raw) as Partial<Progress>;
     return {
@@ -28,52 +32,74 @@ function load(): Progress {
   }
 }
 
-function save(progress: Progress): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+function saveRaw(key: string, progress: Progress): void {
+  localStorage.setItem(key, JSON.stringify(progress));
+}
+
+function migrateLegacy(trackId: string): void {
+  if (trackId !== 'ppl-a') return;
+  const key = storageKey(trackId);
+  try {
+    // Only migrate if new key is empty and legacy key has data
+    if (!localStorage.getItem(key) && localStorage.getItem(LEGACY_KEY)) {
+      const legacy = localStorage.getItem(LEGACY_KEY)!;
+      localStorage.setItem(key, legacy);
+      localStorage.removeItem(LEGACY_KEY);
+    }
+  } catch {
+    // ignore storage errors
+  }
 }
 
 export class LocalStorageProgressStore implements ProgressStore {
+  readonly storageKey: string;
+
+  constructor(trackId = 'ppl-a') {
+    this.storageKey = storageKey(trackId);
+    migrateLegacy(trackId);
+  }
+
   getProgress(): Progress {
-    return load();
+    return loadRaw(this.storageKey);
   }
 
   markComplete(lessonId: string): void {
-    const p = load();
+    const p = loadRaw(this.storageKey);
     if (!p.completed.includes(lessonId)) {
       p.completed = [...p.completed, lessonId];
       p.lastUpdated = new Date().toISOString();
-      save(p);
+      saveRaw(this.storageKey, p);
     }
   }
 
   markIncomplete(lessonId: string): void {
-    const p = load();
+    const p = loadRaw(this.storageKey);
     p.completed = p.completed.filter((id) => id !== lessonId);
     p.lastUpdated = new Date().toISOString();
-    save(p);
+    saveRaw(this.storageKey, p);
   }
 
   recordQuizAttempt(attempt: QuizAttempt): void {
-    const p = load();
+    const p = loadRaw(this.storageKey);
     p.quizHistory = [...p.quizHistory, attempt];
     p.lastExamScores[attempt.lessonId] = attempt.percent;
     p.lastUpdated = new Date().toISOString();
-    save(p);
+    saveRaw(this.storageKey, p);
   }
 
   setLastExamScore(lessonId: string, percent: number): void {
-    const p = load();
+    const p = loadRaw(this.storageKey);
     p.lastExamScores[lessonId] = percent;
     p.lastUpdated = new Date().toISOString();
-    save(p);
+    saveRaw(this.storageKey, p);
   }
 
   reset(): void {
-    localStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(this.storageKey);
   }
 }
 
-const defaultStore = new LocalStorageProgressStore();
+const defaultStore = new LocalStorageProgressStore('ppl-a');
 
 export interface UseProgressResult {
   progress: Progress;
@@ -86,18 +112,21 @@ export interface UseProgressResult {
 }
 
 export function useProgress(store: ProgressStore = defaultStore): UseProgressResult {
+  const key =
+    store instanceof LocalStorageProgressStore ? store.storageKey : storageKey('ppl-a');
+
   const [progress, setProgress] = useState<Progress>(() => store.getProgress());
 
   // Sync across tabs
   useEffect(() => {
     function onStorage(e: StorageEvent) {
-      if (e.key === STORAGE_KEY) {
+      if (e.key === key) {
         setProgress(store.getProgress());
       }
     }
     window.addEventListener('storage', onStorage);
     return () => window.removeEventListener('storage', onStorage);
-  }, [store]);
+  }, [store, key]);
 
   const markComplete = useCallback(
     (lessonId: string) => {

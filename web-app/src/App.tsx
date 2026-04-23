@@ -90,6 +90,7 @@ export default function App() {
             sx={{
               flex: 1,
               minWidth: 0,
+              pt: { xs: '48px', md: 0 },
               pb: playerVisible
                 ? { xs: '200px', sm: '200px', md: '80px' }
                 : { xs: 7, sm: 7, md: 0 },

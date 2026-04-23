@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import AppBar from '@mui/material/AppBar';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
+import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -20,6 +22,7 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { colorTokens } from '../tokens';
 import { useThemeMode } from '../context/ThemeModeContext';
 import ModeToggle from './ModeToggle';
+import TrackSwitcher from './TrackSwitcher';
 
 const NAV_LINKS = [
   { label: 'Home', shortLabel: 'Home', to: '/', icon: <HomeIcon /> },
@@ -112,6 +115,20 @@ export default function Nav() {
             <span aria-hidden="true">✈ </span>
             {!collapsed && 'PPL Study'}
           </Typography>
+        </Box>
+
+        {/* Track switcher */}
+        <Box
+          sx={{
+            px: collapsed ? 0.5 : 2,
+            py: 1.25,
+            borderBottom: `1px solid ${c.divider}`,
+            display: 'flex',
+            justifyContent: collapsed ? 'center' : 'flex-start',
+            overflow: 'hidden',
+          }}
+        >
+          <TrackSwitcher />
         </Box>
 
         {/* Nav links */}
@@ -214,81 +231,99 @@ export default function Nav() {
     );
   }
 
-  // Mobile: bottom nav with mode toggle
+  // Mobile: top app bar (branding + track switcher + mode toggle) + bottom nav
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        position: 'fixed',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        zIndex: theme.zIndex.appBar,
-        pb: 'env(safe-area-inset-bottom)',
-        backgroundColor: c.background.paper,
-        borderTop: `1px solid ${c.divider}`,
-      }}
-    >
-      {/* Mode toggle strip above bottom nav */}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          px: 1,
-          borderBottom: `1px solid ${c.divider}`,
-          height: 0,
-          overflow: 'visible',
-          position: 'relative',
-        }}
-      >
-        <Box sx={{ position: 'absolute', top: -48, right: 4 }}>
-          <Paper
-            elevation={2}
-            sx={{
-              backgroundColor: c.background.paper,
-              border: `1px solid ${c.divider}`,
-              borderRadius: '4px',
-            }}
-          >
-            <ModeToggle />
-          </Paper>
-        </Box>
-      </Box>
-      <BottomNavigation
-        value={activeIndex}
-        onChange={(_, newValue: number) => navigate(NAV_LINKS[newValue].to)}
+    <>
+      <AppBar
+        position="fixed"
+        elevation={0}
         sx={{
           backgroundColor: c.background.paper,
-          '& .MuiBottomNavigationAction-root': {
-            color: c.text.secondary,
-            minWidth: 0,
-          },
-          '& .MuiBottomNavigationAction-root.Mui-selected': {
-            color: c.primary.main,
-          },
-          '& .MuiBottomNavigationAction-label': {
-            fontSize: '0.7rem',
-            fontWeight: 500,
-            textTransform: 'uppercase',
-            letterSpacing: '0.04em',
-          },
+          borderBottom: `1px solid ${c.divider}`,
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: theme.zIndex.appBar,
         }}
       >
-        {NAV_LINKS.map(({ shortLabel, to, icon }, idx) => {
-          const active = isActiveRoute(location.pathname, to);
-          return (
-            <BottomNavigationAction
-              key={to}
-              label={shortLabel}
-              icon={icon}
-              aria-current={active ? 'page' : undefined}
-              component={RouterLink}
-              to={to}
-              value={idx}
-            />
-          );
-        })}
-      </BottomNavigation>
-    </Paper>
+        <Toolbar
+          variant="dense"
+          sx={{
+            minHeight: 48,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            px: 2,
+          }}
+        >
+          <Typography
+            component="span"
+            sx={{
+              color: c.primary.main,
+              fontWeight: 700,
+              fontSize: '1rem',
+              letterSpacing: '0.01em',
+            }}
+          >
+            <span aria-hidden="true">✈ </span>
+            PPL Study
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <ModeToggle />
+            <TrackSwitcher />
+          </Box>
+        </Toolbar>
+      </AppBar>
+
+      <Paper
+        elevation={3}
+        sx={{
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: theme.zIndex.appBar,
+          pb: 'env(safe-area-inset-bottom)',
+          backgroundColor: c.background.paper,
+          borderTop: `1px solid ${c.divider}`,
+        }}
+      >
+        <BottomNavigation
+          value={activeIndex}
+          onChange={(_, newValue: number) => navigate(NAV_LINKS[newValue].to)}
+          sx={{
+            backgroundColor: c.background.paper,
+            '& .MuiBottomNavigationAction-root': {
+              color: c.text.secondary,
+              minWidth: 0,
+            },
+            '& .MuiBottomNavigationAction-root.Mui-selected': {
+              color: c.primary.main,
+            },
+            '& .MuiBottomNavigationAction-label': {
+              fontSize: '0.7rem',
+              fontWeight: 500,
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+            },
+          }}
+        >
+          {NAV_LINKS.map(({ shortLabel, to, icon }, idx) => {
+            const active = isActiveRoute(location.pathname, to);
+            return (
+              <BottomNavigationAction
+                key={to}
+                label={shortLabel}
+                icon={icon}
+                aria-current={active ? 'page' : undefined}
+                component={RouterLink}
+                to={to}
+                value={idx}
+              />
+            );
+          })}
+        </BottomNavigation>
+      </Paper>
+    </>
   );
 }
