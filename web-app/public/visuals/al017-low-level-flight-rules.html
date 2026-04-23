@@ -6,24 +6,30 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>AL-017: Low-Level Flight Rules — 500 ft, Congested Areas, Noise Abatement</title>
 <style>
-  .rule-ref { color: #7a9ab5; font-size: 11px; }
-  .alt-value { color: #f0c040; font-weight: 700; }
+  .rule-ref { color: var(--text-muted); font-size: 11px; }
+  .alt-value { color: var(--accent); font-weight: 700; }
   .dist-value { color: #80c880; font-weight: 600; }
 
-  .diagram-box { background: #1a2d3d; border-radius: 10px; padding: 20px; margin-bottom: 28px; }
-  .diagram-box h2 { font-size: 12px; color: #7a9ab5; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 600; }
+  .diagram-box { background: var(--surface); border-radius: 10px; padding: 20px; margin-bottom: 28px; }
+  .diagram-box h2 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 600; }
   .alt-svg { width: 100%; height: auto; display: block; }
 
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px; }
-  .card { background: #1a2d3d; border-radius: 10px; padding: 16px 18px; }
-  .card-title { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 6px; }
-  .card-rule { font-size: 11px; color: #7a9ab5; margin-bottom: 8px; }
-  .card-body { font-size: 13px; color: #c8d8e8; line-height: 1.6; }
-  .card-body strong { color: #e8edf2; }
+  .card { background: var(--surface); border-radius: 10px; padding: 16px 18px; }
+  .card-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .card-rule { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+  .card-body { font-size: 13px; color: var(--text); line-height: 1.6; }
+  .card-body strong { color: var(--text); }
+
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .cards { grid-template-columns: 1fr; }
+    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 
 <h1>AL-017 — Low-Level Flight Rules: 500 ft Rule, Congested Areas, Noise Abatement</h1>
