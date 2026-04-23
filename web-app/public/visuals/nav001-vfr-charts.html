@@ -7,39 +7,30 @@
 <title>NAV-001: VFR Aeronautical Charts — Reading the Map</title>
 <style>
 body { max-width: 860px; margin: auto; }
-  
-  
-
-  
 
   /* ── Scale cards ─────────────────────────────────────────────────── */
-  
-  .scale-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; }
-  .scale-title { font-size: 16px; font-weight: 800; color: #f0c040; margin-bottom: 4px; }
-  .scale-sub { font-size: 12px; color: #7a9ab5; margin-bottom: 14px; }
-  .scale-eq { font-size: 13px; color: #c8d8e8; line-height: 1.8; }
-  .scale-eq strong { color: #f0c040; }
+  .scale-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+  .scale-title { font-size: 16px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+  .scale-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 14px; }
+  .scale-eq { font-size: 13px; color: var(--text); line-height: 1.8; }
+  .scale-eq strong { color: var(--accent); }
   .scale-bar { height: 8px; border-radius: 4px; margin: 10px 0 4px; display: flex; overflow: hidden; }
-  .scale-seg-dark { background: #1a3a5a; flex: 1; }
+  .scale-seg-dark { background: var(--border); flex: 1; }
   .scale-seg-light { background: #3a6a9a; flex: 1; }
-  .scale-bar-label { display: flex; justify-content: space-between; font-size: 10px; color: #7a9ab5; }
+  .scale-bar-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); }
 
   /* ── Symbol grid ─────────────────────────────────────────────────── */
   .symbol-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 32px; }
-  .sym-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .sym-card .sym-label { font-size: 12px; font-weight: 700; color: #c8d8e8; text-align: center; }
-  .sym-card .sym-sub { font-size: 11px; color: #7a9ab5; text-align: center; line-height: 1.4; }
+  .sym-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .sym-card .sym-label { font-size: 12px; font-weight: 700; color: var(--text); text-align: center; }
+  .sym-card .sym-sub { font-size: 11px; color: var(--text-muted); text-align: center; line-height: 1.4; }
 
   /* ── Airspace lines table ─────────────────────────────────────────── */
-  
-  
-  
-  
   .line-demo { display: flex; align-items: center; height: 16px; }
-  .line-note { font-size: 12px; color: #c8d8e8; }
-  .alt-note { font-size: 11px; color: #7a9ab5; margin-top: 2px; }
+  .line-note { font-size: 12px; color: var(--text); }
+  .alt-note { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
-  /* CSS line styles */
+  /* CSS line styles — aviation chart colors, hardcoded by design */
   .line-solid-blue  { width: 80px; height: 3px; background: #3a7ad5; }
   .line-dashed-blue { width: 80px; height: 0; border-top: 3px dashed #3a7ad5; }
   .line-dashed-mag  { width: 80px; height: 0; border-top: 3px dashed #c050c0; }
@@ -56,34 +47,41 @@ body { max-width: 860px; margin: auto; }
 
   /* ── Obstruction block ──────────────────────────────────────────── */
   .obs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
-  .obs-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 20px; }
-  .obs-card h3 { font-size: 13px; font-weight: 700; color: #c8d8e8; margin-bottom: 10px; }
+  .obs-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 16px 20px; }
+  .obs-card h3 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
   .obs-example { display: flex; align-items: center; gap: 16px; }
-  .obs-label { font-size: 12px; color: #7a9ab5; line-height: 1.7; }
-  .obs-label strong { color: #f0c040; }
+  .obs-label { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+  .obs-label strong { color: var(--accent); }
 
   /* ── NAVAID cards ─────────────────────────────────────────────────── */
   .nav-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 32px; }
-  .nav-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 18px 20px; display: flex; gap: 20px; align-items: flex-start; }
+  .nav-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 18px 20px; display: flex; gap: 20px; align-items: flex-start; }
   .nav-card .nav-desc { flex: 1; }
-  .nav-card .nav-name { font-size: 14px; font-weight: 800; color: #f0c040; margin-bottom: 4px; }
-  .nav-card .nav-full { font-size: 11px; color: #7a9ab5; margin-bottom: 10px; }
+  .nav-card .nav-name { font-size: 14px; font-weight: 800; color: var(--accent); margin-bottom: 4px; }
+  .nav-card .nav-full { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; }
   .nav-card .nav-points { list-style: none; }
-  .nav-card .nav-points li { font-size: 12px; color: #c8d8e8; padding: 3px 0; line-height: 1.5; }
-  .nav-card .nav-points li::before { content: "· "; color: #f0c040; }
+  .nav-card .nav-points li { font-size: 12px; color: var(--text); padding: 3px 0; line-height: 1.5; }
+  .nav-card .nav-points li::before { content: "· "; color: var(--accent); }
 
   /* ── Notation block ──────────────────────────────────────────────── */
   .notation-row { display: flex; gap: 14px; margin-bottom: 32px; }
-  .notation-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 16px 20px; flex: 1; }
-  .notation-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
-  .notation-card p { font-size: 12px; color: #c8d8e8; line-height: 1.7; }
-  .notation-card .big { font-size: 22px; font-weight: 800; color: #f0c040; text-align: center; padding: 8px 0; letter-spacing: 2px; }
+  .notation-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 16px 20px; flex: 1; }
+  .notation-card h3 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+  .notation-card p { font-size: 12px; color: var(--text); line-height: 1.7; }
+  .notation-card .big { font-size: 22px; font-weight: 800; color: var(--accent); text-align: center; padding: 8px 0; letter-spacing: 2px; }
 
-  /* ── Memory hook ─────────────────────────────────────────────────── */
+  /* ── Mobile ≤480px ───────────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .symbol-grid { grid-template-columns: 1fr 1fr; }
+    .obs-grid, .nav-grid { grid-template-columns: 1fr; }
+    .notation-row { flex-direction: column; }
+    table { display: block; overflow-x: auto; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>
 .container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}
 </style>
@@ -229,9 +227,9 @@ body { max-width: 860px; margin: auto; }
 
   <div class="notation-card">
     <h3>Reading the Fraction</h3>
-    <p>Airspace extents are shown as <strong style="color:#f0c040;">CEILING/FLOOR</strong> in hundreds of feet ASL.<br><br>
+    <p>Airspace extents are shown as <strong style="color:var(--accent);">CEILING/FLOOR</strong> in hundreds of feet ASL.<br><br>
     The top number is the ceiling. The lower number is the floor.<br>
-    <strong style="color:#f0c040;">SFC</strong> means the airspace begins at the surface.</p>
+    <strong style="color:var(--accent);">SFC</strong> means the airspace begins at the surface.</p>
     <div class="big">40 / SFC</div>
     <p style="text-align:center;margin-top:4px;">Surface up to 4,000 ft ASL</p>
   </div>
@@ -239,11 +237,11 @@ body { max-width: 860px; margin: auto; }
   <div class="notation-card">
     <h3>Common Examples</h3>
     <p style="line-height:2.0;">
-      <strong style="color:#f0c040;">30/SFC</strong> — Surface to 3,000 ft ASL<br>
-      <strong style="color:#f0c040;">40/15</strong> — 1,500 ft to 4,000 ft ASL<br>
-      <strong style="color:#f0c040;">100/40</strong> — 4,000 ft to 10,000 ft ASL<br>
-      <strong style="color:#f0c040;">UNL/SFC</strong> — Surface to unlimited<br>
-      <span style="color:#7a9ab5;font-size:11px;">Numbers shown in hundreds of feet</span>
+      <strong style="color:var(--accent);">30/SFC</strong> — Surface to 3,000 ft ASL<br>
+      <strong style="color:var(--accent);">40/15</strong> — 1,500 ft to 4,000 ft ASL<br>
+      <strong style="color:var(--accent);">100/40</strong> — 4,000 ft to 10,000 ft ASL<br>
+      <strong style="color:var(--accent);">UNL/SFC</strong> — Surface to unlimited<br>
+      <span style="color:var(--text-muted);font-size:11px;">Numbers shown in hundreds of feet</span>
     </p>
   </div>
 
@@ -285,7 +283,7 @@ body { max-width: 860px; margin: auto; }
         Open triangle + vertical line<br>
         <strong>2193</strong> MSL elevation at top<br>
         <strong>(1247)</strong> height AGL in brackets<br>
-        <span style="color:#7a9ab5;font-size:11px;">More prominent symbol — higher hazard</span>
+        <span style="color:var(--text-muted);font-size:11px;">More prominent symbol — higher hazard</span>
       </div>
     </div>
   </div>
@@ -357,19 +355,19 @@ body { max-width: 860px; margin: auto; }
 
   <div class="notation-card">
     <h3>What is the MEF?</h3>
-    <p>The MEF is the <strong style="color:#f0c040;">highest known elevation</strong> in each 30-minute latitude/longitude grid square on the VNC. It includes terrain, towers, antennas, and a buffer above the highest obstacle.<br><br>
-    Shown as a <strong style="color:#f0c040;">large bold number</strong> in the centre of each grid square.<br><br>
-    Fly <strong style="color:#f0c040;">above the MEF</strong> for guaranteed terrain clearance over the entire grid square.</p>
+    <p>The MEF is the <strong style="color:var(--accent);">highest known elevation</strong> in each 30-minute latitude/longitude grid square on the VNC. It includes terrain, towers, antennas, and a buffer above the highest obstacle.<br><br>
+    Shown as a <strong style="color:var(--accent);">large bold number</strong> in the centre of each grid square.<br><br>
+    Fly <strong style="color:var(--accent);">above the MEF</strong> for guaranteed terrain clearance over the entire grid square.</p>
   </div>
 
   <div class="notation-card">
     <h3>Reading the MEF</h3>
     <p style="line-height:2.0;">
-      <strong style="color:#f0c040;font-size:28px;">47</strong><br>
-      <span style="color:#7a9ab5;">Bold number in grid square</span><br><br>
-      Read as <strong style="color:#f0c040;">4,700 feet ASL</strong><br>
+      <strong style="color:var(--accent);font-size:28px;">47</strong><br>
+      <span style="color:var(--text-muted);">Bold number in grid square</span><br><br>
+      Read as <strong style="color:var(--accent);">4,700 feet ASL</strong><br>
       The leading digit(s) are thousands, trailing digit is hundreds.<br>
-      <span style="color:#7a9ab5;font-size:11px;">E.g. "47" = 4,700 ft · "12" = 1,200 ft · "9" = 900 ft</span>
+      <span style="color:var(--text-muted);font-size:11px;">E.g. "47" = 4,700 ft · "12" = 1,200 ft · "9" = 900 ft</span>
     </p>
   </div>
 
