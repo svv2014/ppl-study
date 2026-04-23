@@ -7,36 +7,43 @@
 <title>AL-014: Emergency Procedures — Distress and Urgency</title>
 <style>
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 36px; }
-  .card { background: #1a2d3d; border-radius: 10px; border: 1.5px solid #1a2d3d; padding: 20px; }
+  .card { background: var(--surface); border-radius: 10px; border: 1.5px solid var(--surface); padding: 20px; }
   .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
   .signal-badge { font-size: 18px; font-weight: 900; padding: 6px 14px; border-radius: 6px; letter-spacing: 2px; }
   .mayday-badge { background: rgba(255,80,80,0.2); color: #ff7070; border: 1.5px solid rgba(255,80,80,0.4); }
-  .panpan-badge { background: rgba(255,200,0,0.15); color: #f0c040; border: 1.5px solid rgba(255,200,0,0.35); }
-  .card-title { font-size: 15px; font-weight: 700; color: #e8edf2; }
-  .card-sub { font-size: 11px; color: #7a9ab5; margin-top: 2px; }
-  .card p { font-size: 13px; color: #c8d8e8; line-height: 1.6; margin-bottom: 8px; }
+  .panpan-badge { background: rgba(255,200,0,0.15); color: var(--accent); border: 1.5px solid rgba(255,200,0,0.35); }
+  .card-title { font-size: 15px; font-weight: 700; color: var(--text); }
+  .card-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .card p { font-size: 13px; color: var(--text); line-height: 1.6; margin-bottom: 8px; }
   .card p:last-child { margin-bottom: 0; }
-  .highlight { color: #f0c040; font-weight: 700; }
+  .highlight { color: var(--accent); font-weight: 700; }
 
-  .col-signal { color: #f0c040; font-weight: 700; }
+  .col-signal { color: var(--accent); font-weight: 700; }
   .col-distress { color: #ff7070; font-weight: 600; }
-  .col-urgency { color: #f0c040; font-weight: 600; }
+  .col-urgency { color: var(--accent); font-weight: 600; }
 
   .squawk-row { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
-  .squawk-box { background: #1a2d3d; border-radius: 10px; border: 1.5px solid #1a2d3d; padding: 16px; flex: 1; min-width: 180px; }
+  .squawk-box { background: var(--surface); border-radius: 10px; border: 1.5px solid var(--surface); padding: 16px; flex: 1; min-width: 180px; }
   .squawk-code { font-size: 28px; font-weight: 900; letter-spacing: 4px; margin-bottom: 8px; }
   .squawk-7700 { color: #ff7070; }
-  .squawk-7600 { color: #f0c040; }
+  .squawk-7600 { color: var(--accent); }
   .squawk-7500 { color: #ff8080; }
-  .squawk-label { font-size: 12px; font-weight: 700; color: #e8edf2; margin-bottom: 4px; }
-  .squawk-desc { font-size: 12px; color: #7a9ab5; line-height: 1.5; }
+  .squawk-label { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .squawk-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 
   .procedure-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
   .procedure-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
   .proc-item { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
   .proc-num { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
   .proc-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
-  .proc-text strong { color: #f0c040; }
+  .proc-text strong { color: var(--accent); }
+
+  @media (max-width: 480px) {
+    body { padding: 16px; font-size: 14px; }
+    .cards { grid-template-columns: 1fr; }
+    .squawk-row { flex-direction: column; }
+    .squawk-box { min-width: unset; }
+  }
 </style>
 </head>
 <body>

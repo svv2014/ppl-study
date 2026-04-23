@@ -7,24 +7,30 @@
 <title>AL-015: Transponder Codes and Mode C Requirements</title>
 <style>
   .modes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 28px; }
-  .mode-card { background: #1a2d3d; border-radius: 10px; padding: 16px 18px; border: 1.5px solid #1a2d3d; }
-  .mode-label { font-size: 20px; font-weight: 900; color: #f0c040; margin-bottom: 6px; letter-spacing: 1px; }
-  .mode-name { font-size: 13px; font-weight: 700; color: #e8edf2; margin-bottom: 6px; }
-  .mode-desc { font-size: 12px; color: #7a9ab5; line-height: 1.5; }
+  .mode-card { background: var(--surface); border-radius: 10px; padding: 16px 18px; border: 1.5px solid var(--surface); }
+  .mode-label { font-size: 20px; font-weight: 900; color: var(--accent); margin-bottom: 6px; letter-spacing: 1px; }
+  .mode-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .mode-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
   .mode-req { font-size: 11px; color: #80c880; margin-top: 8px; font-weight: 600; }
 
   .codes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 28px; }
-  .code-card { background: #1a2d3d; border-radius: 8px; padding: 14px 16px; text-align: center; }
+  .code-card { background: var(--surface); border-radius: 8px; padding: 14px 16px; text-align: center; }
   .code-num { font-size: 30px; font-weight: 900; letter-spacing: 4px; margin-bottom: 6px; }
   .code-1200 { color: #80c880; }
   .code-7700 { color: #ff7070; }
-  .code-7600 { color: #f0c040; }
+  .code-7600 { color: var(--accent); }
   .code-7500 { color: #ff8080; }
-  .code-1000 { color: #7a9ab5; }
-  .code-label { font-size: 12px; font-weight: 700; color: #e8edf2; margin-bottom: 4px; }
-  .code-desc { font-size: 11px; color: #7a9ab5; line-height: 1.4; }
+  .code-1000 { color: var(--text-muted); }
+  .code-label { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .code-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
 
-  .req { color: #f0c040; font-weight: 600; }
+  .req { color: var(--accent); font-weight: 600; }
+
+  @media (max-width: 480px) {
+    body { padding: 16px; font-size: 14px; }
+    .modes-grid { grid-template-columns: 1fr; }
+    .codes-grid { grid-template-columns: 1fr 1fr; }
+  }
 </style>
 </head>
 <body>
