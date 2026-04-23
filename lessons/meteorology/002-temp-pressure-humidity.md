@@ -6,7 +6,7 @@ slug: temp-pressure-humidity
 title: "Temperature, Pressure, Humidity"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/meteorology/002-temp-pressure-humidity.m4a
 visual: /visuals/met002-temp-pressure-humidity.html
 sources:
   - TP 12880E Chapter 8

@@ -6,7 +6,7 @@ slug: turbulence
 title: "Turbulence"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/meteorology/011-turbulence.m4a
 visual: /visuals/met011-turbulence.html
 sources:
   - TP 12880E Chapter 8

@@ -6,7 +6,7 @@ slug: metar-decoding
 title: "METAR Decoding"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/meteorology/005-metar-decoding.m4a
 visual: /visuals/met005-metar-decoding.html
 sources:
   - TP 12880E Chapter 8

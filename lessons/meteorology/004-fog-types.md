@@ -6,7 +6,7 @@ slug: fog-types
 title: "Fog Formation and Types"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/meteorology/004-fog-types.m4a
 visual: /visuals/met004-fog-types.html
 sources:
   - TP 12880E Chapter 8

@@ -6,7 +6,7 @@ slug: pireps
 title: "PIREPs"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/meteorology/008-pireps.m4a
 visual: /visuals/met008-pireps.html
 sources:
   - TP 12880E Chapter 8
