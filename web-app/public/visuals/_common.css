@@ -1,0 +1,27 @@
+/* Shared design tokens for PPL Study GK visuals.
+   Link this file from gk*.html; do not link from other topic visuals. */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+.subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+.container { max-width: 900px; margin: 0 auto; }
+.section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+
+svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+
+table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+
+/* Card backdrop used by most GK diagrams */
+.diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+
+/* Note / exam-tip callout (amber border by default; override border-left for other colours) */
+.note-box { background: #1a2d3d; border-left: 3px solid #f0c040; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+
+/* Memory-hook card (gk002 and future files) */
+.memory-box { background: #1a2d3d; border: 1px solid #f0c040; border-radius: 8px; padding: 20px; margin-top: 24px; }
+.memory-title { color: #f0c040; font-size: 13px; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 10px; }
+.memory-item { font-size: 13px; color: #e8edf2; margin-bottom: 6px; padding-left: 12px; }
