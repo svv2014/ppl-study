@@ -16,6 +16,7 @@ import { TOPIC_LABELS } from '../lib/curriculum';
 import { readSpeed, writeSpeed, readPosition, writePosition, clearAudioPosition } from '../lib/audio-state';
 import PlaylistQueue from './player/PlaylistQueue';
 import { useMediaSession } from './MediaSessionBridge';
+import SleepTimer from './player/SleepTimer';
 
 const SPEEDS = [0.75, 1, 1.1, 1.25, 1.5, 1.75, 2] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -215,6 +216,7 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
         >
           <SkipNextIcon />
         </IconButton>
+        <SleepTimer audioRef={audioRef} />
         <Select<Speed>
           value={speed}
           onChange={handleSpeedChange}
