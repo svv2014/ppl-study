@@ -8,18 +8,24 @@
 <style>
   .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
   .bank-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
-  .bank-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; text-align: center; }
-  .bank-angle { font-size: 20px; color: #f0c040; font-weight: bold; margin-bottom: 2px; }
-  .bank-bank { font-size: 11px; color: #7a9ab5; margin-bottom: 8px; }
-  .bank-g { font-size: 16px; color: #4caf7d; font-weight: bold; }
-  .bank-g-label { font-size: 10px; color: #7a9ab5; }
-  .limit-normal { color: #4caf7d; font-weight: bold; }
-  .limit-utility { color: #f0c040; font-weight: bold; }
-  .limit-acro { color: #e05050; font-weight: bold; }
+  .bank-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; }
+  .bank-angle { font-size: 20px; color: var(--accent); font-weight: bold; margin-bottom: 2px; }
+  .bank-bank { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+  .bank-g { font-size: 16px; color: var(--success); font-weight: bold; }
+  .bank-g-label { font-size: 10px; color: var(--text-muted); }
+  .limit-normal { color: var(--success); font-weight: bold; }
+  .limit-utility { color: var(--accent); font-weight: bold; }
+  .limit-acro { color: var(--danger); font-weight: bold; }
+  @media (max-width: 480px) {
+    body { font-size: 14px; overflow-x: hidden; }
+    .layout { grid-template-columns: 1fr; }
+    .bank-grid { grid-template-columns: repeat(2, 1fr); }
+    .bank-card { min-height: 44px; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 <div class="container">
   <h1>GK-013 — Load Factor &amp; Maneuvering Speed</h1>
@@ -134,7 +140,7 @@
         <div class="bank-card">
           <div class="bank-angle">60°</div>
           <div class="bank-bank">Steep bank</div>
-          <div class="bank-g" style="color:#f0c040;">2.00g</div>
+          <div class="bank-g" style="color:var(--accent);">2.00g</div>
           <div class="bank-g-label">Double weight!</div>
         </div>
       </div>
@@ -157,9 +163,9 @@
           <tr><th>Speed</th><th>Name</th><th>Significance</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong style="color:#4caf7d;">Va</strong></td><td>Design Maneuvering Speed</td><td>At or below Va, full control inputs won't overstress the aircraft — it will stall first</td></tr>
-          <tr><td><strong style="color:#f0c040;">Vno</strong></td><td>Max Structural Cruise Speed</td><td>Top of green arc — do not exceed in rough/turbulent air</td></tr>
-          <tr><td><strong style="color:#e05050;">Vne</strong></td><td>Never Exceed Speed</td><td>Red line on ASI — structural failure risk above this</td></tr>
+          <tr><td><strong style="color:var(--success);">Va</strong></td><td>Design Maneuvering Speed</td><td>At or below Va, full control inputs won't overstress the aircraft — it will stall first</td></tr>
+          <tr><td><strong style="color:var(--accent);">Vno</strong></td><td>Max Structural Cruise Speed</td><td>Top of green arc — do not exceed in rough/turbulent air</td></tr>
+          <tr><td><strong style="color:var(--danger);">Vne</strong></td><td>Never Exceed Speed</td><td>Red line on ASI — structural failure risk above this</td></tr>
         </tbody>
       </table>
     </div>
