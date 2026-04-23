@@ -1,218 +1,208 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Container from '@mui/material/Container';
-import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
-
-import HeroMotif from '../components/HeroMotif';
-import { CURRICULUM, TOPIC_LABELS, TOPICS } from '../lib/curriculum';
+import { typographyTokens } from '../tokens';
+import { CURRICULUM } from '../lib/curriculum';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
+import StatusBar, { LAST_SESSION_KEY } from '../components/home/StatusBar';
+import ReadinessGauge from '../components/home/ReadinessGauge';
+import TopicCoverageGrid from '../components/home/TopicCoverageGrid';
+import NextActionCard from '../components/home/NextActionCard';
+import type { TopicStat } from '../components/home/ReadinessGauge';
+import type { NextLesson } from '../components/home/NextActionCard';
+
+const MONO = typographyTokens.fontFamily.mono;
+
+const TOPIC_CONFIG = [
+  { key: 'air-law' as const, code: 'AL', label: 'Air Law', weight: 0.30 },
+  { key: 'navigation' as const, code: 'NAV', label: 'Navigation', weight: 0.25 },
+  { key: 'meteorology' as const, code: 'MET', label: 'Meteorology', weight: 0.25 },
+  { key: 'general-knowledge' as const, code: 'GK', label: 'General Knowledge', weight: 0.20 },
+];
+
+function SectionHead({ title, meta }: { title: string; meta: string }) {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        alignItems: 'baseline',
+        justifyContent: 'space-between',
+        mt: '40px',
+        mb: '16px',
+        borderBottom: '1px solid',
+        borderColor: 'divider',
+        pb: '10px',
+      }}
+    >
+      <Typography
+        component="h2"
+        sx={{ fontFamily: MONO, fontSize: '12px', color: 'text.secondary', letterSpacing: '0.18em', textTransform: 'uppercase', fontWeight: 600 }}
+      >
+        ◆ {title}
+      </Typography>
+      <Box sx={{ fontFamily: MONO, fontSize: '11px', color: 'primary.main' }}>{meta}</Box>
+    </Box>
+  );
+}
 
 export default function Home() {
-  const { progress, isComplete } = useProgress();
+  const { isComplete } = useProgress();
+  const [lastSession] = useState<string | null>(() => localStorage.getItem(LAST_SESSION_KEY));
 
-  const authoredIds = useMemo(
-    () => new Set(getAllLessons().map((l) => l.id)),
-    [],
+  const allLessons = useMemo(() => getAllLessons(), []);
+
+  const topicStats: TopicStat[] = useMemo(() =>
+    TOPIC_CONFIG.map(({ key, code, label, weight }) => {
+      const slots = CURRICULUM.filter((s) => s.topic === key);
+      const done = slots.filter((s) => isComplete(s.id)).length;
+      const pct = slots.length > 0 ? Math.round((done / slots.length) * 100) : 0;
+      return { code, label, weight, pct, done, total: slots.length };
+    }),
+    [isComplete],
+  );
+
+  const weightedPct = useMemo(
+    () => Math.round(topicStats.reduce((sum, s) => sum + s.pct * s.weight, 0)),
+    [topicStats],
   );
 
   const totalLessons = CURRICULUM.length;
   const completedCount = CURRICULUM.filter((s) => isComplete(s.id)).length;
-  const overallPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
-  const nextUp = useMemo(() => {
-    const allLessons = getAllLessons();
-    return allLessons.find((l) => !progress.completed.includes(l.id)) ?? null;
-  }, [progress.completed]);
+  const nextLesson: NextLesson | null = useMemo(() => {
+    const lesson = allLessons.find((l) => !isComplete(l.id)) ?? null;
+    if (!lesson) return null;
+    return {
+      id: lesson.id,
+      title: lesson.title,
+      topic: lesson.topic,
+      slug: lesson.slug,
+      durationMin: lesson.duration_min,
+      hasAudio: !!lesson.audio,
+      questionCount: lesson.questions.length,
+    };
+  }, [allLessons, isComplete]);
 
-  const hasProgress = progress.completed.length > 0;
+  const lastSessionAgo = useMemo((): string => {
+    if (!lastSession) return '—';
+    const mins = Math.round((Date.now() - new Date(lastSession).getTime()) / 60000);
+    if (mins < 1) return 'JUST NOW';
+    if (mins < 60) return `${mins}M AGO`;
+    if (mins < 1440) return `${Math.round(mins / 60)}H AGO`;
+    return `${Math.round(mins / 1440)}D AGO`;
+  }, [lastSession]);
+
+  const ctaTo = nextLesson
+    ? `/lessons/${nextLesson.topic}/${nextLesson.slug}`
+    : '/lessons';
+  const ctaLabel = nextLesson ? `Continue lesson ${nextLesson.id}` : 'Start studying';
 
   return (
-    <>
-      {/* Hero — full-width, above fold on 375 px mobile */}
-      <Box id="main-content" tabIndex={-1} sx={{ position: 'relative', overflow: 'hidden', pt: { xs: 6, md: 10 }, pb: { xs: 4, md: 6 } }}>
-        {/* Heading-rose motif — decorative background */}
-        <Box
-          aria-hidden="true"
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            right: { xs: '-10%', md: '2%' },
-            transform: 'translateY(-50%)',
-            pointerEvents: 'none',
-          }}
-        >
-          <HeroMotif />
-        </Box>
-        <Container maxWidth="lg" sx={{ position: 'relative' }}>
-          <Typography
-            variant="h3"
-            component="h1"
-            sx={{ fontWeight: 700, mb: 2, lineHeight: 1.2, fontSize: { xs: '1.875rem', md: '3rem' } }}
-          >
-            Pass the Canadian PPL written exam — 20 minutes a day
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            component="p"
-            color="text.secondary"
-            sx={{ mb: 1, maxWidth: 560 }}
-          >
-            Structured lessons covering PSTAR and the full Transport Canada PPL syllabus.
-          </Typography>
-          <Typography
-            component="p"
-            sx={{
-              mb: 2,
-              fontFamily: 'monospace',
-              fontSize: '0.625rem',
-              letterSpacing: '0.15em',
-              color: 'text.secondary',
-              opacity: 0.75,
-            }}
-          >
-            TRANSPORT CANADA PPL
-          </Typography>
-          <Button
-            component={RouterLink}
-            to="/lessons"
-            variant="contained"
-            size="large"
-            sx={{ width: { xs: '100%', sm: 'auto' } }}
-          >
-            Start studying
-          </Button>
-        </Container>
-      </Box>
+    <Box id="main-content" tabIndex={-1} sx={{ minHeight: '100vh', pb: 8 }}>
+      <Container maxWidth="lg" sx={{ pt: { xs: 3, md: 5 } }}>
 
-      {/* Credibility strip */}
-      <Box sx={{ bgcolor: 'background.paper', py: 2 }}>
-        <Container maxWidth="lg">
-          <Box sx={{ display: 'flex', gap: { xs: 2, md: 4 }, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <Typography variant="body2" color="text.secondary">Covers PSTAR &amp; PPL written exam</Typography>
-            <Typography variant="body2" color="text.secondary">Transport Canada syllabus aligned</Typography>
-            <Typography variant="body2" color="text.secondary">Target 80%+ on your written</Typography>
-          </Box>
-        </Container>
-      </Box>
+        <StatusBar completedCount={completedCount} totalLessons={totalLessons} lastSession={lastSession} />
 
-      {/* Progress section — only when at least one lesson is complete */}
-      {hasProgress && (
-        <Container maxWidth="md" sx={{ py: 4 }}>
-          <Box sx={{ mb: 3 }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 0.5 }}>
-              <Typography variant="body2" color="text.secondary">Overall progress</Typography>
-              <Typography variant="body2" color="text.secondary">
-                {completedCount} / {totalLessons} · {overallPercent}%
-              </Typography>
+        {/* Hero */}
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1.5fr 1fr' }, gap: 4, alignItems: 'center', mb: '36px' }}>
+          <Box>
+            <Box sx={{ fontFamily: MONO, fontSize: '11px', color: 'primary.main', letterSpacing: '0.15em', mb: '14px', textTransform: 'uppercase' }}>
+              Pre-Flight Briefing · 20 Min / Day
             </Box>
-            <LinearProgress variant="determinate" value={overallPercent} sx={{ height: 10, borderRadius: 5 }} />
-          </Box>
-          <Box
-            sx={{
-              p: 2,
-              borderRadius: 2,
-              border: '1px solid',
-              borderColor: nextUp ? 'primary.main' : 'success.main',
-              bgcolor: 'background.paper',
-            }}
-          >
-            {nextUp ? (
-              <>
-                <Typography variant="overline" color="primary.main">Next Up</Typography>
-                <Typography variant="body1" sx={{ mb: 1 }}>{nextUp.id} — {nextUp.title}</Typography>
-                {authoredIds.has(nextUp.id) ? (
-                  <Button
-                    component={RouterLink}
-                    to={`/lessons/${nextUp.topic}/${nextUp.slug}`}
-                    variant="contained"
-                    size="small"
-                  >
-                    Start lesson
-                  </Button>
-                ) : (
-                  <Typography variant="body2" color="text.disabled">Lesson coming soon</Typography>
-                )}
-              </>
-            ) : (
-              <>
-                <Typography variant="overline" color="success.main">All done!</Typography>
-                <Typography variant="body1">
-                  You&apos;ve completed all available lessons. Good luck on the exam!
-                </Typography>
-              </>
-            )}
-          </Box>
-        </Container>
-      )}
-
-      {/* Final Exam CTA — shown when ≥50 lessons completed */}
-      {completedCount >= 50 && (
-        <Container maxWidth="md" sx={{ pb: 2 }}>
-          <Box
-            sx={{
-              p: 3,
-              borderRadius: 2,
-              border: '1px solid',
-              borderColor: 'primary.main',
-              bgcolor: 'background.paper',
-              display: 'flex',
-              flexDirection: { xs: 'column', sm: 'row' },
-              alignItems: { sm: 'center' },
-              gap: 2,
-            }}
-          >
-            <Box sx={{ flex: 1 }}>
-              <Typography variant="h6" sx={{ mb: 0.5 }}>
-                Ready for the final?
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                You&apos;ve completed {completedCount} lessons. Put your knowledge to the test with a
-                full Transport Canada PPL practice exam.
-              </Typography>
-            </Box>
-            <Button
-              component={RouterLink}
-              to="/final-exam"
-              variant="contained"
-              size="large"
-              sx={{ flexShrink: 0, width: { xs: '100%', sm: 'auto' } }}
+            <Typography
+              variant="h1"
+              component="h1"
+              sx={{ mb: '14px' }}
             >
-              Take Final Exam
-            </Button>
+              Pass the{' '}
+              <Box component="span" sx={{ color: 'primary.main' }}>PPL written</Box>
+              <br />
+              exam. Twenty minutes a day.
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 2.5, maxWidth: 460 }}>
+              Structured lessons covering PSTAR and the full Transport Canada syllabus. Audio-first, exam-weighted.
+            </Typography>
+            <Box
+              component={RouterLink}
+              to={ctaTo}
+              sx={(theme) => ({
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                bgcolor: 'primary.main',
+                color: theme.palette.text.onAccent,
+                px: '22px',
+                py: '12px',
+                minHeight: 48,
+                borderRadius: 1,
+                textDecoration: 'none',
+                fontWeight: 600,
+                fontFamily: MONO,
+                fontSize: '13px',
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                '&:hover': { opacity: 0.9 },
+                '&::after': { content: '"→"' },
+              })}
+            >
+              {ctaLabel}
+            </Box>
           </Box>
-        </Container>
-      )}
-
-      {/* Topic cards — 2-col ≥600 px, single-col xs */}
-      <Container maxWidth="md" sx={{ py: 4 }}>
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>
-          {TOPICS.map((topic) => {
-            const slots = CURRICULUM.filter((s) => s.topic === topic);
-            const done = slots.filter((s) => isComplete(s.id)).length;
-            const pct = slots.length > 0 ? Math.round((done / slots.length) * 100) : 0;
-            return (
-              <Card key={topic} variant="outlined">
-                <CardContent>
-                  <Typography variant="h6" gutterBottom>{TOPIC_LABELS[topic]}</Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    {done} / {slots.length} lessons · {pct}%
-                  </Typography>
-                  <LinearProgress variant="determinate" value={pct} sx={{ height: 6, borderRadius: 3, mb: 1.5 }} />
-                  <Button component={RouterLink} to={`/lessons#${topic}`} size="small" variant="outlined">
-                    View lessons
-                  </Button>
-                </CardContent>
-              </Card>
-            );
-          })}
+          <ReadinessGauge weightedPct={weightedPct} topicStats={topicStats} />
         </Box>
+
+        {/* Next Action */}
+        {nextLesson && (
+          <>
+            <SectionHead title="Next Action" meta={lastSessionAgo !== '—' ? `Resuming · ${lastSessionAgo} Pause` : 'First Session'} />
+            <NextActionCard lesson={nextLesson} lastSessionAgo={lastSessionAgo} />
+          </>
+        )}
+
+        {/* Topic Coverage */}
+        <SectionHead title="Topic Coverage · TC Exam Weight" meta="4 Domains" />
+        <TopicCoverageGrid stats={topicStats} />
+
+        {/* Practice & Exam */}
+        <SectionHead title="Practice &amp; Exam" meta="2 Tracks" />
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: '14px' }}>
+          {[
+            { to: '/pstar-exam', kind: '★ PSTAR · Pre-Solo', title: 'PSTAR Practice Exam', desc: '50 Qs · 40 min · 90% pass mark · Core Air Law coverage' },
+            { to: '/final-exam', kind: '★ PPL · Written', title: 'Final Mock Exam', desc: '100 Qs · 3.5 hr · 60% pass (target 80%) · TC-weighted pool' },
+          ].map((card) => (
+            <Box
+              key={card.to}
+              component={RouterLink}
+              to={card.to}
+              sx={(theme) => ({
+                display: 'block',
+                bgcolor: 'background.paper',
+                border: `1px solid ${theme.palette.divider}`,
+                borderRadius: 1,
+                p: '18px',
+                textDecoration: 'none',
+                color: 'text.primary',
+                minHeight: 48,
+                transition: 'border-color 0.12s',
+                '&:hover': { borderColor: 'primary.main' },
+              })}
+            >
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <Box sx={{ fontFamily: MONO, fontSize: '10px', color: 'text.secondary', letterSpacing: '0.15em', textTransform: 'uppercase', mb: '6px' }}>
+                  {card.kind}
+                </Box>
+                <Box sx={{ color: 'primary.main', fontFamily: MONO, fontSize: '16px' }}>→</Box>
+              </Box>
+              <Box sx={{ fontSize: '17px', fontWeight: 600, mb: '6px', letterSpacing: '-0.01em' }}>{card.title}</Box>
+              <Box sx={{ fontSize: '12px', color: 'text.secondary' }}>{card.desc}</Box>
+            </Box>
+          ))}
+        </Box>
+
       </Container>
-    </>
+    </Box>
   );
 }

@@ -14,6 +14,7 @@ import SourceList from '../components/SourceList';
 import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { TOPIC_LABELS } from '../lib/curriculum';
+import { LAST_SESSION_KEY } from '../components/home/StatusBar';
 
 function MarkdownTable({ children }: { children?: ReactNode }) {
   return (
@@ -86,6 +87,12 @@ export default function LessonDetail() {
   const { prev, next } = topic && slug && lesson
     ? getAdjacentLessons(topic, slug)
     : { prev: null, next: null };
+
+  useEffect(() => {
+    return () => {
+      localStorage.setItem(LAST_SESSION_KEY, new Date().toISOString());
+    };
+  }, []);
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
