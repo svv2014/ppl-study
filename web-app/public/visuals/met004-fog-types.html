@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-004: Fog Types</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+  .card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  .card h3 { font-size: 14px; color: #f0c040; margin-bottom: 6px; letter-spacing: 0.5px; }
+  .card .tag { display: inline-block; font-size: 10px; background: #243d52; color: #e8edf2; padding: 2px 7px; border-radius: 3px; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .card .row { font-size: 12px; color: #e8edf2; margin-bottom: 4px; line-height: 1.5; }
+  .card .row .label { color: #7a9ab5; font-size: 10px; letter-spacing: 0.5px; text-transform: uppercase; display: block; margin-top: 6px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+  @media (max-width: 640px) { body { padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>MET-004 — Fog Formation &amp; Types</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · AIM MET 2.0 · Fog = visibility &lt; ½ SM (vs mist/BR)</p>
+
+  <div class="section-title" style="margin-top: 0;">The Five Fog Types</div>
+  <div class="grid">
+    <div class="card">
+      <h3>Radiation Fog</h3>
+      <span class="tag">RADIATION</span>
+      <div class="row"><span class="label">Trigger</span>Overnight cooling of ground; clear sky, calm/light wind, moist air.</div>
+      <div class="row"><span class="label">Where</span>Land, low-lying valleys. Not over water.</div>
+      <div class="row"><span class="label">Clears</span>Morning sun heats surface (burns off by mid-morning).</div>
+    </div>
+    <div class="card">
+      <h3>Advection Fog</h3>
+      <span class="tag">ADVECTION</span>
+      <div class="row"><span class="label">Trigger</span>Warm, moist air flows over cooler surface.</div>
+      <div class="row"><span class="label">Where</span>Maritime coasts (e.g., East Coast summer). Can form day or night.</div>
+      <div class="row"><span class="label">Clears</span>Wind shift or air-mass change — may persist for days.</div>
+    </div>
+    <div class="card">
+      <h3>Upslope Fog</h3>
+      <span class="tag">UPSLOPE</span>
+      <div class="row"><span class="label">Trigger</span>Moist air forced up sloping terrain; adiabatic cooling saturates it.</div>
+      <div class="row"><span class="label">Where</span>Prairies east of Rockies, Appalachian slopes.</div>
+      <div class="row"><span class="label">Clears</span>Wind shift away from slope.</div>
+    </div>
+    <div class="card">
+      <h3>Steam Fog</h3>
+      <span class="tag">STEAM / SEA-SMOKE</span>
+      <div class="row"><span class="label">Trigger</span>Cold, dry air flows over much warmer water.</div>
+      <div class="row"><span class="label">Where</span>Great Lakes in autumn, Arctic leads, any warm water in cold air.</div>
+      <div class="row"><span class="label">Clears</span>Stops when water cools or air warms.</div>
+    </div>
+    <div class="card">
+      <h3>Precipitation / Frontal Fog</h3>
+      <span class="tag">PRECIPITATION</span>
+      <div class="row"><span class="label">Trigger</span>Warm rain falling through cool air saturates it; evaporation adds moisture.</div>
+      <div class="row"><span class="label">Where</span>Ahead of warm fronts or stalled fronts.</div>
+      <div class="row"><span class="label">Clears</span>Front passage or precipitation ending.</div>
+    </div>
+    <div class="card">
+      <h3>Ice Fog</h3>
+      <span class="tag">ICE (BONUS)</span>
+      <div class="row"><span class="label">Trigger</span>Extreme cold (&lt; −30 °C) — water vapour sublimates directly to ice crystals.</div>
+      <div class="row"><span class="label">Where</span>Arctic &amp; subarctic Canada in winter, near towns (combustion moisture).</div>
+      <div class="row"><span class="label">Clears</span>Slowly; often requires temperature rise.</div>
+    </div>
+  </div>
+
+  <div class="section-title">Quick Reference</div>
+  <table>
+    <thead><tr><th>Type</th><th>Wind</th><th>Over</th><th>Best Clue</th></tr></thead>
+    <tbody>
+      <tr><td>Radiation</td><td>Calm / light</td><td>Land</td><td>Clear night, high RH, small T–Td spread</td></tr>
+      <tr><td>Advection</td><td>Moderate (&lt; 15 kt)</td><td>Water/cold surface</td><td>Warm moist air over cool surface</td></tr>
+      <tr><td>Upslope</td><td>Any</td><td>Rising terrain</td><td>Wind blowing up slope</td></tr>
+      <tr><td>Steam</td><td>Any</td><td>Open water</td><td>Very cold air, warmer water</td></tr>
+      <tr><td>Precipitation</td><td>Any</td><td>Land/sea</td><td>Warm rain falling into cold air</td></tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>Radiation fog</strong> needs three things: <strong>clear sky, calm wind, high humidity</strong>. Remove any one and it doesn't form. <strong>Advection fog</strong> forms when warm moist air moves over a cold surface — it's the only type that tolerates steady wind up to ~15 kt. Any fog reduces vis below ½ SM — above that, it's <strong>mist (BR)</strong> or <strong>haze (HZ)</strong>.
+  </div>
+</div>
+</body>
+</html>

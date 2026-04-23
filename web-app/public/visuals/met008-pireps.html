@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-008: PIREPs</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
+  .pirep-sample { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 18px 20px; font-family: 'Consolas', 'Menlo', monospace; font-size: 14px; line-height: 1.9; margin-bottom: 14px; word-break: break-word; }
+  .seg { padding: 2px 6px; border-radius: 3px; margin: 0 2px; display: inline-block; }
+  .sh { background: #3d5a80; color: #e8edf2; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td code { font-family: 'Consolas', 'Menlo', monospace; background: #0d1b2a; color: #f0c040; padding: 1px 6px; border-radius: 3px; font-size: 12px; }
+  .intensity-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .int-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
+  .int-code { font-size: 15px; color: #f0c040; font-weight: bold; font-family: 'Consolas', monospace; }
+  .int-name { font-size: 11px; color: #e8edf2; margin-top: 4px; font-weight: bold; }
+  .int-eff { font-size: 11px; color: #7a9ab5; margin-top: 4px; line-height: 1.4; }
+  .int-card.lgt { border-left: 3px solid #4caf7d; }
+  .int-card.mod { border-left: 3px solid #f0c040; }
+  .int-card.sev { border-left: 3px solid #e05050; }
+  .int-card.ext { border-left: 3px solid #b030b0; }
+  .advisory-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  .adv-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; }
+  .adv-card h3 { font-size: 13px; color: #f0c040; margin-bottom: 6px; letter-spacing: 0.5px; }
+  .adv-card p { font-size: 11px; color: #e8edf2; line-height: 1.5; }
+  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+  @media (max-width: 640px) { body { padding: 16px; } .intensity-grid { grid-template-columns: repeat(2, 1fr); } .advisory-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>MET-008 — PIREPs &amp; Advisories</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · AIM MET 3.8 · Pilot Reports in the NAV CANADA network</p>
+
+  <div class="section-title" style="margin-top: 0;">Annotated PIREP</div>
+  <div class="pirep-sample">
+    <span class="seg sh">UA</span>
+    <span class="seg sh">/OV YYZ 090025</span>
+    <span class="seg sh">/TM 1745</span>
+    <span class="seg sh">/FL080</span>
+    <span class="seg sh">/TP C172</span>
+    <span class="seg sh">/SK BKN060-TOP080</span>
+    <span class="seg sh">/TA M03</span>
+    <span class="seg sh">/TB LGT</span>
+    <span class="seg sh">/IC LGT RIME</span>
+    <span class="seg sh">/RM SMOOTH ABV</span>
+  </div>
+
+  <table>
+    <thead><tr><th>Field</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>UA</code> / <code>UUA</code></td><td>UA = routine report; UUA = <strong>urgent</strong> (SEV TURB, SEV ICE, LLWS, volcanic ash, tornadoes).</td></tr>
+      <tr><td><code>/OV YYZ 090025</code></td><td>Over a point: 25 NM on the 090° bearing from YYZ.</td></tr>
+      <tr><td><code>/TM 1745</code></td><td>Time of report — 1745 UTC.</td></tr>
+      <tr><td><code>/FL080</code></td><td>Flight level 080 (8,000 ft). <code>DURC</code> = during climb, <code>DURD</code> = during descent.</td></tr>
+      <tr><td><code>/TP C172</code></td><td>Aircraft type — relevant to turbulence/ice severity interpretation.</td></tr>
+      <tr><td><code>/SK BKN060-TOP080</code></td><td>Sky: broken layer with base 6,000, tops 8,000 ft.</td></tr>
+      <tr><td><code>/TA M03</code></td><td>Outside air temperature −3 °C.</td></tr>
+      <tr><td><code>/TB LGT</code></td><td>Turbulence intensity — light.</td></tr>
+      <tr><td><code>/IC LGT RIME</code></td><td>Icing — light rime.</td></tr>
+      <tr><td><code>/RM</code></td><td>Free-text remarks (in English).</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Turbulence Intensity</div>
+  <div class="intensity-grid">
+    <div class="int-card lgt">
+      <div class="int-code">LGT</div>
+      <div class="int-name">Light</div>
+      <div class="int-eff">Slight, erratic changes in attitude; occupants feel strain against belts.</div>
+    </div>
+    <div class="int-card mod">
+      <div class="int-code">MOD</div>
+      <div class="int-name">Moderate</div>
+      <div class="int-eff">Aircraft remains in positive control but feels definite strain; unsecured items move.</div>
+    </div>
+    <div class="int-card sev">
+      <div class="int-code">SEV</div>
+      <div class="int-name">Severe</div>
+      <div class="int-eff">Large, abrupt changes in attitude/altitude; momentary loss of control. <strong>UUA</strong>.</div>
+    </div>
+    <div class="int-card ext">
+      <div class="int-code">EXTRM</div>
+      <div class="int-name">Extreme</div>
+      <div class="int-eff">Aircraft violently tossed; practically impossible to control; structural damage possible.</div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top: 24px;">Icing Intensity</div>
+  <div class="intensity-grid">
+    <div class="int-card lgt">
+      <div class="int-code">TRACE</div>
+      <div class="int-name">Trace</div>
+      <div class="int-eff">Ice becomes perceptible. No de-ice needed &lt; 1 hr.</div>
+    </div>
+    <div class="int-card lgt">
+      <div class="int-code">LGT</div>
+      <div class="int-name">Light</div>
+      <div class="int-eff">Accumulation problem only if in-cloud &gt; 1 hr; de-ice handles it.</div>
+    </div>
+    <div class="int-card mod">
+      <div class="int-code">MOD</div>
+      <div class="int-name">Moderate</div>
+      <div class="int-eff">Even short encounters are a potential hazard; diversion needed.</div>
+    </div>
+    <div class="int-card sev">
+      <div class="int-code">SEV</div>
+      <div class="int-name">Severe</div>
+      <div class="int-eff">De-ice fails to control; immediate diversion mandatory. <strong>UUA</strong>.</div>
+    </div>
+  </div>
+
+  <div class="section-title">SIGMET · AIRMET · GFACN — Trigger Summary</div>
+  <div class="advisory-grid">
+    <div class="adv-card">
+      <h3>SIGMET</h3>
+      <p>Hazards affecting all aircraft: severe/extreme turb, severe icing, widespread TS, volcanic ash, heavy squall lines, severe mountain waves. Valid ≤ 4 hr.</p>
+    </div>
+    <div class="adv-card">
+      <h3>AIRMET</h3>
+      <p>Hazards to light aircraft: moderate turb, moderate icing, extensive surface winds ≥ 20 kt, vis &lt; 3 SM over wide areas, mountain obscuration. Valid ≤ 6 hr.</p>
+    </div>
+    <div class="adv-card">
+      <h3>Urgent PIREP (UUA)</h3>
+      <p>Triggered by: tornado / funnel cloud, hail ≥ ¾ in, severe turbulence, severe icing, LLWS, volcanic ash, any condition beyond forecast.</p>
+    </div>
+  </div>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    PIREPs are the <strong>only real-time, in-cloud truth</strong> you have — forecasts lag. File one whenever conditions differ from the forecast. <strong>UUA</strong> triggers: severe turb/ice, LLWS, tornado/funnel, hail ≥ ¾ in, volcanic ash. <strong>SIGMETs</strong> amend the GFA for hazards threatening all aircraft; <strong>AIRMETs</strong> target light aircraft.
+  </div>
+</div>
+</body>
+</html>

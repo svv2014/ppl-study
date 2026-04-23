@@ -7,7 +7,7 @@ title: "PIREPs"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/met008-pireps.html
 sources:
   - TP 12880E Chapter 8
   - AIM MET 2.5

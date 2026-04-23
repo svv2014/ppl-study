@@ -7,7 +7,7 @@ title: "Wind Shear and Microburst"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/met012-wind-shear-microburst.html
 sources:
   - TP 12880E Chapter 8
   - AIM MET 1.11

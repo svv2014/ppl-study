@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-003: Cloud Types</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
+  .tier { display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: stretch; margin-bottom: 10px; }
+  .tier-label { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; }
+  .tier-label .alt { font-size: 11px; color: #7a9ab5; letter-spacing: 0.5px; text-transform: uppercase; }
+  .tier-label .name { font-size: 16px; color: #f0c040; font-weight: bold; margin-top: 4px; }
+  .tier-label .range { font-size: 12px; color: #e8edf2; margin-top: 4px; }
+  .tier-clouds { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+  .cloud-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; }
+  .cloud-card .cname { font-size: 13px; color: #f0c040; font-weight: bold; margin-bottom: 4px; }
+  .cloud-card .cabbr { font-size: 10px; color: #7a9ab5; letter-spacing: 1px; }
+  .cloud-card .cnote { font-size: 11px; color: #e8edf2; margin-top: 6px; line-height: 1.45; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  .stability-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stab-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; }
+  .stab-card h3 { font-size: 13px; color: #f0c040; margin-bottom: 8px; letter-spacing: 0.5px; }
+  .stab-card ul { margin-left: 18px; color: #e8edf2; font-size: 12px; line-height: 1.7; }
+  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
+  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+  @media (max-width: 640px) {
+    body { padding: 16px; }
+    .tier { grid-template-columns: 1fr; }
+    .stability-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>MET-003 — Cloud Types &amp; Formation</h1>
+  <p class="subtitle">Transport Canada · TP 12880E · AIM MET 2.0</p>
+
+  <div class="section-title" style="margin-top: 0;">Three Height Tiers (Mid-Latitudes)</div>
+
+  <div class="tier">
+    <div class="tier-label">
+      <div class="alt">High</div>
+      <div class="name">Cirro-</div>
+      <div class="range">&gt; 20,000 ft</div>
+      <div class="range" style="color:#7a9ab5;">Ice crystals</div>
+    </div>
+    <div class="tier-clouds">
+      <div class="cloud-card"><div class="cname">Cirrus</div><div class="cabbr">CI</div><div class="cnote">Wispy streaks — fair weather, but may signal approaching warm front 24–48 h out.</div></div>
+      <div class="cloud-card"><div class="cname">Cirrostratus</div><div class="cabbr">CS</div><div class="cnote">Thin sheet — halo around sun/moon. Warm front signal.</div></div>
+      <div class="cloud-card"><div class="cname">Cirrocumulus</div><div class="cabbr">CC</div><div class="cnote">"Mackerel sky" — small ripples high up.</div></div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <div class="tier-label">
+      <div class="alt">Middle</div>
+      <div class="name">Alto-</div>
+      <div class="range">6,500 – 20,000 ft</div>
+      <div class="range" style="color:#7a9ab5;">Water + ice</div>
+    </div>
+    <div class="tier-clouds">
+      <div class="cloud-card"><div class="cname">Altostratus</div><div class="cabbr">AS</div><div class="cnote">Grey/blue sheet — sun appears as through frosted glass. Steady rain/snow approaching.</div></div>
+      <div class="cloud-card"><div class="cname">Altocumulus</div><div class="cabbr">AC</div><div class="cnote">White/grey patches. AC castellanus → afternoon thunderstorm risk.</div></div>
+      <div class="cloud-card"><div class="cname">Nimbostratus</div><div class="cabbr">NS</div><div class="cnote">Dark, ragged, continuous precip. Based mid but often extends low.</div></div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <div class="tier-label">
+      <div class="alt">Low</div>
+      <div class="name">Strato- / Cumulo-</div>
+      <div class="range">Surface – 6,500 ft</div>
+      <div class="range" style="color:#7a9ab5;">Mostly water</div>
+    </div>
+    <div class="tier-clouds">
+      <div class="cloud-card"><div class="cname">Stratus</div><div class="cabbr">ST</div><div class="cnote">Uniform low layer — drizzle/mist, poor VFR.</div></div>
+      <div class="cloud-card"><div class="cname">Stratocumulus</div><div class="cabbr">SC</div><div class="cnote">Lumpy grey layer with breaks — generally VFR ceilings.</div></div>
+      <div class="cloud-card"><div class="cname">Cumulus</div><div class="cabbr">CU</div><div class="cnote">Puffy fair-weather clouds — bumpy below, smooth above base.</div></div>
+      <div class="cloud-card"><div class="cname">Cumulonimbus</div><div class="cabbr">CB</div><div class="cnote">Towering thunderstorm cell — avoid by 20 NM. All known hazards.</div></div>
+    </div>
+  </div>
+
+  <div class="section-title">Stable vs Unstable Air</div>
+  <div class="stability-grid">
+    <div class="stab-card">
+      <h3>Stable Air → Stratiform</h3>
+      <ul>
+        <li>Smooth layered clouds</li>
+        <li>Steady precipitation</li>
+        <li>Poor visibility in precip</li>
+        <li>Smooth flight, but low ceilings</li>
+        <li>Icing risk in cloud &lt; 0 °C</li>
+      </ul>
+    </div>
+    <div class="stab-card">
+      <h3>Unstable Air → Cumuliform</h3>
+      <ul>
+        <li>Puffy, vertical clouds</li>
+        <li>Showery precipitation</li>
+        <li>Good vis between showers</li>
+        <li>Turbulent, gusty winds</li>
+        <li>Thunderstorms &amp; hail possible</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Estimate Convective Cloud Base</div>
+  <table>
+    <thead><tr><th>Formula</th><th>Worked Example</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong style="color:#f0c040;">Base AGL ≈ (T − Td) × 400 ft</strong></td>
+        <td>Surface T 22 °C, Td 14 °C → spread 8 °C → base ≈ 3,200 ft AGL</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>Strat-</strong> = layered &amp; stable (smooth ride, low vis). <strong>Cumulo-</strong> = heaped &amp; unstable (bumpy, showers). <strong>Nimbo-/-nimbus</strong> = precipitation. <strong>Alto-</strong> = middle level. <strong>Cirro-</strong> = high &amp; icy. A <strong>CB</strong> contains every hazard known to aviation — avoid by 20 NM.
+  </div>
+</div>
+</body>
+</html>

@@ -7,7 +7,7 @@ title: "Temperature, Pressure, Humidity"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/met002-temp-pressure-humidity.html
 sources:
   - TP 12880E Chapter 8
   - AIM MET 1.0

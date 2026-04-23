@@ -7,7 +7,7 @@ title: "Turbulence"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/met011-turbulence.html
 sources:
   - TP 12880E Chapter 8
   - AIM MET 1.9
