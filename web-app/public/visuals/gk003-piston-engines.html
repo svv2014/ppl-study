@@ -8,12 +8,17 @@
 <style>
   .strokes-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px; }
   .stroke-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; text-align: center; }
-  .stroke-number { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-  .stroke-name { font-size: 15px; color: #f0c040; font-weight: bold; margin-bottom: 10px; }
+  .stroke-number { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .stroke-name { font-size: 15px; color: var(--accent); font-weight: bold; margin-bottom: 10px; }
   .stroke-desc { font-size: 12px; color: #e8edf2; line-height: 1.5; margin-bottom: 10px; min-height: 48px; }
   .valve-state { font-size: 11px; padding: 4px 8px; border-radius: 4px; margin: 2px 0; }
-  .valve-open { background: #0d2a1a; color: #4caf7d; border: 1px solid #4caf7d; }
-  .valve-closed { background: #2a1a1a; color: #e05050; border: 1px solid #e05050; }
+  .valve-open { background: #0d2a1a; color: var(--success); border: 1px solid var(--success); }
+  .valve-closed { background: #2a1a1a; color: var(--danger); border: 1px solid var(--danger); }
+  @media (max-width: 480px) {
+    .strokes-grid { grid-template-columns: 1fr 1fr; }
+    .stroke-name { font-size: 13px; }
+    .stroke-card { padding: 10px; }
+  }
 </style>
 </head>
 <body>
