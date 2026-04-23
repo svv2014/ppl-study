@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-009: Thunderstorms</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .stage-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .stage-card { background: #1a2d3d; border-radius: 8px; padding: 16px 18px; }
+  .stage-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .stage-row { font-size: 12px; color: #c8d8e8; margin-bottom: 6px; line-height: 1.5; }
+  .stage-label { font-size: 10px; color: #7a9ab5; text-transform: uppercase; letter-spacing: 0.5px; }
+  .avoid-box { background: rgba(255,80,80,0.08); border: 1.5px solid rgba(255,80,80,0.3); border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
+  .avoid-box h2 { font-size: 12px; color: #ff8080; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .avoid-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .avoid-badge { background: rgba(255,80,80,0.2); color: #ff8080; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .avoid-text { font-size: 13px; color: #e8d0d0; line-height: 1.5; }
+  .avoid-text strong { color: #ff8080; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-009 — Thunderstorms</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Three Requirements for Thunderstorm Development</div>
+<table>
+  <thead>
+    <tr>
+      <th>Requirement</th>
+      <th>Description</th>
+      <th>Example Source</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Sufficient Moisture</strong></td>
+      <td>Adequate water vapour in the lower troposphere to fuel condensation and latent heat release</td>
+      <td>Moist air from Gulf of Mexico, Great Lakes, ocean surfaces</td>
+    </tr>
+    <tr>
+      <td><strong>2. A Lifting Mechanism</strong></td>
+      <td>Force to lift moist air to its condensation level (LCL) and beyond free convection level</td>
+      <td>Surface heating, cold front, orographic lifting, low pressure</td>
+    </tr>
+    <tr>
+      <td><strong>3. Instability</strong></td>
+      <td>Environmental lapse rate exceeds saturated adiabatic lapse rate — rising air accelerates</td>
+      <td>Cold air aloft over warm surface; steep environmental lapse rate</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Thunderstorm Lifecycle — Three Stages</div>
+<div class="stage-grid">
+  <div class="stage-card" style="border-top:3px solid #80e080;">
+    <div class="stage-title" style="color:#80e080;">Stage 1: Cumulus</div>
+    <div class="stage-row"><span class="stage-label">Duration</span><br>~20 minutes</div>
+    <div class="stage-row"><span class="stage-label">Air motion</span><br>Updrafts only — 3,000 to 8,000 fpm</div>
+    <div class="stage-row"><span class="stage-label">Precipitation</span><br>None reaching surface yet (held aloft by updraft)</div>
+    <div class="stage-row"><span class="stage-label">Cloud appearance</span><br>Building cumulus towering rapidly</div>
+    <div class="stage-row"><span class="stage-label">Hazards</span><br><span class="warn-tag">Moderate turbulence</span></div>
+    <div class="stage-row"><span class="stage-label">Recognizable by</span><br>Rapidly building Cu — can grow 1,000 ft/min</div>
+  </div>
+  <div class="stage-card" style="border-top:3px solid #ff8080;">
+    <div class="stage-title" style="color:#ff8080;">Stage 2: Mature</div>
+    <div class="stage-row"><span class="stage-label">Duration</span><br>~20-40 minutes (most intense phase)</div>
+    <div class="stage-row"><span class="stage-label">Air motion</span><br>BOTH updrafts AND downdrafts simultaneously</div>
+    <div class="stage-row"><span class="stage-label">Precipitation</span><br>Heavy rain, hail reaching surface</div>
+    <div class="stage-row"><span class="stage-label">Cloud appearance</span><br>Full Cb with anvil spreading at tropopause</div>
+    <div class="stage-row"><span class="stage-label">Hazards</span><br><span class="hazard-tag">ALL hazards present</span></div>
+    <div class="stage-row"><span class="stage-label">Recognizable by</span><br>Anvil top, heavy rain, lightning frequency increases</div>
+  </div>
+  <div class="stage-card" style="border-top:3px solid #7a9ab5;">
+    <div class="stage-title" style="color:#7a9ab5;">Stage 3: Dissipating</div>
+    <div class="stage-row"><span class="stage-label">Duration</span><br>~20-30 minutes</div>
+    <div class="stage-row"><span class="stage-label">Air motion</span><br>Downdrafts dominate — cuts off updraft supply</div>
+    <div class="stage-row"><span class="stage-label">Precipitation</span><br>Light rain, drizzle; then ending</div>
+    <div class="stage-row"><span class="stage-label">Cloud appearance</span><br>Anvil persists; cloud base dissolves</div>
+    <div class="stage-row"><span class="stage-label">Hazards</span><br><span class="warn-tag">Still turbulence + icing</span></div>
+    <div class="stage-row"><span class="stage-label">Recognizable by</span><br>Precipitation lightens; lightning decreases; anvil remains</div>
+  </div>
+</div>
+
+<div class="section-label">Thunderstorm Hazard Summary</div>
+<table>
+  <thead>
+    <tr>
+      <th>Hazard</th>
+      <th>Description</th>
+      <th>Stage</th>
+      <th>Severity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Turbulence</strong></td>
+      <td>Updrafts up to 8,000 fpm and downdrafts simultaneously; extreme shear between them</td>
+      <td>Mature (worst)</td>
+      <td><span class="hazard-tag">Extreme</span></td>
+    </tr>
+    <tr>
+      <td><strong>Icing</strong></td>
+      <td>All types present: rime, clear, and mixed; supercooled water from base to top</td>
+      <td>All stages</td>
+      <td><span class="hazard-tag">Severe</span></td>
+    </tr>
+    <tr>
+      <td><strong>Lightning</strong></td>
+      <td>Every Cb produces lightning; can strike aircraft several miles from storm; damages avionics</td>
+      <td>Mature (peak)</td>
+      <td><span class="hazard-tag">Extreme</span></td>
+    </tr>
+    <tr>
+      <td><strong>Hail</strong></td>
+      <td>Can be ejected 20+ NM from storm under the anvil; largest hail in mature stage updraft core</td>
+      <td>Mature</td>
+      <td><span class="hazard-tag">Severe</span></td>
+    </tr>
+    <tr>
+      <td><strong>Wind Shear</strong></td>
+      <td>Outflow boundary = sudden wind shift + gust front at surface; approaches at up to 100 kt</td>
+      <td>Mature / Dissipating</td>
+      <td><span class="hazard-tag">Severe</span></td>
+    </tr>
+    <tr>
+      <td><strong>Microbursts</strong></td>
+      <td>Intense downdraft &lt; 4 km diameter; downdraft to 6,000 fpm; outflow to 45 kt</td>
+      <td>Mature</td>
+      <td><span class="hazard-tag">Extreme</span></td>
+    </tr>
+    <tr>
+      <td><strong>Tornadoes</strong></td>
+      <td>Supercell Cb can produce tornadoes; rare in Canada but documented</td>
+      <td>Mature (supercell)</td>
+      <td><span class="hazard-tag">Extreme</span></td>
+    </tr>
+    <tr>
+      <td><strong>Low-Level Wind Shear</strong></td>
+      <td>Rapid airspeed and direction changes on approach/departure; invisible hazard</td>
+      <td>Mature / Dissipating</td>
+      <td><span class="hazard-tag">Extreme on approach</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="avoid-box">
+  <h2>Thunderstorm Avoidance Rules — Non-Negotiable</h2>
+  <div class="avoid-row"><span class="avoid-badge">20 NM RULE</span><span class="avoid-text">Clear all Cb by at least <strong>20 NM laterally</strong>. Hail, turbulence, and lightning can extend well beyond the visible cloud boundary.</span></div>
+  <div class="avoid-row"><span class="avoid-badge">NEVER ENTER</span><span class="avoid-text"><strong>Never intentionally fly into a cumulonimbus</strong>. No aircraft certified for PPL operations is designed to safely penetrate an active Cb.</span></div>
+  <div class="avoid-row"><span class="avoid-badge">NEVER UNDER</span><span class="avoid-text"><strong>Never fly beneath a Cb</strong>. The gust front, downbursts, and heavy precipitation under a mature Cb are lethal hazards at low altitude.</span></div>
+  <div class="avoid-row"><span class="avoid-badge">ANVIL SIDE</span><span class="avoid-text">If you must pass near a storm, go on the <strong>upwind (windward) side</strong>. The anvil and hail extend downwind. The upwind side is still hazardous but less so.</span></div>
+  <div class="avoid-row"><span class="avoid-badge">DIVERT</span><span class="avoid-text">If you cannot safely circumnavigate, <strong>divert and wait</strong>. A storm dissipates in ~1 hour. No schedule justifies penetrating a thunderstorm.</span></div>
+</div>
+
+<div class="hook-box">
+  <h2>Memory Hook — Thunderstorm Stages</h2>
+  <div class="hook-row"><span class="hook-badge">CUMULUS</span><span class="hook-text"><strong>Updrafts only</strong>. Storm is growing — building fast. Avoid. No precipitation at surface yet.</span></div>
+  <div class="hook-row"><span class="hook-badge">MATURE</span><span class="hook-text"><strong>Most dangerous stage</strong> — both updrafts AND downdrafts. All hazards active simultaneously: turbulence, icing, hail, lightning, microbursts.</span></div>
+  <div class="hook-row"><span class="hook-badge">DISSIPATING</span><span class="hook-text"><strong>Downdrafts dominate</strong>. Storm dying, but still dangerous — icing and turbulence persist. Anvil can remain hours after storm ends.</span></div>
+  <div class="hook-row"><span class="hook-badge">THREE NEEDS</span><span class="hook-text"><strong>Moisture + Lift + Instability</strong>. Remove any one and no thunderstorm forms. Forecasters look for all three to predict convective activity.</span></div>
+</div>
+
+</div>
+</body>
+</html>

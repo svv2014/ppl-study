@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-011: Turbulence</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .type-card { background: #1a2d3d; border-radius: 8px; padding: 14px 16px; }
+  .type-title { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 8px; }
+  .type-row { font-size: 12px; color: #c8d8e8; margin-bottom: 5px; line-height: 1.5; }
+  .type-label { font-size: 10px; color: #7a9ab5; text-transform: uppercase; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-011 — Turbulence</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Turbulence Intensity — Cockpit Effects and PIREP Reporting</div>
+<table>
+  <thead>
+    <tr>
+      <th>Intensity</th>
+      <th>PIREP Code</th>
+      <th>Cockpit Effects</th>
+      <th>Aircraft Attitude</th>
+      <th>Action Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong style="color:#80e080;">Light</strong></td>
+      <td style="font-family:monospace;font-weight:700;color:#80e080;">LGT</td>
+      <td>Slight erratic changes in altitude or attitude; occupants feel slight strain against seatbelts; unsecured items show slight movement</td>
+      <td>Slight deviation from wings level; immediate correction possible</td>
+      <td><span class="ok-tag">Monitor</span> Report; slow to turbulence penetration speed if sustained</td>
+    </tr>
+    <tr>
+      <td><strong style="color:#f0c040;">Moderate</strong></td>
+      <td style="font-family:monospace;font-weight:700;color:#f0c040;">MOD</td>
+      <td>Definite strain against seatbelts; difficult to walk; unsecured items displaced; food/beverage service impossible</td>
+      <td>Definite but controllable changes in attitude and altitude</td>
+      <td><span class="warn-tag">Seatbelts</span> Brief ATC; reduce to turbulence penetration speed (Va); consider altitude change</td>
+    </tr>
+    <tr>
+      <td><strong style="color:#ff8080;">Severe</strong></td>
+      <td style="font-family:monospace;font-weight:700;color:#ff8080;">SEV</td>
+      <td>Large abrupt changes; aircraft momentarily out of control; occupants forced violently against seatbelts; loose items thrown about</td>
+      <td>Large deviations in altitude and attitude; possible brief loss of control</td>
+      <td><span class="hazard-tag">Emergency action</span> Slow to Va immediately; issue UUA PIREP; divert if unable to exit</td>
+    </tr>
+    <tr>
+      <td><strong style="color:#ff8080;">Extreme</strong></td>
+      <td style="font-family:monospace;font-weight:700;color:#ff8080;">EXTM</td>
+      <td>Violent; aircraft practically impossible to control; may cause structural damage</td>
+      <td>Violent pitch and roll; uncontrollable momentarily</td>
+      <td><span class="hazard-tag">Structural damage possible</span> UUA PIREP; reduce power; maintain wings level; do not fight</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Turbulence Types</div>
+<div class="type-grid">
+  <div class="type-card">
+    <div class="type-title">CAT — Clear Air Turbulence</div>
+    <div class="type-row"><span class="type-label">Altitude</span><br>Above 15,000 ft; typically near jet stream (30,000–40,000 ft)</div>
+    <div class="type-row"><span class="type-label">Cause</span><br>Wind shear between air masses moving at different speeds; jet stream edges</div>
+    <div class="type-row"><span class="type-label">Warning signs</span><br>NONE — no visual cue, no cloud, no precipitation indicator</div>
+    <div class="type-row"><span class="type-label">Severity</span><br><span class="hazard-tag">MOD to SEV possible</span></div>
+    <div class="type-row"><span class="type-label">Avoidance</span><br>PIREP data; GFA icing/turbulence chart; fly perpendicular to jet stream to exit</div>
+  </div>
+  <div class="type-card">
+    <div class="type-title">Mechanical Turbulence</div>
+    <div class="type-row"><span class="type-label">Altitude</span><br>Low level — surface to 3,000 ft AGL</div>
+    <div class="type-row"><span class="type-label">Cause</span><br>Wind flowing over irregular terrain, buildings, trees; friction layer disruption</div>
+    <div class="type-row"><span class="type-label">Warning signs</span><br>Gusty surface winds; terrain features; smoke patterns</div>
+    <div class="type-row"><span class="type-label">Severity</span><br><span class="warn-tag">LGT to MOD typical</span></div>
+    <div class="type-row"><span class="type-label">Avoidance</span><br>Increase approach speed; extend pattern altitude; avoid low-level flight in strong winds</div>
+  </div>
+  <div class="type-card">
+    <div class="type-title">Orographic / Mountain Wave</div>
+    <div class="type-row"><span class="type-label">Altitude</span><br>Can extend from surface to 100,000+ ft; worst near and downwind of ridgeline</div>
+    <div class="type-row"><span class="type-label">Cause</span><br>Wind perpendicular to ridge at &gt; 25 kt causes oscillating waves downwind</div>
+    <div class="type-row"><span class="type-label">Warning signs</span><br>Lenticular (lens-shaped) clouds; rotor clouds below wave crest; cap cloud on ridge</div>
+    <div class="type-row"><span class="type-label">Severity</span><br><span class="hazard-tag">SEV to EXTM in rotor zone</span></div>
+    <div class="type-row"><span class="type-label">Avoidance</span><br>Stay above wave crest altitude; cross ridgelines at 45 degrees; avoid rotor zone; check PIREPs</div>
+  </div>
+  <div class="type-card">
+    <div class="type-title">Convective Turbulence</div>
+    <div class="type-row"><span class="type-label">Altitude</span><br>Low to mid-level; inside and near cumulus/Cb</div>
+    <div class="type-row"><span class="type-label">Cause</span><br>Thermal convection; strong updrafts and downdrafts inside convective cloud</div>
+    <div class="type-row"><span class="type-label">Warning signs</span><br>Cumulus buildups; afternoon heating; cumulonimbus</div>
+    <div class="type-row"><span class="type-label">Severity</span><br><span class="hazard-tag">MOD to EXTM in Cb</span></div>
+    <div class="type-row"><span class="type-label">Avoidance</span><br>Avoid Cb by 20 NM; fly early morning before thermal development; monitor radar</div>
+  </div>
+  <div class="type-card">
+    <div class="type-title">Wake Turbulence</div>
+    <div class="type-row"><span class="type-label">Altitude</span><br>Below the generating aircraft; sink at ~300–500 fpm; spread laterally</div>
+    <div class="type-row"><span class="type-label">Cause</span><br>Counter-rotating vortices shed from wingtips of heavy aircraft; strongest when heavy, slow, clean config</div>
+    <div class="type-row"><span class="type-label">Warning signs</span><br>Heavy aircraft departure/arrival; no visual cue for the vortices themselves</div>
+    <div class="type-row"><span class="type-label">Severity</span><br><span class="hazard-tag">SEV to EXTM for small aircraft</span></div>
+    <div class="type-row"><span class="type-label">Avoidance</span><br>Maintain separation; stay above heavy aircraft flight path; land beyond touchdown point; takeoff before rotation point</div>
+  </div>
+  <div class="type-card">
+    <div class="type-title">Frontal Turbulence</div>
+    <div class="type-row"><span class="type-label">Altitude</span><br>Near frontal boundaries; most intense near cold front</div>
+    <div class="type-row"><span class="type-label">Cause</span><br>Wind shear at frontal surface; instability in prefrontal air; cold front squall lines</div>
+    <div class="type-row"><span class="type-label">Warning signs</span><br>Cold front passage; squall line; rapid pressure change</div>
+    <div class="type-row"><span class="type-label">Severity</span><br><span class="warn-tag">MOD; SEV in squall line</span></div>
+    <div class="type-row"><span class="type-label">Avoidance</span><br>Cross fronts at right angles and quickly; check SIGMET for squall line positions</div>
+  </div>
+</div>
+
+<div class="section-label">Mountain Wave — Key Details</div>
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Formation requirement</strong></td>
+      <td>Wind &gt; 25 kt near perpendicular to ridge; stable air aloft; wind speed increases with altitude</td>
+    </tr>
+    <tr>
+      <td><strong>Horizontal extent</strong></td>
+      <td>Waves can extend 100–300 NM downwind of the ridge; do not assume safety just because you are far from mountains</td>
+    </tr>
+    <tr>
+      <td><strong>Lenticular cloud (ACSL)</strong></td>
+      <td>Altocumulus Standing Lenticular — stationary lens-shaped cloud at wave crest; indicates active wave. Does not move with wind.</td>
+    </tr>
+    <tr>
+      <td><strong>Rotor zone</strong></td>
+      <td>Violent turbulent eddies under the wave crest; can be below ridgeline altitude; most dangerous area; associated with rotor cloud</td>
+    </tr>
+    <tr>
+      <td><strong>Cap cloud</strong></td>
+      <td>Cloud cap on ridge crest; indicates moist air being lifted over the ridge; tops may indicate wave height</td>
+    </tr>
+    <tr>
+      <td><strong>PIREP reporting</strong></td>
+      <td>Report location, altitude, intensity (LGT/MOD/SEV), and aircraft type. Mountain wave PIREPs are critical for following aircraft.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="hook-box">
+  <h2>Memory Hook — Turbulence Essentials</h2>
+  <div class="hook-row"><span class="hook-badge">CAT</span><span class="hook-text"><strong>No visual warning</strong> — clear air, no cloud, no radar return. Only indicator: PIREPs and GFA turbulence chart. Happens near jet stream.</span></div>
+  <div class="hook-row"><span class="hook-badge">MOUNTAIN WAVE</span><span class="hook-text">Can extend <strong>hundreds of miles downwind</strong> of ridgeline. Lenticular cloud = wave active. Rotor zone = most violent. Cross ridges at 45 degrees.</span></div>
+  <div class="hook-row"><span class="hook-badge">Va SPEED</span><span class="hook-text">In turbulence, reduce to <strong>maneuvering speed (Va)</strong>. Below Va, aircraft will stall before structural failure. Va decreases with lighter weight.</span></div>
+  <div class="hook-row"><span class="hook-badge">WAKE VORTEX</span><span class="hook-text">Vortices sink and spread laterally. In crosswind, upwind vortex stays on runway. Stay <strong>above and upwind</strong> of heavy aircraft. Most dangerous: calm wind.</span></div>
+</div>
+
+</div>
+</body>
+</html>

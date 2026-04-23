@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-006: TAF Decoding</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .taf-banner { background: #0a1520; border: 1.5px solid #2a4060; border-radius: 8px; padding: 18px 20px; margin-bottom: 28px; font-family: 'Courier New', monospace; }
+  .taf-line { font-size: 14px; color: #e8edf2; line-height: 2.2; letter-spacing: 0.5px; }
+  .m-type { color: #9b7fd4; font-weight: 800; }
+  .m-station { color: #6fa8dc; font-weight: 800; }
+  .m-issue { color: #7ac5cd; font-weight: 800; }
+  .m-valid { color: #f0c040; font-weight: 800; }
+  .m-wind { color: #e0a030; font-weight: 800; }
+  .m-vis { color: #80e080; font-weight: 800; }
+  .m-cloud { color: #80b8e0; font-weight: 800; }
+  .m-change { color: #e08080; font-weight: 800; }
+  .m-prob { color: #d080d0; font-weight: 800; }
+  .code-cell { font-family: 'Courier New', monospace; font-weight: 700; color: #f0c040; }
+  .change-card { background: #1a2d3d; border-radius: 8px; padding: 14px 16px; margin-bottom: 10px; display: grid; grid-template-columns: 120px 1fr 1fr; gap: 12px; align-items: start; }
+  .change-kw { font-family: 'Courier New', monospace; font-size: 15px; font-weight: 800; color: #e08080; }
+  .change-def { font-size: 12px; color: #e8edf2; line-height: 1.5; }
+  .change-note { font-size: 11px; color: #7a9ab5; line-height: 1.5; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .compare-card { background: #1a2d3d; border-radius: 8px; padding: 16px 18px; }
+  .compare-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .compare-row { font-size: 12px; color: #c8d8e8; margin-bottom: 6px; line-height: 1.5; }
+  .compare-label { color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-006 — TAF Decoding</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Sample TAF — Colour-Coded by Field</div>
+<div class="taf-banner">
+  <div class="taf-line">
+    <span class="m-type">TAF</span>
+    <span class="m-station">CYYZ</span>
+    <span class="m-issue">151720Z</span>
+    <span class="m-valid">1518/1618</span>
+    <span class="m-wind">27015KT</span>
+    <span class="m-vis">P6SM</span>
+    <span class="m-cloud">FEW030</span>
+  </div>
+  <div class="taf-line" style="padding-left:20px;">
+    <span class="m-change">TEMPO</span>
+    <span class="m-valid">1600/1606</span>
+    <span class="m-vis">2SM</span>
+    <span class="m-cloud">-RASN</span>
+    <span class="m-cloud">OVC015</span>
+  </div>
+  <div class="taf-line" style="padding-left:20px;">
+    <span class="m-change">FM</span><span class="m-valid">160800</span>
+    <span class="m-wind">30020KT</span>
+    <span class="m-vis">P6SM</span>
+    <span class="m-cloud">SCT040</span>
+  </div>
+  <div class="taf-line" style="padding-left:20px;">
+    <span class="m-prob">PROB30</span>
+    <span class="m-valid">1612/1615</span>
+    <span class="m-cloud">TSRA</span>
+    <span class="m-cloud">BKN020CB</span>
+  </div>
+</div>
+
+<div class="section-label">TAF Field Decode</div>
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Sample</th>
+      <th>Format</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Report Type</strong></td>
+      <td class="code-cell">TAF</td>
+      <td>TAF or TAF AMD</td>
+      <td>TAF = Terminal Aerodrome Forecast. AMD = amended (corrected) TAF issued between routine issuances.</td>
+    </tr>
+    <tr>
+      <td><strong>Station ID</strong></td>
+      <td class="code-cell">CYYZ</td>
+      <td>ICAO 4-letter ID</td>
+      <td>Same station identifier as METAR. TAF issued for specific airports (not all airports have TAF).</td>
+    </tr>
+    <tr>
+      <td><strong>Issue Time</strong></td>
+      <td class="code-cell">151720Z</td>
+      <td>DDHHMMz</td>
+      <td>When the TAF was prepared: day 15, 1720 UTC. Not the valid period start.</td>
+    </tr>
+    <tr>
+      <td><strong>Valid Period</strong></td>
+      <td class="code-cell">1518/1618</td>
+      <td>DDHH/DDHH</td>
+      <td>Forecast valid from day 15, 18 UTC to day 16, 18 UTC. Standard TAF = 24 hr; some airports 30 hr.</td>
+    </tr>
+    <tr>
+      <td><strong>Wind</strong></td>
+      <td class="code-cell">27015KT</td>
+      <td>Same as METAR</td>
+      <td>Prevailing wind forecast. Same format as METAR wind field.</td>
+    </tr>
+    <tr>
+      <td><strong>Visibility</strong></td>
+      <td class="code-cell">P6SM</td>
+      <td>SM or metres</td>
+      <td>P6SM = prevailing more than 6 statute miles. TAFs typically use SM in Canada.</td>
+    </tr>
+    <tr>
+      <td><strong>Weather / Cloud</strong></td>
+      <td class="code-cell">FEW030 OVC015</td>
+      <td>Same as METAR</td>
+      <td>Same codes as METAR. CB appended after cloud amount for cumulonimbus (e.g. BKN020CB).</td>
+    </tr>
+    <tr>
+      <td><strong>Change Groups</strong></td>
+      <td class="code-cell">TEMPO FM BECMG PROB</td>
+      <td>Keyword + period + conditions</td>
+      <td>Describe changes from the base forecast. See table below for details.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Change Indicator Keywords</div>
+<div class="change-card">
+  <div class="change-kw">FM</div>
+  <div class="change-def"><strong>From (permanent change)</strong><br>New conditions replace ALL previous forecast from the stated time. FM160800 = from day 16 at 0800 UTC onwards.</div>
+  <div class="change-note">Always followed by DDHHmm (no period). Entire forecast resets. Most definitive change type.</div>
+</div>
+<div class="change-card">
+  <div class="change-kw">TEMPO</div>
+  <div class="change-def"><strong>Temporary fluctuations</strong><br>Conditions expected for less than half of the period, each occurrence lasting less than 60 minutes.</div>
+  <div class="change-note">TEMPO does not replace base — base conditions return between episodes. Period shown as DDHH/DDHH.</div>
+</div>
+<div class="change-card">
+  <div class="change-kw">BECMG</div>
+  <div class="change-def"><strong>Becoming (gradual change)</strong><br>Conditions expected to change gradually during the period, reaching the new conditions by the end of the period.</div>
+  <div class="change-note">Change is permanent once complete. Period shown as DDHH/DDHH. Slower transition than FM.</div>
+</div>
+<div class="change-card">
+  <div class="change-kw">PROB30</div>
+  <div class="change-def"><strong>30% probability</strong><br>Conditions have a 30% chance of occurring during the stated period.</div>
+  <div class="change-note">PROB40 = 40% chance. Typically used for thunderstorms. PROB30 alone (no TEMPO) = brief occurrence.</div>
+</div>
+<div style="margin-bottom:28px;"></div>
+
+<div class="section-label">METAR vs. TAF — Key Comparison</div>
+<div class="compare-grid">
+  <div class="compare-card" style="border-top:3px solid #7ac5cd;">
+    <div class="compare-title" style="color:#7ac5cd;">METAR — Observed</div>
+    <div class="compare-row"><span class="compare-label">Type</span><br>Actual current conditions (observation)</div>
+    <div class="compare-row"><span class="compare-label">Frequency</span><br>Hourly (or SPECI for significant changes)</div>
+    <div class="compare-row"><span class="compare-label">Valid period</span><br>Snapshot at time of observation</div>
+    <div class="compare-row"><span class="compare-label">Use for</span><br>Departure planning; current conditions at destination</div>
+    <div class="compare-row"><span class="compare-label">Change groups</span><br>None (it's an observation, not a forecast)</div>
+  </div>
+  <div class="compare-card" style="border-top:3px solid #f0c040;">
+    <div class="compare-title" style="color:#f0c040;">TAF — Forecast</div>
+    <div class="compare-row"><span class="compare-label">Type</span><br>Weather forecast for a specific aerodrome</div>
+    <div class="compare-row"><span class="compare-label">Frequency</span><br>4x/day (0000, 0600, 1200, 1800 UTC)</div>
+    <div class="compare-row"><span class="compare-label">Valid period</span><br>24 hours (some airports 30 hours)</div>
+    <div class="compare-row"><span class="compare-label">Use for</span><br>En route planning; ETA weather; alternate requirements</div>
+    <div class="compare-row"><span class="compare-label">Change groups</span><br>FM, TEMPO, BECMG, PROB30/40</div>
+  </div>
+</div>
+
+<div class="hook-box">
+  <h2>Memory Hook — TAF Decoding</h2>
+  <div class="hook-row"><span class="hook-badge">VALID PERIOD</span><span class="hook-text">Format is <strong>DDHH/DDHH</strong>. First group = start, second = end. Day can roll over (e.g. 1518/1618 spans two calendar days).</span></div>
+  <div class="hook-row"><span class="hook-badge">FM vs TEMPO</span><span class="hook-text"><strong>FM = permanent reset</strong> of all conditions. <strong>TEMPO = temporary spike</strong> less than half the period; base forecast resumes between occurrences.</span></div>
+  <div class="hook-row"><span class="hook-badge">PROB30</span><span class="hook-text">30% probability = plan for it if it would be a <strong>go/no-go condition</strong>. PROB30 thunderstorms = check alternate carefully.</span></div>
+  <div class="hook-row"><span class="hook-badge">METAR vs TAF</span><span class="hook-text"><strong>METAR = what IS</strong>. <strong>TAF = what WILL BE</strong>. Always check the latest METAR closest to your departure time; TAF for en route and destination.</span></div>
+</div>
+
+</div>
+</body>
+</html>

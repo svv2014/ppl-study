@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-013: Fronts</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .front-symbol { display: inline-block; width: 20px; height: 20px; border-radius: 50%; vertical-align: middle; margin-right: 4px; }
+  .cold-sym { background: #4040cc; }
+  .warm-sym { background: #cc4040; }
+  .occ-sym { background: #8040cc; }
+  .stat-sym { background: #606060; }
+  .front-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+  .front-card { background: #1a2d3d; border-radius: 8px; padding: 16px 18px; }
+  .front-title { font-size: 14px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .front-row { font-size: 12px; color: #c8d8e8; margin-bottom: 6px; line-height: 1.5; }
+  .front-label { font-size: 10px; color: #7a9ab5; text-transform: uppercase; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-013 — Fronts</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Front Type Overview</div>
+<div class="front-grid">
+  <div class="front-card" style="border-top:3px solid #4060cc;">
+    <div class="front-title"><span style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#4060cc;flex-shrink:0;"></span>Cold Front</div>
+    <div class="front-row"><span class="front-label">Symbol</span><br>Blue line with solid triangles pointing in direction of movement</div>
+    <div class="front-row"><span class="front-label">Movement speed</span><br>Fast: 25–50 kt (can be faster); steeper slope than warm front</div>
+    <div class="front-row"><span class="front-label">What happens</span><br>Cold dense air undercuts and lifts warm moist air rapidly. Forces strong convection.</div>
+    <div class="front-row"><span class="front-label">Cloud sequence (approaching)</span><br>Cu → TCu → Cb; possible squall line ahead of front</div>
+    <div class="front-row"><span class="front-label">Precipitation</span><br>Heavy showers, thunderstorms; narrow band (50–100 NM wide); intense but brief</div>
+    <div class="front-row"><span class="front-label">Visibility (prefrontal)</span><br>Good in clear sector; hazy near front</div>
+    <div class="front-row"><span class="front-label">Turbulence</span><br><span class="hazard-tag">Severe</span> — strong vertical motion; Cb possible</div>
+    <div class="front-row"><span class="front-label">Icing</span><br><span class="hazard-tag">All types</span> — convective cloud; all altitudes in Cb</div>
+    <div class="front-row"><span class="front-label">After passage</span><br>Rapid clearing; wind shifts clockwise (veers) to NW; pressure rises quickly; visibility excellent</div>
+  </div>
+  <div class="front-card" style="border-top:3px solid #cc4040;">
+    <div class="front-title"><span style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#cc4040;flex-shrink:0;"></span>Warm Front</div>
+    <div class="front-row"><span class="front-label">Symbol</span><br>Red line with solid semicircles pointing in direction of movement</div>
+    <div class="front-row"><span class="front-label">Movement speed</span><br>Slow: 10–25 kt; shallow slope (~1:150)</div>
+    <div class="front-row"><span class="front-label">What happens</span><br>Warm air overrides cold; gradual lifting over wide area produces stratiform cloud/rain</div>
+    <div class="front-row"><span class="front-label">Cloud sequence (approaching)</span><br>Ci → Cs → As → Ns (hundreds of miles ahead of surface position)</div>
+    <div class="front-row"><span class="front-label">Precipitation</span><br>Continuous rain or snow; wide band (300–500 NM ahead of surface front)</div>
+    <div class="front-row"><span class="front-label">Visibility (prefrontal)</span><br><span class="hazard-tag">Poor</span> — fog, mist, stratus common ahead of surface front</div>
+    <div class="front-row"><span class="front-label">Turbulence</span><br><span class="warn-tag">Light to moderate</span> — stratiform; occasional moderate in Ns</div>
+    <div class="front-row"><span class="front-label">Icing</span><br><span class="hazard-tag">Severe icing risk</span> — widespread freezing rain possible; large area of icing</div>
+    <div class="front-row"><span class="front-label">After passage</span><br>Gradual improvement; temperature rises; wind shifts (veers); visibility slowly improves; may remain foggy</div>
+  </div>
+  <div class="front-card" style="border-top:3px solid #8040cc;">
+    <div class="front-title"><span style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#8040cc;flex-shrink:0;"></span>Occluded Front</div>
+    <div class="front-row"><span class="front-label">Symbol</span><br>Purple line with alternating triangles and semicircles on same side</div>
+    <div class="front-row"><span class="front-label">Formation</span><br>Cold front catches warm front; warm sector lifted entirely off surface. Most complex wx.</div>
+    <div class="front-row"><span class="front-label">Types</span><br>Cold occlusion (cold-type): cold air behind front colder than cold air ahead. Warm occlusion (warm-type): reverse.</div>
+    <div class="front-row"><span class="front-label">Cloud/Precipitation</span><br>Combined characteristics of both cold and warm fronts; complex weather pattern</div>
+    <div class="front-row"><span class="front-label">Turbulence</span><br><span class="hazard-tag">MOD to SEV</span> — combined hazards</div>
+    <div class="front-row"><span class="front-label">Icing</span><br><span class="hazard-tag">Significant icing</span> — wide area, multiple levels</div>
+    <div class="front-row"><span class="front-label">Visibility</span><br>Generally poor; extensive cloud and precipitation area</div>
+  </div>
+  <div class="front-card" style="border-top:3px solid #606060;">
+    <div class="front-title"><span style="display:inline-block;width:16px;height:16px;border-radius:50%;background:#606060;flex-shrink:0;"></span>Stationary Front</div>
+    <div class="front-row"><span class="front-label">Symbol</span><br>Alternating red semicircles (warm side) and blue triangles (cold side) pointing opposite directions</div>
+    <div class="front-row"><span class="front-label">Movement</span><br>Little or no movement; wind nearly parallel to frontal boundary on both sides</div>
+    <div class="front-row"><span class="front-label">Weather</span><br>Prolonged cloudiness and precipitation; similar to warm front but stationary for days</div>
+    <div class="front-row"><span class="front-label">Duration</span><br>Can persist for days; often leads to flooding rains and persistent IFR conditions</div>
+    <div class="front-row"><span class="front-label">Icing</span><br><span class="warn-tag">Persistent icing</span> — extended exposure due to slow movement</div>
+    <div class="front-row"><span class="front-label">Planning</span><br>Requires long detour or delay; check GFA for extent of affected area</div>
+  </div>
+</div>
+
+<div class="section-label">Front Comparison Table — Quick Reference</div>
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th style="color:#6080cc;">Cold Front</th>
+      <th style="color:#cc6060;">Warm Front</th>
+      <th style="color:#9060cc;">Occluded</th>
+      <th style="color:#888;">Stationary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Speed</strong></td>
+      <td>Fast (25–50 kt)</td>
+      <td>Slow (10–25 kt)</td>
+      <td>Moderate</td>
+      <td>Minimal</td>
+    </tr>
+    <tr>
+      <td><strong>Cloud band width</strong></td>
+      <td>Narrow (50–100 NM)</td>
+      <td>Wide (300–500 NM)</td>
+      <td>Wide and complex</td>
+      <td>Wide and persistent</td>
+    </tr>
+    <tr>
+      <td><strong>Precipitation type</strong></td>
+      <td>Showers, Cb, TS</td>
+      <td>Continuous rain/snow</td>
+      <td>Mixed types</td>
+      <td>Steady rain/snow</td>
+    </tr>
+    <tr>
+      <td><strong>Visibility</strong></td>
+      <td>Good except in Cb; excellent after</td>
+      <td><span class="hazard-tag">Poor</span> — widespread fog/mist</td>
+      <td>Poor</td>
+      <td>Poor; persistent</td>
+    </tr>
+    <tr>
+      <td><strong>Turbulence severity</strong></td>
+      <td><span class="hazard-tag">Severe in Cb</span></td>
+      <td><span class="warn-tag">Light to moderate</span></td>
+      <td><span class="hazard-tag">Moderate to severe</span></td>
+      <td><span class="warn-tag">Moderate</span></td>
+    </tr>
+    <tr>
+      <td><strong>Primary icing risk</strong></td>
+      <td>All types in Cb; brief</td>
+      <td>Widespread freezing rain; large area</td>
+      <td>Significant; multi-level</td>
+      <td>Persistent; long exposure</td>
+    </tr>
+    <tr>
+      <td><strong>After passage</strong></td>
+      <td><span class="ok-tag">Rapid clearing</span></td>
+      <td><span class="warn-tag">Slow improvement</span></td>
+      <td>Gradual improvement</td>
+      <td>No change (stationary)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="hook-box">
+  <h2>Memory Hook — Fronts at a Glance</h2>
+  <div class="hook-row"><span class="hook-badge">COLD = FAST</span><span class="hook-text"><strong>Cold front: fast, narrow, dramatic</strong>. Violent weather, then rapid clearing. If you can wait 2 hours, it may pass. Cb and squall lines possible.</span></div>
+  <div class="hook-row"><span class="hook-badge">WARM = SLOW</span><span class="hook-text"><strong>Warm front: slow, wide, persistent</strong>. Cloud sequence hundreds of miles ahead: Ci → Cs → As → Ns. Freezing rain hazard. Cannot wait it out easily.</span></div>
+  <div class="hook-row"><span class="hook-badge">CLOUD SEQUENCE</span><span class="hook-text">Ci → Cs (halo!) → As → Ns = <strong>warm front approach</strong>. Halo around sun/moon means Cs = front within 24–36 hours. Classic exam question.</span></div>
+  <div class="hook-row"><span class="hook-badge">WIND AFTER</span><span class="hook-text">Wind <strong>veers</strong> (clockwise: S to W to NW) after both cold and warm front passage in Northern Hemisphere. Pressure rises after cold front.</span></div>
+</div>
+
+</div>
+</body>
+</html>

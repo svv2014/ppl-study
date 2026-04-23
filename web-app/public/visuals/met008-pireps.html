@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-008: PIREPs</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .pirep-banner { background: #0a1520; border: 1.5px solid #2a4060; border-radius: 8px; padding: 18px 20px; margin-bottom: 24px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 2; }
+  .code-cell { font-family: 'Courier New', monospace; font-weight: 700; color: #f0c040; }
+  .field-code { color: #e08080; font-weight: 800; }
+  .field-val { color: #80e080; }
+  .intensity-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 28px; }
+  .int-card { background: #1a2d3d; border-radius: 6px; padding: 10px; text-align: center; }
+  .int-code { font-family: 'Courier New', monospace; font-weight: 800; font-size: 14px; margin-bottom: 4px; }
+  .int-label { font-size: 10px; color: #7a9ab5; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-008 — PIREPs (Pilot Reports)</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">What is a PIREP?</div>
+<p style="font-size:13px;color:#c8d8e8;line-height:1.6;margin-bottom:24px;">
+A PIREP (Pilot Report) is a real-time weather observation submitted by a pilot in flight. PIREPs provide ground-truth data on turbulence, icing, and cloud conditions that cannot be detected by ground stations or radar. They are especially critical in areas with sparse weather reporting and for conditions like Clear Air Turbulence. Pilots are encouraged — and sometimes required — to submit PIREPs when encountering significant weather.
+</p>
+
+<div class="section-label">PIREP Format Fields</div>
+<table>
+  <thead>
+    <tr>
+      <th>Field Code</th>
+      <th>Field Name</th>
+      <th>Format / Example</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="code-cell">UA / UUA</td>
+      <td>Report Type</td>
+      <td>UA = routine; UUA = urgent</td>
+      <td>UUA issued for SEV turbulence, SEV icing, or other hazards requiring immediate relay</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/OV</td>
+      <td>Location</td>
+      <td>/OV YYZ / /OV YYZ-YTZ</td>
+      <td>NAVAID or fix; or between two fixes. Can include bearing/distance (YYZ090025 = 025 NM east of YYZ)</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/TM</td>
+      <td>Time</td>
+      <td>/TM 1755</td>
+      <td>UTC time of observation in HHMM format</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/FL</td>
+      <td>Altitude (Flight Level)</td>
+      <td>/FL085 or /FLDURC</td>
+      <td>In hundreds of feet. FLDURC = during climb. FLDURD = during descent.</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/TP</td>
+      <td>Aircraft Type</td>
+      <td>/TP C172</td>
+      <td>ICAO designator. Important — turbulence severity is relative to aircraft size/weight</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/SK</td>
+      <td>Sky / Cloud</td>
+      <td>/SK BKN045-TOP065</td>
+      <td>Cloud layer base-top in hundreds of ft. OVC = overcast. CLR = clear.</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/WX</td>
+      <td>Weather</td>
+      <td>/WX FV03SM RA</td>
+      <td>Flight visibility and present weather. FV = flight visibility in SM.</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/TA</td>
+      <td>Temperature</td>
+      <td>/TA M08</td>
+      <td>Outside air temperature in Celsius. M prefix = minus (negative). M08 = -8°C.</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/WV</td>
+      <td>Wind</td>
+      <td>/WV 27035KT</td>
+      <td>Wind direction and speed as observed in flight. Direction in degrees true.</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/TB</td>
+      <td>Turbulence</td>
+      <td>/TB MOD 070-090</td>
+      <td>Intensity + altitude band. See intensity table below.</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/IC</td>
+      <td>Icing</td>
+      <td>/IC LGT-MOD RIME 060-080</td>
+      <td>Intensity + type (RIME, CLR, MIXED) + altitude band</td>
+    </tr>
+    <tr>
+      <td class="code-cell">/RM</td>
+      <td>Remarks</td>
+      <td>/RM LLWS ON APCH</td>
+      <td>Free text. Common: LLWS (low-level wind shear), ACFT MSK (aircraft masked), DURC (during climb)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Sample PIREP — Decoded Line by Line</div>
+<div class="pirep-banner">
+  <div><span class="field-code">UUA</span> <span style="color:#7a9ab5;">→ Urgent PIREP (hazardous conditions)</span></div>
+  <div><span class="field-code">/OV YYZ180030</span> <span style="color:#7a9ab5;">→ Location: 30 NM south of Toronto Pearson (180° bearing)</span></div>
+  <div><span class="field-code">/TM 1432</span> <span style="color:#7a9ab5;">→ Time: 1432 UTC</span></div>
+  <div><span class="field-code">/FL085</span> <span style="color:#7a9ab5;">→ Altitude: 8,500 ft</span></div>
+  <div><span class="field-code">/TP B738</span> <span style="color:#7a9ab5;">→ Aircraft: Boeing 737-800</span></div>
+  <div><span class="field-code">/SK OVC060-TOP110</span> <span style="color:#7a9ab5;">→ Overcast cloud layer base 6,000 ft, tops 11,000 ft</span></div>
+  <div><span class="field-code">/TA M06</span> <span style="color:#7a9ab5;">→ Temperature: -6°C (prime icing range)</span></div>
+  <div><span class="field-code">/TB SEV 080-090</span> <span style="color:#7a9ab5;">→ Severe turbulence between 8,000 and 9,000 ft</span></div>
+  <div><span class="field-code">/IC MOD CLEAR 070-090</span> <span style="color:#7a9ab5;">→ Moderate clear (glaze) icing between 7,000 and 9,000 ft</span></div>
+  <div><span class="field-code">/RM LLWS +20KT ON APCH</span> <span style="color:#7a9ab5;">→ Remarks: +20 kt wind shear on approach</span></div>
+</div>
+
+<div class="section-label">Turbulence Intensity Codes</div>
+<div class="intensity-grid">
+  <div class="int-card"><div class="int-code" style="color:#80e080;">NEG</div><div class="int-label">None</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">No turbulence encountered</div></div>
+  <div class="int-card"><div class="int-code" style="color:#80e080;">LGT</div><div class="int-label">Light</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">Slight erratic attitude changes; occupants feel slight strain</div></div>
+  <div class="int-card"><div class="int-code" style="color:#f0c040;">MOD</div><div class="int-label">Moderate</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">Definite changes; hard to walk; unsecured items displaced</div></div>
+  <div class="int-card"><div class="int-code" style="color:#ff8080;">SEV</div><div class="int-label">Severe</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">Large abrupt changes; momentarily out of control; UUA required</div></div>
+  <div class="int-card"><div class="int-code" style="color:#ff8080;">EXTM</div><div class="int-label">Extreme</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">Violent; aircraft structural damage possible; extremely rare</div></div>
+</div>
+
+<div class="section-label">Icing Intensity Codes</div>
+<div class="intensity-grid">
+  <div class="int-card"><div class="int-code" style="color:#80e080;">NEG</div><div class="int-label">None</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">No icing encountered</div></div>
+  <div class="int-card"><div class="int-code" style="color:#80e080;">TRC</div><div class="int-label">Trace</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">Barely perceptible; no de-icing needed unless exposed &gt; 1 hr</div></div>
+  <div class="int-card"><div class="int-code" style="color:#f0c040;">LGT</div><div class="int-label">Light</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">Ice accumulates slowly; de-icing adequate to control</div></div>
+  <div class="int-card"><div class="int-code" style="color:#f0c040;">MOD</div><div class="int-label">Moderate</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">Rapid accumulation; de-icing may not be adequate</div></div>
+  <div class="int-card"><div class="int-code" style="color:#ff8080;">SEV</div><div class="int-label">Severe</div><div style="font-size:10px;color:#c8d8e8;margin-top:4px;">Rate of accumulation exceeds de-icing capacity; exit immediately</div></div>
+</div>
+
+<div class="hook-box">
+  <h2>Memory Hook — PIREP Key Points</h2>
+  <div class="hook-row"><span class="hook-badge">UUA</span><span class="hook-text"><strong>Urgent PIREP</strong> = SEV or EXTM turbulence, SEV icing, or other critical hazards. ATC relays immediately to other aircraft.</span></div>
+  <div class="hook-row"><span class="hook-badge">AIRCRAFT TYPE</span><span class="hook-text">Always note <strong>/TP</strong>. SEV turbulence in a B747 may be MOD in a C172. Consider the reporting aircraft size when interpreting.</span></div>
+  <div class="hook-row"><span class="hook-badge">TEMP + CLOUD</span><span class="hook-text">If /TA shows <strong>0°C to -20°C</strong> and /SK shows cloud, expect icing. Prime icing range is <strong>-2°C to -10°C</strong>.</span></div>
+  <div class="hook-row"><span class="hook-badge">REPORT DUTY</span><span class="hook-text">When you encounter SEV turbulence or icing, <strong>report it</strong>. PIREPs protect other pilots. Failure to report is a missed safety opportunity.</span></div>
+</div>
+
+</div>
+</body>
+</html>

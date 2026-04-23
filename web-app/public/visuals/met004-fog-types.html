@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-004: Fog Types</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .fog-name { font-weight: 700; font-size: 13px; color: #f0c040; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .compare-card { background: #1a2d3d; border-radius: 8px; padding: 16px 18px; }
+  .compare-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .compare-row { font-size: 12px; color: #c8d8e8; margin-bottom: 6px; line-height: 1.5; }
+  .compare-label { color: #7a9ab5; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-004 — Fog Types</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Fog Type Reference Table</div>
+<table>
+  <thead>
+    <tr>
+      <th>Fog Type</th>
+      <th>Formation Mechanism</th>
+      <th>Typical Conditions</th>
+      <th>Aviation Hazard</th>
+      <th>Dissipation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><span class="fog-name">Radiation Fog</span></td>
+      <td>Ground radiates heat to sky after sunset, cooling the air above to dew point</td>
+      <td>Clear night, light wind (1–5 kt), moist air, calm conditions. Most common in valleys.</td>
+      <td><span class="hazard-tag">Severe</span> Can reduce visibility to near zero overnight; forms rapidly</td>
+      <td>Burns off after sunrise (1–3 hr) as ground warms. Wind also disperses it.</td>
+    </tr>
+    <tr>
+      <td><span class="fog-name">Advection Fog</span></td>
+      <td>Warm moist air moves (advects) over a cooler surface and is cooled to dew point</td>
+      <td>Warm air over cold ocean, snow-covered ground, or cold lake. Common on Canadian coasts.</td>
+      <td><span class="hazard-tag">Persistent</span> Can cover large areas; not dependent on time of day; does NOT burn off at sunrise</td>
+      <td>Requires change in wind direction to remove the warm moist air source</td>
+    </tr>
+    <tr>
+      <td><span class="fog-name">Upslope Fog</span></td>
+      <td>Moist air forced up terrain cools adiabatically until it reaches dew point</td>
+      <td>Moist air flowing toward elevated terrain; common in foothills (e.g. Alberta Rockies approach)</td>
+      <td><span class="hazard-tag">Terrain</span> Combined low visibility and elevated terrain; disorients VFR pilots</td>
+      <td>Clears when flow changes or air mass dries; can persist for extended periods</td>
+    </tr>
+    <tr>
+      <td><span class="fog-name">Steam Fog</span></td>
+      <td>Cold dry air moves over warm water; water evaporates and immediately re-condenses</td>
+      <td>Arctic air over open water (lakes in autumn, coastal areas). Looks like steam rising.</td>
+      <td><span class="warn-tag">Moderate</span> Low-level wisps; can reduce visibility over water; turbulence possible</td>
+      <td>Dissipates as air mass warms or moves inland; generally shallow</td>
+    </tr>
+    <tr>
+      <td><span class="fog-name">Freezing Fog</span></td>
+      <td>Radiation or advection fog that exists at temperatures below 0°C; supercooled droplets</td>
+      <td>Any fog conditions when OAT at or below 0°C</td>
+      <td><span class="hazard-tag">Extreme</span> Deposits clear ice on aircraft surfaces, windscreens, and runways; aircraft icing hazard</td>
+      <td>Dissipates with temperature rise above 0°C or change in air mass</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Radiation vs. Advection — Key Differences</div>
+<div class="compare-grid">
+  <div class="compare-card" style="border-top: 3px solid #f0c040;">
+    <div class="compare-title" style="color:#f0c040;">Radiation Fog</div>
+    <div class="compare-row"><span class="compare-label">Trigger</span><br>Nighttime ground cooling (radiative)</div>
+    <div class="compare-row"><span class="compare-label">Wind requirement</span><br>Calm to light (1–5 kt). Strong wind mixes it away.</div>
+    <div class="compare-row"><span class="compare-label">Location</span><br>Inland, valleys, low-lying areas</div>
+    <div class="compare-row"><span class="compare-label">Time of occurrence</span><br>Night to early morning; clears after sunrise</div>
+    <div class="compare-row"><span class="compare-label">Prediction</span><br>Predictable — check dew point spread at sunset</div>
+    <div class="compare-row"><span class="compare-label">Area covered</span><br>Local / regional (valley scale)</div>
+  </div>
+  <div class="compare-card" style="border-top: 3px solid #5080e0;">
+    <div class="compare-title" style="color:#8090e0;">Advection Fog</div>
+    <div class="compare-row"><span class="compare-label">Trigger</span><br>Warm moist air moving over cold surface</div>
+    <div class="compare-row"><span class="compare-label">Wind requirement</span><br>Needs wind to advect the moist air — wind does NOT clear it</div>
+    <div class="compare-row"><span class="compare-label">Location</span><br>Coastal, offshore, areas with cold ocean currents</div>
+    <div class="compare-row"><span class="compare-label">Time of occurrence</span><br>Any time of day or night; does NOT clear at sunrise</div>
+    <div class="compare-row"><span class="compare-label">Prediction</span><br>Harder to predict; requires knowledge of air mass trajectory</div>
+    <div class="compare-row"><span class="compare-label">Area covered</span><br>Can cover very large areas (hundreds of km)</div>
+  </div>
+</div>
+
+<div class="section-label">Forecasting Fog — Dew Point Spread Rule</div>
+<table>
+  <thead>
+    <tr>
+      <th>Dew Point Spread (OAT minus Dew Point)</th>
+      <th>Interpretation</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>&gt; 5°C</strong></td>
+      <td><span class="ok-tag">Clear skies likely</span> Air far from saturation</td>
+      <td>No immediate fog concern; monitor trend</td>
+    </tr>
+    <tr>
+      <td><strong>3 – 5°C</strong></td>
+      <td><span class="warn-tag">Monitor closely</span> Approaching saturation if cooling continues</td>
+      <td>Check hourly METAR trend, especially at sunset</td>
+    </tr>
+    <tr>
+      <td><strong>&le; 2°C</strong></td>
+      <td><span class="hazard-tag">Fog expected</span> Near or at saturation point</td>
+      <td>Expect fog; plan alternate; consider delay or divert</td>
+    </tr>
+    <tr>
+      <td><strong>0°C (spread = 0)</strong></td>
+      <td><span class="hazard-tag">Fog or cloud present now</span></td>
+      <td>Do not depart VFR; obtain current METAR + ATIS</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="hook-box">
+  <h2>Memory Hook — Fog Types at a Glance</h2>
+  <div class="hook-row"><span class="hook-badge">RADIATION</span><span class="hook-text"><strong>Clear + calm + cool night + moist air</strong> = radiation fog by morning. Clears after sunrise. Valley airports: brief operations delay.</span></div>
+  <div class="hook-row"><span class="hook-badge">ADVECTION</span><span class="hook-text"><strong>Warm air over cold surface</strong> = advection fog. Coastal hazard. Sunrise does NOT clear it. Needs wind shift to dissipate.</span></div>
+  <div class="hook-row"><span class="hook-badge">FREEZING</span><span class="hook-text">Any fog below <strong>0°C</strong> = freezing fog. Supercooled droplets freeze on contact. Aircraft icing hazard even on the ground.</span></div>
+  <div class="hook-row"><span class="hook-badge">DEW POINT</span><span class="hook-text">Spread <strong>&le; 2°C</strong> = fog likely. Spread = <strong>0</strong> = saturated. Check METAR reported as TEMP/DP (e.g. 12/10 = 2°C spread).</span></div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-014: Weather Decision-Making</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .danger-box { background: rgba(255,80,80,0.08); border: 1.5px solid rgba(255,80,80,0.3); border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
+  .danger-box h2 { font-size: 12px; color: #ff8080; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .danger-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .danger-badge { background: rgba(255,80,80,0.2); color: #ff8080; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .danger-text { font-size: 13px; color: #e8d0d0; line-height: 1.5; }
+  .danger-text strong { color: #ff8080; }
+  .checklist { list-style: none; padding: 0; margin: 0 0 28px 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #1a2d3d; font-size: 12px; color: #c8d8e8; line-height: 1.5; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-num { display: inline-block; background: #1a2d3d; color: #f0c040; font-size: 11px; font-weight: 800; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; flex-shrink: 0; }
+  .check-label { font-weight: 700; color: #e8edf2; }
+  .imsafe-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 28px; }
+  .imsafe-card { background: #1a2d3d; border-radius: 8px; padding: 12px 14px; }
+  .imsafe-letter { font-size: 28px; font-weight: 800; color: #f0c040; line-height: 1; margin-bottom: 4px; }
+  .imsafe-word { font-size: 12px; font-weight: 700; color: #e8edf2; margin-bottom: 6px; }
+  .imsafe-desc { font-size: 11px; color: #c8d8e8; line-height: 1.4; }
+  .imsafe-question { font-size: 10px; color: #7a9ab5; margin-top: 4px; font-style: italic; }
+  .minimums-note { font-size: 11px; color: #7a9ab5; margin-top: 4px; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-014 — Weather Decision-Making</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · CARs Part VI · PPL Written Exam</p>
+
+<div class="section-label">VFR Weather Minima — Quick Reference (CARs 602.114–602.115)</div>
+<table>
+  <thead>
+    <tr>
+      <th>Airspace Class</th>
+      <th>Flight Visibility</th>
+      <th>Distance from Cloud</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Class B, C, D, E</strong><br>(Controlled)</td>
+      <td>3 SM (1 SM at aerodromes)</td>
+      <td>500 ft below, 1,000 ft above, 2,000 ft horizontal</td>
+      <td>Standard VFR minimums in controlled airspace. ATC clearance required for Class B/C.</td>
+    </tr>
+    <tr>
+      <td><strong>Class G</strong><br>(Uncontrolled, &gt; 1,000 ft AGL)</td>
+      <td>1 SM</td>
+      <td>Clear of cloud</td>
+      <td>Lower minimums in uncontrolled airspace; pilots still responsible for collision avoidance</td>
+    </tr>
+    <tr>
+      <td><strong>Class G</strong><br>(Uncontrolled, &le; 1,000 ft AGL)</td>
+      <td>2 SM</td>
+      <td>Clear of cloud</td>
+      <td>Applies at low altitude over uncontrolled airspace</td>
+    </tr>
+    <tr>
+      <td><strong>Special VFR (SVFR)</strong></td>
+      <td>1 SM flight visibility</td>
+      <td>Clear of cloud</td>
+      <td>Issued by ATC in Class C/D controlled airspace only; requires specific clearance; not at night without IFR rating</td>
+    </tr>
+    <tr>
+      <td><strong>Night VFR</strong></td>
+      <td>3 SM</td>
+      <td>500 ft below, 1,000 ft above, 2,000 ft horizontal</td>
+      <td>Same as day VFR controlled minimums; additional equipment and lighting requirements</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Go / No-Go Decision Framework</div>
+<ul class="checklist">
+  <li><span class="check-num">1</span><div><span class="check-label">Obtain a complete weather brief</span><br>Call 1-866-WXBRIEF (NAV CANADA) or use NavCAN.ca. Get briefing for departure, en route, and destination. Request PIREPs for your route.</div></li>
+  <li><span class="check-num">2</span><div><span class="check-label">Check METAR at departure and destination</span><br>Current ceiling, visibility, wind, temperature/dew point spread. Is the destination currently VMC? What is the trend?</div></li>
+  <li><span class="check-num">3</span><div><span class="check-label">Check TAF for destination and alternates</span><br>What are forecast conditions at your ETA? Are TEMPO or PROB30/40 items significant for your flight?</div></li>
+  <li><span class="check-num">4</span><div><span class="check-label">Review GFA for the route</span><br>Check Clouds &amp; Weather chart (ceiling/visibility) and Icing/Turbulence chart. Identify freezing level. Mark hazard areas on your chart.</div></li>
+  <li><span class="check-num">5</span><div><span class="check-label">Identify all hazards explicitly</span><br>List: icing risk, turbulence areas, IFR conditions, frontal positions, fog potential. Do not rationalize hazards away.</div></li>
+  <li><span class="check-num">6</span><div><span class="check-label">Identify alternate aerodromes</span><br>Select one or more alternates with better forecast conditions. Confirm fuel is adequate to reach alternate. Know when to divert.</div></li>
+  <li><span class="check-num">7</span><div><span class="check-label">Apply personal minimums — make the GO/NO-GO decision</span><br>Compare conditions to your personal minimums (not just legal minimums). When in doubt, do not go. State your decision out loud.</div></li>
+</ul>
+
+<div class="section-label">IMSAFE Checklist — Personal Airworthiness</div>
+<div class="imsafe-grid">
+  <div class="imsafe-card">
+    <div class="imsafe-letter">I</div>
+    <div class="imsafe-word">Illness</div>
+    <div class="imsafe-desc">Any symptoms of illness — cold, flu, GI, headache? Even minor illness degrades performance and may affect pressurization/altitude tolerance.</div>
+    <div class="imsafe-question">"Am I feeling physically well today?"</div>
+  </div>
+  <div class="imsafe-card">
+    <div class="imsafe-letter">M</div>
+    <div class="imsafe-word">Medication</div>
+    <div class="imsafe-desc">Any prescription or OTC medication? Many common drugs are prohibited for flight or cause drowsiness, impaired judgement, or vestibular effects.</div>
+    <div class="imsafe-question">"Am I on any medication that could affect my flying?"</div>
+  </div>
+  <div class="imsafe-card">
+    <div class="imsafe-letter">S</div>
+    <div class="imsafe-word">Stress</div>
+    <div class="imsafe-desc">Personal, financial, family, or work stress occupies mental bandwidth needed for flying. Stress degrades decision-making and situational awareness.</div>
+    <div class="imsafe-question">"Is anything on my mind that will distract me?"</div>
+  </div>
+  <div class="imsafe-card">
+    <div class="imsafe-letter">A</div>
+    <div class="imsafe-word">Alcohol</div>
+    <div class="imsafe-desc">CARs 602.03: No alcohol within 8 hours of flight. Blood alcohol must not exceed 0.04%. Hangover effects persist well beyond 8 hours. When in doubt, do not fly.</div>
+    <div class="imsafe-question">"Have I had alcohol in the last 8+ hours?"</div>
+  </div>
+  <div class="imsafe-card">
+    <div class="imsafe-letter">F</div>
+    <div class="imsafe-word">Fatigue</div>
+    <div class="imsafe-desc">Fatigue impairs judgement as severely as alcohol. Less than 6 hours of sleep, night shift work, or disrupted sleep patterns all increase risk significantly.</div>
+    <div class="imsafe-question">"Am I rested enough to fly safely for the full flight duration?"</div>
+  </div>
+  <div class="imsafe-card">
+    <div class="imsafe-letter">E</div>
+    <div class="imsafe-word">Emotion</div>
+    <div class="imsafe-desc">Emotional upset (grief, anger, anxiety, excitement) impairs cognitive function. Strong emotions narrow attention and reduce risk perception accuracy.</div>
+    <div class="imsafe-question">"Am I emotionally calm enough to make good decisions under pressure?"</div>
+  </div>
+</div>
+
+<div class="danger-box">
+  <h2>Continuation Bias — The #1 Killer in VFR Weather</h2>
+  <div class="danger-row"><span class="danger-badge">DEFINITION</span><span class="danger-text">Continuation bias is the tendency to <strong>continue a plan of action despite deteriorating conditions</strong> or new information that should trigger a change. The earlier decision to "go" creates pressure to stay committed.</span></div>
+  <div class="danger-row"><span class="danger-badge">HOW IT KILLS</span><span class="danger-text">VFR pilot encounters worsening weather en route. Instead of turning back, <strong>presses on hoping it will improve</strong>. Visibility drops. Enters IMC. Spatial disorientation. Controlled flight into terrain (CFIT).</span></div>
+  <div class="danger-row"><span class="danger-badge">SIGNS</span><span class="danger-text">"It'll clear up soon." / "I've come this far." / "The passengers are counting on me." / "I don't want to look foolish by turning back." / "Just a little further."</span></div>
+  <div class="danger-row"><span class="danger-badge">ANTIDOTE</span><span class="danger-text">Establish a <strong>pre-flight decision trigger</strong>: "If visibility drops below [X] SM or ceiling below [Y] ft, I turn back immediately." Commit to it before you depart. Not negotiable in flight.</span></div>
+</div>
+
+<div class="section-label">Personal Minimums — The Concept</div>
+<table>
+  <thead>
+    <tr>
+      <th>Standard</th>
+      <th>Meaning</th>
+      <th>Example</th>
+      <th>Application</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Legal Minimum</strong></td>
+      <td>The floor set by CARs — the absolute minimum permitted by regulation</td>
+      <td>3 SM visibility, 500 ft below cloud in controlled airspace</td>
+      <td><span class="hazard-tag">Floor only</span> — designed for proficient, experienced pilots in appropriate aircraft</td>
+    </tr>
+    <tr>
+      <td><strong>Personal Minimum</strong></td>
+      <td>Your self-imposed limit that provides a safety buffer above legal minimums</td>
+      <td>Student pilot: 5 SM vis, 2,000 ft ceiling, wind &lt; 15 kt</td>
+      <td><span class="ok-tag">Your real limit</span> — accounts for your experience, currency, aircraft, and the specific flight</td>
+    </tr>
+    <tr>
+      <td><strong>Currency</strong></td>
+      <td>Recent experience — have you flown this type of operation recently?</td>
+      <td>3 takeoffs/landings in last 90 days for passenger carrying; recent night currency</td>
+      <td>Legal currency is the minimum — raise minimums if not recently current in conditions</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="hook-box">
+  <h2>Memory Hook — Weather Decision-Making</h2>
+  <div class="hook-row"><span class="hook-badge">IMSAFE</span><span class="hook-text"><strong>Illness, Medication, Stress, Alcohol, Fatigue, Emotion</strong>. Check yourself before every flight. One YES = consider no-go or reduced complexity flight.</span></div>
+  <div class="hook-row"><span class="hook-badge">LEGAL vs PERSONAL</span><span class="hook-text"><strong>Legal minimum = floor</strong>. <strong>Personal minimum = YOUR limit</strong>. Personal minimums must always be higher than legal. They decrease as experience grows.</span></div>
+  <div class="hook-row"><span class="hook-badge">CONTINUATION BIAS</span><span class="hook-text">Set your turn-back triggers <strong>before you depart</strong>. Never negotiate with yourself in flight. "When in doubt, don't" applies to en route weather decisions too.</span></div>
+  <div class="hook-row"><span class="hook-badge">BRIEF ORDER</span><span class="hook-text"><strong>METAR (now) → TAF (forecast) → GFA (big picture) → PIREPs (real reports) → Decision</strong>. Use all four. No single product tells the whole story.</span></div>
+</div>
+
+</div>
+</body>
+</html>

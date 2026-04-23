@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-012: Wind Shear and Microbursts</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .avoid-box { background: rgba(255,80,80,0.08); border: 1.5px solid rgba(255,80,80,0.3); border-radius: 10px; padding: 18px 22px; margin-bottom: 28px; }
+  .avoid-box h2 { font-size: 12px; color: #ff8080; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .avoid-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .avoid-badge { background: rgba(255,80,80,0.2); color: #ff8080; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .avoid-text { font-size: 13px; color: #e8d0d0; line-height: 1.5; }
+  .avoid-text strong { color: #ff8080; }
+  .approach-diagram { background: #0a1520; border: 1.5px solid #2a4060; border-radius: 10px; padding: 20px; margin-bottom: 28px; }
+  .approach-title { font-size: 12px; color: #7a9ab5; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 600; }
+  .phase-row { display: grid; grid-template-columns: 28px 160px 1fr; gap: 12px; align-items: start; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid #1a2d3d; }
+  .phase-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .phase-num { display: flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; font-size: 12px; font-weight: 800; flex-shrink: 0; }
+  .phase-label { font-size: 12px; font-weight: 700; padding-top: 4px; }
+  .phase-desc { font-size: 12px; color: #c8d8e8; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-012 — Wind Shear and Microbursts</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Wind Shear — Definition and Types</div>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Definition</th>
+      <th>Common Sources</th>
+      <th>Aviation Risk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Horizontal Wind Shear</strong></td>
+      <td>Change in wind speed or direction across a horizontal distance at the same altitude</td>
+      <td>Frontal boundaries, jet stream edges, gust fronts</td>
+      <td><span class="warn-tag">En route hazard</span> Heading and airspeed deviations; drift from track</td>
+    </tr>
+    <tr>
+      <td><strong>Vertical Wind Shear</strong></td>
+      <td>Change in wind speed or direction with a change in altitude (most critical for approach/departure)</td>
+      <td>Low-level jet, temperature inversion, thunderstorm outflow, microburst</td>
+      <td><span class="hazard-tag">Critical on approach</span> Sudden airspeed loss/gain; altitude excursions; potential controlled flight into terrain</td>
+    </tr>
+    <tr>
+      <td><strong>Low-Level Wind Shear (LLWS)</strong></td>
+      <td>Wind shear below 2,000 ft AGL — most dangerous phase of flight</td>
+      <td>Microburst, gust front, mountain wave rotor, strong temperature inversion</td>
+      <td><span class="hazard-tag">Extreme — takeoff/landing phase</span> Airspeed changes of 20–50 kt in seconds; loss of control close to ground</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Microburst — Characteristics</div>
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>Value</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Diameter</strong></td>
+      <td>Less than 4 km (2 NM)</td>
+      <td>Compact; can be entirely within an airport terminal area; may not trigger all sensors</td>
+    </tr>
+    <tr>
+      <td><strong>Duration</strong></td>
+      <td>Less than 15 minutes peak intensity</td>
+      <td>Typically 5–10 minutes of severe conditions; can develop within 5 minutes</td>
+    </tr>
+    <tr>
+      <td><strong>Downdraft speed</strong></td>
+      <td>Up to 6,000 fpm (100 ft/sec)</td>
+      <td>Exceeds maximum climb rate of most light aircraft; impossible to out-climb</td>
+    </tr>
+    <tr>
+      <td><strong>Outflow speed</strong></td>
+      <td>Up to 45 knots</td>
+      <td>Outflow spreads radially outward from impact point at surface</td>
+    </tr>
+    <tr>
+      <td><strong>Wind shear magnitude</strong></td>
+      <td>Up to 90 kt across the microburst</td>
+      <td>Headwind gain entering, then massive tailwind loss exiting — net effect: severe airspeed loss</td>
+    </tr>
+    <tr>
+      <td><strong>Most dangerous phase</strong></td>
+      <td>Approach and initial takeoff climb</td>
+      <td>Low altitude with no margin for recovery; initial headwind increase masks hazard</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Microburst Encounter on Approach — Phase by Phase</div>
+<div class="approach-diagram">
+  <div class="approach-title">Aircraft on Final Approach Flying Into a Microburst</div>
+  <div class="phase-row">
+    <div class="phase-num" style="background:rgba(80,200,80,0.2);color:#80e080;">1</div>
+    <div class="phase-label" style="color:#80e080;">Headwind Increase</div>
+    <div class="phase-desc">Aircraft enters the outflow. Headwind increases suddenly. Airspeed rises (e.g. +15 kt). Aircraft pitches up, climbs above glideslope. Pilot may reduce power to maintain profile. <span class="warn-tag">Deceiving — seems OK</span></div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-num" style="background:rgba(255,200,0,0.2);color:#f0c040;">2</div>
+    <div class="phase-label" style="color:#f0c040;">Downdraft Core</div>
+    <div class="phase-desc">Aircraft enters the downdraft column. Powerful sink up to 6,000 fpm pushes aircraft toward ground. Full power may not arrest descent. Altitude loss is rapid and uncontrollable. <span class="hazard-tag">Critical phase</span></div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-num" style="background:rgba(255,80,80,0.2);color:#ff8080;">3</div>
+    <div class="phase-label" style="color:#ff8080;">Tailwind — Airspeed Loss</div>
+    <div class="phase-desc">Aircraft exits the far side. Wind shifts to tailwind. Airspeed drops dramatically (e.g. -30 kt). Aircraft below glideslope, low airspeed, near stall, close to ground. Power at full but insufficient. <span class="hazard-tag">Maximum danger — CFIT risk</span></div>
+  </div>
+  <div class="phase-row">
+    <div class="phase-num" style="background:rgba(100,100,100,0.2);color:#aaa;">4</div>
+    <div class="phase-label" style="color:#aaa;">Go-Around / Divert</div>
+    <div class="phase-desc">If go-around is initiated: do NOT fly through the downdraft core. Full power, pitch for best angle, turn away from the microburst. If already in core: maximum power, accept sink rate, maintain control. <span class="warn-tag">Divert if possible before encounter</span></div>
+  </div>
+</div>
+
+<div class="section-label">Recognition Cues — Microburst Warning Signs</div>
+<table>
+  <thead>
+    <tr>
+      <th>Cue</th>
+      <th>Description</th>
+      <th>Reliability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Rain Shaft / Curtain</strong></td>
+      <td>Visible column of heavy precipitation descending from Cb base to surface; compact and dark</td>
+      <td><span class="warn-tag">Moderate</span> Dry microbursts may lack visible rain shaft</td>
+    </tr>
+    <tr>
+      <td><strong>Virga</strong></td>
+      <td>Precipitation streaks falling from cloud base that evaporate before reaching surface</td>
+      <td><span class="hazard-tag">High</span> Dry microburst indicator — evaporative cooling drives powerful downdraft; no rain at surface so pilots are surprised</td>
+    </tr>
+    <tr>
+      <td><strong>Sudden Airspeed Change</strong></td>
+      <td>Unexpected airspeed increase of &gt; 15 kt on approach not consistent with power setting</td>
+      <td><span class="hazard-tag">High</span> Immediate action cue: initiate go-around and report LLWS to ATC</td>
+    </tr>
+    <tr>
+      <td><strong>PIREP / ATC Warning</strong></td>
+      <td>Previous aircraft reporting LLWS; ATC LLWS alert system activations</td>
+      <td><span class="ok-tag">Best indicator</span> Take all LLWS PIREPs seriously; conditions change rapidly</td>
+    </tr>
+    <tr>
+      <td><strong>Dust Ring</strong></td>
+      <td>Expanding ring of dust or debris at surface below the outflow point</td>
+      <td><span class="warn-tag">Visual only</span> Visible on clear days; not detectable at night or in rain</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="avoid-box">
+  <h2>Wind Shear and Microburst — Avoidance Rules</h2>
+  <div class="avoid-row"><span class="avoid-badge">DO NOT</span><span class="avoid-text"><strong>Do not attempt a go-around through the microburst core</strong>. The downdraft exceeds aircraft climb performance. Turn laterally to exit the microburst.</span></div>
+  <div class="avoid-row"><span class="avoid-badge">DIVERT</span><span class="avoid-text">If PIREP or ATC reports LLWS on approach, <strong>divert to alternate or hold</strong> until conditions clear. Microbursts dissipate within 15 minutes typically.</span></div>
+  <div class="avoid-row"><span class="avoid-badge">VIRGA</span><span class="avoid-text">Treat virga as a <strong>dry microburst warning</strong>. The evaporative downdraft can be as powerful as a wet microburst but with no visible rain at the surface to warn you.</span></div>
+  <div class="avoid-row"><span class="avoid-badge">REPORT</span><span class="avoid-text">If you encounter LLWS on approach, <strong>report it immediately to ATC</strong>. This protects following aircraft. Use phraseology: "LLWS, airspeed loss of [X] kt on final."</span></div>
+</div>
+
+<div class="hook-box">
+  <h2>Memory Hook — Wind Shear Essentials</h2>
+  <div class="hook-row"><span class="hook-badge">MICROBURST</span><span class="hook-text"><strong>Diameter &lt; 4 km, duration &lt; 15 min, downdraft up to 6,000 fpm, outflow up to 45 kt</strong>. Small, brief, deadly.</span></div>
+  <div class="hook-row"><span class="hook-badge">APPROACH SEQUENCE</span><span class="hook-text"><strong>Headwind gain (misleading) → downdraft core → tailwind/airspeed loss (deadly)</strong>. The headwind gain masks the danger until it is too late.</span></div>
+  <div class="hook-row"><span class="hook-badge">VIRGA = DANGER</span><span class="hook-text">Virga means precipitation evaporating before the surface. The <strong>evaporative cooling drives a powerful invisible downdraft</strong> — dry microburst. Most insidious type.</span></div>
+  <div class="hook-row"><span class="hook-badge">GO-AROUND</span><span class="hook-text">Initiate go-around <strong>at the first sign</strong> of unexpected airspeed change on final. Turn laterally — do NOT fly through the downdraft core.</span></div>
+</div>
+
+</div>
+</body>
+</html>

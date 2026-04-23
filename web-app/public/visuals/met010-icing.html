@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-010: Aircraft Icing</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+  .type-card { background: #1a2d3d; border-radius: 8px; padding: 16px 18px; }
+  .type-title { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .type-row { font-size: 12px; color: #c8d8e8; margin-bottom: 6px; line-height: 1.5; }
+  .type-label { font-size: 10px; color: #7a9ab5; text-transform: uppercase; letter-spacing: 0.5px; }
+  .location-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 28px; }
+  .loc-card { background: #1a2d3d; border-radius: 8px; padding: 12px; text-align: center; }
+  .loc-name { font-size: 12px; font-weight: 700; color: #f0c040; margin-bottom: 4px; }
+  .loc-effect { font-size: 10px; color: #c8d8e8; line-height: 1.4; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-010 — Aircraft Icing</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Conditions Required for Structural Icing</div>
+<table>
+  <thead>
+    <tr>
+      <th>Requirement</th>
+      <th>Specific Condition</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Visible Moisture</strong></td>
+      <td>Cloud, fog, freezing rain, drizzle, wet snow</td>
+      <td>Clear air cannot cause structural icing. Carb icing can occur in clear air (different mechanism).</td>
+    </tr>
+    <tr>
+      <td><strong>Temperature at or below 0°C</strong></td>
+      <td>OAT 0°C down to approximately -40°C</td>
+      <td>Most severe icing: <strong>-2°C to -10°C</strong> (large supercooled droplets). Below -40°C droplets freeze before impact.</td>
+    </tr>
+    <tr>
+      <td><strong>Aircraft surface below 0°C</strong></td>
+      <td>Airframe temperature must be at or below freezing</td>
+      <td>Flying into cloud above freezing: no structural icing even if droplets exist</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Icing Types — Formation and Hazard</div>
+<div class="type-grid">
+  <div class="type-card" style="border-top:3px solid #80b8e0;">
+    <div class="type-title" style="color:#80b8e0;">Clear Ice (Glaze)</div>
+    <div class="type-row"><span class="type-label">Temperature range</span><br>0°C to -10°C</div>
+    <div class="type-row"><span class="type-label">Droplet size</span><br>Large supercooled droplets</div>
+    <div class="type-row"><span class="type-label">Appearance</span><br>Transparent, glossy, smooth surface</div>
+    <div class="type-row"><span class="type-label">Adhesion</span><br>Extremely hard; bonds firmly to surface</div>
+    <div class="type-row"><span class="type-label">Hazard level</span><br><span class="hazard-tag">Most hazardous</span></div>
+    <div class="type-row"><span class="type-label">Removal</span><br>Hardest to remove; can bridge gaps in de-ice boots</div>
+    <div class="type-row"><span class="type-label">Where found</span><br>Freezing rain, base of convective clouds</div>
+  </div>
+  <div class="type-card" style="border-top:3px solid #c8d8e8;">
+    <div class="type-title" style="color:#c8d8e8;">Rime Ice</div>
+    <div class="type-row"><span class="type-label">Temperature range</span><br>-10°C to -20°C</div>
+    <div class="type-row"><span class="type-label">Droplet size</span><br>Small supercooled droplets</div>
+    <div class="type-row"><span class="type-label">Appearance</span><br>White, milky, rough; looks like frost</div>
+    <div class="type-row"><span class="type-label">Adhesion</span><br>Brittle; relatively easier to remove</div>
+    <div class="type-row"><span class="type-label">Hazard level</span><br><span class="warn-tag">Significant</span></div>
+    <div class="type-row"><span class="type-label">Removal</span><br>Brittle — pneumatic boots more effective</div>
+    <div class="type-row"><span class="type-label">Where found</span><br>Stratiform clouds, light freezing drizzle</div>
+  </div>
+  <div class="type-card" style="border-top:3px solid #e08080;">
+    <div class="type-title" style="color:#e08080;">Mixed Ice</div>
+    <div class="type-row"><span class="type-label">Temperature range</span><br>0°C to -15°C (transitional zone)</div>
+    <div class="type-row"><span class="type-label">Droplet size</span><br>Combination of large and small droplets</div>
+    <div class="type-row"><span class="type-label">Appearance</span><br>Combination of clear and white portions; irregular shape</div>
+    <div class="type-row"><span class="type-label">Adhesion</span><br>Irregular shape disrupts airflow severely</div>
+    <div class="type-row"><span class="type-label">Hazard level</span><br><span class="hazard-tag">Most aerodynamically disruptive</span></div>
+    <div class="type-row"><span class="type-label">Removal</span><br>Difficult; irregular shape unpredictable</div>
+    <div class="type-row"><span class="type-label">Where found</span><br>Convective clouds, areas of mixed droplet sizes</div>
+  </div>
+</div>
+
+<div class="section-label">Icing Intensity — PIREP Codes and Operational Impact</div>
+<table>
+  <thead>
+    <tr>
+      <th>Intensity</th>
+      <th>PIREP Code</th>
+      <th>Accumulation Rate</th>
+      <th>Operational Impact</th>
+      <th>Action Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>None</td>
+      <td style="font-family:monospace;font-weight:700;color:#80e080;">NEG</td>
+      <td>No accumulation</td>
+      <td><span class="ok-tag">No effect</span></td>
+      <td>Continue normally</td>
+    </tr>
+    <tr>
+      <td>Trace</td>
+      <td style="font-family:monospace;font-weight:700;color:#80e080;">TRC</td>
+      <td>Barely perceptible</td>
+      <td><span class="ok-tag">Minimal</span></td>
+      <td>Monitor; de-icing not required unless exposed &gt; 1 hr</td>
+    </tr>
+    <tr>
+      <td>Light</td>
+      <td style="font-family:monospace;font-weight:700;color:#80e080;">LGT</td>
+      <td>Slow accumulation</td>
+      <td><span class="warn-tag">Manageable</span></td>
+      <td>De-icing adequate; consider altitude change</td>
+    </tr>
+    <tr>
+      <td>Moderate</td>
+      <td style="font-family:monospace;font-weight:700;color:#f0c040;">MOD</td>
+      <td>Rapid accumulation</td>
+      <td><span class="hazard-tag">Performance degraded</span></td>
+      <td>Immediate change of altitude or route; de-icing may not be adequate</td>
+    </tr>
+    <tr>
+      <td>Severe</td>
+      <td style="font-family:monospace;font-weight:700;color:#ff8080;">SEV</td>
+      <td>Rate exceeds de-icing capacity</td>
+      <td><span class="hazard-tag">Aircraft out of control risk</span></td>
+      <td>Exit icing conditions immediately; declare emergency if needed; UUA PIREP required</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Structural Icing Locations on Aircraft</div>
+<div class="location-grid">
+  <div class="loc-card">
+    <div class="loc-name">Wings and Tail</div>
+    <div class="loc-effect">Leading edge ice changes airfoil shape; increases stall speed; reduces lift; may cause asymmetric lift</div>
+  </div>
+  <div class="loc-card">
+    <div class="loc-name">Pitot Tube</div>
+    <div class="loc-effect">Ice blocks pitot orifice; airspeed indication fails (reads zero or stuck); critical for flight instruments</div>
+  </div>
+  <div class="loc-card">
+    <div class="loc-name">Propeller</div>
+    <div class="loc-effect">Ice on prop blades; unbalanced shedding causes severe vibration; efficiency loss; thrust reduction</div>
+  </div>
+  <div class="loc-card">
+    <div class="loc-name">Carburettor</div>
+    <div class="loc-effect">Carburettor icing: can occur at temperatures from -20°C to +38°C in humid conditions — even clear air. Engine roughness first sign.</div>
+  </div>
+  <div class="loc-card">
+    <div class="loc-name">Antennas</div>
+    <div class="loc-effect">Comms and nav antenna iced over; potential radio/GPS failure; adds drag</div>
+  </div>
+  <div class="loc-card">
+    <div class="loc-name">Windscreen</div>
+    <div class="loc-effect">Forward visibility lost; crew unable to see for visual approaches or obstacle avoidance</div>
+  </div>
+  <div class="loc-card">
+    <div class="loc-name">Control Surfaces</div>
+    <div class="loc-effect">Ice in hinge gaps restricts control movement; control forces increase; may jam in extreme cases</div>
+  </div>
+  <div class="loc-card">
+    <div class="loc-name">Static Ports</div>
+    <div class="loc-effect">Ice blocks static source; altimeter, VSI, airspeed errors result. Alternate static source required.</div>
+  </div>
+</div>
+
+<div class="hook-box">
+  <h2>Memory Hook — Aircraft Icing</h2>
+  <div class="hook-row"><span class="hook-badge">TWO REQUIREMENTS</span><span class="hook-text"><strong>Visible moisture + temperature at or below 0°C</strong>. Both must be present. No moisture = no structural icing (carburettor icing is different).</span></div>
+  <div class="hook-row"><span class="hook-badge">WORST RANGE</span><span class="hook-text">Most severe icing at <strong>-2°C to -10°C</strong>. Large supercooled droplets stay liquid and freeze on impact as clear ice.</span></div>
+  <div class="hook-row"><span class="hook-badge">ICE TYPES</span><span class="hook-text"><strong>Clear = hardest to remove</strong> (hard/transparent). <strong>Rime = brittle/white</strong>. <strong>Mixed = worst aerodynamic disruption</strong> (irregular shape).</span></div>
+  <div class="hook-row"><span class="hook-badge">CARB ICING</span><span class="hook-text">Carburettor icing does NOT need visible moisture or freezing OAT. Can occur <strong>+38°C to -20°C</strong> with humidity. Apply carb heat at first engine roughness.</span></div>
+</div>
+
+</div>
+</body>
+</html>

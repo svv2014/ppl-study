@@ -7,7 +7,7 @@ title: "METAR Decoding"
 duration_min: 20
 status: complete
 audio: null
-visual: null
+visual: /visuals/met005-metar-decoding.html
 sources:
   - TP 12880E Chapter 8
   - AIM MET 2.1

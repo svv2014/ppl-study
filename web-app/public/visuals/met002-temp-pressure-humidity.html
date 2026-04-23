@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-002: Temperature, Pressure &amp; Humidity</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .info-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .concept-panel { background: #1a2d3d; border-radius: 8px; padding: 16px 18px; margin-bottom: 16px; }
+  .concept-title { font-size: 14px; font-weight: 700; color: #f0c040; margin-bottom: 8px; }
+  .concept-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .concept-card { background: #1a2d3d; border-radius: 8px; padding: 14px 16px; border-top: 3px solid #1a2d3d; }
+  .card-temp { border-top-color: #e05050; }
+  .card-pres { border-top-color: #5080e0; }
+  .card-hum { border-top-color: #50b0e0; }
+  .card-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .card-temp .card-label { color: #e08080; }
+  .card-pres .card-label { color: #8090e0; }
+  .card-hum .card-label { color: #70c0e8; }
+  .card-value { font-size: 20px; font-weight: 800; color: #f0c040; margin-bottom: 6px; }
+  .card-desc { font-size: 11px; color: #c8d8e8; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-002 — Temperature, Pressure &amp; Humidity</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Three Key Atmospheric Variables</div>
+<div class="concept-grid">
+  <div class="concept-card card-temp">
+    <div class="card-label">Temperature</div>
+    <div class="card-value">T</div>
+    <div class="card-desc">Measure of air molecule kinetic energy. Affects air density directly — warm air is less dense. ISA standard: <strong>15°C at sea level</strong>.</div>
+  </div>
+  <div class="concept-card card-pres">
+    <div class="card-label">Pressure</div>
+    <div class="card-value">P</div>
+    <div class="card-desc">Weight of atmosphere above a point. Decreases with altitude. ISA standard: <strong>1013.25 hPa (29.92 inHg) at sea level</strong>.</div>
+  </div>
+  <div class="concept-card card-hum">
+    <div class="card-label">Humidity</div>
+    <div class="card-value">RH</div>
+    <div class="card-desc">Amount of water vapour in air. High humidity reduces air density further. Key indicator: <strong>dew point spread</strong>.</div>
+  </div>
+</div>
+
+<div class="section-label">Concept Reference Table</div>
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Definition</th>
+      <th>Key Value / Formula</th>
+      <th>Aviation Relevance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Density Altitude</strong></td>
+      <td>Pressure altitude corrected for non-standard temperature. Represents air density.</td>
+      <td>DA = PA + (120 × (OAT – ISA temp))</td>
+      <td><span class="hazard-tag">Perf. critical</span> High DA = longer takeoff roll, reduced climb, reduced engine power</td>
+    </tr>
+    <tr>
+      <td><strong>ISA Temperature</strong></td>
+      <td>Standard temperature at any altitude: 15°C – (2°C × altitude in thousands of ft)</td>
+      <td>15°C at SL; -57°C at tropopause</td>
+      <td>Compare OAT to ISA to determine if air is warmer (worse DA) or cooler (better DA) than standard</td>
+    </tr>
+    <tr>
+      <td><strong>QNH</strong></td>
+      <td>Altimeter setting adjusted to sea level; shows MSL altitude on altimeter</td>
+      <td>Obtained from ATIS/METAR (e.g. A2992 = 29.92 inHg)</td>
+      <td><span class="ok-tag">Standard use</span> Set on ground, altimeter reads field elevation when correct</td>
+    </tr>
+    <tr>
+      <td><strong>QFE</strong></td>
+      <td>Altimeter set to field elevation pressure; reads zero on the ground</td>
+      <td>Used in some military/circuit ops</td>
+      <td>Altimeter reads AGL height above that aerodrome</td>
+    </tr>
+    <tr>
+      <td><strong>Standard Pressure</strong></td>
+      <td>29.92 inHg / 1013.25 hPa set on altimeter</td>
+      <td>Required above 18,000 ft ASL (Class A/B)</td>
+      <td>All aircraft use same reference — reads Flight Level (e.g. FL180 = 18,000 ft)</td>
+    </tr>
+    <tr>
+      <td><strong>Dew Point</strong></td>
+      <td>Temperature at which air becomes saturated and condensation begins</td>
+      <td>Dew point spread = OAT minus dew point</td>
+      <td>Spread &le; 2°C: fog or low cloud likely. Spread = 0: saturated / fog present</td>
+    </tr>
+    <tr>
+      <td><strong>Relative Humidity</strong></td>
+      <td>Ratio of actual moisture to maximum possible moisture at that temperature</td>
+      <td>100% = saturated; dew point = OAT</td>
+      <td>High RH lowers air density (water vapour lighter than N2/O2)</td>
+    </tr>
+    <tr>
+      <td><strong>Pressure Altitude</strong></td>
+      <td>Altitude indicated when altimeter is set to 29.92 inHg</td>
+      <td>Used as base for density altitude calculation</td>
+      <td>Basis for performance chart lookups when OAT differs from ISA</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Temperature Effects on Aircraft Performance</div>
+<table>
+  <thead>
+    <tr>
+      <th>Condition</th>
+      <th>Effect on Air Density</th>
+      <th>Density Altitude</th>
+      <th>Performance Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Hot temperature</strong></td>
+      <td>Air expands, fewer molecules per unit volume</td>
+      <td><span class="hazard-tag">Higher DA</span></td>
+      <td>Longer takeoff roll, reduced climb rate, reduced engine output (normally aspirated)</td>
+    </tr>
+    <tr>
+      <td><strong>High altitude</strong></td>
+      <td>Less atmosphere above, lower pressure, thinner air</td>
+      <td><span class="hazard-tag">Higher DA</span></td>
+      <td>Same as hot — aircraft "thinks" it is higher than indicated</td>
+    </tr>
+    <tr>
+      <td><strong>High humidity</strong></td>
+      <td>Water vapour displaces heavier N2/O2 molecules</td>
+      <td><span class="hazard-tag">Higher DA</span></td>
+      <td>Additional degradation on top of temperature/altitude effects</td>
+    </tr>
+    <tr>
+      <td><strong>Cold temperature</strong></td>
+      <td>Air contracts, denser (more molecules per volume)</td>
+      <td><span class="ok-tag">Lower DA</span></td>
+      <td>Shorter takeoff roll, better climb, more engine power</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="hook-box">
+  <h2>Memory Hook — Density Altitude Warning</h2>
+  <div class="hook-row"><span class="hook-badge">HOT + HIGH + HUMID</span><span class="hook-text"><strong>Triple H = degraded performance</strong>. Each factor independently raises density altitude. All three together can make performance dangerously poor.</span></div>
+  <div class="hook-row"><span class="hook-badge">DEW POINT</span><span class="hook-text">Spread &le; <strong>2°C</strong> means fog or cloud is imminent. Spread = 0 means you are in cloud or fog right now.</span></div>
+  <div class="hook-row"><span class="hook-badge">ALTIMETER</span><span class="hook-text"><strong>QNH</strong> (local setting) = MSL altitude on indicator. <strong>29.92</strong> (standard) = Flight Level altitude. Never forget to update QNH when transitioning areas.</span></div>
+</div>
+
+</div>
+</body>
+</html>

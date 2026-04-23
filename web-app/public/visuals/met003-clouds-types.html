@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-003: Cloud Types and Formation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .abbr-badge { display: inline-block; background: #1a2d3d; color: #f0c040; border: 1px solid #2a3d4d; border-radius: 4px; padding: 2px 8px; font-size: 12px; font-weight: 800; font-family: monospace; }
+  .family-row td:first-child { font-weight: 700; }
+  .family-high { background: rgba(100,80,200,0.08); }
+  .family-mid { background: rgba(80,120,200,0.08); }
+  .family-low { background: rgba(80,140,160,0.08); }
+  .family-vert { background: rgba(200,80,80,0.08); }
+  .family-header { font-size: 13px; font-weight: 800; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-003 — Cloud Types and Formation</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Cloud Classification by Family and Type</div>
+<table>
+  <thead>
+    <tr>
+      <th>Family</th>
+      <th>Cloud Type</th>
+      <th>Abbr</th>
+      <th>Base Altitude (approx.)</th>
+      <th>Formation</th>
+      <th>Key Hazard</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- HIGH -->
+    <tr class="family-high">
+      <td rowspan="3" class="family-header" style="color:#b090e0;vertical-align:middle;">HIGH<br><span style="font-size:10px;font-weight:400;color:#7a9ab5;">&gt; 20,000 ft</span></td>
+      <td>Cirrus</td>
+      <td><span class="abbr-badge">Ci</span></td>
+      <td>Above 20,000 ft</td>
+      <td>Ice crystals in thin wispy streaks; high-level winds</td>
+      <td><span class="ok-tag">Minimal</span> Can indicate approaching warm front</td>
+    </tr>
+    <tr class="family-high">
+      <td>Cirrostratus</td>
+      <td><span class="abbr-badge">Cs</span></td>
+      <td>Above 20,000 ft</td>
+      <td>Thin ice crystal sheet; causes halo around sun/moon</td>
+      <td><span class="warn-tag">Front warning</span> Halo = wx deterioration within 24 hr</td>
+    </tr>
+    <tr class="family-high">
+      <td>Cirrocumulus</td>
+      <td><span class="abbr-badge">Cc</span></td>
+      <td>Above 20,000 ft</td>
+      <td>Small white puffs in rows ("mackerel sky")</td>
+      <td><span class="ok-tag">Minimal</span> Rare; indicates high-level instability</td>
+    </tr>
+    <!-- MIDDLE -->
+    <tr class="family-mid">
+      <td rowspan="2" class="family-header" style="color:#80a0d8;vertical-align:middle;">MIDDLE<br><span style="font-size:10px;font-weight:400;color:#7a9ab5;">6,500 – 20,000 ft</span></td>
+      <td>Altostratus</td>
+      <td><span class="abbr-badge">As</span></td>
+      <td>6,500 – 20,000 ft</td>
+      <td>Grey/blue sheet; sun visible as through frosted glass</td>
+      <td><span class="warn-tag">Icing risk</span> Continuous rain/snow; instrument conditions</td>
+    </tr>
+    <tr class="family-mid">
+      <td>Altocumulus</td>
+      <td><span class="abbr-badge">Ac</span></td>
+      <td>6,500 – 20,000 ft</td>
+      <td>Patchy grey/white rolls; larger than Cc</td>
+      <td><span class="warn-tag">Turbulence</span> Ac castellanus = convective activity developing</td>
+    </tr>
+    <!-- LOW -->
+    <tr class="family-low">
+      <td rowspan="3" class="family-header" style="color:#70b8c8;vertical-align:middle;">LOW<br><span style="font-size:10px;font-weight:400;color:#7a9ab5;">Surface – 6,500 ft</span></td>
+      <td>Stratus</td>
+      <td><span class="abbr-badge">St</span></td>
+      <td>Surface – 2,000 ft</td>
+      <td>Uniform grey layer; like fog that doesn't reach ground</td>
+      <td><span class="hazard-tag">Low ceiling</span> Drizzle; poor visibility; IFR conditions</td>
+    </tr>
+    <tr class="family-low">
+      <td>Stratocumulus</td>
+      <td><span class="abbr-badge">Sc</span></td>
+      <td>Surface – 6,500 ft</td>
+      <td>Lumpy grey/white rolls; most common cloud globally</td>
+      <td><span class="warn-tag">Low ceiling</span> Light precipitation; VFR marginal</td>
+    </tr>
+    <tr class="family-low">
+      <td>Nimbostratus</td>
+      <td><span class="abbr-badge">Ns</span></td>
+      <td>Surface – 10,000 ft (thick)</td>
+      <td>Dark grey rain cloud; obscures sky completely</td>
+      <td><span class="hazard-tag">IFR / icing</span> Continuous moderate rain or snow; low visibility</td>
+    </tr>
+    <!-- VERTICAL -->
+    <tr class="family-vert">
+      <td rowspan="2" class="family-header" style="color:#e08080;vertical-align:middle;">VERTICAL<br><span style="font-size:10px;font-weight:400;color:#7a9ab5;">Surface to tropopause</span></td>
+      <td>Cumulus</td>
+      <td><span class="abbr-badge">Cu</span></td>
+      <td>1,000 – 6,000 ft base</td>
+      <td>Convective heating; cauliflower appearance; fair wx Cu benign</td>
+      <td><span class="warn-tag">Moderate</span> Building Cu indicates instability; can develop to Cb</td>
+    </tr>
+    <tr class="family-vert">
+      <td><strong>Cumulonimbus</strong></td>
+      <td><span class="abbr-badge" style="color:#ff8080;">Cb</span></td>
+      <td>500 – 6,000 ft base; tops to 50,000+ ft</td>
+      <td>Explosive convection; anvil-shaped top at tropopause; requires moisture + instability + lifting</td>
+      <td><span class="hazard-tag">EXTREME HAZARD</span> All icing types, severe turbulence, lightning, hail, microbursts, tornadoes — AVOID</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Cumulonimbus — Hazard Summary</div>
+<table>
+  <thead>
+    <tr>
+      <th>Hazard</th>
+      <th>Description</th>
+      <th>Risk Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Severe Turbulence</strong></td>
+      <td>Updrafts and downdrafts up to 10,000 fpm within the storm; gust fronts outward</td>
+      <td><span class="hazard-tag">Extreme</span></td>
+    </tr>
+    <tr>
+      <td><strong>All Icing Types</strong></td>
+      <td>Clear, rime, and mixed icing; supercooled water droplets throughout</td>
+      <td><span class="hazard-tag">Severe</span></td>
+    </tr>
+    <tr>
+      <td><strong>Lightning</strong></td>
+      <td>Every active Cb produces lightning; can strike well outside visible cloud</td>
+      <td><span class="hazard-tag">Extreme</span></td>
+    </tr>
+    <tr>
+      <td><strong>Hail</strong></td>
+      <td>Can be ejected up to 20 NM ahead of storm anvil at altitude</td>
+      <td><span class="hazard-tag">Severe</span></td>
+    </tr>
+    <tr>
+      <td><strong>Wind Shear / Microburst</strong></td>
+      <td>Severe wind shear at low altitude; microburst downdraft up to 6,000 fpm</td>
+      <td><span class="hazard-tag">Extreme</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="hook-box">
+  <h2>Memory Hook — Cloud Prefixes and Families</h2>
+  <div class="hook-row"><span class="hook-badge">HEIGHT</span><span class="hook-text"><strong>Alto = middle</strong>, <strong>Cirro = high</strong>, no prefix (St, Cu, Ns) = low. Height determines the prefix.</span></div>
+  <div class="hook-row"><span class="hook-badge">SHAPE</span><span class="hook-text"><strong>Cu = heap/puffy</strong> (cumulo = heap), <strong>Ci = hair/wispy</strong> (cirrus = curl of hair), <strong>St = sheet/layer</strong> (stratus = spread), <strong>Ns = rain</strong> (nimbus = rain).</span></div>
+  <div class="hook-row"><span class="hook-badge">Cb RULE</span><span class="hook-text"><strong>Never enter a Cb</strong>. Never fly under one. Clear by at least <strong>20 NM laterally</strong>. The anvil shows downwind extent — go upwind side.</span></div>
+  <div class="hook-row"><span class="hook-badge">FRONT CLUES</span><span class="hook-text">Ci → Cs → As → Ns sequence = <strong>warm front approaching</strong>. Cu → Cb rapid build = <strong>cold front / afternoon convection</strong>.</span></div>
+</div>
+
+</div>
+</body>
+</html>

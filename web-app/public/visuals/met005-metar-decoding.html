@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MET-005: METAR Decoding</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
+  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
+  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+  .section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: #7a9ab5; padding: 8px 10px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 9px 10px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 10px; padding: 18px 22px; margin-top: 8px; }
+  .hook-box h2 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
+  .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .hook-text strong { color: #f0c040; }
+  .hazard-tag { display: inline-block; background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .ok-tag { display: inline-block; background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+  .warn-tag { display: inline-block; background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.3); border-radius: 4px; padding: 2px 8px; font-size: 10px; font-weight: 700; }
+
+  .metar-banner { background: #0a1520; border: 1.5px solid #2a4060; border-radius: 8px; padding: 18px 20px; margin-bottom: 28px; font-family: 'Courier New', monospace; }
+  .metar-line { font-size: 16px; color: #e8edf2; line-height: 2; letter-spacing: 0.5px; flex-wrap: wrap; display: flex; gap: 8px; align-items: baseline; }
+  .m-type { color: #9b7fd4; font-weight: 800; }
+  .m-station { color: #6fa8dc; font-weight: 800; }
+  .m-time { color: #7ac5cd; font-weight: 800; }
+  .m-wind { color: #f0c040; font-weight: 800; }
+  .m-vis { color: #80e080; font-weight: 800; }
+  .m-cloud { color: #80b8e0; font-weight: 800; }
+  .m-temp { color: #e08080; font-weight: 800; }
+  .m-alt { color: #e0c080; font-weight: 800; }
+  .m-rmk { color: #7a9ab5; }
+  .metar-legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .leg-item { display: flex; align-items: center; gap: 5px; font-size: 11px; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .code-cell { font-family: 'Courier New', monospace; font-weight: 700; color: #f0c040; }
+</style>
+</head>
+<body>
+<div style="max-width:900px;margin:auto;">
+
+<h1>MET-005 — METAR Decoding</h1>
+<p class="subtitle">Transport Canada · TP 12880E Chapter 8 · PPL Written Exam</p>
+
+<div class="section-label">Sample METAR — Colour-Coded by Field</div>
+<div class="metar-banner">
+  <div class="metar-line">
+    <span class="m-type">METAR</span>
+    <span class="m-station">CYYZ</span>
+    <span class="m-time">151800Z</span>
+    <span class="m-wind">27015KT</span>
+    <span class="m-vis">15SM</span>
+    <span class="m-cloud">FEW030</span>
+    <span class="m-cloud">BKN080</span>
+    <span class="m-cloud">OVC150</span>
+    <span class="m-temp">18/08</span>
+    <span class="m-alt">A2992</span>
+    <span class="m-rmk">RMK SLP214</span>
+  </div>
+  <div class="metar-legend">
+    <div class="leg-item"><div class="leg-dot" style="background:#9b7fd4;"></div><span style="color:#9b7fd4;">Report Type</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#6fa8dc;"></div><span style="color:#6fa8dc;">Station ID</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#7ac5cd;"></div><span style="color:#7ac5cd;">Date/Time UTC</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#f0c040;"></div><span style="color:#f0c040;">Wind</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#80e080;"></div><span style="color:#80e080;">Visibility</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#80b8e0;"></div><span style="color:#80b8e0;">Cloud</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#e08080;"></div><span style="color:#e08080;">Temp/Dew Point</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#e0c080;"></div><span style="color:#e0c080;">Altimeter</span></div>
+    <div class="leg-item"><div class="leg-dot" style="background:#7a9ab5;"></div><span style="color:#7a9ab5;">Remarks</span></div>
+  </div>
+</div>
+
+<div class="section-label">Field-by-Field Decode</div>
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Sample Code</th>
+      <th>Format</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Report Type</strong></td>
+      <td class="code-cell">METAR</td>
+      <td>METAR or SPECI</td>
+      <td>METAR = routine hourly. SPECI = special report issued when significant change occurs.</td>
+    </tr>
+    <tr>
+      <td><strong>Station ID</strong></td>
+      <td class="code-cell">CYYZ</td>
+      <td>ICAO 4-letter ID</td>
+      <td>Canadian stations start with CY. CYYZ = Toronto Pearson. Used to match TAF.</td>
+    </tr>
+    <tr>
+      <td><strong>Date/Time (UTC)</strong></td>
+      <td class="code-cell">151800Z</td>
+      <td>DDHHMMz</td>
+      <td>Day 15 of month, 1800 UTC (Z = Zulu/UTC). Always UTC — not local time.</td>
+    </tr>
+    <tr>
+      <td><strong>Wind</strong></td>
+      <td class="code-cell">27015KT</td>
+      <td>DDDSSKT or DDDSSGGKT</td>
+      <td>From 270° (west) at 15 knots. Gusts shown as 27015G25KT. VRB = variable direction. 00000KT = calm.</td>
+    </tr>
+    <tr>
+      <td><strong>Visibility</strong></td>
+      <td class="code-cell">15SM</td>
+      <td>NNSMx or MNNNN (metres)</td>
+      <td>15 statute miles. P6SM = more than 6 SM (prevailing). Canadian METARs may use metres (e.g. 9000).</td>
+    </tr>
+    <tr>
+      <td><strong>Present Weather</strong></td>
+      <td class="code-cell">-RA +SN TSRA</td>
+      <td>Intensity + Descriptor + Phenomenon</td>
+      <td>- = light, + = heavy, no sign = moderate. RA=rain, SN=snow, FG=fog, TS=thunderstorm, BR=mist, DZ=drizzle.</td>
+    </tr>
+    <tr>
+      <td><strong>Cloud Amount</strong></td>
+      <td class="code-cell">FEW030 BKN080</td>
+      <td>AMTHHHx (hundreds of ft)</td>
+      <td>030 = 3,000 ft AGL. See cloud amount codes below. CB or TCU appended for cumulonimbus/towering Cu.</td>
+    </tr>
+    <tr>
+      <td><strong>Temperature / Dew Point</strong></td>
+      <td class="code-cell">18/08</td>
+      <td>TT/TDx in Celsius</td>
+      <td>OAT 18°C, dew point 8°C. Spread = 10°C (no fog concern). Minus temps: M02 = -2°C.</td>
+    </tr>
+    <tr>
+      <td><strong>Altimeter Setting</strong></td>
+      <td class="code-cell">A2992</td>
+      <td>ANNNN (inHg x100)</td>
+      <td>29.92 inHg. Canadian METARs also use Q format: Q1013 = 1013 hPa (QNH). Set on altimeter before flight.</td>
+    </tr>
+    <tr>
+      <td><strong>Remarks</strong></td>
+      <td class="code-cell">RMK SLP214</td>
+      <td>Free text / coded</td>
+      <td>SLP = sea-level pressure (1021.4 hPa if SLP214). May include PRESRR (pressure rising rapidly), peak wind, etc.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Cloud Amount Codes</div>
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Full Name</th>
+      <th>Oktas (eighths of sky)</th>
+      <th>VFR Impact</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="code-cell">SKC / CLR</td>
+      <td>Sky Clear</td>
+      <td>0/8 — no cloud</td>
+      <td><span class="ok-tag">Unrestricted</span></td>
+    </tr>
+    <tr>
+      <td class="code-cell">FEW</td>
+      <td>Few</td>
+      <td>1–2/8</td>
+      <td><span class="ok-tag">VFR OK</span> Not operationally significant</td>
+    </tr>
+    <tr>
+      <td class="code-cell">SCT</td>
+      <td>Scattered</td>
+      <td>3–4/8</td>
+      <td><span class="ok-tag">VFR OK</span> Check ceiling for legal minimums</td>
+    </tr>
+    <tr>
+      <td class="code-cell">BKN</td>
+      <td>Broken</td>
+      <td>5–7/8</td>
+      <td><span class="warn-tag">Ceiling</span> Counts as ceiling — may restrict VFR</td>
+    </tr>
+    <tr>
+      <td class="code-cell">OVC</td>
+      <td>Overcast</td>
+      <td>8/8</td>
+      <td><span class="hazard-tag">Ceiling</span> Overcast = ceiling. Height determines VFR legality.</td>
+    </tr>
+    <tr>
+      <td class="code-cell">VV</td>
+      <td>Vertical Visibility</td>
+      <td>Sky obscured</td>
+      <td><span class="hazard-tag">IFR likely</span> Fog, smoke, or precipitation obscures sky. VV004 = 400 ft vertical visibility.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="section-label">Present Weather Codes — Quick Reference</div>
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Meaning</th>
+      <th>Code</th>
+      <th>Meaning</th>
+      <th>Code</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="code-cell">RA</td><td>Rain</td>
+      <td class="code-cell">SN</td><td>Snow</td>
+      <td class="code-cell">DZ</td><td>Drizzle</td>
+    </tr>
+    <tr>
+      <td class="code-cell">FG</td><td>Fog (vis &lt; 1 SM)</td>
+      <td class="code-cell">BR</td><td>Mist (vis 5/8 – 6 SM)</td>
+      <td class="code-cell">HZ</td><td>Haze</td>
+    </tr>
+    <tr>
+      <td class="code-cell">TS</td><td>Thunderstorm</td>
+      <td class="code-cell">GR</td><td>Hail (&gt; 5 mm)</td>
+      <td class="code-cell">GS</td><td>Small hail / snow pellets</td>
+    </tr>
+    <tr>
+      <td class="code-cell">FZRA</td><td>Freezing rain</td>
+      <td class="code-cell">FZDZ</td><td>Freezing drizzle</td>
+      <td class="code-cell">FZFG</td><td>Freezing fog</td>
+    </tr>
+    <tr>
+      <td class="code-cell">-</td><td>Light intensity</td>
+      <td class="code-cell">(none)</td><td>Moderate intensity</td>
+      <td class="code-cell">+</td><td>Heavy intensity</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="hook-box">
+  <h2>Memory Hook — METAR Reading Order</h2>
+  <div class="hook-row"><span class="hook-badge">ORDER</span><span class="hook-text"><strong>Type → Station → Time → Wind → Vis → Wx → Cloud → Temp/DP → Altimeter → Remarks</strong>. Always read in sequence — don't skip fields.</span></div>
+  <div class="hook-row"><span class="hook-badge">CEILING</span><span class="hook-text">Only <strong>BKN or OVC</strong> count as ceiling. FEW and SCT are not ceilings even if low. VFR ceiling limits apply to the lowest BKN/OVC layer.</span></div>
+  <div class="hook-row"><span class="hook-badge">UTC</span><span class="hook-text">All METAR times are <strong>UTC (Zulu)</strong>. In Canada: UTC-3.5 to UTC-8 depending on province and DST. Know your offset for local interpretation.</span></div>
+  <div class="hook-row"><span class="hook-badge">ALTIMETER</span><span class="hook-text"><strong>A2992 = 29.92 inHg = 1013 hPa</strong>. Set on altimeter to read correct MSL altitude. Update when given new ATIS or crossing altimeter zones.</span></div>
+</div>
+
+</div>
+</body>
+</html>
