@@ -4,13 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MET-005: METAR Decoding</title>
+<link rel="stylesheet" href="/visuals/_common.css">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0d1b2a; color: #e8edf2; font-family: 'Segoe UI', system-ui, sans-serif; padding: 32px; }
-  h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
-  .subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
-  .container { max-width: 900px; margin: 0 auto; }
-  .section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin: 32px 0 14px; }
   .metar-sample { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 18px 20px; font-family: 'Consolas', 'Menlo', monospace; font-size: 15px; line-height: 1.9; margin-bottom: 14px; word-break: break-word; }
   .seg { padding: 2px 6px; border-radius: 3px; margin: 0 2px; display: inline-block; }
   .s-type { background: #2d3e50; color: #e8edf2; }
@@ -23,19 +18,13 @@
   .s-temp { background: #3a5a7a; color: #e8edf2; }
   .s-alt  { background: #6a4a7a; color: #e8edf2; }
   .s-rmk  { background: #3d3d3d; color: #e8edf2; }
-  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-  th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
-  td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
-  tr:last-child td { border-bottom: none; }
   td code { font-family: 'Consolas', 'Menlo', monospace; background: #0d1b2a; color: #f0c040; padding: 1px 6px; border-radius: 3px; font-size: 12px; }
   .sky-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
   .sky-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
   .sky-code { font-size: 18px; color: #f0c040; font-weight: bold; font-family: 'Consolas', monospace; }
   .sky-name { font-size: 11px; color: #e8edf2; margin-top: 4px; }
   .sky-oktas { font-size: 10px; color: #7a9ab5; margin-top: 2px; }
-  .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
-  .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
-  @media (max-width: 640px) { body { padding: 16px; } .sky-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 640px) { .sky-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
 </head>
 <body>
