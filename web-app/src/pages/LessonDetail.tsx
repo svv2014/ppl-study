@@ -7,10 +7,9 @@ import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { useState, useEffect, type ReactNode } from 'react';
 import AudioPlayer from '../components/AudioPlayer';
+import LessonPrevNext from '../components/LessonPrevNext';
 import SourceList from '../components/SourceList';
 import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
@@ -127,6 +126,8 @@ export default function LessonDetail() {
 
   return (
     <Container id="main-content" tabIndex={-1} maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: { xs: 2, sm: 3 }, py: 4 }}>
+      <LessonPrevNext prev={prev} next={next} variant="compact" />
+
       <Box sx={{ mb: 1, display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
         <Chip
           label={lesson.topic.replace(/-/g, ' ')}
@@ -198,74 +199,7 @@ export default function LessonDetail() {
 
       <Divider sx={{ mt: 3, mb: 2 }} />
 
-      <Box
-        sx={{
-          display: 'flex',
-          gap: 1,
-          justifyContent: 'space-between',
-          alignItems: 'stretch',
-        }}
-      >
-        {prev ? (
-          <Button
-            variant="outlined"
-            startIcon={<ArrowBackIcon />}
-            onClick={() => navigate(`/lessons/${prev.topic}/${prev.slug}`)}
-            title={prev.title}
-            aria-label={`Previous lesson: ${prev.title}`}
-            sx={{
-              minHeight: 48,
-              flex: '1 1 0',
-              minWidth: 0,
-              justifyContent: 'flex-start',
-              overflow: 'hidden',
-              '& .MuiButton-startIcon': { flexShrink: 0 },
-            }}
-          >
-            <Box
-              sx={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {prev.title}
-            </Box>
-          </Button>
-        ) : (
-          <Box sx={{ flex: '1 1 0' }} />
-        )}
-
-        {next ? (
-          <Button
-            variant="outlined"
-            endIcon={<ArrowForwardIcon />}
-            onClick={() => navigate(`/lessons/${next.topic}/${next.slug}`)}
-            title={next.title}
-            aria-label={`Next lesson: ${next.title}`}
-            sx={{
-              minHeight: 48,
-              flex: '1 1 0',
-              minWidth: 0,
-              justifyContent: 'flex-end',
-              overflow: 'hidden',
-              '& .MuiButton-endIcon': { flexShrink: 0 },
-            }}
-          >
-            <Box
-              sx={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {next.title}
-            </Box>
-          </Button>
-        ) : (
-          <Box sx={{ flex: '1 1 0' }} />
-        )}
-      </Box>
+      <LessonPrevNext prev={prev} next={next} variant="full" />
     </Container>
   );
 }
