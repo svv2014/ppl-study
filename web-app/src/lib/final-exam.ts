@@ -50,7 +50,7 @@ export const TOPIC_WEIGHTS: Record<string, number> = {
 
 export const POOL_CONFIGS = {
   full: { count: 100, minutes: 210 },
-  quick: { count: 40, minutes: 90 },
+  quick: { count: 50, minutes: 90 },
 } as const;
 
 function seededRng(seed: number): () => number {
@@ -97,17 +97,17 @@ export function buildExamPool(totalCount: number, seed?: number): ExamQuestion[]
 
   topics.forEach((topic, i) => {
     const available = shuffle(byTopic[topic] ?? [], rng);
-    if (available.length === 0) return;
-
     const isLast = i === topics.length - 1;
-    const count = isLast
+    const requested = isLast
       ? remaining
       : Math.round(((TOPIC_WEIGHTS[topic] ?? 0) / totalWeight) * totalCount);
-    remaining -= count;
+    const take = Math.min(requested, available.length);
 
-    for (let j = 0; j < count; j++) {
-      result.push(available[j % available.length]);
+    for (let j = 0; j < take; j++) {
+      result.push(available[j]);
     }
+
+    if (!isLast) remaining -= take;
   });
 
   return shuffle(result, rng);

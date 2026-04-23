@@ -84,7 +84,7 @@ function persistHistory(history: HistoryEntry[]): void {
 
 function poolLabel(type: PoolType): string {
   if (type === 'full') return 'Full (100q)';
-  if (type === 'quick') return 'Quick (40q)';
+  if (type === 'quick') return 'Quick (50q)';
   return 'Custom';
 }
 
@@ -312,7 +312,7 @@ export default function FinalExam() {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5, mb: 3 }}>
           {([
             { type: 'full' as PoolType, label: 'Full Exam', detail: '100 questions · 3 h 30 min' },
-            { type: 'quick' as PoolType, label: 'Quick Exam', detail: '40 questions · 1 h 30 min' },
+            { type: 'quick' as PoolType, label: 'Quick Exam', detail: '50 questions · 1 h 30 min' },
             { type: 'custom' as PoolType, label: 'Custom', detail: 'Choose question count' },
           ]).map(({ type, label, detail }) => (
             <Box
