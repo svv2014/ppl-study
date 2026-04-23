@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XXX-000: Lesson Title</title>
+<!-- Shared tokens, body defaults, and component classes.
+     See docs/design/DESIGN-SYSTEM.md §2.1 and docs/visuals-standards.md. -->
+<link rel="stylesheet" href="/visuals/_common.css">
+<style>
+  /* Visual-specific layout only — do not redeclare shared component styles */
+</style>
+</head>
+<body>
+  <!-- Back-link button — required on every visual (docs/visuals-standards.md §Back-link required) -->
+  <button
+    data-backlink="true"
+    onclick="if(window.history.length<=1){window.close();}else{window.history.back();}"
+    style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);"
+    aria-label="Back to lesson"
+  >&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<div class="container">
+  <h1>XXX-000 — Lesson Title</h1>
+  <p class="subtitle">Transport Canada · TP XXXXX Ch. X · Source Reference</p>
+
+  <!-- ── Section heading ──────────────────────────────────────────────── -->
+  <div class="section-title">Section Name</div>
+
+  <!-- ── Table (reference data) ───────────────────────────────────────── -->
+  <table>
+    <thead>
+      <tr><th>Column A</th><th>Column B</th><th>Column C</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Value</td><td>Value</td><td>Description</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── Fact cards ───────────────────────────────────────────────────── -->
+  <div class="fact-card">
+    <div class="fact-label">Metric Label</div>
+    <div class="fact-value">Numeric Value</div>
+    <div class="fact-note">Supporting detail sentence.</div>
+  </div>
+
+  <!-- ── NOTAM / note callout ─────────────────────────────────────────── -->
+  <div class="note-box">
+    Left-accented callout for important notes or warnings.
+  </div>
+
+  <!-- ── Memory hook ──────────────────────────────────────────────────── -->
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>Key point to remember.</strong> Elaboration and exam context in
+    plain language.
+  </div>
+</div>
+</body>
+</html>

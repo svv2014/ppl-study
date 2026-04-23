@@ -14,27 +14,37 @@ page.
 All new visuals must match the look and structure of this file. Read it before
 authoring a new one.
 
+## Template
+
+`docs/design/examples/visual-template.html` is the starting point for every new
+visual. It already links `_common.css` and includes the back-link element.
+
+## Scheme
+
+**Variant A · Cockpit Briefing — dark scheme (canonical).** All visuals use the
+dark scheme. Light-scheme variants are deferred and not produced at this time.
+
 ## Format
 
-**Standalone dark-aviation HTML** — a complete `<!DOCTYPE html>` document.
-JavaScript frameworks and `<script src>` tags pointing outside the document are
-prohibited.
+**Dark-aviation HTML** — a complete `<!DOCTYPE html>` document served via Firebase
+Hosting. JavaScript frameworks and `<script src>` tags pointing outside the
+document are prohibited.
 
-**CSS:** New topic visuals (al, met, nav) must inline all CSS in a `<style>` block
-in `<head>`. **GK visuals** (`gk*.html`) are the sole exception — they link the
-shared token sheet and keep only file-specific rules inline:
+**Every visual must link the shared token stylesheet in `<head>`:**
 
 ```html
-<link rel="stylesheet" href="_common.css">
-<style>
-  /* file-specific rules only */
-</style>
+<link rel="stylesheet" href="/visuals/_common.css">
 ```
 
-`_common.css` lives in the same `web-app/public/visuals/` directory, so it loads
-correctly from Firebase Hosting. GK files will not render correctly when opened via
-`file://` without a local server — this is an acceptable trade-off for the dedup
-benefit. All other topic visuals remain fully self-contained.
+`/visuals/_common.css` lives in `web-app/public/visuals/` and is served by
+Firebase Hosting at the `/visuals/` path. It provides the design-system color
+tokens (`:root`), body defaults, the 40 × 40 px grid-paper backdrop, and shared
+component classes (`.diagram-box`, `.note-box`, `.memory-box`, `.fact-card`,
+`.memory-hook`, `.hook-box`, `table`/`th`/`td`, `.yes`/`.no`, etc.).
+
+Visual-specific layout rules go in a `<style>` block below the `<link>`. Do not
+re-declare tokens or shared component styles inline — override only what is
+unique to this visual.
 
 ## Viewport and dimensions
 
@@ -50,18 +60,27 @@ benefit. All other topic visuals remain fully self-contained.
 
 ## Colour palette
 
-| Role | Hex | Usage |
-|------|-----|-------|
-| Background | `#0d1b2a` | `body` background; darkest layer |
-| Primary text | `#e8edf2` | Body copy |
-| Amber accent | `#f0c040` | Headings, key values, callout labels |
-| Blue-grey secondary | `#7a9ab5` | Subtitles, labels, table headers |
-| Panel surface | `#1a2d3d` | Card/table header backgrounds |
-| Border | `#1a2d3d` | Table and card borders |
+The canonical color token set is defined in **`docs/design/DESIGN-SYSTEM.md §2.1`**
+(dark scheme) and exposed as CSS custom properties (`--bg`, `--accent`,
+`--text-muted`, etc.) by `/visuals/_common.css`.
 
-Do not introduce colours outside this palette without a documented reason. Tints
-and alpha variants (e.g. `rgba(255,80,80,0.15)` for danger tags) are acceptable
-as long as they stay within the dark-aviation aesthetic.
+Do not introduce colors outside the token set without first amending
+`DESIGN-SYSTEM.md`. Alpha tints of existing palette colors (e.g.
+`rgba(255,80,80,0.15)` for danger tags) are acceptable as long as they stay
+within the dark-aviation aesthetic.
+
+For reference, the most commonly used visual palette values:
+
+| Role | Hex | CSS variable |
+|------|-----|--------------|
+| Background | `#0d1b2a` | `--bg2` |
+| Primary text | `#e8edf2` | (body default) |
+| Amber accent | `#f0c040` | `--accent` |
+| Blue-grey secondary | `#7a9ab5` | `--text-muted` |
+| Panel surface | `#1a2d3d` | (visual palette) |
+
+See `docs/design/DESIGN-SYSTEM.md §2.1` for the full token table including
+`--surface`, `--border`, `--success`, `--danger`, and `--info`.
 
 ## File naming
 
@@ -117,7 +136,7 @@ regardless of how the file was produced.
 
 ## Accessibility requirements
 
-- Every `<img>` tag must have a descriptive `alt` attribute. Do not use `alt=""` 
+- Every `<img>` tag must have a descriptive `alt` attribute. Do not use `alt=""`
   unless the image is purely decorative and adjacent text already conveys the
   information.
 - Use semantic HTML where appropriate: `<table>` for tabular data, `<h1>`/`<h2>`
@@ -218,7 +237,8 @@ bash scripts/add-visual-backlink.sh
 - **No stock filler.** Do not embed stock photos, clip art, or decorative imagery
   that does not directly support the lesson content.
 - **No external resources.** No `<img src="https://...">`, no Google Fonts `@import`,
-  no CDN-hosted scripts or stylesheets. Everything the page needs must be inlined.
+  no CDN-hosted scripts or stylesheets. The only permitted external stylesheet is
+  `/visuals/_common.css` served from the same Firebase Hosting origin.
 - **No copyright-protected charts.** Do not reproduce VNC/VTA chart extracts or
   other Transport Canada map products verbatim. Diagrams must be original
   illustrations inspired by the content, not reproductions of licensed materials.
