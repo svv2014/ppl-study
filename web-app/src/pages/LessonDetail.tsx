@@ -155,6 +155,7 @@ export default function LessonDetail() {
         src={lesson.audio}
         title={lesson.title}
         topic={TOPIC_LABELS[lesson.topic] ?? lesson.topic}
+        lessonId={lesson.id}
       />
 
       <Box sx={{ mt: 2, mb: 3, display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' }, flexWrap: 'wrap' }}>

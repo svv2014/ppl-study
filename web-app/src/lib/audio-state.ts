@@ -39,3 +39,11 @@ export function writePosition(lessonId: string, time: number): void {
     // ignore storage errors (private browsing, quota)
   }
 }
+
+export function clearAudioPosition(lessonId: string): void {
+  try {
+    localStorage.removeItem(POS_PREFIX + lessonId);
+  } catch {
+    // ignore storage errors (private browsing, quota)
+  }
+}
