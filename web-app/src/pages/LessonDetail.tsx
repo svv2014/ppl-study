@@ -154,6 +154,7 @@ export default function LessonDetail() {
       </Typography>
 
       <AudioPlayer
+        key={lesson.id}
         src={lesson.audio}
         title={lesson.title}
         topic={TOPIC_LABELS[lesson.topic] ?? lesson.topic}
