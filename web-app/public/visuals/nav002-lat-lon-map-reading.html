@@ -7,40 +7,27 @@
 <title>NAV-002: Latitude, Longitude, and Map Reading</title>
 <style>
 body { max-width: 860px; margin: auto; }
-  
-  
-  
 
-  /* ── Coordinate Grid ────────────────────────────────────────────── */
-  
-
-  /* ── Info cards row ─────────────────────────────────────────────── */
-  
-  
-  
-  
-  
-  .info-card .big { font-size: 26px; font-weight: 800; color: #f0c040; text-align: center; padding: 8px 0; letter-spacing: 1px; }
-  .info-card .sub { font-size: 11px; color: #7a9ab5; text-align: center; margin-top: 2px; }
-
-  /* ── Distance table ─────────────────────────────────────────────── */
-  
-  
-  
-  
-  
+  .info-card .big { font-size: 26px; font-weight: 800; color: var(--accent); text-align: center; padding: 8px 0; letter-spacing: 1px; }
+  .info-card .sub { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 2px; }
 
   /* ── Convergence diagram ─────────────────────────────────────────── */
-  .conv-wrap { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 10px; padding: 20px; margin-bottom: 32px; display: flex; gap: 24px; align-items: flex-start; }
-  .conv-desc { flex: 1; font-size: 12px; color: #c8d8e8; line-height: 1.75; }
-  .conv-desc h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 10px; }
-  .conv-desc .formula { background: #0d1b2a; border: 1px solid #1a3a5a; border-radius: 6px; padding: 10px 14px; margin: 10px 0; font-size: 13px; color: #f0c040; font-weight: 600; text-align: center; }
+  .conv-wrap { background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 20px; margin-bottom: 32px; display: flex; gap: 24px; align-items: flex-start; }
+  .conv-desc { flex: 1; font-size: 12px; color: var(--text); line-height: 1.75; }
+  .conv-desc h3 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+  .conv-desc .formula { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; margin: 10px 0; font-size: 13px; color: var(--accent); font-weight: 600; text-align: center; }
 
-  /* ── Memory hook ─────────────────────────────────────────────────── */
+  /* ── Mobile ≤480px ───────────────────────────────────────────────── */
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .conv-wrap { flex-direction: column; }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+    table { display: block; overflow-x: auto; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>
 .container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}
 </style>
@@ -174,7 +161,7 @@ body { max-width: 860px; margin: auto; }
     <h3>VNC Grid Spacing</h3>
     <div class="big">30′</div>
     <div class="sub">per grid line on the VNC chart</div>
-    <p style="margin-top:12px;">Both latitude and longitude grid lines on a VFR Navigation Chart are printed every <strong style="color:#f0c040;">30 minutes of arc</strong> — each grid square is 30′ × 30′.</p>
+    <p style="margin-top:12px;">Both latitude and longitude grid lines on a VFR Navigation Chart are printed every <strong style="color:var(--accent);">30 minutes of arc</strong> — each grid square is 30′ × 30′.</p>
   </div>
 
   <div class="info-card">
@@ -268,12 +255,12 @@ body { max-width: 860px; margin: auto; }
     <p>Meridians converge toward the poles. At the equator they are equally spaced. As you fly north into Canada, the same angular separation (1°) covers less ground distance.</p>
     <div class="formula">1° lon ≈ 60 NM × cos(latitude)</div>
     <p>
-      <strong style="color:#f0c040;">At equator (0°):</strong> cos(0°) = 1.0 → <strong style="color:#c8d8e8;">60 NM</strong><br>
-      <strong style="color:#f0c040;">At 45°N:</strong> cos(45°) ≈ 0.71 → <strong style="color:#c8d8e8;">≈ 42 NM</strong><br>
-      <strong style="color:#f0c040;">At 50°N:</strong> cos(50°) ≈ 0.64 → <strong style="color:#c8d8e8;">≈ 38.6 NM</strong><br>
-      <strong style="color:#f0c040;">At 60°N:</strong> cos(60°) = 0.50 → <strong style="color:#c8d8e8;">≈ 30 NM</strong>
+      <strong style="color:var(--accent);">At equator (0°):</strong> cos(0°) = 1.0 → <strong style="color:var(--text);">60 NM</strong><br>
+      <strong style="color:var(--accent);">At 45°N:</strong> cos(45°) ≈ 0.71 → <strong style="color:var(--text);">≈ 42 NM</strong><br>
+      <strong style="color:var(--accent);">At 50°N:</strong> cos(50°) ≈ 0.64 → <strong style="color:var(--text);">≈ 38.6 NM</strong><br>
+      <strong style="color:var(--accent);">At 60°N:</strong> cos(60°) = 0.50 → <strong style="color:var(--text);">≈ 30 NM</strong>
     </p>
-    <p style="margin-top:10px;color:#7a9ab5;font-size:11px;">Exam tip: you won't need to calculate this — but you must know that longitude distance is <em>less</em> than 60 NM per degree in Canada, and decreases as you go north.</p>
+    <p style="margin-top:10px;color:var(--text-muted);font-size:11px;">Exam tip: you won't need to calculate this — but you must know that longitude distance is <em>less</em> than 60 NM per degree in Canada, and decreases as you go north.</p>
   </div>
 
 </div>
@@ -285,20 +272,20 @@ body { max-width: 860px; margin: auto; }
   <div class="info-card">
     <h3>Step-by-Step Method</h3>
     <p>
-      <strong style="color:#f0c040;">1.</strong> Find the nearest printed degree label on the chart border (e.g., 45°N or 076°W).<br><br>
-      <strong style="color:#f0c040;">2.</strong> Count grid lines from that label toward your point. Each grid line = <strong style="color:#f0c040;">30′</strong>.<br><br>
-      <strong style="color:#f0c040;">3.</strong> Estimate remaining minutes visually between the grid lines.<br><br>
-      <strong style="color:#f0c040;">4.</strong> Combine: degree label + grid steps + estimate = your coordinate.
+      <strong style="color:var(--accent);">1.</strong> Find the nearest printed degree label on the chart border (e.g., 45°N or 076°W).<br><br>
+      <strong style="color:var(--accent);">2.</strong> Count grid lines from that label toward your point. Each grid line = <strong style="color:var(--accent);">30′</strong>.<br><br>
+      <strong style="color:var(--accent);">3.</strong> Estimate remaining minutes visually between the grid lines.<br><br>
+      <strong style="color:var(--accent);">4.</strong> Combine: degree label + grid steps + estimate = your coordinate.
     </p>
   </div>
 
   <div class="info-card">
     <h3>Worked Example</h3>
     <p>
-      An airport sits <strong style="color:#f0c040;">one grid line north</strong> of the 45°N parallel, and <strong style="color:#f0c040;">halfway</strong> between that grid line and the next.<br><br>
-      45° + 30′ (one grid line) + 15′ (halfway) = <strong style="color:#f0c040;">45°45′N</strong><br><br>
+      An airport sits <strong style="color:var(--accent);">one grid line north</strong> of the 45°N parallel, and <strong style="color:var(--accent);">halfway</strong> between that grid line and the next.<br><br>
+      45° + 30′ (one grid line) + 15′ (halfway) = <strong style="color:var(--accent);">45°45′N</strong><br><br>
       Apply the same method for longitude using the W labels on the top/bottom border.<br><br>
-      <span style="color:#7a9ab5;font-size:11px;">Source: TP 9994 VFR Chart User's Guide</span>
+      <span style="color:var(--text-muted);font-size:11px;">Source: TP 9994 VFR Chart User's Guide</span>
     </p>
   </div>
 
