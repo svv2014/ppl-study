@@ -16,11 +16,25 @@ authoring a new one.
 
 ## Format
 
-**Standalone dark-aviation HTML** — a complete `<!DOCTYPE html>` document with all
-CSS inlined in a `<style>` block inside `<head>`. No external stylesheets, no
-JavaScript frameworks, no `<link>` or `<script src>` tags pointing outside the
-document. The file must render correctly when opened directly from the filesystem
-(`file://`) without a server.
+**Standalone dark-aviation HTML** — a complete `<!DOCTYPE html>` document.
+JavaScript frameworks and `<script src>` tags pointing outside the document are
+prohibited.
+
+**CSS:** New topic visuals (al, met, nav) must inline all CSS in a `<style>` block
+in `<head>`. **GK visuals** (`gk*.html`) are the sole exception — they link the
+shared token sheet and keep only file-specific rules inline:
+
+```html
+<link rel="stylesheet" href="_common.css">
+<style>
+  /* file-specific rules only */
+</style>
+```
+
+`_common.css` lives in the same `web-app/public/visuals/` directory, so it loads
+correctly from Firebase Hosting. GK files will not render correctly when opened via
+`file://` without a local server — this is an acceptable trade-off for the dedup
+benefit. All other topic visuals remain fully self-contained.
 
 ## Viewport and dimensions
 
