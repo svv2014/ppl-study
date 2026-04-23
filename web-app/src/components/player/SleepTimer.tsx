@@ -18,7 +18,7 @@ const SLEEP_OPTIONS = [
 type SleepOption = (typeof SLEEP_OPTIONS)[number]['value'];
 
 interface SleepTimerProps {
-  audioRef: React.RefObject<HTMLAudioElement>;
+  audioRef: React.RefObject<HTMLAudioElement | null>;
 }
 
 const MONO = "'SF Mono', 'JetBrains Mono', Consolas, monospace";
