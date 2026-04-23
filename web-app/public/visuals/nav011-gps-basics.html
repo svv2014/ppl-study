@@ -6,13 +6,17 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>NAV-011 — GPS Basics</title>
 <style>
-.note-box { background: #1a1a0a; border: 1.5px solid #c8a040; border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
-  .note-box .badge { display: inline-block; background: #3a2d00; color: #f0c040; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; margin-bottom: 10px; }
-  .note-box p, .note-box li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+  .note-box .badge { display: inline-block; background: var(--bg2); color: var(--accent); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; margin-bottom: 10px; }
+  .note-box p, .note-box li { color: var(--text); font-size: 12px; line-height: 1.7; }
+
+  @media (max-width: 480px) {
+    body { font-size: 14px; overflow-x: hidden; }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:color-mix(in srgb,var(--bg2) 90%,transparent);color:var(--accent);border:1.5px solid color-mix(in srgb,var(--accent) 40%,transparent);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>
 .container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}
 </style>
@@ -135,8 +139,8 @@
       <ul>
         <li>Satellites transmit precise time signals from known orbital positions</li>
         <li>Receiver measures time delay = distance (ranging)</li>
-        <li><strong style="color:#f0c040">Minimum 3 satellites</strong> for 2D fix (lat/lon only)</li>
-        <li><strong style="color:#f0c040">4+ satellites</strong> required for 3D fix (lat/lon + altitude)</li>
+        <li><strong style="color:var(--accent)">Minimum 3 satellites</strong> for 2D fix (lat/lon only)</li>
+        <li><strong style="color:var(--accent)">4+ satellites</strong> required for 3D fix (lat/lon + altitude)</li>
         <li>Accuracy: civilian GPS ~15 m horizontal (WAAS can improve to ~3 m)</li>
         <li>HDOP (Horizontal Dilution of Precision) indicates geometric accuracy — lower is better</li>
       </ul>
@@ -144,9 +148,9 @@
     <div class="card">
       <h3>GPS Limitations</h3>
       <ul>
-        <li><strong style="color:#f0c040">Signal shadowing:</strong> Deep valleys, canyons, urban canyons can block satellites</li>
-        <li><strong style="color:#f0c040">Jamming/spoofing:</strong> Military or civilian interference can degrade accuracy</li>
-        <li><strong style="color:#f0c040">True north by default:</strong> GPS measures true track — magnetic variation is applied by the unit's database (may be outdated)</li>
+        <li><strong style="color:var(--accent)">Signal shadowing:</strong> Deep valleys, canyons, urban canyons can block satellites</li>
+        <li><strong style="color:var(--accent)">Jamming/spoofing:</strong> Military or civilian interference can degrade accuracy</li>
+        <li><strong style="color:var(--accent)">True north by default:</strong> GPS measures true track — magnetic variation is applied by the unit's database (may be outdated)</li>
         <li>Database currency: waypoints and airways must be current for IFR; VFR use still needs current VNC</li>
         <li>No terrain warning unless TAWS/EGPWS installed separately</li>
         <li>Selective Availability (SA) discontinued 2000 — no longer an issue</li>
@@ -175,17 +179,17 @@
 
   <div class="note-box">
     <div class="badge">Important — VFR GPS Use</div>
-    <p>GPS is <strong style="color:#f0c040">supplemental navigation for VFR</strong> — always carry current paper charts (VNC/VTA) and know how to navigate without GPS. GPS heading is <strong style="color:#f0c040">TRUE</strong> unless the unit applies magnetic variation from its database. Verify the unit's variation matches your VNC chart. Never use GPS as sole-means for VFR flight planning.</p>
+    <p>GPS is <strong style="color:var(--accent)">supplemental navigation for VFR</strong> — always carry current paper charts (VNC/VTA) and know how to navigate without GPS. GPS heading is <strong style="color:var(--accent)">TRUE</strong> unless the unit applies magnetic variation from its database. Verify the unit's variation matches your VNC chart. Never use GPS as sole-means for VFR flight planning.</p>
   </div>
 
   <div class="section-label">Memory Hook</div>
   <div class="memory-hook">
     <div class="badge">Memory Hook</div>
     <ul>
-      <li><strong style="color:#80c880">GPS = True north by default.</strong> When ATC gives you a heading, it is magnetic. GPS track is true. Know the difference — add or subtract variation (~15°W in southern Canada).</li>
-      <li><strong style="color:#80c880">4 satellites = 3D fix:</strong> Need 3 for position, 4th for altitude. If only 3 in view, altitude is unreliable.</li>
-      <li><strong style="color:#80c880">Never sole-means for VFR:</strong> GPS can fail, jam, or go out of date. Charts and pilotage are your backup.</li>
-      <li><strong style="color:#80c880">XTK vs DTK:</strong> DTK is where you should go; XTK is how far off you are. Use XTK like a CDI needle.</li>
+      <li><strong style="color:var(--success)">GPS = True north by default.</strong> When ATC gives you a heading, it is magnetic. GPS track is true. Know the difference — add or subtract variation (~15°W in southern Canada).</li>
+      <li><strong style="color:var(--success)">4 satellites = 3D fix:</strong> Need 3 for position, 4th for altitude. If only 3 in view, altitude is unreliable.</li>
+      <li><strong style="color:var(--success)">Never sole-means for VFR:</strong> GPS can fail, jam, or go out of date. Charts and pilotage are your backup.</li>
+      <li><strong style="color:var(--success)">XTK vs DTK:</strong> DTK is where you should go; XTK is how far off you are. Use XTK like a CDI needle.</li>
     </ul>
   </div>
 </div>
