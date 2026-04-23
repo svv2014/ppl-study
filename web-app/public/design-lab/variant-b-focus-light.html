@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPL Study — Variant B · Focus Study · Light</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fafaf7;
+    --bg-2: #f4f3ee;
+    --surface: rgba(0,0,0,0.03);
+    --surface-2: rgba(0,0,0,0.05);
+    --border: rgba(0,0,0,0.08);
+    --border-hi: rgba(0,0,0,0.14);
+    --accent: #a87540;
+    --accent-soft: rgba(168,117,64,0.08);
+    --text: #1c1a17;
+    --muted: #70695f;
+    --success: #2e8b57;
+  }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+    padding: 60px 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 10%, rgba(168,117,64,0.07), transparent 60%),
+      radial-gradient(ellipse 50% 50% at 90% 60%, rgba(100,160,220,0.04), transparent 60%);
+  }
+
+  .back { position: fixed; top: 16px; left: 16px; background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 9px 16px; border-radius: 999px; font-size: 13px; text-decoration: none; z-index: 10; backdrop-filter: blur(20px); }
+  .back:hover { background: var(--surface-2); }
+
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
+
+  .top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 56px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); }
+  .brand .logo { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, var(--accent), #8b5f32); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 13px; }
+  .streak { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+  .streak .flame { color: var(--accent); }
+
+  h1 { font-size: 38px; line-height: 1.15; font-weight: 500; letter-spacing: -0.025em; margin-bottom: 14px; }
+  h1 .soft { color: var(--muted); font-weight: 400; }
+  .subtitle { color: var(--muted); font-size: 16px; margin-bottom: 36px; max-width: 540px; }
+
+  .focus {
+    background: linear-gradient(145deg, rgba(168,117,64,0.09), rgba(168,117,64,0.03));
+    border: 1px solid rgba(168,117,64,0.22);
+    border-radius: 20px;
+    padding: 28px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .focus::before { content: ""; position: absolute; top: -40%; right: -10%; width: 60%; height: 160%; background: radial-gradient(ellipse, rgba(168,117,64,0.14), transparent 60%); pointer-events: none; }
+  .focus .label { font-size: 12px; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 10px; font-weight: 500; }
+  .focus h2 { font-size: 24px; font-weight: 500; margin-bottom: 6px; letter-spacing: -0.015em; }
+  .focus .meta { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+  .focus .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--accent); color: #fff;
+    padding: 12px 22px; border-radius: 12px;
+    text-decoration: none; font-weight: 500; font-size: 15px;
+  }
+  .focus .btn:hover { background: #8b5f32; }
+  .focus .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(0,0,0,0.04); color: var(--text);
+    padding: 12px 20px; border-radius: 12px;
+    text-decoration: none; font-size: 14px; margin-left: 8px;
+    border: 1px solid var(--border);
+  }
+  .focus .btn-secondary:hover { background: rgba(0,0,0,0.07); }
+
+  .readiness { margin-bottom: 40px; }
+  .readiness-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+  .readiness-header h3 { font-size: 14px; color: var(--muted); font-weight: 500; }
+  .readiness-header .num { font-size: 16px; color: var(--text); }
+  .readiness-header .num strong { color: var(--accent); font-weight: 500; }
+  .readiness-bar { height: 6px; background: rgba(0,0,0,0.06); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
+  .readiness-bar .fill { height: 100%; background: linear-gradient(90deg, var(--accent), #c08a4e); border-radius: 3px; }
+  .readiness-hint { font-size: 13px; color: var(--muted); }
+
+  .topics { margin-bottom: 48px; }
+  .topics h3 { font-size: 14px; color: var(--muted); font-weight: 500; margin-bottom: 16px; }
+  .topic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .topic {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s, transform 0.15s;
+  }
+  .topic:hover { background: var(--surface-2); transform: translateY(-1px); }
+  .topic .name { font-size: 15px; font-weight: 500; margin-bottom: 3px; letter-spacing: -0.01em; }
+  .topic .sub { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .topic .bar { height: 3px; background: rgba(0,0,0,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+  .topic .bar .fill { height: 100%; background: var(--accent); border-radius: 2px; }
+  .topic .pct { font-size: 13px; color: var(--muted); }
+  .topic .pct strong { color: var(--text); font-weight: 500; }
+
+  .quick h3 { font-size: 14px; color: var(--muted); font-weight: 500; margin-bottom: 16px; }
+  .quick-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .quick-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.15s;
+  }
+  .quick-card:hover { background: var(--surface-2); }
+  .quick-card .title { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
+  .quick-card .desc { font-size: 12px; color: var(--muted); }
+  .quick-card .chev { color: var(--muted); font-size: 18px; }
+
+  @media (max-width: 600px) {
+    body { padding: 40px 0; }
+    h1 { font-size: 30px; }
+    .focus h2 { font-size: 20px; }
+    .topic-grid { grid-template-columns: 1fr; }
+    .quick-grid { grid-template-columns: 1fr; }
+    .focus .btn-secondary { margin-left: 0; margin-top: 8px; display: flex; }
+  }
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← variants</a>
+<div class="wrap">
+
+  <div class="top">
+    <div class="brand">
+      <div class="logo">P</div>
+      <span>PPL Study</span>
+    </div>
+    <div class="streak"><span class="flame">●</span> 7-day streak</div>
+  </div>
+
+  <h1>Good morning, Vadym. <span class="soft">Ready for lesson 48?</span></h1>
+  <p class="subtitle">Twenty minutes today. Four topics to mastery. Transport Canada PPL written exam in sight.</p>
+
+  <div class="focus">
+    <div class="label">◐ Continue where you left off</div>
+    <h2>Emergency Procedures — Air Law</h2>
+    <div class="meta">AL-014 · 20 min · Audio + 5 quiz questions</div>
+    <a class="btn" href="#">Resume lesson →</a>
+    <a class="btn-secondary" href="#">Skip to quiz</a>
+  </div>
+
+  <div class="readiness">
+    <div class="readiness-header">
+      <h3>Exam readiness</h3>
+      <div class="num"><strong>65%</strong> · target 80%</div>
+    </div>
+    <div class="readiness-bar"><div class="fill" style="width: 65%;"></div></div>
+    <div class="readiness-hint">Weighted across TC exam topic distribution. Three strong areas. Meteorology and General Knowledge need attention.</div>
+  </div>
+
+  <div class="topics">
+    <h3>Your topics</h3>
+    <div class="topic-grid">
+      <a class="topic" href="#">
+        <div class="name">Air Law</div>
+        <div class="sub">14 of 18 lessons</div>
+        <div class="bar"><div class="fill" style="width: 78%;"></div></div>
+        <div class="pct"><strong>78%</strong> complete · Strong</div>
+      </a>
+      <a class="topic" href="#">
+        <div class="name">Navigation</div>
+        <div class="sub">10 of 14 lessons</div>
+        <div class="bar"><div class="fill" style="width: 71%;"></div></div>
+        <div class="pct"><strong>71%</strong> complete · Strong</div>
+      </a>
+      <a class="topic" href="#">
+        <div class="name">Meteorology</div>
+        <div class="sub">8 of 14 lessons</div>
+        <div class="bar"><div class="fill" style="width: 58%;"></div></div>
+        <div class="pct"><strong>58%</strong> complete · Needs focus</div>
+      </a>
+      <a class="topic" href="#">
+        <div class="name">General Knowledge</div>
+        <div class="sub">7 of 14 lessons</div>
+        <div class="bar"><div class="fill" style="width: 52%;"></div></div>
+        <div class="pct"><strong>52%</strong> complete · Needs focus</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="quick">
+    <h3>Practice &amp; exams</h3>
+    <div class="quick-grid">
+      <a class="quick-card" href="#">
+        <div>
+          <div class="title">PSTAR practice</div>
+          <div class="desc">50 Qs · 40 min · 90% to pass</div>
+        </div>
+        <span class="chev">›</span>
+      </a>
+      <a class="quick-card" href="#">
+        <div>
+          <div class="title">Final mock exam</div>
+          <div class="desc">100 Qs · 3.5 hr · TC-weighted</div>
+        </div>
+        <span class="chev">›</span>
+      </a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

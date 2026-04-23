@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPL Study — Variant C · Editorial Bold · Light</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #f6f2eb;
+    --ink: #15140f;
+    --ink-dim: #6a645a;
+    --warm: #c4542a;
+    --warm-soft: rgba(196,84,42,0.10);
+    --amber: #b88720;
+    --paper: #ffffff;
+    --paper-2: #ede8dd;
+    --border: rgba(0,0,0,0.09);
+    --border-hi: rgba(0,0,0,0.22);
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    min-height: 100vh;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .back {
+    position: fixed; top: 18px; left: 18px;
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--border);
+    padding: 9px 16px; border-radius: 100px;
+    font-size: 13px; text-decoration: none; z-index: 10;
+  }
+  .back:hover { border-color: var(--border-hi); }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+  .marquee {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 0; font-size: 13px; color: var(--ink-dim);
+    border-bottom: 1px solid var(--border); margin-bottom: 80px;
+  }
+  .marquee .logo { font-weight: 700; color: var(--ink); letter-spacing: -0.02em; font-size: 16px; }
+  .marquee .meta { letter-spacing: 0.05em; text-transform: uppercase; font-size: 11px; }
+
+  .hero { margin-bottom: 96px; }
+  .hero .eyebrow {
+    display: inline-block;
+    font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--warm); margin-bottom: 28px;
+    padding: 4px 12px; border: 1px solid var(--warm); border-radius: 100px;
+  }
+  .hero h1 {
+    font-family: 'Georgia', 'Tiempos', serif;
+    font-size: clamp(44px, 8vw, 92px);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    font-weight: 500;
+    margin-bottom: 28px;
+    max-width: 900px;
+  }
+  .hero h1 em { color: var(--warm); font-style: normal; }
+  .hero h1 .amp { color: var(--amber); }
+  .hero .dek {
+    font-size: 20px;
+    color: var(--ink-dim);
+    max-width: 560px;
+    margin-bottom: 40px;
+    line-height: 1.4;
+  }
+  .hero .cta-row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .cta {
+    background: var(--ink); color: var(--bg);
+    padding: 16px 32px; border-radius: 100px;
+    font-weight: 500; text-decoration: none; font-size: 16px;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 0.15s;
+  }
+  .cta:hover { transform: translateY(-1px); }
+  .cta-link {
+    color: var(--ink); font-size: 15px; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 16px 20px;
+  }
+  .cta-link:hover { color: var(--warm); }
+
+  .section { margin-bottom: 80px; }
+  .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 36px; }
+  .section-head h2 {
+    font-family: 'Georgia', serif;
+    font-size: 36px; letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+  .section-head .count {
+    font-size: 13px; color: var(--ink-dim);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  .continue {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 40px;
+    display: grid; grid-template-columns: 80px 1fr auto;
+    gap: 28px; align-items: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  }
+  .continue .num {
+    font-family: 'Georgia', serif;
+    font-size: 72px; line-height: 1;
+    color: var(--warm);
+    letter-spacing: -0.04em;
+    font-weight: 400;
+  }
+  .continue .body .label { font-size: 12px; color: var(--ink-dim); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+  .continue .body h3 {
+    font-family: 'Georgia', serif;
+    font-size: 28px; letter-spacing: -0.02em;
+    font-weight: 500; margin-bottom: 8px;
+  }
+  .continue .body .meta { color: var(--ink-dim); font-size: 14px; }
+  .continue .arrow {
+    width: 56px; height: 56px; border-radius: 100px;
+    background: var(--warm-soft); color: var(--warm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; text-decoration: none;
+    transition: background 0.15s;
+  }
+  .continue:hover .arrow { background: var(--warm); color: #fff; }
+
+  .topic-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .topic {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    text-decoration: none; color: inherit;
+    display: flex; gap: 20px; align-items: center;
+    transition: border-color 0.15s, transform 0.15s;
+    position: relative;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+  }
+  .topic:hover { border-color: var(--border-hi); transform: translateY(-2px); }
+  .topic .nn {
+    font-family: 'Georgia', serif;
+    font-size: 42px; font-weight: 400; letter-spacing: -0.03em;
+    color: var(--amber);
+    line-height: 1; width: 60px; flex-shrink: 0;
+  }
+  .topic .info { flex: 1; }
+  .topic .info .name { font-size: 19px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 4px; }
+  .topic .info .meta { font-size: 13px; color: var(--ink-dim); margin-bottom: 12px; }
+  .topic .info .bar { height: 2px; background: rgba(0,0,0,0.08); border-radius: 2px; overflow: hidden; }
+  .topic .info .bar .fill { height: 100%; background: var(--warm); }
+  .topic .pct {
+    font-family: 'Georgia', serif;
+    font-size: 28px; font-weight: 400; letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .pull {
+    background: none;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 80px;
+  }
+  .pull .label { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-dim); margin-bottom: 18px; }
+  .pull .big {
+    font-family: 'Georgia', serif;
+    font-size: 56px; letter-spacing: -0.03em; font-weight: 400;
+    line-height: 1.05;
+    margin-bottom: 18px;
+  }
+  .pull .big em { color: var(--warm); font-style: normal; }
+  .pull .fine { color: var(--ink-dim); font-size: 15px; max-width: 520px; }
+
+  .exam-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .exam {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 28px;
+    text-decoration: none; color: inherit;
+    transition: border-color 0.15s;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.02);
+  }
+  .exam:hover { border-color: var(--warm); }
+  .exam .tag { display: inline-block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm); border: 1px solid var(--warm); border-radius: 100px; padding: 3px 10px; margin-bottom: 16px; }
+  .exam h4 {
+    font-family: 'Georgia', serif;
+    font-size: 24px; font-weight: 500; letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .exam .specs { color: var(--ink-dim); font-size: 14px; margin-bottom: 16px; }
+  .exam .go { color: var(--ink); font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
+
+  @media (max-width: 720px) {
+    .hero { margin-bottom: 64px; }
+    .hero h1 { font-size: 44px; }
+    .hero .dek { font-size: 17px; }
+    .section-head h2 { font-size: 26px; }
+    .continue { grid-template-columns: 1fr; padding: 28px; text-align: left; }
+    .continue .num { font-size: 52px; }
+    .continue .body h3 { font-size: 22px; }
+    .topic-list { grid-template-columns: 1fr; }
+    .topic .nn { font-size: 32px; width: 44px; }
+    .topic .pct { font-size: 22px; }
+    .pull .big { font-size: 34px; }
+    .exam-list { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← variants</a>
+<div class="wrap">
+
+  <div class="marquee">
+    <div class="logo">PPL Study</div>
+    <div class="meta">Transport Canada · Private Pilot · Aeroplane</div>
+  </div>
+
+  <section class="hero">
+    <span class="eyebrow">◐ 20 min · 7-day streak</span>
+    <h1>Serious tools<br>for serious <em>pilots.</em></h1>
+    <p class="dek">Every lesson, every question, every chart you need to pass the Canadian PPL written. Twenty minutes a day to wings.</p>
+    <div class="cta-row">
+      <a class="cta" href="#">Continue lesson 48 →</a>
+      <a class="cta-link" href="#">Browse curriculum ↗</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Pick up where you left off.</h2>
+      <span class="count">Last · 2 hr ago</span>
+    </div>
+    <a class="continue" href="#" style="text-decoration: none; color: inherit;">
+      <div class="num">14</div>
+      <div class="body">
+        <div class="label">Air Law · Lesson 14 of 18</div>
+        <h3>Emergency Procedures</h3>
+        <div class="meta">20 min · audio + 5 quiz questions · TP 12880E §8</div>
+      </div>
+      <span class="arrow">→</span>
+    </a>
+  </section>
+
+  <section class="pull">
+    <div class="label">◆ Exam readiness · weighted</div>
+    <div class="big"><em>Sixty-five percent.</em> Fifteen points from your 80% target.</div>
+    <div class="fine">Strong on Air Law and Navigation. Meteorology and General Knowledge remain the path forward. Ten more focused sessions should close the gap.</div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>Four topics. Four mountains.</h2>
+      <span class="count">TC exam weighting</span>
+    </div>
+    <div class="topic-list">
+      <a class="topic" href="#">
+        <div class="nn">01</div>
+        <div class="info">
+          <div class="name">Air Law</div>
+          <div class="meta">30% of written · 14 of 18 lessons</div>
+          <div class="bar"><div class="fill" style="width: 78%;"></div></div>
+        </div>
+        <div class="pct">78%</div>
+      </a>
+      <a class="topic" href="#">
+        <div class="nn">02</div>
+        <div class="info">
+          <div class="name">Navigation</div>
+          <div class="meta">25% of written · 10 of 14 lessons</div>
+          <div class="bar"><div class="fill" style="width: 71%;"></div></div>
+        </div>
+        <div class="pct">71%</div>
+      </a>
+      <a class="topic" href="#">
+        <div class="nn">03</div>
+        <div class="info">
+          <div class="name">Meteorology</div>
+          <div class="meta">25% of written · 8 of 14 lessons</div>
+          <div class="bar"><div class="fill" style="width: 58%;"></div></div>
+        </div>
+        <div class="pct">58%</div>
+      </a>
+      <a class="topic" href="#">
+        <div class="nn">04</div>
+        <div class="info">
+          <div class="name">General Knowledge</div>
+          <div class="meta">20% of written · 7 of 14 lessons</div>
+          <div class="bar"><div class="fill" style="width: 52%;"></div></div>
+        </div>
+        <div class="pct">52%</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>When you're ready.</h2>
+      <span class="count">2 exam modes</span>
+    </div>
+    <div class="exam-list">
+      <a class="exam" href="#">
+        <span class="tag">Pre-solo</span>
+        <h4>PSTAR practice</h4>
+        <p class="specs">50 questions · 40 minutes · 90% to pass</p>
+        <span class="go">Start practice →</span>
+      </a>
+      <a class="exam" href="#">
+        <span class="tag">PPL written</span>
+        <h4>Final mock exam</h4>
+        <p class="specs">100 questions · 3.5 hours · TC-weighted pool</p>
+        <span class="go">Enter exam mode →</span>
+      </a>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

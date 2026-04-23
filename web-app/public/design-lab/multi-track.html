@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPL Study — Multi-Track Structure</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0e17;
+    --surface: rgba(255,255,255,0.04);
+    --surface-2: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.08);
+    --border-hi: rgba(255,255,255,0.16);
+    --accent: #d9b36c;
+    --accent-soft: rgba(217,179,108,0.16);
+    --text: #ecedf0;
+    --muted: #8b95a8;
+    --success: #86d9a5;
+    --warn: #e9b54a;
+  }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px; line-height: 1.6;
+    min-height: 100vh;
+    padding: 0 0 80px;
+    -webkit-font-smoothing: antialiased;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 10%, rgba(217,179,108,0.07), transparent 60%),
+      radial-gradient(ellipse 50% 50% at 90% 60%, rgba(100,160,220,0.04), transparent 60%);
+  }
+
+  .back { position: fixed; top: 16px; left: 16px; background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 9px 16px; border-radius: 999px; font-size: 13px; text-decoration: none; z-index: 10; backdrop-filter: blur(20px); }
+  .back:hover { background: var(--surface-2); }
+
+  /* Top app bar with track switcher */
+  .appbar {
+    position: sticky; top: 0; z-index: 5;
+    background: rgba(10,14,23,0.72); backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .appbar-inner {
+    max-width: 980px; margin: 0 auto; padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 500; }
+  .brand .logo { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), #a88649); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #1a1a1a; font-size: 13px; }
+
+  /* Track switcher — the key component */
+  .track-switcher {
+    position: relative;
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 100px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .track-switcher:hover { background: var(--surface-2); }
+  .track-switcher .track-badge {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--accent-soft); color: var(--accent);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.02em;
+  }
+  .track-switcher .track-name { color: var(--text); font-weight: 500; }
+  .track-switcher .track-pct { color: var(--muted); }
+  .track-switcher .chev { color: var(--muted); font-size: 12px; }
+
+  /* Track menu (always-visible in this mockup) */
+  .track-menu {
+    position: absolute; top: calc(100% + 8px); right: 0;
+    width: 320px;
+    background: #141826; border: 1px solid var(--border-hi);
+    border-radius: 14px; padding: 6px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .track-menu .section-label {
+    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); padding: 10px 14px 4px;
+  }
+  .track-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 12px; border-radius: 8px;
+    text-decoration: none; color: inherit;
+  }
+  .track-item:hover { background: var(--surface-2); }
+  .track-item.active { background: var(--accent-soft); }
+  .track-item .tbadge {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--surface); color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+  }
+  .track-item.active .tbadge { background: var(--accent); color: #1a1a1a; }
+  .track-item .tinfo { flex: 1; }
+  .track-item .tname { font-size: 14px; font-weight: 500; }
+  .track-item .tmeta { font-size: 12px; color: var(--muted); }
+  .track-item .tpct { font-size: 12px; color: var(--muted); }
+  .track-item.active .tpct { color: var(--accent); font-weight: 500; }
+  .track-item.locked { opacity: 0.5; }
+  .track-item.locked .tbadge { background: rgba(255,255,255,0.02); }
+  .track-menu .add-track {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 14px; margin-top: 4px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--muted);
+    text-decoration: none;
+  }
+  .track-menu .add-track:hover { color: var(--text); }
+  .track-menu .add-track .plus {
+    width: 20px; height: 20px; border-radius: 5px;
+    background: var(--surface); display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+  }
+
+  /* Content — scoped to active track */
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px; position: relative; z-index: 1; }
+  .track-header {
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);
+  }
+  .track-header .big-badge {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--accent); color: #1a1a1a;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.02em;
+  }
+  .track-header .t-title { font-size: 18px; font-weight: 500; letter-spacing: -0.01em; }
+  .track-header .t-sub { font-size: 13px; color: var(--muted); }
+  .track-header .context-right { margin-left: auto; font-size: 12px; color: var(--muted); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  h1 { font-size: 32px; font-weight: 500; letter-spacing: -0.02em; margin-bottom: 10px; }
+  h1 .soft { color: var(--muted); }
+  .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 28px; }
+
+  /* Content shared with variant B */
+  .focus {
+    background: linear-gradient(145deg, rgba(217,179,108,0.10), rgba(217,179,108,0.02));
+    border: 1px solid rgba(217,179,108,0.22);
+    border-radius: 18px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+  .focus .label { font-size: 11px; color: var(--accent); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 8px; font-weight: 500; }
+  .focus h2 { font-size: 22px; font-weight: 500; margin-bottom: 4px; letter-spacing: -0.01em; }
+  .focus .meta { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  .focus .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: #1a1a1a;
+    padding: 11px 20px; border-radius: 11px;
+    text-decoration: none; font-weight: 500; font-size: 14px;
+  }
+
+  .section-label { font-size: 13px; color: var(--muted); margin-bottom: 14px; margin-top: 28px; }
+
+  .topic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .topic { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 18px; text-decoration: none; color: inherit; }
+  .topic .name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .topic .sub { font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+  .topic .bar { height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; margin-bottom: 6px; }
+  .topic .bar .fill { height: 100%; background: var(--accent); }
+  .topic .pct { font-size: 12px; color: var(--muted); }
+
+  .cross-track {
+    margin-top: 40px;
+    padding: 18px; border: 1px dashed var(--border-hi);
+    border-radius: 12px;
+    font-size: 13px; color: var(--muted);
+  }
+  .cross-track strong { color: var(--text); }
+  .cross-track a { color: var(--accent); text-decoration: none; }
+
+  /* Explainer box */
+  .explainer {
+    max-width: 760px; margin: 0 auto 32px; padding: 0 20px;
+    position: relative; z-index: 1;
+  }
+  .explainer .card {
+    background: rgba(134,217,165,0.08);
+    border: 1px solid rgba(134,217,165,0.2);
+    border-radius: 14px;
+    padding: 18px 20px;
+    font-size: 13px; line-height: 1.65;
+    color: var(--text);
+  }
+  .explainer .card strong { color: var(--success); }
+  .explainer .card p { margin-bottom: 8px; }
+  .explainer .card p:last-child { margin-bottom: 0; }
+
+  @media (max-width: 640px) {
+    .appbar-inner { flex-direction: column; align-items: stretch; gap: 10px; }
+    .track-switcher { width: 100%; }
+    .track-menu { width: 100%; position: static; margin-top: 8px; }
+    .topic-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← variants</a>
+
+<!-- Top bar with track switcher -->
+<div class="appbar">
+  <div class="appbar-inner">
+    <div class="brand">
+      <div class="logo">P</div>
+      <span>PPL Study</span>
+    </div>
+    <div class="track-switcher">
+      <div class="track-badge">PPL-A</div>
+      <span class="track-name">Private Pilot · Aeroplane</span>
+      <span class="track-pct">· 65%</span>
+      <span class="chev">▾</span>
+      <!-- Always-visible menu in this mockup for illustration -->
+      <div class="track-menu">
+        <div class="section-label">Active track</div>
+        <a class="track-item active" href="#">
+          <div class="tbadge">PPL-A</div>
+          <div class="tinfo">
+            <div class="tname">Private Pilot · Aeroplane</div>
+            <div class="tmeta">47 / 60 lessons · TC written exam</div>
+          </div>
+          <div class="tpct">65%</div>
+        </a>
+        <div class="section-label">Your other tracks</div>
+        <a class="track-item" href="#">
+          <div class="tbadge">PSTAR</div>
+          <div class="tinfo">
+            <div class="tname">PSTAR (pre-solo)</div>
+            <div class="tmeta">Core Air Law · 50 Qs · 90% pass</div>
+          </div>
+          <div class="tpct">82%</div>
+        </a>
+        <a class="track-item" href="#">
+          <div class="tbadge">RROE</div>
+          <div class="tinfo">
+            <div class="tname">Radio Operator (RROE)</div>
+            <div class="tmeta">Restricted · aeronautical phraseology</div>
+          </div>
+          <div class="tpct">18%</div>
+        </a>
+        <a class="track-item locked" href="#">
+          <div class="tbadge">CPL</div>
+          <div class="tinfo">
+            <div class="tname">Commercial Pilot</div>
+            <div class="tmeta">Starts after PPL · 🔒 locked until PPL ≥ 80%</div>
+          </div>
+          <div class="tpct">—</div>
+        </a>
+        <a class="track-item locked" href="#">
+          <div class="tbadge">PPL-H</div>
+          <div class="tinfo">
+            <div class="tname">Private Pilot · Helicopter</div>
+            <div class="tmeta">Alternate aeronautics path · not started</div>
+          </div>
+          <div class="tpct">—</div>
+        </a>
+        <a class="track-item locked" href="#">
+          <div class="tbadge">IFR</div>
+          <div class="tinfo">
+            <div class="tname">Instrument Rating</div>
+            <div class="tmeta">Post-PPL · not started</div>
+          </div>
+          <div class="tpct">—</div>
+        </a>
+        <a class="add-track" href="#">
+          <span class="plus">+</span>
+          <span>Add another track</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Explainer only shown in the lab -->
+<div class="explainer">
+  <div class="card">
+    <p><strong>▸ What this mockup shows.</strong> Multi-track architecture is <em>orthogonal</em> to visual direction — whichever variant (A, B, C) you pick gets this same structure layered on top.</p>
+    <p><strong>Track switcher</strong> lives in the app bar. One click switches the entire dashboard context to a different exam track. Progress per track is independent. Locked tracks (CPL, IFR) unlock when a prerequisite passes.</p>
+    <p><strong>Supported today:</strong> PPL-A (built). <strong>Planned slots:</strong> PSTAR, RROE (radio), PPL-H (helicopter), CPL, IFR, Instructor. Each is a content pack, not a code rewrite.</p>
+  </div>
+</div>
+
+<!-- Content scoped to active track -->
+<div class="wrap">
+  <div class="track-header">
+    <div class="big-badge">PPL-A</div>
+    <div>
+      <div class="t-title">Private Pilot — Aeroplane</div>
+      <div class="t-sub">Transport Canada · written exam · 60 lessons</div>
+    </div>
+    <div class="context-right">ACTIVE TRACK</div>
+  </div>
+
+  <h1>Good morning, Vadym. <span class="soft">Ready for lesson 48?</span></h1>
+  <p class="subtitle">All content below is scoped to PPL-A. Switch tracks from the header anytime — your PPL progress waits here.</p>
+
+  <div class="focus">
+    <div class="label">◐ Continue where you left off</div>
+    <h2>Emergency Procedures — Air Law</h2>
+    <div class="meta">AL-014 · 20 min · Audio + 5 quiz questions</div>
+    <a class="btn" href="#">Resume lesson →</a>
+  </div>
+
+  <div class="section-label">Your topics (PPL-A)</div>
+  <div class="topic-grid">
+    <a class="topic" href="#">
+      <div class="name">Air Law</div>
+      <div class="sub">14 of 18 lessons</div>
+      <div class="bar"><div class="fill" style="width: 78%;"></div></div>
+      <div class="pct">78% · Strong</div>
+    </a>
+    <a class="topic" href="#">
+      <div class="name">Navigation</div>
+      <div class="sub">10 of 14 lessons</div>
+      <div class="bar"><div class="fill" style="width: 71%;"></div></div>
+      <div class="pct">71% · Strong</div>
+    </a>
+    <a class="topic" href="#">
+      <div class="name">Meteorology</div>
+      <div class="sub">8 of 14 lessons</div>
+      <div class="bar"><div class="fill" style="width: 58%;"></div></div>
+      <div class="pct">58% · Needs focus</div>
+    </a>
+    <a class="topic" href="#">
+      <div class="name">General Knowledge</div>
+      <div class="sub">7 of 14 lessons</div>
+      <div class="bar"><div class="fill" style="width: 52%;"></div></div>
+      <div class="pct">52% · Needs focus</div>
+    </a>
+  </div>
+
+  <div class="cross-track">
+    <strong>Cross-track note:</strong> Air Law lessons here overlap with <a href="#">PSTAR</a> — completing them advances both tracks automatically. Radio phraseology from <a href="#">RROE</a> is referenced but not duplicated.
+  </div>
+</div>
+
+</body>
+</html>
