@@ -9,7 +9,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import { getLessonBySlug, getAllLessons } from '../lib/lesson-loader';
+import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
 import { scoreQuiz } from '../lib/quiz';
 import type { QuizResult } from '../lib/quiz';
 import QuizRunner from '../components/QuizRunner';
@@ -43,11 +43,7 @@ export default function LessonQuiz() {
   const lessonPath = `/lessons/${lesson.topic}/${lesson.slug}`;
   const backToLesson = () => navigate(lessonPath);
 
-  const allLessons = getAllLessons();
-  const currentIdx = allLessons.findIndex((l) => l.topic === lesson.topic && l.slug === lesson.slug);
-  const nextLesson = currentIdx >= 0 && currentIdx < allLessons.length - 1
-    ? allLessons[currentIdx + 1]
-    : null;
+  const { next: nextLesson } = getAdjacentLessons(lesson.topic, lesson.slug);
 
   if (lesson.questions.length === 0) {
     return (
