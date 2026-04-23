@@ -7,6 +7,7 @@ import { typographyTokens } from '../tokens';
 import { useExamTrack } from '../context/ExamTrackContext';
 import { CURRICULUM } from '../lib/curriculum';
 import { getLessonsByTrack } from '../lib/lesson-loader';
+import type { Lesson } from '../lib/types';
 import StatusBar, { LAST_SESSION_KEY } from '../components/home/StatusBar';
 import ReadinessGauge from '../components/home/ReadinessGauge';
 import TopicCoverageGrid from '../components/home/TopicCoverageGrid';
@@ -56,9 +57,8 @@ export default function Home() {
 
   // Filter topic config to the active track's topics (e.g. PSTAR = air-law only)
   const activeTopicConfig = useMemo(() => {
-    if (!activeTrack.topics) return TOPIC_CONFIG;
-    return TOPIC_CONFIG.filter((tc) => (activeTrack.topics as readonly string[]).includes(tc.key));
-  }, [activeTrack.topics]);
+    return TOPIC_CONFIG.filter((tc) => activeTrack.lessonFilter({ topic: tc.key } as Lesson));
+  }, [activeTrack]);
 
   const topicStats: TopicStat[] = useMemo(() => {
     // Renormalize weights so the readiness gauge reads 100% when track is fully complete
@@ -77,9 +77,8 @@ export default function Home() {
   );
 
   const trackCurriculum = useMemo(() => {
-    if (!activeTrack.topics) return CURRICULUM;
-    return CURRICULUM.filter((s) => (activeTrack.topics as readonly string[]).includes(s.topic));
-  }, [activeTrack.topics]);
+    return CURRICULUM.filter((s) => activeTrack.lessonFilter({ topic: s.topic } as Lesson));
+  }, [activeTrack]);
 
   const totalLessons = trackCurriculum.length;
   const completedCount = trackCurriculum.filter((s) => trackProgress.completed.includes(s.id)).length;

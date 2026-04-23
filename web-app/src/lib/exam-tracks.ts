@@ -1,71 +1,81 @@
+import type { Lesson } from './types';
+
 export type TrackStatus = 'active' | 'coming-soon' | 'locked';
 
 export interface ExamTrack {
   id: string;
-  label: string;
-  shortLabel: string;
+  /** Short code shown in the pill, e.g. "PPL-A" */
+  code: string;
+  /** Full track name, e.g. "Private Pilot · Aeroplane" */
+  name: string;
+  /** One-line description shown in the dropdown */
+  tagline: string;
   status: TrackStatus;
-  /** Topic filter for this track. null = all topics. */
-  topics: string[] | null;
-  description: string;
+  /** Hint shown on locked tracks explaining how to unlock */
+  unlockHint?: string;
+  /** Returns true for lessons that belong to this track */
+  lessonFilter: (l: Lesson) => boolean;
 }
+
+const noLessons = (_l: Lesson) => false;
 
 export const EXAM_TRACKS: ExamTrack[] = [
   {
     id: 'ppl-a',
-    label: 'PPL — Aeroplane',
-    shortLabel: 'PPL-A',
+    code: 'PPL-A',
+    name: 'Private Pilot · Aeroplane',
+    tagline: 'Transport Canada Private Pilot Licence (Aeroplane)',
     status: 'active',
-    topics: null,
-    description: 'Transport Canada Private Pilot Licence (Aeroplane)',
+    lessonFilter: () => true,
   },
   {
     id: 'pstar',
-    label: 'PSTAR',
-    shortLabel: 'PSTAR',
+    code: 'PSTAR',
+    name: 'Pre-Solo Standards',
+    tagline: 'Pre-Solo Standard Test of Air Regulations',
     status: 'active',
-    topics: ['air-law'],
-    description: 'Pre-Solo Standard Test of Air Regulations',
+    lessonFilter: (l) => l.topic === 'air-law',
+  },
+  {
+    id: 'rroe',
+    code: 'RROE',
+    name: 'Radio Operator',
+    tagline: 'Restricted Radiotelephone Operator Certificate (Aeronautical)',
+    status: 'coming-soon',
+    lessonFilter: noLessons,
   },
   {
     id: 'ppl-h',
-    label: 'PPL — Helicopter',
-    shortLabel: 'PPL-H',
+    code: 'PPL-H',
+    name: 'Private Pilot · Helicopter',
+    tagline: 'Transport Canada Private Pilot Licence (Helicopter)',
     status: 'coming-soon',
-    topics: null,
-    description: 'Transport Canada Private Pilot Licence (Helicopter)',
+    lessonFilter: noLessons,
   },
   {
     id: 'cpl-a',
-    label: 'CPL — Aeroplane',
-    shortLabel: 'CPL-A',
+    code: 'CPL-A',
+    name: 'Commercial Pilot · Aeroplane',
+    tagline: 'Transport Canada Commercial Pilot Licence (Aeroplane)',
     status: 'coming-soon',
-    topics: null,
-    description: 'Transport Canada Commercial Pilot Licence (Aeroplane)',
+    lessonFilter: noLessons,
   },
   {
     id: 'ifr',
-    label: 'Instrument Rating',
-    shortLabel: 'IFR',
+    code: 'IFR',
+    name: 'Instrument Rating',
+    tagline: 'Transport Canada Instrument Rating',
     status: 'coming-soon',
-    topics: null,
-    description: 'Transport Canada Instrument Rating',
+    lessonFilter: noLessons,
   },
   {
-    id: 'night',
-    label: 'Night Rating',
-    shortLabel: 'Night',
+    id: 'instructor',
+    code: 'FI',
+    name: 'Flight Instructor',
+    tagline: 'Transport Canada Flight Instructor Rating',
     status: 'locked',
-    topics: null,
-    description: 'Transport Canada Night Rating',
-  },
-  {
-    id: 'ame-m1',
-    label: 'AME — M1',
-    shortLabel: 'AME-M1',
-    status: 'locked',
-    topics: null,
-    description: 'Aircraft Maintenance Engineer M1',
+    unlockHint: 'Complete PPL-A and CPL-A first',
+    lessonFilter: noLessons,
   },
 ];
 

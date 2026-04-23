@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
@@ -10,10 +10,19 @@ import AddIcon from '@mui/icons-material/Add';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LockIcon from '@mui/icons-material/Lock';
 import { useExamTrack } from '../context/ExamTrackContext';
+import { getLessonsByTrack } from '../lib/lesson-loader';
 import { colorTokens } from '../tokens';
 
 export default function TrackSwitcher() {
-  const { activeTrack, setActiveTrack, availableTracks } = useExamTrack();
+  const { activeTrack, setActiveTrack, availableTracks, trackProgress } = useExamTrack();
+
+  const progressPct = useMemo(() => {
+    const trackLessons = getLessonsByTrack(activeTrack.id);
+    if (trackLessons.length === 0) return 0;
+    const trackIds = new Set(trackLessons.map((l) => l.id));
+    const done = trackProgress.completed.filter((id) => trackIds.has(id)).length;
+    return Math.round((done / trackLessons.length) * 100);
+  }, [activeTrack.id, trackProgress.completed]);
   const [anchor, setAnchor] = useState<null | HTMLElement>(null);
   const open = Boolean(anchor);
 
@@ -31,7 +40,7 @@ export default function TrackSwitcher() {
         onClick={handleOpen}
         aria-haspopup="menu"
         aria-expanded={open}
-        aria-label={`Active exam track: ${activeTrack.label}. Click to switch.`}
+        aria-label={`Active exam track: ${activeTrack.name}. Click to switch.`}
         endIcon={<ExpandMoreIcon sx={{ fontSize: '0.875rem !important', ml: -0.5 }} />}
         sx={{
           borderRadius: '999px',
@@ -52,7 +61,7 @@ export default function TrackSwitcher() {
           },
         }}
       >
-        {activeTrack.shortLabel}
+        {activeTrack.code} · {progressPct}%
       </Button>
 
       <Menu
@@ -116,10 +125,10 @@ export default function TrackSwitcher() {
                     lineHeight: 1.3,
                   }}
                 >
-                  {track.label}
+                  {track.name}
                 </Typography>
                 <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2 }}>
-                  {track.description}
+                  {track.tagline}
                 </Typography>
               </Box>
               {track.status === 'locked' && (

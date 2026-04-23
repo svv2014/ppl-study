@@ -1,6 +1,7 @@
 /// <reference types="vite/client" />
 import jsYaml from 'js-yaml';
 import type { Lesson, Question, Topic } from './types';
+import { getTrack } from './exam-tracks';
 
 // Relative to this file (web-app/src/lib/), lessons/ is three levels up at ppl-study/lessons/
 const modules = import.meta.glob('../../../lessons/**/*.md', {
@@ -78,11 +79,9 @@ export function getLessonsByTopic(topic: string): Lesson[] {
 }
 
 export function getLessonsByTrack(trackId: string): Lesson[] {
-  const all = getAllLessons();
-  if (trackId === 'pstar') {
-    return all.filter((l) => l.topic === 'air-law');
-  }
-  return all;
+  const track = getTrack(trackId);
+  if (!track) return getAllLessons();
+  return getAllLessons().filter((l) => track.lessonFilter(l));
 }
 
 export function getAdjacentLessons(
