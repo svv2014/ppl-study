@@ -6,7 +6,7 @@ slug: low-level-flight-rules
 title: "Low-Level Flight Rules — 500 ft Rule, Congested Areas, Noise Abatement"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/017-low-level-flight-rules.m4a
 visual: /visuals/al017-low-level-flight-rules.html
 sources:
   - CARs 602.13

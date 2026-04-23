@@ -6,7 +6,7 @@ slug: emergency-procedures-law
 title: "Emergency Procedures (Legal) — Distress and Urgency"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/014-emergency-procedures-law.m4a
 visual: /visuals/al014-emergency-procedures-law.html
 sources:
   - CARs Part VI (601, 602)

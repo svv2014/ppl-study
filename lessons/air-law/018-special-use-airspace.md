@@ -6,7 +6,7 @@ slug: special-use-airspace
 title: "Special Use Airspace — Restricted, Class F(R), MOAs, ADIZs"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/018-special-use-airspace.m4a
 visual: /visuals/al018-special-use-airspace.html
 sources:
   - CARs Part VI (601.14 – 601.17)
