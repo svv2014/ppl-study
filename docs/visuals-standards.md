@@ -138,6 +138,62 @@ produce and meaningfully aids recall.
 
 Set `visual: null` in frontmatter if a lesson has no visual.
 
+## Back-link required
+
+Every visual HTML file **must** include a fixed "← Back to lesson" button injected
+immediately after `<body>`. This allows the user to return to the lesson view when
+the visual is opened in a new tab or iframe.
+
+### Canonical snippet
+
+```html
+<button
+  data-backlink="true"
+  onclick="if(window.history.length<=1){window.close();}else{window.history.back();}"
+  style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);"
+  aria-label="Back to lesson"
+>&#8592; Back to lesson</button>
+<style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+```
+
+### Styling rules
+
+| Property | Value | Reason |
+|---|---|---|
+| Background | `rgba(13,27,42,0.9)` | Dark-aviation palette with slight transparency |
+| Text colour | `#f0c040` | Amber accent — matches palette |
+| Font size | `14px` minimum | Legible at arm's length |
+| Touch target | `min-width:44px; min-height:44px` | WCAG 2.5.5 minimum |
+| Position | `fixed; top:12px; left:12px; z-index:9999` | Always visible, top-left corner |
+| `backdrop-filter` | `blur(4px)` | Keeps button readable over any content |
+
+### Detection / idempotency
+
+The `data-backlink="true"` attribute is the canonical marker. Use this to detect
+whether the button has already been injected before adding it — the script
+`scripts/add-visual-backlink.sh` handles this automatically.
+
+### Padding for `.container` elements
+
+The injected `<style>` block forces `padding-top: 56px` (60 px on narrow viewports)
+on any `.container` element so the fixed button does not overlap page content.
+Files that use `body` padding directly (no `.container` class) are unaffected
+and need no additional adjustment.
+
+### Adding the back-link to new visuals
+
+Run the script against any new file before committing:
+
+```bash
+bash scripts/add-visual-backlink.sh web-app/public/visuals/your-new-file.html
+```
+
+Or to process all files at once:
+
+```bash
+bash scripts/add-visual-backlink.sh
+```
+
 ## Hard NOs
 
 - **No identifiable people.** No photographs, illustrations, or avatars depicting
