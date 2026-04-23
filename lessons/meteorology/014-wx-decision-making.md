@@ -6,7 +6,7 @@ slug: wx-decision-making
 title: "Weather Decision-Making"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/meteorology/014-wx-decision-making.m4a
 visual: /visuals/met014-wx-decision-making.html
 sources:
   - TP 12880E Chapter 8

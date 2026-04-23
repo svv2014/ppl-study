@@ -6,7 +6,7 @@ slug: wind-shear-microburst
 title: "Wind Shear and Microburst"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/meteorology/012-wind-shear-microburst.m4a
 visual: /visuals/met012-wind-shear-microburst.html
 sources:
   - TP 12880E Chapter 8

@@ -6,7 +6,7 @@ slug: thunderstorms
 title: "Thunderstorms"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/meteorology/009-thunderstorms.m4a
 visual: /visuals/met009-thunderstorms.html
 sources:
   - TP 12880E Chapter 8
