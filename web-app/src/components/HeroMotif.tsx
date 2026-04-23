@@ -1,4 +1,4 @@
-const AMBER = '#f5a623';
+import { useTheme } from '@mui/material/styles';
 
 interface Props {
   width?: number;
@@ -7,6 +7,9 @@ interface Props {
 
 /** Compass-rose aviation motif — decorative, aria-hidden */
 export default function HeroMotif({ width = 340, height = 340 }: Props) {
+  const theme = useTheme();
+  const amber = theme.palette.primary.main;
+
   const cx = 100;
   const cy = 100;
   const outerR = 95;
@@ -43,9 +46,9 @@ export default function HeroMotif({ width = 340, height = 340 }: Props) {
       height={height}
       opacity={0.2}
     >
-      <circle cx={cx} cy={cy} r={outerR} fill="none" stroke={AMBER} strokeWidth="0.75" />
-      <circle cx={cx} cy={cy} r={65} fill="none" stroke={AMBER} strokeWidth="0.4" />
-      <circle cx={cx} cy={cy} r={34} fill="none" stroke={AMBER} strokeWidth="0.25" />
+      <circle cx={cx} cy={cy} r={outerR} fill="none" stroke={amber} strokeWidth="0.75" />
+      <circle cx={cx} cy={cy} r={65} fill="none" stroke={amber} strokeWidth="0.4" />
+      <circle cx={cx} cy={cy} r={34} fill="none" stroke={amber} strokeWidth="0.25" />
       {ticks.map(({ x1, y1, x2, y2, isCardinal, isMajor }, i) => (
         <line
           key={i}
@@ -53,7 +56,7 @@ export default function HeroMotif({ width = 340, height = 340 }: Props) {
           y1={y1}
           x2={x2}
           y2={y2}
-          stroke={AMBER}
+          stroke={amber}
           strokeWidth={isCardinal ? 1 : isMajor ? 0.6 : 0.3}
         />
       ))}
@@ -67,7 +70,7 @@ export default function HeroMotif({ width = 340, height = 340 }: Props) {
             y={cy + r * Math.sin(rad)}
             textAnchor="middle"
             dominantBaseline="central"
-            fill={AMBER}
+            fill={amber}
             fontSize="10"
             fontWeight="700"
             fontFamily="monospace"
@@ -76,12 +79,12 @@ export default function HeroMotif({ width = 340, height = 340 }: Props) {
           </text>
         );
       })}
-      <line x1={cx} y1={cy - 29} x2={cx} y2={cy + 29} stroke={AMBER} strokeWidth="0.25" />
-      <line x1={cx - 29} y1={cy} x2={cx + 29} y2={cy} stroke={AMBER} strokeWidth="0.25" />
-      <circle cx={cx} cy={cy} r={2} fill={AMBER} />
+      <line x1={cx} y1={cy - 29} x2={cx} y2={cy + 29} stroke={amber} strokeWidth="0.25" />
+      <line x1={cx - 29} y1={cy} x2={cx + 29} y2={cy} stroke={amber} strokeWidth="0.25" />
+      <circle cx={cx} cy={cy} r={2} fill={amber} />
       {/* Horizon-line accent at 55 % / 58 % of viewBox height */}
-      <line x1={0} y1={110} x2={200} y2={110} stroke={AMBER} strokeWidth="0.75" strokeOpacity={0.3} />
-      <line x1={0} y1={116} x2={200} y2={116} stroke={AMBER} strokeWidth="0.75" strokeOpacity={0.3} />
+      <line x1={0} y1={110} x2={200} y2={110} stroke={amber} strokeWidth="0.75" strokeOpacity={0.3} />
+      <line x1={0} y1={116} x2={200} y2={116} stroke={amber} strokeWidth="0.75" strokeOpacity={0.3} />
     </svg>
   );
 }

@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
-import theme from './theme';
+import { buildTheme } from './theme';
+import { useThemeMode } from './context/ThemeModeContext';
 import Nav from './components/Nav';
 import Home from './pages/Home';
 import LessonsIndex from './pages/LessonsIndex';
@@ -19,6 +20,9 @@ const RAIL_COLLAPSED = 64;
 const LS_KEY = 'ppl-nav-collapsed';
 
 export default function App() {
+  const { mode } = useThemeMode();
+  const theme = useMemo(() => buildTheme(mode), [mode]);
+
   const [collapsed, setCollapsed] = useState<boolean>(() => {
     try {
       return localStorage.getItem(LS_KEY) === 'true';
@@ -34,7 +38,6 @@ export default function App() {
       }
     };
     window.addEventListener('storage', onStorage);
-    // Poll localStorage so same-tab Nav toggle updates App layout
     const id = setInterval(() => {
       try {
         setCollapsed(localStorage.getItem(LS_KEY) === 'true');
