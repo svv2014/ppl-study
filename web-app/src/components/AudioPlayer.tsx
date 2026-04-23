@@ -8,7 +8,7 @@ import type { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import FastForwardIcon from '@mui/icons-material/FastForward';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
-import { readSpeed, writeSpeed } from '../lib/audio-state';
+import { readSpeed, writeSpeed, readPosition, writePosition, clearAudioPosition } from '../lib/audio-state';
 import { useMediaSession } from './MediaSessionBridge';
 
 const SPEEDS = [0.75, 1, 1.1, 1.25, 1.5, 1.75, 2] as const;
@@ -20,14 +20,16 @@ interface AudioPlayerProps {
   src: string | null;
   title?: string;
   topic?: string;
+  lessonId?: string;
 }
 
-export default function AudioPlayer({ src, title, topic }: AudioPlayerProps) {
+export default function AudioPlayer({ src, title, topic, lessonId }: AudioPlayerProps) {
   const [speed, setSpeed] = useState<Speed>(() => {
     const saved = readSpeed();
     return (SPEEDS as readonly number[]).includes(saved) ? (saved as Speed) : 1;
   });
   const audioRef = useRef<HTMLAudioElement>(null);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useMediaSession({
     title: title ?? '',
@@ -40,6 +42,66 @@ export default function AudioPlayer({ src, title, topic }: AudioPlayerProps) {
       audioRef.current.playbackRate = speed;
     }
   }, [speed]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !lessonId) return;
+
+    function savePos() {
+      if (!audio || !lessonId) return;
+      writePosition(lessonId, audio.currentTime);
+    }
+
+    function handleLoadedMetadata() {
+      if (!audio || !lessonId) return;
+      const saved = readPosition(lessonId);
+      if (saved > 10 && isFinite(audio.duration) && saved < audio.duration - 10) {
+        audio.currentTime = saved;
+      }
+    }
+
+    function handlePlay() {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(savePos, 5000);
+    }
+
+    function handlePause() {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      savePos();
+    }
+
+    function handleSeeked() {
+      savePos();
+    }
+
+    function handleEnded() {
+      if (!lessonId) return;
+      clearAudioPosition(lessonId);
+    }
+
+    audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
+    audio.addEventListener('seeked', handleSeeked);
+    audio.addEventListener('ended', handleEnded);
+    window.addEventListener('beforeunload', savePos);
+
+    return () => {
+      audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
+      audio.removeEventListener('seeked', handleSeeked);
+      audio.removeEventListener('ended', handleEnded);
+      window.removeEventListener('beforeunload', savePos);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [lessonId]);
 
   function handleLoaded() {
     if (audioRef.current) {

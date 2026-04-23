@@ -13,7 +13,7 @@ import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import type { Lesson } from '../lib/types';
 import { TOPIC_LABELS } from '../lib/curriculum';
-import { readSpeed, writeSpeed, readPosition, writePosition } from '../lib/audio-state';
+import { readSpeed, writeSpeed, readPosition, writePosition, clearAudioPosition } from '../lib/audio-state';
 import PlaylistQueue from './player/PlaylistQueue';
 import { useMediaSession } from './MediaSessionBridge';
 
@@ -37,6 +37,8 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
   });
   const audioRef = useRef<HTMLAudioElement>(null);
   const savePositionRef = useRef<() => void>(() => {});
+
+  const current = playlist[currentIndex];
 
   // Keep savePositionRef current without recreating effects
   savePositionRef.current = () => {
@@ -85,7 +87,7 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const current = playlist[currentIndex];
+  if (playlist.length === 0) return null;
 
   function jumpTo(index: number) {
     savePositionRef.current();
@@ -116,6 +118,10 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
   if (playlist.length === 0) return null;
 
   function handleEnded() {
+    const lesson = playlist[currentIndex];
+    if (lesson) {
+      clearAudioPosition(lesson.id);
+    }
     setPlayedIndices((prev: ReadonlySet<number>) => {
       const next = new Set(prev);
       next.add(currentIndex);
