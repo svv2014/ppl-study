@@ -6,13 +6,17 @@
 <title>MET-013: Fronts</title>
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
-  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; margin-bottom: 14px; }
+  .diagram-box { background: var(--surface); border: 1px solid var(--border-hi); border-radius: 8px; padding: 16px; margin-bottom: 14px; }
   .mass-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
-  .mass-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
-  .mass-card .code { font-size: 18px; color: #f0c040; font-weight: bold; font-family: 'Consolas', monospace; }
-  .mass-card .name { font-size: 11px; color: #e8edf2; margin-top: 4px; }
-  .mass-card .note { font-size: 10px; color: #7a9ab5; margin-top: 4px; }
-  .caption { font-size: 11px; color: #7a9ab5; text-align: center; margin-top: 8px; }
+  .mass-card { background: var(--surface); border: 1px solid var(--border-hi); border-radius: 8px; padding: 12px; text-align: center; }
+  .mass-card .code { font-size: 18px; color: var(--accent); font-weight: bold; font-family: 'Consolas', monospace; }
+  .mass-card .name { font-size: 11px; color: var(--text); margin-top: 4px; }
+  .mass-card .note { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+  .caption { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 8px; }
+  @media (max-width: 480px) {
+    body { padding: 16px; font-size: 14px; }
+    .mass-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>

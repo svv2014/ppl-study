@@ -6,12 +6,15 @@
 <title>MET-012: Wind Shear & Microburst</title>
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
-  .diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
-  .caption { font-size: 11px; color: #7a9ab5; text-align: center; margin-top: 8px; }
+  .diagram-box { background: var(--surface); border: 1px solid var(--border-hi); border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+  .caption { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 8px; }
   .stages { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-  .stage-card { background: #1a2d3d; border-left: 3px solid #f0c040; padding: 10px 14px; font-size: 12px; color: #e8edf2; line-height: 1.5; }
-  .stage-card .n { color: #f0c040; font-weight: bold; font-size: 13px; }
-  @media (max-width: 640px) { .stages { grid-template-columns: 1fr; } }
+  .stage-card { background: var(--surface); border-left: 3px solid var(--accent); padding: 10px 14px; font-size: 12px; color: var(--text); line-height: 1.5; }
+  .stage-card .n { color: var(--accent); font-weight: bold; font-size: 13px; }
+  @media (max-width: 480px) {
+    body { padding: 16px; font-size: 14px; }
+    .stages { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>

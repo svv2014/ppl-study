@@ -7,24 +7,28 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
   .flow { display: flex; flex-direction: column; gap: 10px; }
-  .flow-row { background: #1a2d3d; border-left: 4px solid #f0c040; border-radius: 6px; padding: 14px 18px; }
-  .flow-row h3 { font-size: 13px; color: #f0c040; margin-bottom: 6px; letter-spacing: 0.5px; }
-  .flow-row p { font-size: 12px; color: #e8edf2; line-height: 1.55; }
-  .flow-row.ok { border-left-color: #4caf7d; }
-  .flow-row.warn { border-left-color: #f0c040; }
-  .flow-row.stop { border-left-color: #e05050; }
+  .flow-row { background: var(--surface); border-left: 4px solid var(--accent); border-radius: 6px; padding: 14px 18px; }
+  .flow-row h3 { font-size: 13px; color: var(--accent); margin-bottom: 6px; letter-spacing: 0.5px; }
+  .flow-row p { font-size: 12px; color: var(--text); line-height: 1.55; }
+  .flow-row.ok { border-left-color: var(--success); }
+  .flow-row.warn { border-left-color: var(--accent); }
+  .flow-row.stop { border-left-color: var(--danger); }
   .imsafe { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; }
-  .im-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
-  .im-letter { font-size: 20px; color: #f0c040; font-weight: bold; font-family: 'Consolas', monospace; }
-  .im-word { font-size: 12px; color: #e8edf2; margin-top: 4px; font-weight: bold; }
-  .im-sub { font-size: 10px; color: #7a9ab5; margin-top: 3px; line-height: 1.4; }
-  .risk-matrix { display: grid; grid-template-columns: 120px repeat(3, 1fr); gap: 1px; background: #243d52; border: 1px solid #243d52; border-radius: 8px; overflow: hidden; }
-  .r-cell { background: #1a2d3d; padding: 10px 12px; font-size: 12px; text-align: center; color: #e8edf2; }
-  .r-cell.hdr { background: #243d52; color: #f0c040; font-weight: bold; letter-spacing: 0.5px; font-size: 11px; }
-  .r-cell.low { background: #1e3a28; }
-  .r-cell.med { background: #4a3a1a; }
-  .r-cell.high { background: #4a1a1a; }
-  @media (max-width: 640px) { .risk-matrix { grid-template-columns: 80px repeat(3, 1fr); } }
+  .im-card { background: var(--surface); border: 1px solid var(--border-hi); border-radius: 8px; padding: 12px; text-align: center; }
+  .im-letter { font-size: 20px; color: var(--accent); font-weight: bold; font-family: 'Consolas', monospace; }
+  .im-word { font-size: 12px; color: var(--text); margin-top: 4px; font-weight: bold; }
+  .im-sub { font-size: 10px; color: var(--text-muted); margin-top: 3px; line-height: 1.4; }
+  .risk-matrix { display: grid; grid-template-columns: 120px repeat(3, 1fr); gap: 1px; background: var(--border-hi); border: 1px solid var(--border-hi); border-radius: 8px; overflow: hidden; }
+  .r-cell { background: var(--surface); padding: 10px 12px; font-size: 12px; text-align: center; color: var(--text); }
+  .r-cell.hdr { background: var(--border-hi); color: var(--accent); font-weight: bold; letter-spacing: 0.5px; font-size: 11px; }
+  .r-cell.low { background: #1e3a28; /* design-exception: risk-low tint, no token */ }
+  .r-cell.med { background: #4a3a1a; /* design-exception: risk-medium tint, no token */ }
+  .r-cell.high { background: #4a1a1a; /* design-exception: risk-high tint, no token */ }
+  @media (max-width: 480px) {
+    body { padding: 16px; font-size: 14px; }
+    .imsafe { grid-template-columns: 1fr; }
+    .risk-matrix { grid-template-columns: 80px repeat(3, 1fr); }
+  }
 </style>
 </head>
 <body>

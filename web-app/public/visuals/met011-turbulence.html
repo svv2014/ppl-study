@@ -7,19 +7,23 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
   .int-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  .int-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; }
-  .int-card .h { font-size: 14px; color: #f0c040; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 6px; }
-  .int-card .body { font-size: 11px; color: #e8edf2; line-height: 1.5; }
-  .int-card.lgt { border-left: 3px solid #4caf7d; }
-  .int-card.mod { border-left: 3px solid #f0c040; }
-  .int-card.sev { border-left: 3px solid #e05050; }
-  .int-card.ext { border-left: 3px solid #b030b0; }
+  .int-card { background: var(--surface); border: 1px solid var(--border-hi); border-radius: 8px; padding: 12px; }
+  .int-card .h { font-size: 14px; color: var(--accent); font-weight: bold; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .int-card .body { font-size: 11px; color: var(--text); line-height: 1.5; }
+  .int-card.lgt { border-left: 3px solid var(--success); }
+  .int-card.mod { border-left: 3px solid var(--accent); }
+  .int-card.sev { border-left: 3px solid var(--danger); }
+  .int-card.ext { border-left: 3px solid #b030b0; /* design-exception: extreme turbulence accent, no token */ }
   .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .type-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; }
-  .type-card h3 { font-size: 14px; color: #f0c040; margin-bottom: 6px; letter-spacing: 0.5px; }
-  .type-card .sub { font-size: 11px; color: #7a9ab5; margin-bottom: 8px; }
-  .type-card ul { margin-left: 18px; font-size: 12px; color: #e8edf2; line-height: 1.6; }
-  @media (max-width: 640px) { .int-grid { grid-template-columns: repeat(2, 1fr); } .type-grid { grid-template-columns: 1fr; } }
+  .type-card { background: var(--surface); border: 1px solid var(--border-hi); border-radius: 8px; padding: 14px; }
+  .type-card h3 { font-size: 14px; color: var(--accent); margin-bottom: 6px; letter-spacing: 0.5px; }
+  .type-card .sub { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+  .type-card ul { margin-left: 18px; font-size: 12px; color: var(--text); line-height: 1.6; }
+  @media (max-width: 480px) {
+    body { padding: 16px; font-size: 14px; }
+    .int-grid { grid-template-columns: repeat(2, 1fr); }
+    .type-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
