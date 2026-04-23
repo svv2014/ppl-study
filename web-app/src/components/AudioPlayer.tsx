@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
+import IconButton from '@mui/material/IconButton';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
+import FastForwardIcon from '@mui/icons-material/FastForward';
+import FastRewindIcon from '@mui/icons-material/FastRewind';
 import { readSpeed, writeSpeed } from '../lib/audio-state';
 import { useMediaSession } from './MediaSessionBridge';
 
@@ -44,6 +47,29 @@ export default function AudioPlayer({ src, title, topic }: AudioPlayerProps) {
     }
   }
 
+  function handleSkipBack() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = Math.max(0, audio.currentTime - 15);
+  }
+
+  function handleSkipForward() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const dur = isFinite(audio.duration) ? audio.duration : 0;
+    audio.currentTime = Math.min(dur, audio.currentTime + 15);
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      handleSkipBack();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      handleSkipForward();
+    }
+  }
+
   function handleSpeedChange(e: SelectChangeEvent<Speed>) {
     const val = Number(e.target.value) as Speed;
     setSpeed(val);
@@ -62,7 +88,7 @@ export default function AudioPlayer({ src, title, topic }: AudioPlayerProps) {
   }
 
   return (
-    <Box sx={{ my: 2 }}>
+    <Box tabIndex={0} onKeyDown={handleKeyDown} sx={{ my: 2, outline: 'none' }}>
       <Box
         sx={{
           display: 'flex',
@@ -115,16 +141,43 @@ export default function AudioPlayer({ src, title, topic }: AudioPlayerProps) {
           ))}
         </Select>
       </Box>
-      <audio
-        ref={audioRef}
-        controls
-        preload="none"
-        onLoadedMetadata={handleLoaded}
-        style={{ width: '100%', display: 'block' }}
-      >
-        <source src={src} type="audio/mp4" />
-        Your browser does not support the audio element.
-      </audio>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <IconButton
+            onClick={handleSkipBack}
+            aria-label="Skip back 15 seconds"
+            sx={{ width: 48, height: 48 }}
+          >
+            <FastRewindIcon />
+          </IconButton>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+            −15s
+          </Typography>
+        </Box>
+        <audio
+          ref={audioRef}
+          controls
+          preload="none"
+          onLoadedMetadata={handleLoaded}
+          onKeyDown={handleKeyDown}
+          style={{ flex: 1, display: 'block', minWidth: 0 }}
+        >
+          <source src={src} type="audio/mp4" />
+          Your browser does not support the audio element.
+        </audio>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <IconButton
+            onClick={handleSkipForward}
+            aria-label="Skip forward 15 seconds"
+            sx={{ width: 48, height: 48 }}
+          >
+            <FastForwardIcon />
+          </IconButton>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+            +15s
+          </Typography>
+        </Box>
+      </Box>
     </Box>
   );
 }

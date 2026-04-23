@@ -5,6 +5,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
+import FastForwardIcon from '@mui/icons-material/FastForward';
+import FastRewindIcon from '@mui/icons-material/FastRewind';
+import PauseIcon from '@mui/icons-material/Pause';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import type { Lesson } from '../lib/types';
@@ -26,6 +30,7 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
   const [playlist] = useState<Lesson[]>(() => lessons.filter((l) => l.audio !== null));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playedIndices, setPlayedIndices] = useState<ReadonlySet<number>>(() => new Set());
+  const [isPlaying, setIsPlaying] = useState(false);
   const [speed, setSpeed] = useState<Speed>(() => {
     const saved = readSpeed();
     return (SPEEDS as readonly number[]).includes(saved) ? (saved as Speed) : 1;
@@ -119,6 +124,40 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
     if (currentIndex < playlist.length - 1) {
       setCurrentIndex((i: number) => i + 1);
     }
+    setIsPlaying(false);
+  }
+
+  function handlePlayPause() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play().catch(() => {});
+    }
+  }
+
+  function handleSkipBack() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.currentTime = Math.max(0, audio.currentTime - 15);
+  }
+
+  function handleSkipForward() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    const dur = isFinite(audio.duration) ? audio.duration : 0;
+    audio.currentTime = Math.min(dur, audio.currentTime + 15);
+  }
+
+  function handleKeyDown(e: React.KeyboardEvent) {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      handleSkipBack();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      handleSkipForward();
+    }
   }
 
   function handleSpeedChange(e: SelectChangeEvent<Speed>) {
@@ -128,7 +167,7 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
   }
 
   return (
-    <Box sx={{ my: 2, width: '100%' }}>
+    <Box tabIndex={0} onKeyDown={handleKeyDown} sx={{ my: 2, width: '100%', outline: 'none' }}>
       <Typography
         variant="caption"
         color="text.secondary"
@@ -203,10 +242,50 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
           ))}
         </Select>
       </Box>
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, mb: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <IconButton
+            onClick={handleSkipBack}
+            aria-label="Skip back 15 seconds"
+            sx={{ width: 48, height: 48 }}
+          >
+            <FastRewindIcon />
+          </IconButton>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+            −15s
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <IconButton
+            onClick={handlePlayPause}
+            aria-label={isPlaying ? 'Pause' : 'Play'}
+            sx={{ width: 48, height: 48 }}
+          >
+            {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
+          </IconButton>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+            {isPlaying ? 'Pause' : 'Play'}
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <IconButton
+            onClick={handleSkipForward}
+            aria-label="Skip forward 15 seconds"
+            sx={{ width: 48, height: 48 }}
+          >
+            <FastForwardIcon />
+          </IconButton>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+            +15s
+          </Typography>
+        </Box>
+      </Box>
       <audio
         ref={audioRef}
         preload="none"
         onEnded={handleEnded}
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
         style={{ width: '100%', display: 'block' }}
       >
         <source src={current.audio!} type="audio/mp4" />
