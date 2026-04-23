@@ -61,6 +61,14 @@ See `docs/audio-hosting.md` for infrastructure and upload details.
 - Lessons are for the Canadian exam, not FAA — regulations differ significantly
 - Always cite source (TP number or CAR section) for any specific number or rule
 
+## Design System — binding for every page and component
+
+**`docs/design/DESIGN-SYSTEM.md` is the canonical spec.** Any PR that touches UI (new pages, components, styling, theme, layout) MUST adhere to it. If a PR needs a pattern not covered in the doc, the PR must amend the doc in the same commit.
+
+Visual direction: **Variant A · Cockpit Briefing**, dual-scheme (dark default + light), mobile-first 360 px minimum.
+
+Tokens live in `web-app/src/tokens.ts`; theme in `web-app/src/theme.ts`. No hardcoded hex in components. No Georgia/Roboto/serif fonts. No MUI blue. No radii > 8 px outside full pills. No box-shadows in dark mode.
+
 ## GitHub Workflow
 
 - Label issues `dev` for automatic implementation by ASDLC cycle
