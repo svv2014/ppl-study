@@ -1,15 +1,16 @@
+import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import PlaylistPlayer from '../components/PlaylistPlayer';
 import { getLessonsByTopic } from '../lib/lesson-loader';
 import { TOPICS, TOPIC_LABELS, CURRICULUM } from '../lib/curriculum';
 import { curatedPlaylists } from '../data/curated-playlists';
 import { getUserPlaylists } from '../lib/user-playlists';
 import { typographyTokens } from '../tokens';
+import { useStickyPlayer } from '../context/StickyPlayerContext';
 
 // ── Static metadata per topic ──────────────────────────────────────────────
 
@@ -571,30 +572,59 @@ function PlaylistLibrary() {
   );
 }
 
+// ── Topic playlist view ────────────────────────────────────────────────────
+
+interface TopicPlaylistProps {
+  topic: string;
+  lessons: ReturnType<typeof getLessonsByTopic>;
+  setLessons: (lessons: ReturnType<typeof getLessonsByTopic>) => void;
+}
+
+function TopicPlaylist({ topic, lessons, setLessons }: TopicPlaylistProps) {
+  useEffect(() => {
+    setLessons(lessons);
+    // No cleanup: lessons persist in context so StickyPlayerBar stays visible
+    // when the user navigates away. A subsequent TopicPlaylist mount will replace
+    // them via setLessons; explicit clear only happens on app unmount.
+  }, [topic]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (lessons.length === 0) {
+    return (
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          {TOPIC_LABELS[topic] ?? topic} — Playlist
+        </Typography>
+        <Typography color="text.secondary">
+          No audio lessons are available for this topic yet.
+        </Typography>
+      </Container>
+    );
+  }
+
+  return (
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        {TOPIC_LABELS[topic] ?? topic} — Playlist
+      </Typography>
+      <Typography color="text.secondary" sx={{ mb: 2 }}>
+        {lessons.length} lesson{lessons.length !== 1 ? 's' : ''} queued — use the player bar at the bottom to play, skip, and control speed.
+      </Typography>
+    </Container>
+  );
+}
+
 // ── Route entry point ──────────────────────────────────────────────────────
 
 export default function Playlist() {
   const { topic } = useParams<{ topic: string }>();
+  const { setLessons } = useStickyPlayer();
 
   if (topic) {
     const lessons = getLessonsByTopic(topic).filter(
       (l) => l.status !== 'planning' && l.audio !== null,
     );
 
-    return (
-      <Container maxWidth="md" sx={{ py: 4 }}>
-        <Typography variant="h4" gutterBottom>
-          {TOPIC_LABELS[topic] ?? topic} — Playlist
-        </Typography>
-        {lessons.length === 0 ? (
-          <Typography color="text.secondary">
-            No audio lessons are available for this topic yet.
-          </Typography>
-        ) : (
-          <PlaylistPlayer lessons={lessons} />
-        )}
-      </Container>
-    );
+    return <TopicPlaylist topic={topic} lessons={lessons} setLessons={setLessons} />;
   }
 
   return <PlaylistLibrary />;
