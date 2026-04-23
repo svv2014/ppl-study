@@ -11,7 +11,9 @@
   .badge-blue { background: #0d1a3a; color: #5b9bd5; border: 1px solid #5b9bd5; }
   .badge-red { background: #2a0d0d; color: var(--danger); border: 1px solid var(--danger); }
   .badge-green { background: #0d2a1a; color: var(--success); border: 1px solid var(--success); }
-  .warning-box { background: #1a2d3d; border-left: 3px solid var(--danger); border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
+  .warning-box { background: var(--surface); border-left: 3px solid var(--danger); border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: var(--text); line-height: 1.6; }
+  /* design-exception: Clear/Straw Jet-A fuel colour (#d0c040 straw-yellow on dark olive); no CSS-var equivalent in token set */
+  .badge-straw { background: #2a2a0d; color: #d0c040; border: 1px solid #d0c040; }
   @media (max-width: 480px) {
     .layout { grid-template-columns: 1fr; }
   }
@@ -103,7 +105,7 @@
           </tr>
           <tr>
             <td><strong>Jet-A / Jet B</strong></td>
-            <td><span class="badge" style="background:#2a2a0d;color:#d0c040;border:1px solid #d0c040;">Clear/Straw</span></td>
+            <td><span class="badge badge-straw">Clear/Straw</span></td>
             <td>Turbine (jet/turboprop) fuel ONLY. <strong>Fatal if used in piston engine.</strong></td>
           </tr>
         </tbody>
