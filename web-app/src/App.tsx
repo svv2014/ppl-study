@@ -16,6 +16,8 @@ import PSTARExam from './pages/PSTARExam';
 import Plan from './pages/Plan';
 import Playlist from './pages/Playlist';
 import SmartPlaylist from './pages/SmartPlaylist';
+import PlaylistEditor from './pages/PlaylistEditor';
+import UserPlaylistPage from './pages/UserPlaylistPage';
 import PSTARPath from './pages/PSTARPath';
 
 const RAIL_EXPANDED = 240;
@@ -110,6 +112,9 @@ export default function App() {
               <Route path="/playlist" element={<Playlist />} />
               <Route path="/playlist/smart/:kind" element={<SmartPlaylist />} />
               <Route path="/playlist/:topic" element={<Playlist />} />
+              <Route path="/playlist/new" element={<PlaylistEditor />} />
+              <Route path="/playlist/user/:id" element={<UserPlaylistPage />} />
+              <Route path="/playlist/user/:id/edit" element={<PlaylistEditor />} />
               <Route path="/pstar" element={<PSTARPath />} />
             </Routes>
           </Box>
