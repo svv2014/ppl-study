@@ -210,6 +210,24 @@ Icon button, 100 px pill radius, 48 × 48 px, sun icon in light mode and moon in
 
 Pill button with accent-soft badge + track code + name + progress + chevron. Click opens menu with: active-track section, your-other-tracks section, locked/coming-soon tracks (50 % opacity), and "Add another track" placeholder. See `multi-track.html` for binding spec.
 
+### 5.9 Sticky player bar (StickyPlayerBar.tsx)
+
+Fixed-position audio player bar that persists across routes. Mounts at app root inside `BrowserRouter` so it survives navigation.
+
+**Anatomy (compact state, ≤ 72 px total height):**
+- 3 px amber scrub bar at very top — clickable to seek, filled with `primary.main`
+- 69 px row: play/pause `IconButton` (48 × 48 px, `primary.main`) · lesson title (truncated, ellipsis) with topic monospace label above · expand/collapse chevron `IconButton` (48 × 48 px)
+
+**Expanded state:** `max-height` transitions from 0 → 480 px (200 ms ease-out) revealing skip-prev/next buttons, track counter, speed `Select`, and `PlaylistQueue`.
+
+**Visibility:** `transform: translateY(0)` when playlist has audio; `translateY(100%)` otherwise. Slide-in uses 200 ms ease-out (§ 6 rule). Hidden state must not reserve any visual space.
+
+**Z-index:** `theme.zIndex.appBar − 1` so it sits beneath the mobile bottom nav paper but above page content.
+
+**Bottom spacing:** On mobile (< md breakpoint), positioned at `bottom: 56 px` to sit above the mobile `BottomNavigation`. On desktop, `bottom: 0`. The `<main>` element adds `padding-bottom` equal to the compact bar height (plus bottom-nav height on mobile) when the player is visible, preventing content from being hidden beneath it.
+
+**Theme parity:** Uses `background.paper`, `divider`, `primary.main`, `text.primary/secondary` from the MUI theme — no hardcoded hex. No box-shadow in dark mode.
+
 ---
 
 ## 6. Motion

@@ -3,7 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { buildTheme } from './theme';
 import { useThemeMode } from './context/ThemeModeContext';
+import { useStickyPlayer } from './context/StickyPlayerContext';
 import Nav from './components/Nav';
+import StickyPlayerBar from './components/StickyPlayerBar';
 import Home from './pages/Home';
 import LessonsIndex from './pages/LessonsIndex';
 import LessonDetail from './pages/LessonDetail';
@@ -23,6 +25,8 @@ const LS_KEY = 'ppl-nav-collapsed';
 export default function App() {
   const { mode } = useThemeMode();
   const theme = useMemo(() => buildTheme(mode), [mode]);
+  const { lessons } = useStickyPlayer();
+  const playerVisible = lessons.some((l) => l.audio !== null);
 
   const [collapsed, setCollapsed] = useState<boolean>(() => {
     try {
@@ -84,7 +88,9 @@ export default function App() {
             sx={{
               flex: 1,
               minWidth: 0,
-              pb: { xs: 7, sm: 7, md: 0 },
+              pb: playerVisible
+                ? { xs: '200px', sm: '200px', md: '80px' }
+                : { xs: 7, sm: 7, md: 0 },
               ml: { xs: 0, md: `${railWidth}px` },
               transition: theme.transitions.create('margin-left', {
                 easing: theme.transitions.easing.sharp,
@@ -107,6 +113,7 @@ export default function App() {
               <Route path="/pstar" element={<PSTARPath />} />
             </Routes>
           </Box>
+          <StickyPlayerBar />
         </Box>
       </BrowserRouter>
     </ThemeProvider>
