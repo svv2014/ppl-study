@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPL Study — Variant A · Cockpit Briefing</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #071020;
+    --bg-2: #0d1b2a;
+    --surface: #0f1f33;
+    --surface-2: #142a40;
+    --border: #1a3550;
+    --amber: #f0c040;
+    --amber-dim: #8b6f24;
+    --text: #e4ecf5;
+    --muted: #7a9ab5;
+    --mono: 'SF Mono', 'JetBrains Mono', Consolas, monospace;
+    --sans: 'Inter', system-ui, sans-serif;
+  }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.55; min-height: 100vh; padding-bottom: 60px; }
+
+  /* Thin grid-paper backdrop */
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      linear-gradient(rgba(26,53,80,0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(26,53,80,0.15) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .back { position: fixed; top: 14px; left: 14px; background: rgba(15,31,51,0.92); color: var(--amber); border: 1px solid var(--border); padding: 8px 14px; border-radius: 4px; font-family: var(--mono); font-size: 11px; text-decoration: none; letter-spacing: 0.05em; z-index: 10; }
+  .back:hover { border-color: var(--amber); }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 48px 24px 0; position: relative; z-index: 1; }
+
+  /* Top status bar */
+  .status-bar { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 10px 0; font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 28px; }
+  .status-bar .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #4caf7d; margin-right: 6px; vertical-align: middle; box-shadow: 0 0 6px #4caf7d; }
+  .status-bar .seg { display: flex; gap: 18px; flex-wrap: wrap; }
+  .status-bar .seg span strong { color: var(--amber); margin-left: 6px; font-weight: 600; }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: 1.5fr 1fr; gap: 32px; align-items: center; margin-bottom: 36px; }
+  .hero-left .kicker { font-family: var(--mono); font-size: 11px; color: var(--amber); letter-spacing: 0.15em; margin-bottom: 14px; }
+  .hero-left h1 { font-size: 44px; line-height: 1.1; letter-spacing: -0.02em; font-weight: 700; margin-bottom: 14px; }
+  .hero-left h1 .amber { color: var(--amber); }
+  .hero-left p { color: var(--muted); max-width: 460px; margin-bottom: 20px; }
+  .hero-cta { display: inline-flex; gap: 10px; align-items: center; background: var(--amber); color: #0b1726; padding: 12px 22px; border-radius: 3px; text-decoration: none; font-weight: 600; font-family: var(--mono); font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .hero-cta::after { content: "→"; }
+  .hero-cta:hover { background: #ffd155; }
+
+  /* Readiness gauge — altimeter-style */
+  .gauge-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 20px; }
+  .gauge-card .label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; margin-bottom: 10px; text-transform: uppercase; }
+  .gauge-wrap { display: flex; align-items: center; gap: 18px; }
+  .gauge-num { font-family: var(--mono); font-size: 52px; color: var(--amber); font-weight: 300; letter-spacing: -0.02em; line-height: 1; }
+  .gauge-num .unit { font-size: 20px; color: var(--muted); margin-left: 2px; }
+  .gauge-meta { font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.8; }
+  .gauge-meta .ok { color: #4caf7d; }
+  .gauge-meta .warn { color: var(--amber); }
+
+  /* Section headers */
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px; margin-top: 40px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+  .section-head h2 { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; }
+  .section-head .meta { font-family: var(--mono); font-size: 11px; color: var(--amber); }
+
+  /* Topic grid — fuel-gauge style */
+  .topic-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .topic { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 16px; position: relative; }
+  .topic .code { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; }
+  .topic .name { font-size: 15px; font-weight: 600; margin: 6px 0 12px; }
+  .topic .bar { height: 2px; background: #1a2d3d; border-radius: 1px; overflow: hidden; margin-bottom: 8px; }
+  .topic .bar .fill { height: 100%; background: var(--amber); }
+  .topic .stats { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .topic .stats strong { color: var(--amber); font-weight: 500; }
+
+  /* Next action — NOTAM-like */
+  .notam { background: var(--surface); border: 1px solid var(--amber-dim); border-left: 3px solid var(--amber); padding: 18px 22px; font-family: var(--mono); font-size: 13px; line-height: 1.9; }
+  .notam .stamp { color: var(--amber); letter-spacing: 0.15em; font-size: 10px; text-transform: uppercase; margin-bottom: 6px; }
+  .notam .title { font-size: 18px; color: var(--text); margin-bottom: 10px; font-family: var(--sans); font-weight: 600; letter-spacing: -0.01em; }
+  .notam .meta { color: var(--muted); }
+  .notam .meta span { display: inline-block; margin-right: 22px; }
+  .notam .meta strong { color: var(--text); margin-left: 4px; }
+  .notam .action { margin-top: 14px; display: inline-flex; gap: 8px; color: var(--amber); text-decoration: none; text-transform: uppercase; letter-spacing: 0.1em; font-size: 11px; }
+
+  /* Exam quick-access */
+  .exam-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .exam-card { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 18px; text-decoration: none; color: inherit; transition: border-color 0.12s; }
+  .exam-card:hover { border-color: var(--amber); }
+  .exam-card .kind { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
+  .exam-card .title { font-size: 17px; font-weight: 600; margin-bottom: 6px; letter-spacing: -0.01em; }
+  .exam-card .desc { font-size: 12px; color: var(--muted); }
+  .exam-card .arrow { float: right; color: var(--amber); font-family: var(--mono); font-size: 16px; }
+
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left h1 { font-size: 32px; }
+    .gauge-num { font-size: 42px; }
+    .topic-grid { grid-template-columns: repeat(2, 1fr); }
+    .exam-row { grid-template-columns: 1fr; }
+    .status-bar { flex-direction: column; gap: 8px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<a class="back" href="index.html">← all variants</a>
+<div class="container">
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <div class="seg">
+      <span><span class="dot"></span>SYSTEM READY</span>
+      <span>TRANSPORT CANADA PPL<strong>AEROPLANE</strong></span>
+    </div>
+    <div class="seg">
+      <span>LESSONS<strong>47 / 60</strong></span>
+      <span>LAST SESSION<strong>2H AGO</strong></span>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="kicker">PRE-FLIGHT BRIEFING · 20 MIN / DAY</div>
+      <h1>Pass the <span class="amber">PPL written</span><br>exam. Twenty minutes a day.</h1>
+      <p>Structured lessons covering PSTAR and the full Transport Canada syllabus. Audio-first, exam-weighted, built for the cockpit pocket.</p>
+      <a class="hero-cta" href="#">Continue lesson AL-014</a>
+    </div>
+    <div class="gauge-card">
+      <div class="label">⦿ Exam Readiness · Weighted</div>
+      <div class="gauge-wrap">
+        <!-- SVG altimeter-style gauge -->
+        <svg viewBox="0 0 120 120" width="120" height="120" style="flex-shrink: 0;">
+          <circle cx="60" cy="60" r="54" fill="none" stroke="#1a2d3d" stroke-width="1"/>
+          <circle cx="60" cy="60" r="48" fill="none" stroke="#1a3550" stroke-width="6"/>
+          <circle cx="60" cy="60" r="48" fill="none" stroke="#f0c040" stroke-width="6"
+                  stroke-dasharray="301.6" stroke-dashoffset="105.5"
+                  transform="rotate(-90 60 60)" stroke-linecap="butt"/>
+          <!-- Tick marks -->
+          <g stroke="#7a9ab5" stroke-width="1">
+            <line x1="60" y1="6" x2="60" y2="12"/>
+            <line x1="108" y1="60" x2="114" y2="60"/>
+            <line x1="60" y1="108" x2="60" y2="114"/>
+            <line x1="6" y1="60" x2="12" y2="60"/>
+          </g>
+          <!-- Numeric ticks -->
+          <text x="60" y="22" text-anchor="middle" fill="#7a9ab5" font-family="SF Mono, monospace" font-size="7">100</text>
+          <text x="100" y="63" text-anchor="middle" fill="#7a9ab5" font-family="SF Mono, monospace" font-size="7">25</text>
+          <text x="60" y="103" text-anchor="middle" fill="#7a9ab5" font-family="SF Mono, monospace" font-size="7">50</text>
+          <text x="20" y="63" text-anchor="middle" fill="#7a9ab5" font-family="SF Mono, monospace" font-size="7">75</text>
+        </svg>
+        <div>
+          <div class="gauge-num">65<span class="unit">%</span></div>
+          <div class="gauge-meta">
+            <div>AL <span class="ok">78%</span> · NAV <span class="ok">71%</span></div>
+            <div>MET <span class="warn">58%</span> · GK <span class="warn">52%</span></div>
+            <div style="margin-top: 6px; color: var(--amber);">TARGET 80 — DELTA −15</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next action -->
+  <div class="section-head">
+    <h2>◆ Next Action</h2>
+    <span class="meta">RESUMING · 2H PAUSE</span>
+  </div>
+  <a href="#" class="notam" style="text-decoration: none; color: inherit; display: block;">
+    <div class="stamp">▸ LESSON AL-014</div>
+    <div class="title">Emergency Procedures — Air Law</div>
+    <div class="meta">
+      <span>DUR<strong>20 MIN</strong></span>
+      <span>AUDIO<strong>READY</strong></span>
+      <span>QUESTIONS<strong>5</strong></span>
+      <span>TOPIC<strong>AIR LAW 14/18</strong></span>
+    </div>
+    <div class="action">▸ BEGIN SESSION</div>
+  </a>
+
+  <!-- Topics -->
+  <div class="section-head">
+    <h2>◆ Topic Coverage · TC Exam Weight</h2>
+    <span class="meta">4 DOMAINS</span>
+  </div>
+  <div class="topic-grid">
+    <div class="topic">
+      <div class="code">AL · 30% WEIGHT</div>
+      <div class="name">Air Law</div>
+      <div class="bar"><div class="fill" style="width: 78%;"></div></div>
+      <div class="stats"><span>14 / 18 lessons</span><strong>78%</strong></div>
+    </div>
+    <div class="topic">
+      <div class="code">NAV · 25% WEIGHT</div>
+      <div class="name">Navigation</div>
+      <div class="bar"><div class="fill" style="width: 71%;"></div></div>
+      <div class="stats"><span>10 / 14 lessons</span><strong>71%</strong></div>
+    </div>
+    <div class="topic">
+      <div class="code">MET · 25% WEIGHT</div>
+      <div class="name">Meteorology</div>
+      <div class="bar"><div class="fill" style="width: 58%;"></div></div>
+      <div class="stats"><span>8 / 14 lessons</span><strong>58%</strong></div>
+    </div>
+    <div class="topic">
+      <div class="code">GK · 20% WEIGHT</div>
+      <div class="name">General Knowledge</div>
+      <div class="bar"><div class="fill" style="width: 52%;"></div></div>
+      <div class="stats"><span>7 / 14 lessons</span><strong>52%</strong></div>
+    </div>
+  </div>
+
+  <!-- Exam quick-access -->
+  <div class="section-head">
+    <h2>◆ Practice &amp; Exam</h2>
+    <span class="meta">2 TRACKS</span>
+  </div>
+  <div class="exam-row">
+    <a class="exam-card" href="#">
+      <span class="arrow">→</span>
+      <div class="kind">★ PSTAR · PRE-SOLO</div>
+      <div class="title">PSTAR Practice Exam</div>
+      <div class="desc">50 Qs · 40 min · 90% pass mark · Core Air Law coverage</div>
+    </a>
+    <a class="exam-card" href="#">
+      <span class="arrow">→</span>
+      <div class="kind">★ PPL · WRITTEN</div>
+      <div class="title">Final Mock Exam</div>
+      <div class="desc">100 Qs · 3.5 hr · 60% pass (target 80%) · TC-weighted pool</div>
+    </a>
+  </div>
+
+</div>
+</body>
+</html>
