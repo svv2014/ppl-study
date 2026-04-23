@@ -7,14 +7,15 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
   .ice-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-  .ice-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; }
-  .ice-card h3 { font-size: 14px; color: #f0c040; margin-bottom: 4px; letter-spacing: 0.5px; }
-  .ice-card .temp { font-size: 11px; color: #7a9ab5; margin-bottom: 8px; }
-  .ice-card ul { margin-left: 18px; font-size: 11px; color: #e8edf2; line-height: 1.6; }
+  .ice-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .ice-card h3 { font-size: 14px; color: var(--accent); margin-bottom: 4px; letter-spacing: 0.5px; }
+  .ice-card .temp { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
+  .ice-card ul { margin-left: 18px; font-size: 11px; color: var(--text); line-height: 1.6; }
   .effects { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .eff-card { background: #1a2d3d; border-left: 3px solid #e05050; padding: 10px 14px; font-size: 12px; color: #e8edf2; line-height: 1.5; }
-  .eff-card strong { color: #e05050; }
+  .eff-card { background: var(--surface); border-left: 3px solid var(--danger); padding: 10px 14px; font-size: 12px; color: var(--text); line-height: 1.5; }
+  .eff-card strong { color: var(--danger); }
   @media (max-width: 640px) { .ice-grid { grid-template-columns: 1fr; } .effects { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { body { font-size: 14px; } }
 </style>
 </head>
 <body>

@@ -6,24 +6,25 @@
 <title>MET-008: PIREPs</title>
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
-  .pirep-sample { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 18px 20px; font-family: 'Consolas', 'Menlo', monospace; font-size: 14px; line-height: 1.9; margin-bottom: 14px; word-break: break-word; }
+  .pirep-sample { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; font-family: 'Consolas', 'Menlo', monospace; font-size: 14px; line-height: 1.9; margin-bottom: 14px; word-break: break-word; }
   .seg { padding: 2px 6px; border-radius: 3px; margin: 0 2px; display: inline-block; }
-  .sh { background: #3d5a80; color: #e8edf2; }
-  td code { font-family: 'Consolas', 'Menlo', monospace; background: #0d1b2a; color: #f0c040; padding: 1px 6px; border-radius: 3px; font-size: 12px; }
+  .sh { background: #3d5a80; color: var(--text); }
+  td code { font-family: 'Consolas', 'Menlo', monospace; background: var(--bg); color: var(--accent); padding: 1px 6px; border-radius: 3px; font-size: 12px; }
   .intensity-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  .int-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
-  .int-code { font-size: 15px; color: #f0c040; font-weight: bold; font-family: 'Consolas', monospace; }
-  .int-name { font-size: 11px; color: #e8edf2; margin-top: 4px; font-weight: bold; }
-  .int-eff { font-size: 11px; color: #7a9ab5; margin-top: 4px; line-height: 1.4; }
-  .int-card.lgt { border-left: 3px solid #4caf7d; }
-  .int-card.mod { border-left: 3px solid #f0c040; }
-  .int-card.sev { border-left: 3px solid #e05050; }
+  .int-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+  .int-code { font-size: 15px; color: var(--accent); font-weight: bold; font-family: 'Consolas', monospace; }
+  .int-name { font-size: 11px; color: var(--text); margin-top: 4px; font-weight: bold; }
+  .int-eff { font-size: 11px; color: var(--text-muted); margin-top: 4px; line-height: 1.4; }
+  .int-card.lgt { border-left: 3px solid var(--success); }
+  .int-card.mod { border-left: 3px solid var(--accent); }
+  .int-card.sev { border-left: 3px solid var(--danger); }
   .int-card.ext { border-left: 3px solid #b030b0; }
   .advisory-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-  .adv-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; }
-  .adv-card h3 { font-size: 13px; color: #f0c040; margin-bottom: 6px; letter-spacing: 0.5px; }
-  .adv-card p { font-size: 11px; color: #e8edf2; line-height: 1.5; }
+  .adv-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .adv-card h3 { font-size: 13px; color: var(--accent); margin-bottom: 6px; letter-spacing: 0.5px; }
+  .adv-card p { font-size: 11px; color: var(--text); line-height: 1.5; }
   @media (max-width: 640px) { .intensity-grid { grid-template-columns: repeat(2, 1fr); } .advisory-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { body { font-size: 14px; } .intensity-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
 </head>
 <body>

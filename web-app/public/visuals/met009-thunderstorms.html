@@ -7,13 +7,14 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
   .ingredients { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
-  .ing-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; text-align: center; }
-  .ing-card .n { font-size: 20px; color: #f0c040; font-weight: bold; }
-  .ing-card .l { font-size: 12px; color: #e8edf2; margin-top: 6px; line-height: 1.5; }
+  .ing-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; text-align: center; }
+  .ing-card .n { font-size: 20px; color: var(--accent); font-weight: bold; }
+  .ing-card .l { font-size: 12px; color: var(--text); margin-top: 6px; line-height: 1.5; }
   .hazards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .haz-card { background: #1a2d3d; border-left: 3px solid #e05050; padding: 10px 14px; font-size: 12px; color: #e8edf2; line-height: 1.5; }
-  .haz-card strong { color: #e05050; }
+  .haz-card { background: var(--surface); border-left: 3px solid var(--danger); padding: 10px 14px; font-size: 12px; color: var(--text); line-height: 1.5; }
+  .haz-card strong { color: var(--danger); }
   @media (max-width: 640px) { .ingredients { grid-template-columns: 1fr; } .hazards-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { body { font-size: 14px; } }
 </style>
 </head>
 <body>
