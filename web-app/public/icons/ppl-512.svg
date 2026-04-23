@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#071020"/>
+  <!-- Airplane silhouette (top-down view) -->
+  <g fill="#4fc3f7" transform="translate(256,256)">
+    <!-- Fuselage -->
+    <ellipse cx="0" cy="0" rx="18" ry="110"/>
+    <!-- Wings -->
+    <ellipse cx="0" cy="-20" rx="130" ry="14" transform="rotate(-5)"/>
+    <!-- Tail horizontal stabilizer -->
+    <ellipse cx="0" cy="88" rx="55" ry="8"/>
+    <!-- Tail vertical fin -->
+    <ellipse cx="0" cy="95" rx="7" ry="22"/>
+  </g>
+  <!-- Maple leaf dot (Canadian) -->
+  <circle cx="256" cy="120" r="14" fill="#e53935" opacity="0.85"/>
+</svg>

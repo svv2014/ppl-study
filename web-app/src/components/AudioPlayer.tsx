@@ -6,6 +6,7 @@ import Select from '@mui/material/Select';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import { readSpeed, writeSpeed } from '../lib/audio-state';
+import { useMediaSession } from './MediaSessionBridge';
 
 const SPEEDS = [0.75, 1, 1.1, 1.25, 1.5, 1.75, 2] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -14,14 +15,22 @@ const MONO = "'SF Mono', 'JetBrains Mono', Consolas, monospace";
 
 interface AudioPlayerProps {
   src: string | null;
+  title?: string;
+  topic?: string;
 }
 
-export default function AudioPlayer({ src }: AudioPlayerProps) {
+export default function AudioPlayer({ src, title, topic }: AudioPlayerProps) {
   const [speed, setSpeed] = useState<Speed>(() => {
     const saved = readSpeed();
     return (SPEEDS as readonly number[]).includes(saved) ? (saved as Speed) : 1;
   });
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  useMediaSession({
+    title: title ?? '',
+    artist: topic ?? '',
+    audioRef,
+  });
 
   useEffect(() => {
     if (audioRef.current) {
