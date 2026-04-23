@@ -20,6 +20,9 @@ export const colorTokens = {
   success: {
     main: '#4caf50',
   },
+  error: {
+    main: '#ef4444',
+  },
   text: {
     primary: '#ffffff',
     secondary: 'rgba(255,255,255,0.65)',

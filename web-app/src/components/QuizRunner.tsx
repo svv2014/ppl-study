@@ -10,12 +10,23 @@ import RadioGroup from '@mui/material/RadioGroup';
 import Typography from '@mui/material/Typography';
 import type { Question } from '../lib/types';
 
+export interface QuizOptionRenderProps {
+  optionKey: string;
+  label: string;
+  isSelected: boolean;
+  isSubmitted: boolean;
+  isCorrectAnswer: boolean;
+  disabled: boolean;
+  onSelect: () => void;
+}
+
 interface QuizRunnerProps {
   questions: Question[];
   onComplete: (answers: Record<string, string>) => void;
+  renderOption?: (props: QuizOptionRenderProps) => React.ReactNode;
 }
 
-export default function QuizRunner({ questions, onComplete }: QuizRunnerProps) {
+export default function QuizRunner({ questions, onComplete, renderOption }: QuizRunnerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -54,23 +65,39 @@ export default function QuizRunner({ questions, onComplete }: QuizRunnerProps) {
         {question.prompt}
       </Typography>
 
-      <FormControl component="fieldset" sx={{ width: '100%' }}>
-        <RadioGroup
-          value={selectedAnswer}
-          onChange={(e) => {
-            if (!submitted) setSelectedAnswer(e.target.value);
-          }}
-        >
-          {Object.entries(question.choices).map(([key, value]) => (
-            <FormControlLabel
-              key={key}
-              value={key}
-              control={<Radio disabled={submitted} />}
-              label={`${key}. ${value}`}
-            />
-          ))}
-        </RadioGroup>
-      </FormControl>
+      {renderOption ? (
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+          {Object.entries(question.choices).map(([key, value]) =>
+            renderOption({
+              optionKey: key,
+              label: value,
+              isSelected: selectedAnswer === key,
+              isSubmitted: submitted,
+              isCorrectAnswer: key === question.answer,
+              disabled: submitted,
+              onSelect: () => { if (!submitted) setSelectedAnswer(key); },
+            }),
+          )}
+        </Box>
+      ) : (
+        <FormControl component="fieldset" sx={{ width: '100%' }}>
+          <RadioGroup
+            value={selectedAnswer}
+            onChange={(e) => {
+              if (!submitted) setSelectedAnswer(e.target.value);
+            }}
+          >
+            {Object.entries(question.choices).map(([key, value]) => (
+              <FormControlLabel
+                key={key}
+                value={key}
+                control={<Radio disabled={submitted} />}
+                label={`${key}. ${value}`}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
+      )}
 
       {submitted && (
         <>
