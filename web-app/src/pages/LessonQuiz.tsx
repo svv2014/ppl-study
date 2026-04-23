@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import { getLessonBySlug } from '../lib/lesson-loader';
+import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
 import { scoreQuiz } from '../lib/quiz';
 import type { QuizResult } from '../lib/quiz';
 import QuizRunner from '../components/QuizRunner';
 
 type Phase = 'intro' | 'quiz' | 'results';
+
+const TOUCH_TARGET = { minHeight: 48, minWidth: 48 };
 
 export default function LessonQuiz() {
   const { topic, slug } = useParams<{ topic: string; slug: string }>();
@@ -29,25 +33,36 @@ export default function LessonQuiz() {
         <Alert severity="error" sx={{ mb: 2 }}>
           Lesson not found: {topic}/{slug}.
         </Alert>
-        <Button variant="outlined" onClick={() => navigate('/lessons')}>
+        <Button variant="outlined" onClick={() => navigate('/lessons')} sx={TOUCH_TARGET}>
           Back to Lessons
         </Button>
       </Container>
     );
   }
 
-  const backToLesson = () => navigate(`/lessons/${lesson.topic}/${lesson.slug}`);
+  const lessonPath = `/lessons/${lesson.topic}/${lesson.slug}`;
+  const backToLesson = () => navigate(lessonPath);
+
+  const { next: nextLesson } = getAdjacentLessons(lesson.topic, lesson.slug);
 
   if (lesson.questions.length === 0) {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
+        <Button
+          component={Link}
+          to={lessonPath}
+          variant="text"
+          sx={{ mb: 2, pl: 0, ...TOUCH_TARGET }}
+        >
+          ← Back to lesson
+        </Button>
         <Typography variant="h5" sx={{ mb: 2 }}>
           {lesson.title} — Quiz
         </Typography>
         <Alert severity="info" sx={{ mb: 2 }}>
           No quiz questions available for this lesson.
         </Alert>
-        <Button variant="outlined" onClick={backToLesson}>
+        <Button variant="outlined" onClick={backToLesson} sx={TOUCH_TARGET}>
           Back to Lesson
         </Button>
       </Container>
@@ -72,8 +87,13 @@ export default function LessonQuiz() {
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
-      <Button variant="text" onClick={backToLesson} sx={{ mb: 2, pl: 0 }}>
-        ← Back to Lesson
+      <Button
+        component={Link}
+        to={lessonPath}
+        variant="text"
+        sx={{ mb: 2, pl: 0, ...TOUCH_TARGET }}
+      >
+        ← Back to lesson
       </Button>
 
       <Typography variant="h5" sx={{ mb: 3 }}>
@@ -86,7 +106,7 @@ export default function LessonQuiz() {
             {lesson.questions.length} question
             {lesson.questions.length !== 1 ? 's' : ''} · {lesson.title}
           </Typography>
-          <Button variant="contained" onClick={handleStartQuiz}>
+          <Button variant="contained" onClick={handleStartQuiz} sx={TOUCH_TARGET}>
             Start Quiz
           </Button>
         </Box>
@@ -98,46 +118,83 @@ export default function LessonQuiz() {
 
       {phase === 'results' && quizResult && (
         <Box>
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 3 }}>
-            <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-              <CircularProgress
-                variant="determinate"
-                value={quizResult.percent}
-                size={80}
-                thickness={5}
-              />
-              <Box
-                sx={{
-                  position: 'absolute',
-                  inset: 0,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <Typography variant="caption" component="div" color="text.secondary">
-                  {quizResult.percent}%
-                </Typography>
+          <Card variant="outlined" sx={{ mb: 3 }}>
+            <CardContent>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mb: 3 }}>
+                <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                  <CircularProgress
+                    variant="determinate"
+                    value={quizResult.percent}
+                    size={80}
+                    thickness={5}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      inset: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <Typography variant="caption" component="div" color="text.secondary">
+                      {quizResult.percent}%
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box>
+                  <Typography variant="h5">
+                    {quizResult.correct}/{quizResult.total} correct
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    Score: {quizResult.percent}%
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {lesson.title}
+                  </Typography>
+                </Box>
               </Box>
-            </Box>
-            <Box>
-              <Typography variant="h5">
-                {quizResult.correct}/{quizResult.total} · {quizResult.percent}%
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {lesson.title}
-              </Typography>
-            </Box>
-          </Box>
 
-          <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
-            <Button variant="outlined" onClick={handleRetake}>
-              Retake
-            </Button>
-            <Button variant="text" onClick={backToLesson}>
-              Back to Lesson
-            </Button>
-          </Box>
+              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                <Button
+                  variant="outlined"
+                  onClick={handleRetake}
+                  sx={TOUCH_TARGET}
+                >
+                  Retake
+                </Button>
+                <Button
+                  component={Link}
+                  to={lessonPath}
+                  variant="contained"
+                  sx={TOUCH_TARGET}
+                >
+                  Review lesson
+                </Button>
+                {nextLesson ? (
+                  <Button
+                    component={Link}
+                    to={`/lessons/${nextLesson.topic}/${nextLesson.slug}`}
+                    variant="outlined"
+                    color="secondary"
+                    sx={TOUCH_TARGET}
+                  >
+                    Next lesson →
+                  </Button>
+                ) : (
+                  <Button
+                    component={Link}
+                    to="/lessons"
+                    variant="outlined"
+                    color="secondary"
+                    sx={TOUCH_TARGET}
+                  >
+                    All lessons
+                  </Button>
+                )}
+              </Box>
+            </CardContent>
+          </Card>
 
           <Divider sx={{ mb: 3 }} />
 
