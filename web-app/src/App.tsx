@@ -111,6 +111,7 @@ export default function App() {
               <Route path="/plan" element={<Plan />} />
               <Route path="/playlist" element={<Playlist />} />
               <Route path="/playlist/smart/:kind" element={<SmartPlaylist />} />
+              <Route path="/playlist/curated/:id" element={<Playlist />} />
               <Route path="/playlist/:topic" element={<Playlist />} />
               <Route path="/playlist/new" element={<PlaylistEditor />} />
               <Route path="/playlist/user/:id" element={<UserPlaylistPage />} />

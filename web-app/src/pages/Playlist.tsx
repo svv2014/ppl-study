@@ -1,13 +1,16 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
-import { getLessonsByTopic } from '../lib/lesson-loader';
+import PlaylistPlayer from '../components/PlaylistPlayer';
+import { getAllLessons, getLessonsByTopic } from '../lib/lesson-loader';
 import { TOPICS, TOPIC_LABELS, CURRICULUM } from '../lib/curriculum';
-import { curatedPlaylists } from '../data/curated-playlists';
+import type { Lesson } from '../lib/types';
+import { CURATED_PLAYLISTS } from '../data/curated-playlists';
 import { getUserPlaylists } from '../lib/user-playlists';
 import { typographyTokens } from '../tokens';
 import { useStickyPlayer } from '../context/StickyPlayerContext';
@@ -423,20 +426,20 @@ function PlaylistLibrary() {
     };
   });
 
-  // Section 2: Curated playlists (stub: empty until feature merges)
-  const curatedEntries: CardEntry[] = curatedPlaylists.map((p) => ({
+  // Section 2: Curated playlists
+  const curatedEntries: CardEntry[] = CURATED_PLAYLISTS.map((p) => ({
     id: p.id,
     name: p.name,
     tagline: p.tagline,
     badge: 'CURATED',
     lessonCount: p.lessonIds.length,
-    durationMin: p.durationMin,
+    durationMin: p.lessonIds.length * 20,
     href: `/playlist/curated/${p.id}`,
     coverCode: p.id.slice(0, 4).toUpperCase(),
     coverAngle: 90,
   }));
 
-  // Section 3: User playlists (stub: empty until feature merges)
+  // Section 3: User playlists
   const userPlaylists = getUserPlaylists();
   const userEntries: CardEntry[] = userPlaylists.map((p) => ({
     id: p.id,
@@ -616,8 +619,52 @@ function TopicPlaylist({ topic, lessons, setLessons }: TopicPlaylistProps) {
 // ── Route entry point ──────────────────────────────────────────────────────
 
 export default function Playlist() {
-  const { topic } = useParams<{ topic: string }>();
+  const { topic, id } = useParams<{ topic?: string; id?: string }>();
   const { setLessons } = useStickyPlayer();
+  const navigate = useNavigate();
+
+  if (id !== undefined) {
+    const playlist = CURATED_PLAYLISTS.find((p) => p.id === id);
+
+    if (!playlist) {
+      return (
+        <Container maxWidth="md" sx={{ py: 4 }}>
+          <Typography variant="h4" gutterBottom>
+            Playlist Not Found
+          </Typography>
+          <Typography color="text.secondary" sx={{ mb: 3 }}>
+            No curated playlist with id "{id}" exists.
+          </Typography>
+          <Button variant="outlined" onClick={() => navigate('/playlist')}>
+            Back to Playlists
+          </Button>
+        </Container>
+      );
+    }
+
+    const allLessons = getAllLessons();
+    const lessons: Lesson[] = playlist.lessonIds
+      .map((lid) => allLessons.find((l) => l.id === lid))
+      .filter((l): l is Lesson => l !== undefined);
+
+    return (
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Typography variant="h4" gutterBottom>
+          {playlist.name}
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+          {playlist.tagline}
+        </Typography>
+        {lessons.length === 0 ? (
+          <Typography color="text.secondary">
+            No audio lessons are available for this playlist yet.
+          </Typography>
+        ) : (
+          <PlaylistPlayer lessons={lessons} />
+        )}
+      </Container>
+    );
+  }
 
   if (topic) {
     const lessons = getLessonsByTopic(topic).filter(
