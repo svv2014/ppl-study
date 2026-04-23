@@ -151,6 +151,44 @@ export default function Home() {
         </Container>
       )}
 
+      {/* Final Exam CTA — shown when ≥50 lessons completed */}
+      {completedCount >= 50 && (
+        <Container maxWidth="md" sx={{ pb: 2 }}>
+          <Box
+            sx={{
+              p: 3,
+              borderRadius: 2,
+              border: '1px solid',
+              borderColor: 'primary.main',
+              bgcolor: 'background.paper',
+              display: 'flex',
+              flexDirection: { xs: 'column', sm: 'row' },
+              alignItems: { sm: 'center' },
+              gap: 2,
+            }}
+          >
+            <Box sx={{ flex: 1 }}>
+              <Typography variant="h6" sx={{ mb: 0.5 }}>
+                Ready for the final?
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                You&apos;ve completed {completedCount} lessons. Put your knowledge to the test with a
+                full Transport Canada PPL practice exam.
+              </Typography>
+            </Box>
+            <Button
+              component={RouterLink}
+              to="/final-exam"
+              variant="contained"
+              size="large"
+              sx={{ flexShrink: 0, width: { xs: '100%', sm: 'auto' } }}
+            >
+              Take Final Exam
+            </Button>
+          </Box>
+        </Container>
+      )}
+
       {/* Topic cards — 2-col ≥600 px, single-col xs */}
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 2 }}>

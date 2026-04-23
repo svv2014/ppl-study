@@ -12,6 +12,7 @@ import { useTheme } from '@mui/material/styles';
 import HomeIcon from '@mui/icons-material/Home';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import QuizIcon from '@mui/icons-material/Quiz';
+import GradingIcon from '@mui/icons-material/Grading';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -22,6 +23,7 @@ const NAV_LINKS = [
   { label: 'Home', shortLabel: 'Home', to: '/', icon: <HomeIcon /> },
   { label: 'Browse Lessons', shortLabel: 'Browse', to: '/lessons', icon: <MenuBookIcon /> },
   { label: 'Practice Quiz', shortLabel: 'Quiz', to: '/exam', icon: <QuizIcon /> },
+  { label: 'Final Exam', shortLabel: 'Final', to: '/final-exam', icon: <GradingIcon /> },
   { label: 'Study Plan', shortLabel: 'Plan', to: '/plan', icon: <ChecklistIcon /> },
 ];
 
