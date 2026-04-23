@@ -14,6 +14,7 @@ import AudioPlayer from '../components/AudioPlayer';
 import SourceList from '../components/SourceList';
 import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
+import { TOPIC_LABELS } from '../lib/curriculum';
 
 function MarkdownTable({ children }: { children?: ReactNode }) {
   return (
@@ -142,7 +143,11 @@ export default function LessonDetail() {
         {lesson.title}
       </Typography>
 
-      <AudioPlayer src={lesson.audio} />
+      <AudioPlayer
+        src={lesson.audio}
+        title={lesson.title}
+        topic={TOPIC_LABELS[lesson.topic] ?? lesson.topic}
+      />
 
       <Box sx={{ mt: 2, mb: 3, display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' }, flexWrap: 'wrap' }}>
         <Button

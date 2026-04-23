@@ -11,6 +11,7 @@ import type { Lesson } from '../lib/types';
 import { TOPIC_LABELS } from '../lib/curriculum';
 import { readSpeed, writeSpeed, readPosition, writePosition } from '../lib/audio-state';
 import PlaylistQueue from './player/PlaylistQueue';
+import { useMediaSession } from './MediaSessionBridge';
 
 const SPEEDS = [0.75, 1, 1.1, 1.25, 1.5, 1.75, 2] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -79,8 +80,6 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (playlist.length === 0) return null;
-
   const current = playlist[currentIndex];
 
   function jumpTo(index: number) {
@@ -100,6 +99,16 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
   function handleNext() {
     jumpTo(Math.min(playlist.length - 1, currentIndex + 1));
   }
+
+  useMediaSession({
+    title: current?.title ?? '',
+    artist: current ? (TOPIC_LABELS[current.topic] ?? current.topic) : '',
+    audioRef,
+    onPrev: currentIndex > 0 ? handlePrev : null,
+    onNext: currentIndex < playlist.length - 1 ? handleNext : null,
+  });
+
+  if (playlist.length === 0) return null;
 
   function handleEnded() {
     setPlayedIndices((prev: ReadonlySet<number>) => {
