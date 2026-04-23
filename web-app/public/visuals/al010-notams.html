@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-010: NOTAMs</title>
+<link rel="stylesheet" href="/visuals/_common.css">
+<style>
+  /* Type cards */
+  .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .type-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 8px; padding: 16px 18px; }
+  .type-card h3 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .type-card p { font-size: 13px; color: #c8d8e8; line-height: 1.6; }
+  .type-badge { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; background: #1a2d3d; color: var(--text-muted); }
+
+  /* NOTAM format breakdown */
+  .notam-sample { background: #071020; border: 1.5px solid #1a3550; border-radius: 8px; padding: 18px 20px; margin-bottom: 28px; font-family: 'Courier New', monospace; }
+  .notam-sample .line { font-size: 13px; color: #c8d8e8; margin-bottom: 4px; word-break: break-all; }
+  .notam-sample .line .hl-acc { color: var(--accent); font-weight: 700; }
+  .notam-sample .line .hl-info { color: #80b8ff; }
+  .notam-sample .line .hl-ok { color: #80e080; }
+  .notam-sample .line .hl-warn { color: #ff9090; }
+  .legend { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; margin-top: 14px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: #c8d8e8; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  td strong { color: var(--accent); }
+  td code { font-family: 'Courier New', monospace; font-size: 12px; background: #1a2d3d; padding: 1px 5px; border-radius: 3px; color: #80b8ff; }
+
+  @media (max-width: 640px) {
+    .type-grid { grid-template-columns: 1fr; }
+    .legend { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .type-card p, td { font-size: 14px; }
+    th { font-size: 11px; }
+    .notam-sample .line { font-size: 12px; }
+    .legend-item { font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+<div class="container">
+  <h1>AL-010 — NOTAMs</h1>
+  <p class="subtitle">Transport Canada · CARs 602.72, AIP Canada GEN 3.3, AIM RAC 2.1 · PPL Written Exam</p>
+
+  <div class="section-label">What is a NOTAM?</div>
+  <p style="font-size:13px;color:#c8d8e8;line-height:1.7;margin-bottom:20px;">
+    A <strong style="color:var(--accent);">NOTAM</strong> (Notice to Air Missions) is a notice containing information essential to personnel concerned with flight operations that is not known sufficiently in advance to be publicised by other means. NOTAMs are mandatory pre-flight briefing material — a pilot-in-command must review all applicable NOTAMs before any flight (CARs 602.72).
+  </p>
+
+  <div class="section-label">NOTAM Types</div>
+  <div class="type-grid">
+    <div class="type-card">
+      <span class="type-badge">NOTAM (D)</span>
+      <h3>Distributed NOTAM</h3>
+      <p>Standard NOTAM distributed nationally via the NOTAMplus system. Covers aerodromes, navaids, airspace restrictions, obstacles, and procedures. Most NOTAMs encountered in pre-flight briefings are D NOTAMs.</p>
+    </div>
+    <div class="type-card">
+      <span class="type-badge">NOTAM (L)</span>
+      <h3>Local NOTAM</h3>
+      <p>Distributed only to the affected local area. Covers information too minor or local for national distribution — e.g., a taxiway light outage at a small aerodrome. Not always available on national databases.</p>
+    </div>
+    <div class="type-card">
+      <span class="type-badge">SNOWTAM</span>
+      <h3>Snow / Runway Condition</h3>
+      <p>Special NOTAM series reporting snow, ice, slush, and braking action on runways and taxiways. Critical for winter operations — provides runway condition codes (RCC) per the Global Reporting Format (GRF).</p>
+    </div>
+    <div class="type-card">
+      <span class="type-badge">ASHTAM</span>
+      <h3>Volcanic Ash</h3>
+      <p>Special NOTAM series warning of volcanic ash cloud activity. Issued when volcanic ash is a hazard to aviation — provides location, altitude, and forecast movement of ash cloud.</p>
+    </div>
+  </div>
+
+  <div class="section-label">Reading a NOTAM — Sample Format</div>
+  <div class="notam-sample">
+    <div class="line"><span class="hl-acc">A1234/25</span> NOTAMN</div>
+    <div class="line">Q) <span class="hl-ok">CZEG</span>/<span class="hl-info">QMXLC</span>/IV/NBO/A/000/999/<span class="hl-ok">5117N11433W005</span></div>
+    <div class="line">A) <span class="hl-acc">CYYC</span> B) <span class="hl-ok">2503010600</span> C) <span class="hl-warn">2503312359</span></div>
+    <div class="line">E) TWY B BTN TWY C AND TWY D CLSD</div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent);"></div>A1234/25 — NOTAM number / year</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#80b8ff;"></div>QMXLC — Q-code: subject &amp; condition</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#80e080;"></div>CZEG — FIR; CYYC — aerodrome ICAO</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#ff9090;"></div>C) 2503312359 — expiry (UTC)</div>
+    </div>
+  </div>
+
+  <div class="section-label">NOTAM Q-Code Subject Subjects — Common Examples</div>
+  <table>
+    <thead>
+      <tr><th>Q-Code</th><th>Subject</th><th>Example meaning</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>MX</code></td>
+        <td><strong>Taxiway</strong></td>
+        <td><code>QMXLC</code> — Taxiway closed (L=limited, C=closed)</td>
+      </tr>
+      <tr>
+        <td><code>MR</code></td>
+        <td><strong>Runway</strong></td>
+        <td><code>QMRLC</code> — Runway closed; <code>QMRXX</code> — runway unserviceable</td>
+      </tr>
+      <tr>
+        <td><code>LT</code></td>
+        <td><strong>Lighting</strong></td>
+        <td><code>QLTLC</code> — Runway lighting unserviceable</td>
+      </tr>
+      <tr>
+        <td><code>NV</code></td>
+        <td><strong>Navaid (VOR)</strong></td>
+        <td><code>QNVAS</code> — VOR unserviceable</td>
+      </tr>
+      <tr>
+        <td><code>RA</code></td>
+        <td><strong>Airspace restriction</strong></td>
+        <td>Temporary restricted area, danger area activation</td>
+      </tr>
+      <tr>
+        <td><code>OB</code></td>
+        <td><strong>Obstacle</strong></td>
+        <td>New crane, tower, or structure — height and coordinates given</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">Where to Find NOTAMs</div>
+  <table>
+    <thead>
+      <tr><th>Source</th><th>Coverage</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>NOTAMplus</strong> (nav.canada.ca)</td>
+        <td>Canadian domestic NOTAMs</td>
+        <td>Official NAV CANADA briefing system — use for pre-flight planning.</td>
+      </tr>
+      <tr>
+        <td><strong>FSS Pre-flight Briefing</strong></td>
+        <td>All applicable NOTAMs for route</td>
+        <td>Call 1-800-WXBRIEF or use online. Briefer consolidates relevant NOTAMs.</td>
+      </tr>
+      <tr>
+        <td><strong>CFRS (Canadian NOTAM)</strong></td>
+        <td>Domestic + international</td>
+        <td>Canadian Flight Route Service — for international departures.</td>
+      </tr>
+      <tr>
+        <td><strong>EFB / Aviation Apps</strong></td>
+        <td>Varies</td>
+        <td>Convenience only — must verify currency. Not a substitute for official briefing.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="hook-box">
+    <h2>Key Facts for the Exam</h2>
+    <div class="hook-row"><span class="hook-badge">Mandatory</span><span class="hook-text">CARs 602.72 requires the pilot-in-command to review <strong>all applicable NOTAMs</strong> before flight — this is a legal requirement, not a suggestion.</span></div>
+    <div class="hook-row"><span class="hook-badge">SNOWTAM</span><span class="hook-text">A SNOWTAM is a <strong>special NOTAM series</strong> — not a weather product. It reports runway surface conditions using the Global Reporting Format (GRF) runway condition codes.</span></div>
+    <div class="hook-row"><span class="hook-badge">Time Format</span><span class="hook-text">All NOTAM times are in <strong>UTC (Zulu)</strong>. The format YYMMDDHHMM is used — e.g., 2503010600 = 2025 March 01 at 0600Z.</span></div>
+    <div class="hook-row"><span class="hook-badge">PERM vs. EST</span><span class="hook-text">If the expiry field shows <strong>PERM</strong>, the condition is permanent. <strong>EST</strong> means estimated — the actual end time may differ.</span></div>
+  </div>
+</div>
+</body>
+</html>

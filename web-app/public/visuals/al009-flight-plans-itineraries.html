@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-009: Flight Plans and Itineraries</title>
+<link rel="stylesheet" href="/visuals/_common.css">
+<style>
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 28px; }
+  .compare-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 8px; padding: 18px 20px; }
+  .compare-card h3 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+  .compare-card p, .compare-card li { font-size: 13px; color: #c8d8e8; line-height: 1.7; }
+  .compare-card ul { padding-left: 18px; margin-top: 6px; }
+  .card-tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; }
+  .tag-atc { background: rgba(91,155,213,0.15); color: var(--info); border: 1px solid rgba(91,155,213,0.3); }
+  .tag-resp { background: rgba(76,175,125,0.12); color: var(--success); border: 1px solid rgba(76,175,125,0.3); }
+
+  /* Requirement table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
+  th { background: #1a2d3d; color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+  td strong { color: var(--accent); }
+
+  /* ICAO field list */
+  .field-list { display: grid; grid-template-columns: 40px 1fr; gap: 4px 12px; margin-bottom: 28px; }
+  .field-num { font-size: 13px; font-weight: 800; color: var(--accent); padding: 6px 0; }
+  .field-desc { font-size: 13px; color: #c8d8e8; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .field-num + .field-desc { border-bottom: 1px solid rgba(255,255,255,0.04); }
+
+  /* SAR timing callout */
+  .sar-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 8px; padding: 16px 20px; margin-bottom: 28px; }
+  .sar-box h3 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .sar-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 8px; }
+  .sar-label { font-size: 11px; font-weight: 800; color: #80c880; background: #2d5a2d; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+  .sar-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
+  .sar-text strong { color: var(--accent); }
+
+  @media (max-width: 640px) {
+    .compare-grid { grid-template-columns: 1fr; }
+    .field-list { grid-template-columns: 32px 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    td, .compare-card p, .compare-card li, .sar-text, .field-desc { font-size: 14px; }
+    th { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+<div class="container">
+  <h1>AL-009 — Flight Plans &amp; Itineraries</h1>
+  <p class="subtitle">Transport Canada · CARs 602.73–602.78, TP 12880E, AIM RAC 3.6 · PPL Written Exam</p>
+
+  <div class="section-label">Flight Plan vs. Flight Itinerary</div>
+  <div class="compare-grid">
+    <div class="compare-card">
+      <span class="card-tag tag-atc">Flight Plan</span>
+      <h3>Filed with ATC / FSS</h3>
+      <ul>
+        <li>Submitted to an ATC unit or Flight Service Station</li>
+        <li>Activates SAR alerting if overdue on arrival</li>
+        <li><strong>Required</strong> for all IFR flights</li>
+        <li>Required for VFR flights entering Class B airspace</li>
+        <li>Recommended for any overwater or remote VFR flight</li>
+        <li>Must be closed — failure to close triggers a SAR response</li>
+      </ul>
+    </div>
+    <div class="compare-card">
+      <span class="card-tag tag-resp">Flight Itinerary</span>
+      <h3>Left with a Responsible Person</h3>
+      <ul>
+        <li>Provided to a person on the ground (friend, FBO, employer)</li>
+        <li>Responsible person notifies SAR if pilot is overdue</li>
+        <li>Required for flights over remote or uninhabited terrain where a flight plan is not filed</li>
+        <li>No formal closing procedure — notify the responsible person upon arrival</li>
+        <li>SAR not automatically alerted — depends on responsible person acting</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">When a Flight Plan is Required — CARs 602.73</div>
+  <table>
+    <thead>
+      <tr><th>Flight Type</th><th>Flight Plan Required?</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>IFR — any route</strong></td>
+        <td><span class="yes">Yes — always</span></td>
+        <td>No exceptions. Must be filed before departure.</td>
+      </tr>
+      <tr>
+        <td><strong>VFR — Class B airspace</strong></td>
+        <td><span class="yes">Yes</span></td>
+        <td>Class B requires a clearance, which requires a flight plan.</td>
+      </tr>
+      <tr>
+        <td><strong>VFR — Class C/D controlled</strong></td>
+        <td><span class="no">Not required</span></td>
+        <td>Clearance needed to enter, but no flight plan mandatory.</td>
+      </tr>
+      <tr>
+        <td><strong>VFR — remote / uninhabited terrain</strong></td>
+        <td>Flight plan <em>or</em> itinerary</td>
+        <td>CARs 602.73(2): must have one or the other over hostile terrain.</td>
+      </tr>
+      <tr>
+        <td><strong>VFR — local / non-remote</strong></td>
+        <td><span class="no">Not required</span></td>
+        <td>Recommended practice for any cross-country flight.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-label">ICAO Flight Plan — Key Fields (Form CA 3093)</div>
+  <div class="field-list">
+    <div class="field-num">7</div><div class="field-desc">Aircraft identification (call sign / registration)</div>
+    <div class="field-num">8</div><div class="field-desc">Flight rules (I=IFR, V=VFR, Y/Z=mixed) and type of flight</div>
+    <div class="field-num">9</div><div class="field-desc">Number and type of aircraft; wake turbulence category; equipment</div>
+    <div class="field-num">10</div><div class="field-desc">Radio/navigation equipment and capabilities (COM/NAV/SSR)</div>
+    <div class="field-num">13</div><div class="field-desc">Departure aerodrome (ICAO 4-letter code) and estimated off-block time (UTC)</div>
+    <div class="field-num">15</div><div class="field-desc">Cruising speed, level, and route (airways or DCT)</div>
+    <div class="field-num">16</div><div class="field-desc">Destination aerodrome, total estimated elapsed time, alternate(s)</div>
+    <div class="field-num">18</div><div class="field-desc">Other information (STS/, PBN/, DOF/, etc.)</div>
+    <div class="field-num">19</div><div class="field-desc">Emergency info: fuel endurance, persons on board, survival equipment, ELT</div>
+  </div>
+
+  <div class="section-label">SAR Notification Timelines</div>
+  <div class="sar-box">
+    <h3>When Search and Rescue is Alerted</h3>
+    <div class="sar-row">
+      <span class="sar-label">Flight Plan</span>
+      <span class="sar-text">Aircraft is considered overdue when it has not arrived within <strong>1 hour</strong> of the ETA and has not closed the flight plan. ATC/FSS initiates the overdue aircraft procedure (ALERFA/DETRESFA).</span>
+    </div>
+    <div class="sar-row">
+      <span class="sar-label">Itinerary</span>
+      <span class="sar-text">The responsible person must notify the nearest JRCC (Joint Rescue Coordination Centre) or ATC unit within <strong>24 hours</strong> of the aircraft being overdue, or at whatever time is specified in the itinerary.</span>
+    </div>
+    <div class="sar-row">
+      <span class="sar-label">Closing</span>
+      <span class="sar-text">A flight plan <strong>must be closed</strong> by radio, phone, or in person with ATC/FSS on arrival. Failure to close is an offence under CARs 602.77 and triggers an unnecessary SAR response.</span>
+    </div>
+  </div>
+
+  <div class="hook-box">
+    <h2>Key Facts for the Exam</h2>
+    <div class="hook-row"><span class="hook-badge">IFR = Plan</span><span class="hook-text">IFR flights always require a flight plan — no exceptions. VFR flights require a plan or itinerary only when over <strong>remote or uninhabited terrain</strong>.</span></div>
+    <div class="hook-row"><span class="hook-badge">Always Close</span><span class="hook-text">Failure to close a flight plan is a <strong>CARs offence</strong> and wastes SAR resources. Close by phone (1-800-WXBRIEF) or radio to FSS/ATC.</span></div>
+    <div class="hook-row"><span class="hook-badge">Itinerary ≠ Plan</span><span class="hook-text">An itinerary left with a responsible person does <strong>not</strong> automatically alert SAR — that person must take action. A flight plan does alert SAR automatically when overdue.</span></div>
+    <div class="hook-row"><span class="hook-badge">Field 19</span><span class="hook-text">Field 19 covers <strong>emergency and survival information</strong>: fuel endurance, persons on board, survival equipment, ELT type — know what goes here.</span></div>
+  </div>
+</div>
+</body>
+</html>
