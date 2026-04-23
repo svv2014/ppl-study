@@ -5,10 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>NAV-010 — VOR Navigation</title>
-
+<style>
+  @media (max-width: 480px) {
+    body { font-size: 14px; overflow-x: hidden; }
+    .two-col { grid-template-columns: 1fr; }
+    .card table { display: block; overflow-x: auto; }
+  }
+</style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>
 .container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}
 </style>
@@ -179,7 +185,7 @@
       <h3>Tracking a Radial</h3>
       <ul>
         <li>Establish a wind correction angle (WCA) — try 10° initially</li>
-        <li>If CDI drifts, <strong style="color:#f0c040">bracket and halve</strong>: double the correction, then halve when back on course</li>
+        <li>If CDI drifts, <strong style="color:var(--accent)">bracket and halve</strong>: double the correction, then halve when back on course</li>
         <li>Keep corrections small — max 20° WCA in light winds</li>
         <li>OBS setting does NOT change — only aircraft heading changes</li>
         <li>Recheck station ident every 10–15 min en route</li>

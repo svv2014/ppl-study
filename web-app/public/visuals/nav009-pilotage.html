@@ -6,14 +6,20 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>NAV-009 — Pilotage — Navigating by Ground Reference</title>
 <style>
-.good { color: #80c880; }
+  .good { color: #80c880; }
   .poor { color: #e07070; }
   td.good { color: #80c880; }
   td.poor { color: #e07070; }
+
+  @media (max-width: 480px) {
+    body { font-size: 14px; overflow-x: hidden; }
+    .two-col { grid-template-columns: 1fr; }
+    .card table { display: block; overflow-x: auto; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>
 .container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}
 </style>
@@ -96,7 +102,7 @@
     <div class="card">
       <h3>What is Pilotage?</h3>
       <ul>
-        <li>Navigation by identifying <strong style="color:#f0c040">visual ground references</strong> and matching them to chart features</li>
+        <li>Navigation by identifying <strong style="color:var(--accent)">visual ground references</strong> and matching them to chart features</li>
         <li>Primary VFR nav method — no instruments required beyond chart and compass</li>
         <li>Pilot compares what they see out the window to the sectional/VNC chart</li>
         <li>Most reliable when planned checkpoints are used systematically</li>
@@ -106,10 +112,10 @@
     <div class="card">
       <h3>Checkpoint Selection Criteria</h3>
       <ul>
-        <li><strong style="color:#f0c040">Prominent</strong> — easily visible from altitude</li>
-        <li><strong style="color:#f0c040">Unique</strong> — not easily confused with similar features</li>
-        <li><strong style="color:#f0c040">Distinct shape</strong> on the chart (large lake, highway X)</li>
-        <li><strong style="color:#f0c040">Spacing:</strong> 20–30 NM apart (about every 15–20 min)</li>
+        <li><strong style="color:var(--accent)">Prominent</strong> — easily visible from altitude</li>
+        <li><strong style="color:var(--accent)">Unique</strong> — not easily confused with similar features</li>
+        <li><strong style="color:var(--accent)">Distinct shape</strong> on the chart (large lake, highway X)</li>
+        <li><strong style="color:var(--accent)">Spacing:</strong> 20–30 NM apart (about every 15–20 min)</li>
         <li>Visible from well ahead — no sudden recognition required</li>
         <li>Avoid features that change seasonally (e.g. dry riverbeds)</li>
       </ul>
