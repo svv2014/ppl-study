@@ -53,7 +53,6 @@ export default function Home() {
   const [lastSession] = useState<string | null>(() => localStorage.getItem(LAST_SESSION_KEY));
 
   const allLessons = useMemo(() => getAllLessons(), []);
-  const authoredIds = useMemo(() => new Set(allLessons.map((l) => l.id)), [allLessons]);
 
   const topicStats: TopicStat[] = useMemo(() =>
     TOPIC_CONFIG.map(({ key, code, label, weight }) => {

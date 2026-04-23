@@ -1,4 +1,6 @@
 import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import { typographyTokens } from '../../tokens';
 
 const MONO = typographyTokens.fontFamily.mono;
@@ -20,6 +22,7 @@ interface Props {
 }
 
 export default function ReadinessGauge({ weightedPct, topicStats }: Props) {
+  const theme = useTheme();
   const dashoffset = CIRCUMFERENCE * (1 - weightedPct / 100);
   const delta = Math.round(weightedPct - 80);
   const row1 = topicStats.slice(0, 2);
@@ -55,30 +58,30 @@ export default function ReadinessGauge({ weightedPct, topicStats }: Props) {
           height={110}
           sx={{ flexShrink: 0 }}
         >
-          <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(26,53,80,0.6)" strokeWidth="1" />
-          <circle cx="60" cy="60" r={R} fill="none" stroke="rgba(26,53,80,0.8)" strokeWidth="6" />
+          <circle cx="60" cy="60" r="54" fill="none" stroke={alpha(theme.palette.divider, 0.6)} strokeWidth="1" />
+          <circle cx="60" cy="60" r={R} fill="none" stroke={theme.palette.divider} strokeWidth="6" />
           <circle
             cx="60"
             cy="60"
             r={R}
             fill="none"
-            stroke="#f5a623"
+            stroke={theme.palette.primary.main}
             strokeWidth="6"
             strokeDasharray={CIRCUMFERENCE}
             strokeDashoffset={dashoffset}
             transform="rotate(-90 60 60)"
             strokeLinecap="butt"
           />
-          <g stroke="rgba(122,154,181,0.7)" strokeWidth="1">
+          <g stroke={alpha(theme.palette.text.secondary, 0.7)} strokeWidth="1">
             <line x1="60" y1="6" x2="60" y2="12" />
             <line x1="108" y1="60" x2="114" y2="60" />
             <line x1="60" y1="108" x2="60" y2="114" />
             <line x1="6" y1="60" x2="12" y2="60" />
           </g>
-          <text x="60" y="22" textAnchor="middle" fill="rgba(122,154,181,0.7)" fontFamily="monospace" fontSize="7">100</text>
-          <text x="100" y="63" textAnchor="middle" fill="rgba(122,154,181,0.7)" fontFamily="monospace" fontSize="7">25</text>
-          <text x="60" y="103" textAnchor="middle" fill="rgba(122,154,181,0.7)" fontFamily="monospace" fontSize="7">50</text>
-          <text x="20" y="63" textAnchor="middle" fill="rgba(122,154,181,0.7)" fontFamily="monospace" fontSize="7">75</text>
+          <text x="60" y="22" textAnchor="middle" fill={alpha(theme.palette.text.secondary, 0.7)} fontFamily={MONO} fontSize="7">100</text>
+          <text x="100" y="63" textAnchor="middle" fill={alpha(theme.palette.text.secondary, 0.7)} fontFamily={MONO} fontSize="7">25</text>
+          <text x="60" y="103" textAnchor="middle" fill={alpha(theme.palette.text.secondary, 0.7)} fontFamily={MONO} fontSize="7">50</text>
+          <text x="20" y="63" textAnchor="middle" fill={alpha(theme.palette.text.secondary, 0.7)} fontFamily={MONO} fontSize="7">75</text>
         </Box>
         <Box>
           <Box
