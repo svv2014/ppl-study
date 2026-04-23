@@ -164,6 +164,6 @@ td strong { color: var(--accent); }
 }
 
 @media (max-width: 480px) {
-  body { padding: 16px; }
+  body { padding: 16px; font-size: 14px; }
   .wide-table { overflow-x: auto; }
 }
