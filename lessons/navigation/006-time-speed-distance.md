@@ -6,7 +6,7 @@ slug: time-speed-distance
 title: "Time-Speed-Distance Calculations"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/006-time-speed-distance.m4a
 visual: /visuals/nav006-time-speed-distance.html
 sources:
   - TP 12880E

@@ -6,7 +6,7 @@ slug: pilotage
 title: "Pilotage — Navigating by Ground Reference"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/009-pilotage.m4a
 visual: /visuals/nav009-pilotage.html
 sources:
   - TP 12880E

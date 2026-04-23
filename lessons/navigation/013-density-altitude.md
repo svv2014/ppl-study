@@ -6,7 +6,7 @@ slug: density-altitude
 title: "Density Altitude"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/013-density-altitude.m4a
 visual: /visuals/nav013-density-altitude.html
 sources:
   - TP 12880E

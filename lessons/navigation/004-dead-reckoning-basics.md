@@ -6,7 +6,7 @@ slug: dead-reckoning-basics
 title: "Dead Reckoning"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/004-dead-reckoning-basics.m4a
 visual: /visuals/nav004-dead-reckoning-basics.html
 sources:
   - TP 12880E

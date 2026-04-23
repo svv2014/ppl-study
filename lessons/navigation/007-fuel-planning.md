@@ -6,7 +6,7 @@ slug: fuel-planning
 title: "Fuel Planning"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/007-fuel-planning.m4a
 visual: /visuals/nav007-fuel-planning.html
 sources:
   - TP 12880E

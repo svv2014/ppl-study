@@ -6,7 +6,7 @@ slug: true-magnetic-compass
 title: "True vs Magnetic vs Compass Heading"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/003-true-magnetic-compass.m4a
 visual: /visuals/nav003-true-magnetic-compass.html
 sources:
   - TP 12880E
