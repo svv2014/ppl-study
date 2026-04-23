@@ -6,7 +6,7 @@ slug: vor-navigation
 title: "VOR Navigation"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/010-vor-navigation.m4a
 visual: /visuals/nav010-vor-navigation.html
 sources:
   - TP 12880E

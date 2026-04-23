@@ -6,7 +6,7 @@ slug: altitude-types
 title: "Altitude Types"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/012-altitude-types.m4a
 visual: /visuals/nav012-altitude-types.html
 sources:
   - TP 12880E

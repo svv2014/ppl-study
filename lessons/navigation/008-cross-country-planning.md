@@ -6,7 +6,7 @@ slug: cross-country-planning
 title: "Cross-Country Planning"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/008-cross-country-planning.m4a
 visual: /visuals/nav008-cross-country-planning.html
 sources:
   - TP 12880E

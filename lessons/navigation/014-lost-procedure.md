@@ -6,7 +6,7 @@ slug: lost-procedure
 title: "Lost Procedure and Diversion"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/014-lost-procedure.m4a
 visual: /visuals/nav014-lost-procedure.html
 sources:
   - TP 12880E

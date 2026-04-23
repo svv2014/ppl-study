@@ -6,7 +6,7 @@ slug: wind-correction-angle
 title: "Wind Correction Angle and Ground Speed"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/navigation/005-wind-correction-angle.m4a
 visual: /visuals/nav005-wind-correction-angle.html
 sources:
   - TP 12880E
