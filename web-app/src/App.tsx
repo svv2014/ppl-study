@@ -13,6 +13,7 @@ import FinalExam from './pages/FinalExam';
 import PSTARExam from './pages/PSTARExam';
 import Plan from './pages/Plan';
 import Playlist from './pages/Playlist';
+import SmartPlaylist from './pages/SmartPlaylist';
 import PSTARPath from './pages/PSTARPath';
 
 const RAIL_EXPANDED = 240;
@@ -101,6 +102,7 @@ export default function App() {
               <Route path="/pstar-exam" element={<PSTARExam />} />
               <Route path="/plan" element={<Plan />} />
               <Route path="/playlist" element={<Playlist />} />
+              <Route path="/playlist/smart/:kind" element={<SmartPlaylist />} />
               <Route path="/playlist/:topic" element={<Playlist />} />
               <Route path="/pstar" element={<PSTARPath />} />
             </Routes>
