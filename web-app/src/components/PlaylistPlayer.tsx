@@ -87,8 +87,6 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  if (playlist.length === 0) return null;
-
   function jumpTo(index: number) {
     savePositionRef.current();
     setPlayedIndices((prev: ReadonlySet<number>) => {
