@@ -75,7 +75,6 @@ export default function App() {
           </Box>
           <Nav />
           <Box
-            id="main-content"
             component="main"
             sx={{
               flex: 1,
