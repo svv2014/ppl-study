@@ -1,0 +1,194 @@
+/* _common.css — shared tokens and component styles for PPL Study lesson visuals
+ * Variant A · Cockpit Briefing · dark scheme (default)
+ * Source of truth: docs/design/DESIGN-SYSTEM.md
+ * Do not add colors outside these tokens.
+ */
+
+/* ── Color tokens — verbatim from DESIGN-SYSTEM.md §2.1 ───────────────── */
+:root {
+  --bg:         #071020;
+  --bg2:        #0d1b2a;
+  --surface:    #0f1f33;
+  --surface2:   #142a40;
+  --border:     #1a3550;
+  --border-hi:  #2a4a70;
+  --accent:     #f0c040;
+  --accent-dim: #8b6f24;
+  --text:       #e4ecf5;
+  --text-muted: #7a9ab5;
+  --success:    #4caf7d;
+  --warning:    #f0c040;
+  --danger:     #e05050;
+  --info:       #5b9bd5;
+  /* Grid-paper line — DESIGN-SYSTEM.md §4.4, dark value */
+  --grid-line:  rgba(26,53,80,0.15);
+}
+
+/* ── Reset ─────────────────────────────────────────────────────────────── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Body defaults ─────────────────────────────────────────────────────── */
+body {
+  background: var(--bg2);
+  color: var(--text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding: 32px;
+  position: relative;
+}
+
+/* ── Grid-paper backdrop — DESIGN-SYSTEM.md §4.4 ──────────────────────── */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ── Container ─────────────────────────────────────────────────────────── */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Typography ────────────────────────────────────────────────────────── */
+h1 {
+  font-size: 22px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+  letter-spacing: 0.5px;
+}
+
+.section-title {
+  font-size: 14px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 32px 0 14px;
+}
+
+/* ── Status bar — DESIGN-SYSTEM.md §5.1 ───────────────────────────────── */
+.status-bar {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 6px 0;
+  font-size: 11px;
+  font-family: 'SF Mono', 'JetBrains Mono', Consolas, monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.status-bar .status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 4px var(--success);
+  margin-right: 6px;
+}
+
+.status-bar .status-key {
+  color: var(--accent);
+}
+
+/* ── Tables ────────────────────────────────────────────────────────────── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th {
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 12px;
+  text-align: left;
+  padding: 10px 14px;
+  letter-spacing: 0.5px;
+}
+
+td {
+  font-size: 13px;
+  color: var(--text);
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--surface);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* ── Cards ─────────────────────────────────────────────────────────────── */
+.fact-card {
+  background: var(--surface);
+  border: 1px solid var(--border-hi);
+  border-radius: 4px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+
+.fact-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.fact-value {
+  font-size: 18px;
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.fact-note {
+  font-size: 12px;
+  color: var(--text);
+  margin-top: 4px;
+}
+
+/* ── Memory hook ───────────────────────────────────────────────────────── */
+.memory-hook {
+  background: rgba(76, 175, 125, 0.10);
+  border: 1px solid rgba(76, 175, 125, 0.35);
+  border-radius: 4px;
+  padding: 14px 18px;
+  margin-top: 24px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.memory-hook .badge {
+  display: inline-block;
+  background: rgba(76, 175, 125, 0.22);
+  color: var(--text);
+  font-size: 10px;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 3px;
+  margin-bottom: 6px;
+}
+
+/* ── Mobile ────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  body { padding: 16px; }
+}

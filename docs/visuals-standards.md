@@ -14,13 +14,27 @@ page.
 All new visuals must match the look and structure of this file. Read it before
 authoring a new one.
 
+## Scheme
+
+**Variant A · Cockpit Briefing — dark scheme (canonical).** All visuals use the
+dark scheme by default. Light-scheme variants are not produced for visuals.
+
 ## Format
 
-**Standalone dark-aviation HTML** — a complete `<!DOCTYPE html>` document with all
-CSS inlined in a `<style>` block inside `<head>`. No external stylesheets, no
-JavaScript frameworks, no `<link>` or `<script src>` tags pointing outside the
-document. The file must render correctly when opened directly from the filesystem
-(`file://`) without a server.
+**Dark-aviation HTML** — a complete `<!DOCTYPE html>` document served via Firebase
+Hosting. Every visual **must** link the shared token stylesheet in `<head>`:
+
+```html
+<link rel="stylesheet" href="/visuals/_common.css">
+```
+
+`/visuals/_common.css` provides `:root` color tokens, body defaults, the
+grid-paper backdrop, and shared component classes (`.fact-card`, `.memory-hook`,
+`table`/`th`/`td`, `.status-bar`). Visual-specific layout rules go in a `<style>`
+block below the `<link>`. Do not re-declare tokens or shared component styles
+inline — override only what is unique to this visual.
+
+No JavaScript frameworks, no `<script src>` tags pointing outside the document.
 
 ## Viewport and dimensions
 
@@ -36,18 +50,29 @@ document. The file must render correctly when opened directly from the filesyste
 
 ## Colour palette
 
-| Role | Hex | Usage |
-|------|-----|-------|
-| Background | `#0d1b2a` | `body` background; darkest layer |
-| Primary text | `#e8edf2` | Body copy |
-| Amber accent | `#f0c040` | Headings, key values, callout labels |
-| Blue-grey secondary | `#7a9ab5` | Subtitles, labels, table headers |
-| Panel surface | `#1a2d3d` | Card/table header backgrounds |
-| Border | `#1a2d3d` | Table and card borders |
+Color tokens are defined in `docs/design/DESIGN-SYSTEM.md §2.1` (dark scheme)
+and exposed as CSS custom properties by `/visuals/_common.css`. Use `var(--...)`
+references in visual-specific styles; do not hard-code hex values.
 
-Do not introduce colours outside this palette without a documented reason. Tints
-and alpha variants (e.g. `rgba(255,80,80,0.15)` for danger tags) are acceptable
-as long as they stay within the dark-aviation aesthetic.
+| Role | CSS variable | Dark value |
+|------|-------------|------------|
+| Page background | `--bg2` | `#0d1b2a` |
+| Surface (card, panel) | `--surface` | `#0f1f33` |
+| Raised surface | `--surface2` | `#142a40` |
+| Border | `--border` | `#1a3550` |
+| Border, emphasized | `--border-hi` | `#2a4a70` |
+| Amber accent | `--accent` | `#f0c040` |
+| Text primary | `--text` | `#e4ecf5` |
+| Text muted | `--text-muted` | `#7a9ab5` |
+| Success / correct | `--success` | `#4caf7d` |
+| Danger / wrong | `--danger` | `#e05050` |
+
+Full token table (including `--bg`, `--accent-dim`, `--warning`, `--info`) is in
+`docs/design/DESIGN-SYSTEM.md §2.1` — that document is the single source of
+truth. Do not introduce colors outside the token set without first amending
+DESIGN-SYSTEM.md. Alpha tints of existing tokens (e.g.
+`rgba(76,175,125,0.10)` for memory-hook background) are acceptable as long as
+they stay within the dark-aviation aesthetic.
 
 ## File naming
 
@@ -204,7 +229,8 @@ bash scripts/add-visual-backlink.sh
 - **No stock filler.** Do not embed stock photos, clip art, or decorative imagery
   that does not directly support the lesson content.
 - **No external resources.** No `<img src="https://...">`, no Google Fonts `@import`,
-  no CDN-hosted scripts or stylesheets. Everything the page needs must be inlined.
+  no CDN-hosted scripts or stylesheets. The only permitted external stylesheet is
+  `/visuals/_common.css` served from the same Firebase Hosting origin.
 - **No copyright-protected charts.** Do not reproduce VNC/VTA chart extracts or
   other Transport Canada map products verbatim. Diagrams must be original
   illustrations inspired by the content, not reproductions of licensed materials.
