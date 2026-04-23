@@ -7,15 +7,20 @@
 <link rel="stylesheet" href="_common.css">
 <style>
   .diagrams { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 32px; }
-  .diagram-box { border-color: #1a2d3d; }
-  .diagram-label { font-size: 12px; color: #7a9ab5; text-align: center; margin-bottom: 10px; letter-spacing: 0.5px; }
-  .tag-primary { display: inline-block; background: #0d2a1a; color: #4caf7d; font-size: 11px; padding: 2px 8px; border-radius: 3px; border: 1px solid #4caf7d; }
+  .diagram-box { border-color: var(--border); }
+  .diagram-label { font-size: 12px; color: var(--text-muted); text-align: center; margin-bottom: 10px; letter-spacing: 0.5px; }
+  .tag-primary { display: inline-block; background: #0d2a1a; color: var(--success); font-size: 11px; padding: 2px 8px; border-radius: 3px; border: 1px solid var(--success); }
   .tag-secondary { display: inline-block; background: #2a1a0d; color: #f0a040; font-size: 11px; padding: 2px 8px; border-radius: 3px; border: 1px solid #f0a040; }
   .tables-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .diagrams { grid-template-columns: 1fr; }
+    .tables-grid { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 <div class="container">
   <h1>GK-001 — Aircraft Parts &amp; Controls</h1>

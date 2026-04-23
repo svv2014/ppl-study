@@ -7,14 +7,18 @@
 <link rel="stylesheet" href="_common.css">
 <style>
   .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
-  .force-amber { color: #f0c040; font-weight: bold; }
+  .force-amber { color: var(--accent); font-weight: bold; }
   .force-blue { color: #5b9bd5; font-weight: bold; }
-  .force-green { color: #4caf7d; font-weight: bold; }
-  .force-red { color: #e05050; font-weight: bold; }
+  .force-green { color: var(--success); font-weight: bold; }
+  .force-red { color: var(--danger); font-weight: bold; }
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .layout { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 <div class="container">
   <h1>GK-002 — Four Forces of Flight</h1>
