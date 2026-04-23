@@ -11,7 +11,7 @@
   td { font-size: 12px; padding: 8px 12px; }
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px; }
   .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
-  .card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
   .card-title { font-size: 12px; color: var(--accent); font-weight: bold; letter-spacing: 0.5px; margin-bottom: 10px; text-transform: uppercase; }
   .isa-box { background: #0d2040; border: 2px solid #5b9bd5; border-radius: 8px; padding: 18px; text-align: center; margin-bottom: 24px; }
   .isa-main { font-size: 18px; color: #5b9bd5; font-weight: bold; margin-bottom: 4px; }
@@ -19,7 +19,7 @@
   .better { color: var(--success); font-weight: bold; }
   .worse { color: var(--danger); font-weight: bold; }
   .neutral { color: var(--text-muted); }
-  .da-diagram { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
+  .da-diagram { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
   @media (max-width: 480px) {
     body { font-size: 14px; }
     .grid-2, .grid-4 { grid-template-columns: 1fr; }
@@ -100,19 +100,19 @@
   <div class="grid-4">
     <div class="card">
       <div class="card-title">Takeoff Distance</div>
-      <div style="font-size:12px; color:#e8edf2; line-height:1.6;">Ground roll distance + distance to clear 50 ft obstacle. Variables: pressure altitude, temp, weight, wind, runway surface</div>
+      <div style="font-size:12px; color:var(--text); line-height:1.6;">Ground roll distance + distance to clear 50 ft obstacle. Variables: pressure altitude, temp, weight, wind, runway surface</div>
     </div>
     <div class="card">
       <div class="card-title">Climb Performance</div>
-      <div style="font-size:12px; color:#e8edf2; line-height:1.6;">Best rate (Vy) and best angle (Vx) climb speeds and rates vs. pressure altitude and temperature</div>
+      <div style="font-size:12px; color:var(--text); line-height:1.6;">Best rate (Vy) and best angle (Vx) climb speeds and rates vs. pressure altitude and temperature</div>
     </div>
     <div class="card">
       <div class="card-title">Cruise Performance</div>
-      <div style="font-size:12px; color:#e8edf2; line-height:1.6;">TAS, fuel flow at various power settings, altitudes, temps. Used for flight planning and range/endurance</div>
+      <div style="font-size:12px; color:var(--text); line-height:1.6;">TAS, fuel flow at various power settings, altitudes, temps. Used for flight planning and range/endurance</div>
     </div>
     <div class="card">
       <div class="card-title">Landing Distance</div>
-      <div style="font-size:12px; color:#e8edf2; line-height:1.6;">Ground roll + distance from 50 ft obstacle to stop. Variables: same as takeoff. Generally shorter than TO distances</div>
+      <div style="font-size:12px; color:var(--text); line-height:1.6;">Ground roll + distance from 50 ft obstacle to stop. Variables: same as takeoff. Generally shorter than TO distances</div>
     </div>
   </div>
 
