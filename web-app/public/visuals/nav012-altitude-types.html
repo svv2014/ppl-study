@@ -5,10 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>NAV-012 — Altitude Types</title>
-
+<style>
+  @media (max-width: 480px) {
+    body { font-size: 14px; overflow-x: hidden; }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:color-mix(in srgb,var(--bg2) 90%,transparent);color:var(--accent);border:1.5px solid color-mix(in srgb,var(--accent) 40%,transparent);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>
 .container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}
 </style>
@@ -171,10 +176,10 @@
   <div class="memory-hook">
     <div class="badge">Memory Hook</div>
     <ul>
-      <li><strong style="color:#80c880">"Indicated for ATC, Pressure for Performance, Density for Departures"</strong> — the three Ps of altitude</li>
-      <li><strong style="color:#80c880">Cold = lower than indicated:</strong> On a cold day, true altitude is LOWER than indicated — you are closer to terrain than the altimeter suggests. "From high to low, look out below."</li>
-      <li><strong style="color:#80c880">QNH vs QNE:</strong> QNH = local pressure (use for normal flight below FL180); QNE = 29.92 standard (use for flight levels and performance charts)</li>
-      <li><strong style="color:#80c880">Density altitude = aircraft performance:</strong> High DA = longer takeoff roll, slower climb, reduced engine power — even if indicated altitude looks fine.</li>
+      <li><strong style="color:var(--success)">"Indicated for ATC, Pressure for Performance, Density for Departures"</strong> — the three Ps of altitude</li>
+      <li><strong style="color:var(--success)">Cold = lower than indicated:</strong> On a cold day, true altitude is LOWER than indicated — you are closer to terrain than the altimeter suggests. "From high to low, look out below."</li>
+      <li><strong style="color:var(--success)">QNH vs QNE:</strong> QNH = local pressure (use for normal flight below FL180); QNE = 29.92 standard (use for flight levels and performance charts)</li>
+      <li><strong style="color:var(--success)">Density altitude = aircraft performance:</strong> High DA = longer takeoff roll, slower climb, reduced engine power — even if indicated altitude looks fine.</li>
     </ul>
   </div>
 </div>

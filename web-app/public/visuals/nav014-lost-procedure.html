@@ -6,13 +6,19 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>NAV-014 — Lost Procedure and Diversion</title>
 <style>
-.squawk-7700 { color: #e07070; font-weight: 700; }
-  .squawk-7600 { color: #f0c040; font-weight: 700; }
+  .squawk-7700 { color: var(--danger); font-weight: 700; }
+  .squawk-7600 { color: var(--accent); font-weight: 700; }
+  /* design-exception: #c87040 (burnt-orange) distinguishes hijack from emergency/radio-fail; no equivalent token */
   .squawk-7500 { color: #c87040; font-weight: 700; }
+
+  @media (max-width: 480px) {
+    body { font-size: 14px; overflow-x: hidden; }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:color-mix(in srgb,var(--bg2) 90%,transparent);color:var(--accent);border:1.5px solid color-mix(in srgb,var(--accent) 40%,transparent);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>
 .container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}
 </style>
@@ -150,10 +156,10 @@
     <div class="card">
       <h3>MAYDAY — Distress Call</h3>
       <ul>
-        <li>Used when aircraft, crew, or passengers are in <strong style="color:#e07070">grave and imminent danger</strong></li>
+        <li>Used when aircraft, crew, or passengers are in <strong style="color:var(--danger)">grave and imminent danger</strong></li>
         <li>Repeated 3 times: "MAYDAY MAYDAY MAYDAY"</li>
         <li>Followed by: callsign, nature of emergency, position, altitude, intentions, POB, any other relevant info</li>
-        <li>Frequency: current ATC freq or <strong style="color:#f0c040">121.5 MHz</strong></li>
+        <li>Frequency: current ATC freq or <strong style="color:var(--accent)">121.5 MHz</strong></li>
         <li>Squawk: <span class="squawk-7700">7700</span></li>
         <li>Examples: engine failure, fire, incapacitation</li>
       </ul>
@@ -161,7 +167,7 @@
     <div class="card">
       <h3>PAN-PAN — Urgency Call</h3>
       <ul>
-        <li>Used when aircraft has a serious but <strong style="color:#f0c040">non-immediately life-threatening</strong> condition</li>
+        <li>Used when aircraft has a serious but <strong style="color:var(--accent)">non-immediately life-threatening</strong> condition</li>
         <li>Repeated 3 times: "PAN-PAN PAN-PAN PAN-PAN"</li>
         <li>Followed by: same information as Mayday</li>
         <li>Frequency: current ATC freq or 121.5 MHz</li>
@@ -228,11 +234,11 @@
   <div class="memory-hook">
     <div class="badge">Memory Hook</div>
     <ul>
-      <li><strong style="color:#80c880">4 Cs — Climb, Confess, Communicate, Comply:</strong> The standard lost procedure. In that order — climb first to give yourself more options, confess quickly, communicate with ATC, then comply with instructions.</li>
-      <li><strong style="color:#80c880">Squawk codes — "7700 is heaven, 7600 is mute, 7500 is hijacked":</strong> 7700 = emergency (worst), 7600 = radio out (silent), 7500 = hijack (severe).</li>
-      <li><strong style="color:#80c880">Mayday = grave danger, Pan-Pan = urgent but not immediately fatal.</strong> When in doubt, say Mayday — downgrading is easy, upgrading too late is not.</li>
-      <li><strong style="color:#80c880">121.5 MHz is always monitored:</strong> ATC, SAR, and other aircraft monitor the guard frequency. If on any other freq and no contact, try 121.5.</li>
-      <li><strong style="color:#80c880">Aviate · Navigate · Communicate — in that order.</strong> Never let radio work cause you to fly into terrain or lose control.</li>
+      <li><strong style="color:var(--success)">4 Cs — Climb, Confess, Communicate, Comply:</strong> The standard lost procedure. In that order — climb first to give yourself more options, confess quickly, communicate with ATC, then comply with instructions.</li>
+      <li><strong style="color:var(--success)">Squawk codes — "7700 is heaven, 7600 is mute, 7500 is hijacked":</strong> 7700 = emergency (worst), 7600 = radio out (silent), 7500 = hijack (severe).</li>
+      <li><strong style="color:var(--success)">Mayday = grave danger, Pan-Pan = urgent but not immediately fatal.</strong> When in doubt, say Mayday — downgrading is easy, upgrading too late is not.</li>
+      <li><strong style="color:var(--success)">121.5 MHz is always monitored:</strong> ATC, SAR, and other aircraft monitor the guard frequency. If on any other freq and no contact, try 121.5.</li>
+      <li><strong style="color:var(--success)">Aviate · Navigate · Communicate — in that order.</strong> Never let radio work cause you to fly into terrain or lose control.</li>
     </ul>
   </div>
 </div>

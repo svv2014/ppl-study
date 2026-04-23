@@ -6,11 +6,16 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>NAV-013 — Density Altitude</title>
 <style>
-.formula { background: #0d1b2a; border: 1.5px solid #1a3a5a; border-radius: 8px; padding: 14px 18px; margin: 12px 0; color: #f0c040; font-weight: 700; font-size: 15px; text-align: center; letter-spacing: 0.5px; }
+  .formula { background: var(--bg2); border: 1.5px solid var(--border); border-radius: 8px; padding: 14px 18px; margin: 12px 0; color: var(--accent); font-weight: 700; font-size: 15px; text-align: center; letter-spacing: 0.5px; }
+
+  @media (max-width: 480px) {
+    body { font-size: 14px; overflow-x: hidden; }
+    .two-col, .three-col { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:color-mix(in srgb,var(--bg2) 90%,transparent);color:var(--accent);border:1.5px solid color-mix(in srgb,var(--accent) 40%,transparent);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>
 .container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}
 </style>
@@ -196,7 +201,7 @@
     <div class="card">
       <h3>What is Density Altitude?</h3>
       <ul>
-        <li><strong style="color:#f0c040">Pressure altitude corrected for non-standard temperature</strong></li>
+        <li><strong style="color:var(--accent)">Pressure altitude corrected for non-standard temperature</strong></li>
         <li>Represents the air density — how "thick" the air actually is</li>
         <li>High temperature = lower air density = higher density altitude</li>
         <li>High elevation = lower pressure = higher density altitude</li>
@@ -207,9 +212,9 @@
     <div class="card">
       <h3>Why Density Altitude Matters</h3>
       <ul>
-        <li><strong style="color:#f0c040">Engine produces less power</strong> — less oxygen per intake stroke</li>
-        <li><strong style="color:#f0c040">Wings produce less lift</strong> — thinner air, less molecules over airfoil</li>
-        <li><strong style="color:#f0c040">Longer takeoff roll</strong> — both effects combined, plus higher groundspeed at rotation</li>
+        <li><strong style="color:var(--accent)">Engine produces less power</strong> — less oxygen per intake stroke</li>
+        <li><strong style="color:var(--accent)">Wings produce less lift</strong> — thinner air, less molecules over airfoil</li>
+        <li><strong style="color:var(--accent)">Longer takeoff roll</strong> — both effects combined, plus higher groundspeed at rotation</li>
         <li>Slower initial climb rate — critical near terrain</li>
         <li>Propeller less efficient — reduced thrust</li>
         <li>Never skip DA calculation at high-elevation or hot-day airports</li>
@@ -238,10 +243,10 @@
     <h3>Worked Example</h3>
     <ul>
       <li>Airport elevation = 3,500 ft → Pressure Altitude ≈ 3,500 ft (assuming QNH near standard)</li>
-      <li>ISA temperature at 3,500 ft = 15 − (2 × 3.5) = <strong style="color:#f0c040">8°C</strong></li>
-      <li>Actual OAT = <strong style="color:#f0c040">+30°C</strong></li>
-      <li>Temperature excess above ISA = 30 − 8 = <strong style="color:#f0c040">22°C above ISA</strong></li>
-      <li>DA ≈ 3,500 + (22 × 120) = 3,500 + 2,640 = <strong style="color:#e07070">~6,140 ft</strong></li>
+      <li>ISA temperature at 3,500 ft = 15 − (2 × 3.5) = <strong style="color:var(--accent)">8°C</strong></li>
+      <li>Actual OAT = <strong style="color:var(--accent)">+30°C</strong></li>
+      <li>Temperature excess above ISA = 30 − 8 = <strong style="color:var(--accent)">22°C above ISA</strong></li>
+      <li>DA ≈ 3,500 + (22 × 120) = 3,500 + 2,640 = <strong style="color:var(--danger)">~6,140 ft</strong></li>
       <li>Aircraft performs as if at 6,140 ft on a standard day — significantly degraded</li>
     </ul>
   </div>
@@ -265,10 +270,10 @@
   <div class="memory-hook">
     <div class="badge">Memory Hook</div>
     <ul>
-      <li><strong style="color:#80c880">Hot + High = High DA = Hazard:</strong> Both high temperature and high elevation push DA up. Together they can double the apparent altitude.</li>
-      <li><strong style="color:#80c880">ISA lapse rate = 2°C per 1,000 ft:</strong> At 3,000 ft, ISA = 15 − 6 = 9°C. Memorize this: start at 15°C at sea level, subtract 2°C for every 1,000 ft.</li>
-      <li><strong style="color:#80c880">120 ft per °C:</strong> Each 1°C above ISA adds 120 ft to your density altitude. On a 10°C-above-ISA day, add 1,200 ft.</li>
-      <li><strong style="color:#80c880">Check POH performance charts:</strong> Always calculate DA before takeoff and compare to your aircraft's POH climb/takeoff charts — especially on short runways or near terrain.</li>
+      <li><strong style="color:var(--success)">Hot + High = High DA = Hazard:</strong> Both high temperature and high elevation push DA up. Together they can double the apparent altitude.</li>
+      <li><strong style="color:var(--success)">ISA lapse rate = 2°C per 1,000 ft:</strong> At 3,000 ft, ISA = 15 − 6 = 9°C. Memorize this: start at 15°C at sea level, subtract 2°C for every 1,000 ft.</li>
+      <li><strong style="color:var(--success)">120 ft per °C:</strong> Each 1°C above ISA adds 120 ft to your density altitude. On a 10°C-above-ISA day, add 1,200 ft.</li>
+      <li><strong style="color:var(--success)">Check POH performance charts:</strong> Always calculate DA before takeoff and compare to your aircraft's POH climb/takeoff charts — especially on short runways or near terrain.</li>
     </ul>
   </div>
 </div>
