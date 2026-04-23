@@ -1,10 +1,11 @@
-/* PPL Study — Shared Visual Styles (dark · Variant A Cockpit Briefing)
- * Color tokens: docs/design/DESIGN-SYSTEM.md §2.1 (dark scheme)
+/* PPL Study — Shared Visual Styles (Variant A Cockpit Briefing, dual-scheme)
+ * Color tokens: docs/design/DESIGN-SYSTEM.md §2.1–2.2
  * Do not add colors outside the token set or the visual palette.
  */
 
-/* ── Color tokens — verbatim from DESIGN-SYSTEM.md §2.1 dark scheme ──── */
-:root {
+/* ── Dark scheme tokens (default) ────────────────────────────────────── */
+:root,
+[data-scheme="dark"] {
   --bg:         #071020;
   --bg2:        #0d1b2a;
   --surface:    #0f1f33;
@@ -19,16 +20,55 @@
   --warning:    #f0c040;
   --danger:     #e05050;
   --info:       #5b9bd5;
-  /* Grid-paper backdrop line — DESIGN-SYSTEM.md §4.4, dark value */
   --grid-line:  rgba(26,53,80,0.15);
+}
+
+/* ── Light scheme tokens — explicit attribute ─────────────────────────── */
+[data-scheme="light"] {
+  --bg:         #f5f2ec;
+  --bg2:        #eae5db;
+  --surface:    #ffffff;
+  --surface2:   #f9f5ed;
+  --border:     #c9c0ad;
+  --border-hi:  #8a7f67;
+  --accent:     #b87000;
+  --accent-dim: #d89938;
+  --text:       #1a1713;
+  --text-muted: #6b6458;
+  --success:    #2e8b57;
+  --warning:    #b88720;
+  --danger:     #a03020;
+  --info:       #305a80;
+  --grid-line:  rgba(138,127,103,0.10);
+}
+
+/* ── Light scheme tokens — OS preference ─────────────────────────────── */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg:         #f5f2ec;
+    --bg2:        #eae5db;
+    --surface:    #ffffff;
+    --surface2:   #f9f5ed;
+    --border:     #c9c0ad;
+    --border-hi:  #8a7f67;
+    --accent:     #b87000;
+    --accent-dim: #d89938;
+    --text:       #1a1713;
+    --text-muted: #6b6458;
+    --success:    #2e8b57;
+    --warning:    #b88720;
+    --danger:     #a03020;
+    --info:       #305a80;
+    --grid-line:  rgba(138,127,103,0.10);
+  }
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: #0d1b2a;
-  color: #e8edf2;
-  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg2);
+  color: var(--text);
+  font-family: 'Inter', system-ui, sans-serif;
   font-size: 13px;
   line-height: 1.6;
   padding: 32px;
@@ -49,54 +89,57 @@ body::before {
   background-size: 40px 40px;
 }
 
-h1 { font-size: 22px; color: #f0c040; letter-spacing: 1px; margin-bottom: 6px; }
-.subtitle { font-size: 13px; color: #7a9ab5; margin-bottom: 32px; letter-spacing: 0.5px; }
+h1 { font-size: 22px; color: var(--accent); letter-spacing: 1px; margin-bottom: 6px; }
+.subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; letter-spacing: 0.5px; }
 
 /* GK section header */
-.section-title { font-size: 14px; color: #f0c040; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
+.section-title { font-size: 14px; color: var(--accent); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 14px; margin-top: 32px; }
 /* AL/NAV section header */
-.section-label { font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+.section-label { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
 
 /* Sits above the grid-paper backdrop */
 .container { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
 
-svg text { font-family: 'Segoe UI', system-ui, sans-serif; }
+svg text { font-family: 'Inter', system-ui, sans-serif; }
 
 /* Tables */
 table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-th { background: #1a2d3d; color: #f0c040; font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
-td { font-size: 13px; color: #e8edf2; padding: 9px 14px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
+th { background: var(--surface2); color: var(--accent); font-size: 12px; text-align: left; padding: 10px 14px; letter-spacing: 0.5px; }
+td { font-size: 13px; color: var(--text); padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
 tr:last-child td { border-bottom: none; }
-td strong { color: #f0c040; }
+td strong { color: var(--accent); }
+
+/* Wide tables — allow horizontal scroll on small screens */
+.wide-table { overflow-x: auto; }
 
 /* Status indicators (al visuals) */
-.yes { color: #80e080; font-weight: 700; }
-.no  { color: #ff8080; font-weight: 700; }
+.yes { color: var(--success); font-weight: 700; }
+.no  { color: var(--danger); font-weight: 700; }
 
 /* GK diagram components */
-.diagram-box { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 16px; }
-.note-box { background: #1a2d3d; border-left: 3px solid #f0c040; border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #e8edf2; line-height: 1.6; }
-.memory-box { background: #1a2d3d; border: 1px solid #f0c040; border-radius: 8px; padding: 20px; margin-top: 24px; }
-.memory-title { color: #f0c040; font-size: 13px; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 10px; }
-.memory-item { font-size: 13px; color: #e8edf2; margin-bottom: 6px; padding-left: 12px; }
+.diagram-box { background: var(--surface2); border: 1px solid var(--border-hi); border-radius: 8px; padding: 16px; }
+.note-box { background: var(--surface2); border-left: 3px solid var(--accent); border-radius: 4px; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: var(--text); line-height: 1.6; }
+.memory-box { background: var(--surface2); border: 1px solid var(--accent); border-radius: 8px; padding: 20px; margin-top: 24px; }
+.memory-title { color: var(--accent); font-size: 13px; font-weight: bold; letter-spacing: 0.5px; margin-bottom: 10px; }
+.memory-item { font-size: 13px; color: var(--text); margin-bottom: 6px; padding-left: 12px; }
 
 /* NAV card containers */
-.card, .info-card { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 8px; padding: 18px 20px; margin-bottom: 16px; }
-.card h3, .info-card h3 { font-size: 13px; font-weight: 700; color: #f0c040; margin-bottom: 8px; }
-.card p, .card li, .info-card p { font-size: 12px; color: #c8d8e8; line-height: 1.7; }
+.card, .info-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 16px; }
+.card h3, .info-card h3 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+.card p, .card li, .info-card p { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
 .card ul, .memory-hook ul { padding-left: 18px; }
 
 /* NAV diagram wrappers */
-.grid-wrap, .diagram-wrap { background: #0a1a35; border: 1.5px solid #1a3a5a; border-radius: 8px; padding: 20px; margin-bottom: 32px; display: flex; justify-content: center; }
+.grid-wrap, .diagram-wrap { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 32px; display: flex; justify-content: center; }
 
 /* NAV layout grids */
 .two-col   { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
 .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 32px; }
 
-/* NAV memory hook card (nav009–nav014) */
+/* NAV memory hook card */
 .memory-hook { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 8px; padding: 18px 20px; margin-top: 16px; }
 .memory-hook .badge { display: inline-block; background: #2d5a2d; color: #80c880; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 10px; border-radius: 4px; margin-bottom: 10px; }
-.memory-hook p, .memory-hook li { color: #c8d8e8; font-size: 12px; line-height: 1.7; }
+.memory-hook p, .memory-hook li { color: var(--text-muted); font-size: 12px; line-height: 1.7; }
 
 /* AL hook card */
 .hook-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 8px; padding: 18px 22px; }
@@ -104,18 +147,23 @@ td strong { color: #f0c040; }
 .hook-row { display: flex; gap: 10px; margin-bottom: 8px; align-items: flex-start; }
 .hook-badge { background: #2d5a2d; color: #80c880; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
 .hook-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
-.hook-text strong { color: #f0c040; }
+.hook-text strong { color: var(--accent); }
 
 /* Fact cards (MET visuals) */
-.fact-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; }
-.fact-label { font-size: 11px; color: #7a9ab5; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
-.fact-value { font-size: 18px; color: #f0c040; font-weight: bold; }
-.fact-note { font-size: 12px; color: #e8edf2; margin-top: 4px; }
+.fact-card { background: var(--surface2); border: 1px solid var(--border-hi); border-radius: 8px; padding: 14px 16px; margin-bottom: 12px; }
+.fact-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 4px; }
+.fact-value { font-size: 18px; color: var(--accent); font-weight: bold; }
+.fact-note { font-size: 12px; color: var(--text); margin-top: 4px; }
 
-/* Memory hook (MET visuals) */
+/* Memory hook variant (MET visuals) */
 .memory-hook { background: #1a2a1a; border: 1px solid #2d5a2d; border-radius: 8px; padding: 14px 18px; margin-top: 24px; font-size: 13px; line-height: 1.6; }
-.memory-hook .badge { display: inline-block; background: #2d5a2d; color: #e8edf2; font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
+.memory-hook .badge { display: inline-block; background: #2d5a2d; color: var(--text); font-size: 10px; letter-spacing: 1px; padding: 2px 8px; border-radius: 3px; margin-bottom: 6px; }
 
 @media (max-width: 640px) {
+  .two-col, .three-col { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
   body { padding: 16px; }
+  .wide-table { overflow-x: auto; }
 }

@@ -3,32 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/visuals/_common.css">
+<link rel="stylesheet" href="_common.css">
 <title>AL-004: Altimeter Settings</title>
 <style>
   table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
-  th { background: #1a2d3d; color: #7a9ab5; padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: top; }
-  .code { font-size: 18px; font-weight: 800; color: #f0c040; }
-  .setting-val { font-weight: 600; color: #e8edf2; }
+  th { background: var(--surface2); color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .code { font-size: 18px; font-weight: 800; color: var(--accent); }
+  .setting-val { font-weight: 600; color: var(--text); }
   .reads-val { color: #80e0e0; }
-  .when-val { color: #c8d8e8; font-size: 12px; }
+  .when-val { color: var(--text); font-size: 12px; }
 
-  .altitude-bar { display: flex; flex-direction: column; margin-bottom: 28px; border-radius: 10px; overflow: hidden; border: 1.5px solid #1a2d3d; }
+  .altitude-bar { display: flex; flex-direction: column; margin-bottom: 28px; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--border); }
   .alt-row { display: grid; grid-template-columns: 160px 1fr; align-items: stretch; border-bottom: 1px solid rgba(255,255,255,0.05); }
   .alt-row:last-child { border-bottom: none; }
-  .alt-label { padding: 14px 16px; background: #1a2d3d; }
-  .alt-ft { font-size: 14px; font-weight: 700; color: #f0c040; }
-  .alt-desc { font-size: 11px; color: #7a9ab5; margin-top: 3px; }
+  .alt-label { padding: 14px 16px; background: var(--surface2); }
+  .alt-ft { font-size: 14px; font-weight: 700; color: var(--accent); }
+  .alt-desc { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
   .alt-content { padding: 14px 16px; }
   .alt-content .badge { display: inline-block; border-radius: 4px; padding: 3px 10px; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
-  .qne-badge { background: rgba(240,192,64,0.15); color: #f0c040; border: 1px solid rgba(240,192,64,0.4); }
+  .qne-badge { background: rgba(240,192,64,0.15); color: var(--accent); border: 1px solid rgba(240,192,64,0.4); }
   .qnh-badge { background: rgba(80,160,255,0.12); color: #80b8ff; border: 1px solid rgba(80,160,255,0.3); }
-  .alt-content p { font-size: 12px; color: #c8d8e8; margin-top: 4px; }
+  .alt-content p { font-size: 12px; color: var(--text); margin-top: 4px; }
+
+  @media (max-width: 480px) {
+    .alt-row { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 
 <h1>AL-004 — Altimeter Settings</h1>
@@ -48,13 +52,13 @@
   <tbody>
     <tr>
       <td><span class="code">QNH</span></td>
-      <td class="setting-val">Current local sea-level pressure<br><small style="color:#7a9ab5;">Changes constantly — get from ATIS or ATC</small></td>
+      <td class="setting-val">Current local sea-level pressure<br><small style="color:var(--text-muted);">Changes constantly — get from ATIS or ATC</small></td>
       <td class="reads-val">Altitude ASL</td>
       <td class="when-val">Below 18,000 ft ASL (transition altitude) — standard VFR setting</td>
     </tr>
     <tr>
       <td><span class="code">QNE</span></td>
-      <td class="setting-val">Standard pressure<br><small style="color:#7a9ab5;">29.92 inHg / 1013.25 hPa — fixed value</small></td>
+      <td class="setting-val">Standard pressure<br><small style="color:var(--text-muted);">29.92 inHg / 1013.25 hPa — fixed value</small></td>
       <td class="reads-val">Pressure altitude (Flight Levels)</td>
       <td class="when-val">At or above 18,000 ft ASL — FL180, FL200, FL240…</td>
     </tr>
@@ -77,7 +81,7 @@
     </div>
     <div class="alt-content">
       <span class="badge qne-badge">QNE — 29.92 inHg</span>
-      <p>All aircraft use standard pressure. Altimeter reads <strong style="color:#f0c040;">pressure altitude</strong>. Expressed as FL180, FL200, etc. IFR only above this level.</p>
+      <p>All aircraft use standard pressure. Altimeter reads <strong style="color:var(--accent);">pressure altitude</strong>. Expressed as FL180, FL200, etc. IFR only above this level.</p>
     </div>
   </div>
   <div class="alt-row">

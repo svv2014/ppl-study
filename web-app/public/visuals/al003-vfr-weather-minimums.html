@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="/visuals/_common.css">
+<link rel="stylesheet" href="_common.css">
 <title>AL-003: VFR Weather Minimums</title>
 <style>
   /* Airspace diagram */
   .diagram { display: flex; gap: 16px; margin-bottom: 36px; align-items: stretch; }
   .airspace-col { flex: 1; }
-  .col-label { text-align: center; font-size: 11px; color: #7a9ab5; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+  .col-label { text-align: center; font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
   .airspace-block {
     border-radius: 8px;
     padding: 14px 12px;
@@ -35,7 +35,7 @@
     font-weight: 600;
     white-space: nowrap;
   }
-  .vis-pill { background: rgba(240,192,64,0.2); color: #f0c040; border: 1px solid rgba(240,192,64,0.4); }
+  .vis-pill { background: rgba(240,192,64,0.2); color: var(--accent); border: 1px solid rgba(240,192,64,0.4); }
   .cloud-pill { background: rgba(100,180,255,0.15); color: #7ec8e3; border: 1px solid rgba(100,180,255,0.3); }
 
   .class-c { background: #0a2a4a; border: 1.5px solid #2a6db5; }
@@ -51,16 +51,16 @@
   .class-g-night { background: #0d1f0d; border: 1.5px solid #1a4a1a; }
   .class-g-night .class-badge { background: #1b5e20; color: #fff; }
 
-  .block-title { font-size: 13px; font-weight: 700; color: #c8d8e8; }
-  .block-sub { font-size: 11px; color: #6a8a9a; margin-top: 2px; }
+  .block-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .block-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
   /* Summary table */
   .table-section { margin-bottom: 36px; }
-  .table-section h2 { font-size: 14px; color: #f0c040; margin-bottom: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
+  .table-section h2 { font-size: 14px; color: var(--accent); margin-bottom: 12px; letter-spacing: 0.5px; text-transform: uppercase; }
   table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { background: #1a2d3d; color: #7a9ab5; padding: 10px 12px; text-align: left; font-weight: 600; letter-spacing: 0.5px; font-size: 11px; text-transform: uppercase; }
-  td { padding: 10px 12px; border-bottom: 1px solid #1a2d3d; vertical-align: middle; }
-  .vis { color: #f0c040; font-weight: 700; }
+  th { background: var(--surface2); color: var(--text-muted); padding: 10px 12px; text-align: left; font-weight: 600; letter-spacing: 0.5px; font-size: 11px; text-transform: uppercase; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .vis { color: var(--accent); font-weight: 700; }
   .cloud { color: #7ec8e3; font-weight: 600; }
   .ctrl { background: rgba(20,60,100,0.3); }
   .unctrl { background: rgba(20,60,20,0.3); }
@@ -86,8 +86,8 @@
   .memory-card h2 { font-size: 13px; color: #80c880; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
   .tier { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
   .tier-num { background: #2d5a2d; color: #80c880; font-size: 11px; font-weight: 800; width: 24px; height: 24px; border-radius: 50%; text-align: center; line-height: 24px; flex-shrink: 0; }
-  .tier-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; }
-  .tier-text strong { color: #f0c040; }
+  .tier-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .tier-text strong { color: var(--accent); }
 
   .trap-box {
     background: #2a1a0a;
@@ -100,7 +100,7 @@
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 
 <h1>AL-003 — VFR Weather Minimums</h1>
@@ -191,7 +191,7 @@
 <!-- Exam trap -->
 <div class="trap-box">
   <h2>⚠️ Common Exam Trap</h2>
-  <p>Class G <em>above</em> 1,000 ft AGL during the day only requires <strong style="color:#f0c040">1 SM visibility</strong> — lower than controlled airspace. Students expect higher altitude = stricter rules, but Class G above 1,000 ft is the exception. The cloud clearance distances are the same as controlled airspace, but visibility is just 1 SM.</p>
+  <p>Class G <em>above</em> 1,000 ft AGL during the day only requires <strong style="color:var(--accent)">1 SM visibility</strong> — lower than controlled airspace. Students expect higher altitude = stricter rules, but Class G above 1,000 ft is the exception. The cloud clearance distances are the same as controlled airspace, but visibility is just 1 SM.</p>
 </div>
 
 </body>
