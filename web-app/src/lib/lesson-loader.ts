@@ -76,3 +76,16 @@ export function getLessonBySlug(topic: string, slug: string): Lesson | undefined
 export function getLessonsByTopic(topic: string): Lesson[] {
   return getAllLessons().filter((l) => l.topic === topic);
 }
+
+export function getAdjacentLessons(
+  topic: string,
+  slug: string,
+): { prev: Lesson | null; next: Lesson | null } {
+  const lessons = getLessonsByTopic(topic);
+  const idx = lessons.findIndex((l) => l.slug === slug);
+  if (idx === -1) return { prev: null, next: null };
+  return {
+    prev: idx > 0 ? lessons[idx - 1] : null,
+    next: idx < lessons.length - 1 ? lessons[idx + 1] : null,
+  };
+}

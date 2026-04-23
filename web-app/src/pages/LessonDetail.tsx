@@ -7,10 +7,12 @@ import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import { useState, type ReactNode } from 'react';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useState, useEffect, type ReactNode } from 'react';
 import AudioPlayer from '../components/AudioPlayer';
 import SourceList from '../components/SourceList';
-import { getLessonBySlug } from '../lib/lesson-loader';
+import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 
 function MarkdownTable({ children }: { children?: ReactNode }) {
@@ -81,6 +83,23 @@ export default function LessonDetail() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   const lesson = topic && slug ? getLessonBySlug(topic, slug) : undefined;
+  const { prev, next } = topic && slug && lesson
+    ? getAdjacentLessons(topic, slug)
+    : { prev: null, next: null };
+
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      const tag = (e.target as HTMLElement).tagName;
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return;
+      if (e.key === 'ArrowLeft' && prev) {
+        navigate(`/lessons/${prev.topic}/${prev.slug}`);
+      } else if (e.key === 'ArrowRight' && next) {
+        navigate(`/lessons/${next.topic}/${next.slug}`);
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [prev, next, navigate]);
 
   if (!lesson) {
     return (
@@ -171,6 +190,77 @@ export default function LessonDetail() {
       >
         {completed ? 'Completed' : 'Mark Complete'}
       </Button>
+
+      <Divider sx={{ mt: 3, mb: 2 }} />
+
+      <Box
+        sx={{
+          display: 'flex',
+          gap: 1,
+          justifyContent: 'space-between',
+          alignItems: 'stretch',
+        }}
+      >
+        {prev ? (
+          <Button
+            variant="outlined"
+            startIcon={<ArrowBackIcon />}
+            onClick={() => navigate(`/lessons/${prev.topic}/${prev.slug}`)}
+            title={prev.title}
+            aria-label={`Previous lesson: ${prev.title}`}
+            sx={{
+              minHeight: 48,
+              flex: '1 1 0',
+              minWidth: 0,
+              justifyContent: 'flex-start',
+              overflow: 'hidden',
+              '& .MuiButton-startIcon': { flexShrink: 0 },
+            }}
+          >
+            <Box
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {prev.title}
+            </Box>
+          </Button>
+        ) : (
+          <Box sx={{ flex: '1 1 0' }} />
+        )}
+
+        {next ? (
+          <Button
+            variant="outlined"
+            endIcon={<ArrowForwardIcon />}
+            onClick={() => navigate(`/lessons/${next.topic}/${next.slug}`)}
+            title={next.title}
+            aria-label={`Next lesson: ${next.title}`}
+            sx={{
+              minHeight: 48,
+              flex: '1 1 0',
+              minWidth: 0,
+              justifyContent: 'flex-end',
+              overflow: 'hidden',
+              '& .MuiButton-endIcon': { flexShrink: 0 },
+            }}
+          >
+            <Box
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {next.title}
+            </Box>
+          </Button>
+        ) : (
+          <Box sx={{ flex: '1 1 0' }} />
+        )}
+      </Box>
     </Container>
   );
 }
