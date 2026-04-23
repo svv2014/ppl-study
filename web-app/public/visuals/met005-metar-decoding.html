@@ -6,8 +6,9 @@
 <title>MET-005: METAR Decoding</title>
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
-  .metar-sample { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 18px 20px; font-family: 'Consolas', 'Menlo', monospace; font-size: 15px; line-height: 1.9; margin-bottom: 14px; word-break: break-word; }
+  .metar-sample { background: var(--border); border: 1px solid var(--border); border-radius: 8px; padding: 18px 20px; font-family: 'Consolas', 'Menlo', monospace; font-size: 15px; line-height: 1.9; margin-bottom: 14px; word-break: break-word; }
   .seg { padding: 2px 6px; border-radius: 3px; margin: 0 2px; display: inline-block; }
+  /* data-encoding: METAR field segment colours — exempt from CSS var migration */
   .s-type { background: #2d3e50; color: #e8edf2; }
   .s-icao { background: #3d5a80; color: #e8edf2; }
   .s-time { background: #4c5b8c; color: #e8edf2; }
@@ -18,13 +19,18 @@
   .s-temp { background: #3a5a7a; color: #e8edf2; }
   .s-alt  { background: #6a4a7a; color: #e8edf2; }
   .s-rmk  { background: #3d3d3d; color: #e8edf2; }
-  td code { font-family: 'Consolas', 'Menlo', monospace; background: #0d1b2a; color: #f0c040; padding: 1px 6px; border-radius: 3px; font-size: 12px; }
+  td code { font-family: 'Consolas', 'Menlo', monospace; background: var(--bg); color: var(--accent); padding: 1px 6px; border-radius: 3px; font-size: 12px; }
   .sky-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
-  .sky-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; text-align: center; }
-  .sky-code { font-size: 18px; color: #f0c040; font-weight: bold; font-family: 'Consolas', monospace; }
-  .sky-name { font-size: 11px; color: #e8edf2; margin-top: 4px; }
-  .sky-oktas { font-size: 10px; color: #7a9ab5; margin-top: 2px; }
+  .sky-card { background: var(--border); border: 1px solid var(--border); border-radius: 8px; padding: 12px; text-align: center; }
+  .sky-code { font-size: 18px; color: var(--accent); font-weight: bold; font-family: 'Consolas', monospace; }
+  .sky-name { font-size: 11px; color: var(--text); margin-top: 4px; }
+  .sky-oktas { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
   @media (max-width: 640px) { .sky-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) {
+    body { font-size: 14px; padding: 16px; }
+    .metar-sample { font-size: 13px; padding: 12px 14px; }
+    .sky-grid { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
@@ -77,12 +83,12 @@
       <div class="sky-oktas">3 – 4 oktas</div>
     </div>
     <div class="sky-card">
-      <div class="sky-code" style="color:#ffb040;">BKN</div>
+      <div class="sky-code" style="color:#ffb040;">BKN</div><!-- design-exception: ceiling-warning amber, no token -->
       <div class="sky-name">Broken</div>
       <div class="sky-oktas">5 – 7 oktas — <strong>ceiling!</strong></div>
     </div>
     <div class="sky-card">
-      <div class="sky-code" style="color:#e05050;">OVC</div>
+      <div class="sky-code" style="color:var(--danger);">OVC</div>
       <div class="sky-name">Overcast</div>
       <div class="sky-oktas">8 oktas — <strong>ceiling!</strong></div>
     </div>

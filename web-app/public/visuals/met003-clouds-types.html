@@ -7,21 +7,27 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
   .tier { display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: stretch; margin-bottom: 10px; }
-  .tier-label { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; }
-  .tier-label .alt { font-size: 11px; color: #7a9ab5; letter-spacing: 0.5px; text-transform: uppercase; }
-  .tier-label .name { font-size: 16px; color: #f0c040; font-weight: bold; margin-top: 4px; }
-  .tier-label .range { font-size: 12px; color: #e8edf2; margin-top: 4px; }
+  .tier-label { background: var(--border); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .tier-label .alt { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
+  .tier-label .name { font-size: 16px; color: var(--accent); font-weight: bold; margin-top: 4px; }
+  .tier-label .range { font-size: 12px; color: var(--text); margin-top: 4px; }
   .tier-clouds { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-  .cloud-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 12px; }
-  .cloud-card .cname { font-size: 13px; color: #f0c040; font-weight: bold; margin-bottom: 4px; }
-  .cloud-card .cabbr { font-size: 10px; color: #7a9ab5; letter-spacing: 1px; }
-  .cloud-card .cnote { font-size: 11px; color: #e8edf2; margin-top: 6px; line-height: 1.45; }
+  .cloud-card { background: var(--border); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+  .cloud-card .cname { font-size: 13px; color: var(--accent); font-weight: bold; margin-bottom: 4px; }
+  .cloud-card .cabbr { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
+  .cloud-card .cnote { font-size: 11px; color: var(--text); margin-top: 6px; line-height: 1.45; }
   .stability-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .stab-card { background: #1a2d3d; border: 1px solid #243d52; border-radius: 8px; padding: 14px; }
-  .stab-card h3 { font-size: 13px; color: #f0c040; margin-bottom: 8px; letter-spacing: 0.5px; }
-  .stab-card ul { margin-left: 18px; color: #e8edf2; font-size: 12px; line-height: 1.7; }
+  .stab-card { background: var(--border); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .stab-card h3 { font-size: 13px; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.5px; }
+  .stab-card ul { margin-left: 18px; color: var(--text); font-size: 12px; line-height: 1.7; }
   @media (max-width: 640px) {
     .tier { grid-template-columns: 1fr; }
+    .stability-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    body { font-size: 14px; padding: 16px; }
+    .tier { grid-template-columns: 1fr; }
+    .tier-clouds { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
     .stability-grid { grid-template-columns: 1fr; }
   }
 </style>
@@ -40,7 +46,7 @@
       <div class="alt">High</div>
       <div class="name">Cirro-</div>
       <div class="range">&gt; 20,000 ft</div>
-      <div class="range" style="color:#7a9ab5;">Ice crystals</div>
+      <div class="range" style="color:var(--text-muted);">Ice crystals</div>
     </div>
     <div class="tier-clouds">
       <div class="cloud-card"><div class="cname">Cirrus</div><div class="cabbr">CI</div><div class="cnote">Wispy streaks — fair weather, but may signal approaching warm front 24–48 h out.</div></div>
@@ -54,7 +60,7 @@
       <div class="alt">Middle</div>
       <div class="name">Alto-</div>
       <div class="range">6,500 – 20,000 ft</div>
-      <div class="range" style="color:#7a9ab5;">Water + ice</div>
+      <div class="range" style="color:var(--text-muted);">Water + ice</div>
     </div>
     <div class="tier-clouds">
       <div class="cloud-card"><div class="cname">Altostratus</div><div class="cabbr">AS</div><div class="cnote">Grey/blue sheet — sun appears as through frosted glass. Steady rain/snow approaching.</div></div>
@@ -68,7 +74,7 @@
       <div class="alt">Low</div>
       <div class="name">Strato- / Cumulo-</div>
       <div class="range">Surface – 6,500 ft</div>
-      <div class="range" style="color:#7a9ab5;">Mostly water</div>
+      <div class="range" style="color:var(--text-muted);">Mostly water</div>
     </div>
     <div class="tier-clouds">
       <div class="cloud-card"><div class="cname">Stratus</div><div class="cabbr">ST</div><div class="cnote">Uniform low layer — drizzle/mist, poor VFR.</div></div>
@@ -107,7 +113,7 @@
     <thead><tr><th>Formula</th><th>Worked Example</th></tr></thead>
     <tbody>
       <tr>
-        <td><strong style="color:#f0c040;">Base AGL ≈ (T − Td) × 400 ft</strong></td>
+        <td><strong style="color:var(--accent);">Base AGL ≈ (T − Td) × 400 ft</strong></td>
         <td>Surface T 22 °C, Td 14 °C → spread 8 °C → base ≈ 3,200 ft AGL</td>
       </tr>
     </tbody>
