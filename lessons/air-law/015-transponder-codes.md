@@ -6,7 +6,7 @@ slug: transponder-codes
 title: "Transponder — Codes, Squawk 7700/7600/7500, Mode C Requirements"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/015-transponder-codes.m4a
 visual: /visuals/al015-transponder-codes.html
 sources:
   - CARs 601.03

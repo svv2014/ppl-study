@@ -6,7 +6,7 @@ slug: wake-turbulence
 title: "Wake Turbulence — Categories, Avoidance Rules, Timing"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/air-law/016-wake-turbulence.m4a
 visual: /visuals/al016-wake-turbulence.html
 sources:
   - CARs 602.19
