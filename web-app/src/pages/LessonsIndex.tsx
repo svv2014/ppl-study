@@ -51,9 +51,6 @@ export default function LessonsIndex() {
               completedCount={0}
               masteryPercent={0}
             />
-            <Typography variant="h5" gutterBottom sx={{ mt: 2 }}>
-              {TOPIC_LABELS[topic]}
-            </Typography>
             <Divider sx={{ mb: 2 }} />
 
             <Box
