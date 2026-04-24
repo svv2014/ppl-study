@@ -9,31 +9,42 @@
   /* Type cards */
   .type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
   .type-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .type-card:last-child:nth-child(odd) { grid-column: span 2; }
   .type-card h3 { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
   .type-card p { font-size: 13px; color: var(--text); line-height: 1.6; }
   .type-badge { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; background: var(--border); color: var(--text-muted); }
 
   /* NOTAM format breakdown */
-  .notam-sample { background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 28px; font-family: 'Courier New', monospace; }
+  .notam-sample { background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px; padding: 18px 20px; margin-bottom: 16px; font-family: 'Courier New', monospace; }
   .notam-sample .line { font-size: 13px; color: var(--text); margin-bottom: 4px; word-break: break-all; }
   .notam-sample .line .hl-acc { color: var(--accent); font-weight: 700; }
-  .notam-sample .line .hl-info { color: #80b8ff; }
-  .notam-sample .line .hl-ok { color: #80e080; }
-  .notam-sample .line .hl-warn { color: #ff9090; }
+  .notam-sample .line .hl-info { color: var(--info); }
+  .notam-sample .line .hl-ok { color: var(--success); }
+  .notam-sample .line .hl-warn { color: var(--danger); }
   .legend { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; margin-top: 14px; }
   .legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text); }
   .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Q-line decode table */
+  .qline-decode { background: var(--bg); border: 1.5px solid var(--border); border-radius: 8px; padding: 16px 20px; margin-bottom: 28px; }
+  .qline-decode .ql-title { font-size: 11px; color: var(--text-muted); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  .qline-fields { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; font-size: 12px; }
+  .qfield-name { font-family: 'Courier New', monospace; color: var(--accent); font-weight: 700; white-space: nowrap; }
+  .qfield-desc { color: var(--text); }
 
   /* Table */
   table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
   th { background: var(--surface2); color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
   td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
   td strong { color: var(--accent); }
-  td code { font-family: 'Courier New', monospace; font-size: 12px; background: var(--surface2); padding: 1px 5px; border-radius: 3px; color: #80b8ff; }
+  td code { font-family: 'Courier New', monospace; font-size: 12px; background: var(--surface2); padding: 1px 5px; border-radius: 3px; color: var(--info); }
 
   @media (max-width: 640px) {
     .type-grid { grid-template-columns: 1fr; }
+    .type-card:last-child:nth-child(odd) { grid-column: span 1; }
     .legend { grid-template-columns: 1fr; }
+    .qline-fields { grid-template-columns: 1fr; }
+    .qfield-name { margin-top: 6px; }
   }
 
   @media (max-width: 480px) {
@@ -46,11 +57,11 @@
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 <div class="container">
   <h1>AL-010 — NOTAMs</h1>
-  <p class="subtitle">Transport Canada · CARs 602.72, AIP Canada GEN 3.3, AIM RAC 2.1 · PPL Written Exam</p>
+  <p class="subtitle">Transport Canada · CARs 602.72, AIP Canada GEN 3.1, AIM RAC 2.1 · PPL Written Exam</p>
 
   <div class="section-label">What is a NOTAM?</div>
   <p style="font-size:13px;color:var(--text);line-height:1.7;margin-bottom:20px;">
@@ -70,6 +81,11 @@
       <p>Distributed only to the affected local area. Covers information too minor or local for national distribution — e.g., a taxiway light outage at a small aerodrome. Not always available on national databases.</p>
     </div>
     <div class="type-card">
+      <span class="type-badge">FDC NOTAM</span>
+      <h3>Flight Data Center NOTAM</h3>
+      <p>Issued by the FAA Flight Data Center (US designation). Covers regulatory or procedural changes — instrument procedure amendments, chart corrections, and TFRs. Canadian pilots encounter FDC NOTAMs when flying to, from, or over US airspace. Regulatory in nature; check carefully before any cross-border operation.</p>
+    </div>
+    <div class="type-card">
       <span class="type-badge">SNOWTAM</span>
       <h3>Snow / Runway Condition</h3>
       <p>Special NOTAM series reporting snow, ice, slush, and braking action on runways and taxiways. Critical for winter operations — provides runway condition codes (RCC) per the Global Reporting Format (GRF).</p>
@@ -81,21 +97,38 @@
     </div>
   </div>
 
-  <div class="section-label">Reading a NOTAM — Sample Format</div>
+  <div class="section-label">Reading a NOTAM — Worked Example</div>
   <div class="notam-sample">
     <div class="line"><span class="hl-acc">A1234/25</span> NOTAMN</div>
-    <div class="line">Q) <span class="hl-ok">CZEG</span>/<span class="hl-info">QMXLC</span>/IV/NBO/A/000/999/<span class="hl-ok">5117N11433W005</span></div>
+    <div class="line">Q) <span class="hl-ok">CZEG</span>/<span class="hl-info">QMXLC</span>/IV/NBO/A/<span class="hl-info">000/999</span>/<span class="hl-ok">5117N11433W005</span></div>
     <div class="line">A) <span class="hl-acc">CYYC</span> B) <span class="hl-ok">2503010600</span> C) <span class="hl-warn">2503312359</span></div>
     <div class="line">E) TWY B BTN TWY C AND TWY D CLSD</div>
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--accent);"></div>A1234/25 — NOTAM number / year</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#80b8ff;"></div>QMXLC — Q-code: subject &amp; condition</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#80e080;"></div>CZEG — FIR; CYYC — aerodrome ICAO</div>
-      <div class="legend-item"><div class="legend-dot" style="background:#ff9090;"></div>C) 2503312359 — expiry (UTC)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent);"></div><strong>Number:</strong>&nbsp;A1234/25 — NOTAM number / year</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--info);"></div><strong>Subject:</strong>&nbsp;QMXLC — Q-code subject (MX = taxiway)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--success);"></div><strong>Location:</strong>&nbsp;CZEG = FIR; CYYC = aerodrome ICAO</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--info);"></div><strong>Condition:</strong>&nbsp;QMXLC — condition code (LC = closed)</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--info);"></div><strong>Altitude:</strong>&nbsp;000/999 — lower / upper FL in Q-line</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--success);"></div><strong>Time (effective):</strong>&nbsp;B) 2503010600 — 2025 Mar 01 0600Z</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--danger);"></div><strong>Time (expiry):</strong>&nbsp;C) 2503312359 — 2025 Mar 31 2359Z</div>
     </div>
   </div>
 
-  <div class="section-label">NOTAM Q-Code Subject Subjects — Common Examples</div>
+  <div class="section-label">Q-Line Decoded — ICAO Format</div>
+  <div class="qline-decode">
+    <div class="ql-title">Q) CZEG / QMXLC / IV / NBO / A / 000 / 999 / 5117N11433W005</div>
+    <div class="qline-fields">
+      <span class="qfield-name">CZEG</span><span class="qfield-desc">FIR — Flight Information Region in which the NOTAM applies (Calgary FIR)</span>
+      <span class="qfield-name">QMXLC</span><span class="qfield-desc">Q-code — subject (MX = taxiway) + condition (LC = closed); always begins with Q</span>
+      <span class="qfield-name">IV</span><span class="qfield-desc">Traffic — I = IFR, V = VFR (both affected in this case)</span>
+      <span class="qfield-name">NBO</span><span class="qfield-desc">Purpose — N = nav warning, B = booklet, O = operational; determines how it appears in briefings</span>
+      <span class="qfield-name">A</span><span class="qfield-desc">Scope — A = aerodrome, E = en-route, W = warning, K = checklist</span>
+      <span class="qfield-name">000/999</span><span class="qfield-desc">Altitude bounds — lower / upper altitude in hundreds of feet (Flight Level); 000 = surface, 999 = unlimited</span>
+      <span class="qfield-name">5117N11433W005</span><span class="qfield-desc">Coordinates + radius — centre point lat/long + radius in nautical miles (005 = 5 NM)</span>
+    </div>
+  </div>
+
+  <div class="section-label">NOTAM Q-Code Subjects — Common Examples</div>
   <table>
     <thead>
       <tr><th>Q-Code</th><th>Subject</th><th>Example meaning</th></tr>
@@ -169,6 +202,7 @@
     <div class="hook-row"><span class="hook-badge">SNOWTAM</span><span class="hook-text">A SNOWTAM is a <strong>special NOTAM series</strong> — not a weather product. It reports runway surface conditions using the Global Reporting Format (GRF) runway condition codes.</span></div>
     <div class="hook-row"><span class="hook-badge">Time Format</span><span class="hook-text">All NOTAM times are in <strong>UTC (Zulu)</strong>. The format YYMMDDHHMM is used — e.g., 2503010600 = 2025 March 01 at 0600Z.</span></div>
     <div class="hook-row"><span class="hook-badge">PERM vs. EST</span><span class="hook-text">If the expiry field shows <strong>PERM</strong>, the condition is permanent. <strong>EST</strong> means estimated — the actual end time may differ.</span></div>
+    <div class="hook-row"><span class="hook-badge">FDC</span><span class="hook-text">FDC NOTAMs are a <strong>US FAA designation</strong> covering regulatory/procedure changes. Always check them when planning cross-border operations into US airspace.</span></div>
   </div>
 </div>
 </body>
