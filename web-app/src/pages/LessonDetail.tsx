@@ -16,6 +16,7 @@ import SourceList from '../components/SourceList';
 import { getLessonBySlug, getAdjacentLessons, getLessonsByTopic } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
+import { useThemeMode } from '../context/ThemeModeContext';
 import { TOPIC_LABELS } from '../lib/curriculum';
 import { LAST_SESSION_KEY } from '../components/home/StatusBar';
 
@@ -86,6 +87,7 @@ export default function LessonDetail() {
   const { topic, slug } = useParams<{ topic: string; slug: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const { mode } = useThemeMode();
   const { store } = useExamTrack();
   const { isComplete, markComplete } = useProgress(store);
   const [showComplete, setShowComplete] = useState(
@@ -213,7 +215,7 @@ export default function LessonDetail() {
         <Button
           variant="outlined"
           size="small"
-          href={lesson.visual}
+          href={lesson.visual ? `${lesson.visual}?scheme=${mode}` : undefined}
           target="_blank"
           rel="noopener noreferrer"
           sx={{ width: { xs: '100%', sm: 'auto' } }}
