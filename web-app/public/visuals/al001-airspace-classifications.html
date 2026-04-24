@@ -8,99 +8,293 @@
 <title>AL-001: Canadian Airspace Classifications</title>
 <style>
   .stack { display: flex; gap: 0; flex-direction: column; margin-bottom: 36px; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--border); }
-  .layer { display: grid; grid-template-columns: 120px 80px 1fr 1fr; align-items: center; padding: 12px 16px; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .layer { display: grid; grid-template-columns: 140px 90px 1fr 1fr; align-items: start; padding: 13px 16px; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.05); }
   .layer:last-child { border-bottom: none; }
-  .class-badge { display: inline-block; font-size: 22px; font-weight: 800; width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; }
-  .alt-range { font-size: 11px; color: var(--text-muted); }
+  .class-badge { display: inline-block; font-size: 22px; font-weight: 800; width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; flex-shrink: 0; }
+  .alt-range { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
   .rule-tag { display: inline-block; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; margin: 2px; }
-  .ifr-tag { background: rgba(255,80,80,0.15); color: #ff8080; border: 1px solid rgba(255,80,80,0.3); }
-  .vfr-tag { background: rgba(80,200,80,0.15); color: #80e080; border: 1px solid rgba(80,200,80,0.3); }
-  .no-tag { background: rgba(150,150,150,0.1); color: #888; border: 1px solid rgba(150,150,150,0.2); }
-  .req { font-size: 12px; color: var(--text); }
-  .req small { color: var(--text-muted); display: block; margin-top: 2px; }
+  /* IFR-only indicator — red tint signals danger/restriction */
+  .ifr-tag { background: rgba(224,80,80,0.15); color: #ff8080; border: 1px solid rgba(224,80,80,0.3); }
+  /* VFR-permitted indicator — green tint signals safe passage */
+  .vfr-tag { background: rgba(76,175,125,0.15); color: #80e0a0; border: 1px solid rgba(76,175,125,0.3); }
+  /* VFR with clearance — amber tint signals conditional access */
+  .vfr-clr-tag { background: rgba(240,192,64,0.12); color: var(--accent); border: 1px solid rgba(240,192,64,0.3); }
+  /* Special-use advisory/restriction — amber-grey tint */
+  .special-tag { background: rgba(240,192,64,0.08); color: var(--accent); border: 1px solid rgba(240,192,64,0.25); }
+  .req { font-size: 12px; color: var(--text); line-height: 1.5; }
+  .req small { color: var(--text-muted); display: block; margin-top: 3px; font-size: 11px; }
 
-  /* Aviation data-encoding colors — exempt from token substitution.
-     Each airspace class uses a distinct ICAO-convention hue so they are
-     instantly distinguishable on a single glance; swapping to design-system
-     tokens would collapse distinctions needed for safety-critical recall. */
-  .a  { background: #0a1525; } .badge-a  { background: #880e4f; color:#fff; }
-  .b  { background: #0a1a30; } .badge-b  { background: #1565c0; color:#fff; }
-  .c  { background: #0a2040; } .badge-c  { background: #1976d2; color:#fff; }
-  .d  { background: #0a2545; } .badge-d  { background: #0277bd; color:#fff; }
-  .e  { background: #052530; } .badge-e  { background: #006064; color:#fff; }
-  .f  { background: #1a1a05; } .badge-f  { background: #827717; color:#fff; }
-  .g  { background: #0a200a; } .badge-g  { background: #2e7d32; color:#fff; }
+  /*
+   * Per-class background tints — dark aviation palette.
+   * Colours are intentionally desaturated to preserve readability in dark scheme.
+   * Each hue loosely maps to ICAO/TC chart convention:
+   *   A = deep magenta (Class A = highest/most restrictive)
+   *   B = deep navy (high-altitude controlled)
+   *   C = medium blue (terminal control area around major airports)
+   *   D = steel blue (control zone around towered airports)
+   *   E = teal (en-route / transition controlled)
+   *   F = olive/amber (special use — advisory or restricted)
+   *   G = dark green (uncontrolled — lowest, safest for PPL)
+   */
+  .a  { background: #0e1228; }
+  .b  { background: #0a1830; }
+  .c  { background: #071e3d; }
+  .d  { background: #07213f; }
+  .e  { background: #052530; }
+  .f  { background: #1c1a06; }
+  .g  { background: #081e08; }
 
-  .req-col { color: var(--accent); font-weight: 600; }
+  /* Class badge fill colours — match TC sectional chart conventions */
+  .badge-a  { background: #7b1040; color: var(--text); }  /* Class A: magenta — IFR only */
+  .badge-b  { background: #1255a0; color: var(--text); }  /* Class B: blue — high-level controlled */
+  .badge-c  { background: #1565c0; color: var(--text); }  /* Class C: blue — terminal area */
+  .badge-d  { background: #0277bd; color: var(--text); }  /* Class D: mid-blue — control zone */
+  .badge-e  { background: #006064; color: var(--text); }  /* Class E: teal — en-route controlled */
+  .badge-f  { background: #7a6d00; color: var(--text); }  /* Class F: amber — special use */
+  .badge-g  { background: #2e6e30; color: var(--text); }  /* Class G: green — uncontrolled */
 
-  @media (max-width: 480px) {
+  @media (max-width: 640px) {
     .layer { grid-template-columns: 1fr 1fr; }
   }
+  @media (max-width: 480px) {
+    .layer { grid-template-columns: 1fr; }
+  }
+
+  /* Requirements reference table */
+  .reqs-table { margin-bottom: 36px; }
+  .reqs-table th:first-child, .reqs-table td:first-child { width: 60px; text-align: center; }
+  .ref-note { font-size: 11px; color: var(--text-muted); margin-top: -12px; margin-bottom: 28px; line-height: 1.6; }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 
 <h1>AL-001 — Canadian Airspace Classifications</h1>
-<p class="subtitle">Transport Canada · CARs Part VI, TP 12880E Ch.7 · PPL Written Exam</p>
+<p class="subtitle">Transport Canada · CARs Part VI §601.01–601.07, TP 12880E Ch.1 · PPL Written Exam</p>
 
-<!-- Vertical stack -->
+<!-- Vertical altitude stack — high to low -->
 <div class="section-label">Airspace Layers — High to Low</div>
 <div class="stack">
+
+  <!-- Class A: CAR 601.02 — 18,000 ft ASL to FL600, IFR only -->
   <div class="layer a">
-    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-a">A</span><div class="alt-range">18,000 ft ASL<br>to 60,000 ft ASL</div></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="class-badge badge-a">A</span>
+      <div class="alt-range">18,000 ft ASL<br>to FL600 (60,000 ft)</div>
+    </div>
     <div><span class="rule-tag ifr-tag">IFR only</span></div>
-    <div class="req">ATC Clearance required<small>VFR not permitted</small></div>
-    <div class="req">Radio required</div>
+    <div class="req">
+      ATC clearance required
+      <small>VFR flight not permitted (CAR 601.02)</small>
+    </div>
+    <div class="req">
+      IFR rating + radio + Mode C transponder
+      <small>Separation: IFR/IFR by ATC</small>
+    </div>
   </div>
+
+  <!-- Class B: CAR 601.03 — 12,500 ft ASL to 17,999 ft ASL.
+       VFR IS permitted in Canada's Class B with ATC clearance.
+       This differs from US Class B — clearance ≠ IFR-only. -->
   <div class="layer b">
-    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-b">B</span><div class="alt-range">12,500 ft ASL<br>to 18,000 ft ASL</div></div>
-    <div><span class="rule-tag ifr-tag">IFR only</span></div>
-    <div class="req">ATC Clearance required<small>VFR not permitted</small></div>
-    <div class="req">Radio required</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="class-badge badge-b">B</span>
+      <div class="alt-range">12,500 ft ASL<br>to 17,999 ft ASL</div>
+    </div>
+    <div>
+      <span class="rule-tag vfr-clr-tag">VFR ✓ (clearance)</span>
+    </div>
+    <div class="req">
+      ATC clearance required for all aircraft
+      <small>VFR permitted — clearance does not make it IFR-only (CAR 601.03)</small>
+    </div>
+    <div class="req">
+      Radio + Mode C transponder
+      <small>IFR/IFR and IFR/VFR separation; VFR/VFR = pilot responsibility</small>
+    </div>
   </div>
+
+  <!-- Class C: CAR 601.04 — Terminal Control Areas (TCAs) around major airports
+       e.g. CYVR (Vancouver), CYYZ (Toronto), CYYC (Calgary), CYEG (Edmonton) -->
   <div class="layer c">
-    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-c">C</span><div class="alt-range">Busy airports<br>(e.g. CYYZ, CYVR)</div></div>
-    <div><span class="rule-tag vfr-tag">VFR ✓</span></div>
-    <div class="req">ATC Clearance + 2-way radio<small>IFR-IFR + IFR-VFR separation</small></div>
-    <div class="req">VFR-VFR: pilot responsibility</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="class-badge badge-c">C</span>
+      <div class="alt-range">Terminal Control Areas<br>(published limits per airport)</div>
+    </div>
+    <div><span class="rule-tag vfr-clr-tag">VFR ✓ (clearance)</span></div>
+    <div class="req">
+      ATC clearance + 2-way radio
+      <small>Covers CYVR, CYYZ, CYYC, CYEG, etc. (CAR 601.04)</small>
+    </div>
+    <div class="req">
+      Mode C transponder
+      <small>IFR/IFR and IFR/VFR separation; VFR/VFR = pilot responsibility</small>
+    </div>
   </div>
+
+  <!-- Class D: CAR 601.05 — Control Zones (CTR) around towered airports,
+       typically surface to ~3,000 ft AGL within 7 nm of aerodrome -->
   <div class="layer d">
-    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-d">D</span><div class="alt-range">Towered airports<br>(mid-size)</div></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="class-badge badge-d">D</span>
+      <div class="alt-range">Control Zones<br>surface to ~3,000 ft AGL</div>
+    </div>
     <div><span class="rule-tag vfr-tag">VFR ✓</span></div>
-    <div class="req">2-way contact (no clearance)<small>IFR separation only</small></div>
-    <div class="req">Traffic advisories to VFR</div>
+    <div class="req">
+      2-way radio contact required (no ATC clearance for VFR)
+      <small>Towered airports — establish contact before entry (CAR 601.05)</small>
+    </div>
+    <div class="req">
+      Transponder recommended; no Mode C mandate for VFR
+      <small>IFR/IFR separation; traffic info to VFR</small>
+    </div>
   </div>
+
+  <!-- Class E: CAR 601.06 — Low-level airways (1,200 ft AGL and above),
+       transition areas (700 ft AGL and above in southern Canada) -->
   <div class="layer e">
-    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-e">E</span><div class="alt-range">Airways, transition<br>areas, smaller airports</div></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="class-badge badge-e">E</span>
+      <div class="alt-range">Airways from 1,200 ft AGL;<br>transition areas from 700 ft AGL</div>
+    </div>
     <div><span class="rule-tag vfr-tag">VFR ✓</span></div>
-    <div class="req">No clearance, no radio req'd<small>IFR separation only</small></div>
-    <div class="req">VFR: no ATC service</div>
+    <div class="req">
+      No radio or clearance required for VFR
+      <small>IFR aircraft operate on ATC clearance (CAR 601.06)</small>
+    </div>
+    <div class="req">
+      No specific equipment for VFR
+      <small>IFR separation only; VFR = see and avoid</small>
+    </div>
   </div>
+
+  <!-- Class F: CAR 601.07 — Special use airspace.
+       F(R) = Restricted (authorization required); F(A) = Advisory (hazard warning) -->
   <div class="layer f">
-    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-f">F</span><div class="alt-range">Special use<br>(varies)</div></div>
-    <div><span class="rule-tag" style="background:rgba(255,200,0,0.1);color:var(--accent);border:1px solid rgba(255,200,0,0.3);">F(P)/F(R)/F(A)</span></div>
-    <div class="req">F(P) = Prohibited · F(R) = Restricted<small>F(A) = Advisory (hazard warning)</small></div>
-    <div class="req">Check NOTAM</div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="class-badge badge-f">F</span>
+      <div class="alt-range">Special Use<br>(lateral/vertical limits vary)</div>
+    </div>
+    <div><span class="rule-tag special-tag">F(R)/F(A)</span></div>
+    <div class="req">
+      F(R) — authorization required to enter
+      <small>F(A) — advisory only; hazard warning (CAR 601.07)</small>
+    </div>
+    <div class="req">
+      Check NOTAM and CFS
+      <small>No blanket radio/transponder rule — varies by designation</small>
+    </div>
   </div>
+
+  <!-- Class G: Uncontrolled airspace — everything below Class E/D/C/B.
+       In southern Canada (transition areas): ceiling is 700 ft AGL.
+       In most other areas: ceiling is 1,200 ft AGL.
+       In high-latitude remote areas: surface to FL600. -->
   <div class="layer g">
-    <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-g">G</span><div class="alt-range">Below controlled<br>airspace</div></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span class="class-badge badge-g">G</span>
+      <div class="alt-range">Below Class E<br>(700 ft AGL in southern transition areas;<br>1,200 ft AGL elsewhere)</div>
+    </div>
     <div><span class="rule-tag vfr-tag">VFR ✓</span></div>
-    <div class="req">No clearance, no radio req'd<small>No ATC service</small></div>
-    <div class="req">Lower weather minimums</div>
+    <div class="req">
+      No clearance, no radio required
+      <small>No ATC service — see and avoid</small>
+    </div>
+    <div class="req">
+      No equipment requirements
+      <small>Lower VFR weather minima apply (CAR 602.115)</small>
+    </div>
   </div>
+
+</div><!-- /.stack -->
+
+<!-- Requirements reference table -->
+<div class="section-label">Requirements at a Glance</div>
+<div class="wide-table reqs-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Class</th>
+        <th>VFR Permitted</th>
+        <th>ATC Clearance</th>
+        <th>2-Way Radio</th>
+        <th>Mode C Transponder</th>
+        <th>ATC Separation Provided</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>A</strong></td>
+        <td class="no">No</td>
+        <td class="yes">Required</td>
+        <td class="yes">Required</td>
+        <td class="yes">Required</td>
+        <td>IFR/IFR</td>
+      </tr>
+      <tr>
+        <td><strong>B</strong></td>
+        <td style="color:var(--accent);font-weight:700;">Yes (with clearance)</td>
+        <td class="yes">Required</td>
+        <td class="yes">Required</td>
+        <td class="yes">Required</td>
+        <td>IFR/IFR, IFR/VFR</td>
+      </tr>
+      <tr>
+        <td><strong>C</strong></td>
+        <td style="color:var(--accent);font-weight:700;">Yes (with clearance)</td>
+        <td class="yes">Required</td>
+        <td class="yes">Required</td>
+        <td class="yes">Required</td>
+        <td>IFR/IFR, IFR/VFR</td>
+      </tr>
+      <tr>
+        <td><strong>D</strong></td>
+        <td class="yes">Yes</td>
+        <td class="no">Not required (VFR)</td>
+        <td class="yes">Required (contact)</td>
+        <td class="no">Not required (VFR)</td>
+        <td>IFR/IFR only</td>
+      </tr>
+      <tr>
+        <td><strong>E</strong></td>
+        <td class="yes">Yes</td>
+        <td class="no">Not required (VFR)</td>
+        <td class="no">Not required (VFR)</td>
+        <td class="no">Not required (VFR)</td>
+        <td>IFR/IFR only</td>
+      </tr>
+      <tr>
+        <td><strong>F(R)</strong></td>
+        <td style="color:var(--accent);font-weight:700;">Authorization needed</td>
+        <td class="yes">Required (entry auth)</td>
+        <td>Varies</td>
+        <td>Varies</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td><strong>G</strong></td>
+        <td class="yes">Yes</td>
+        <td class="no">None</td>
+        <td class="no">None</td>
+        <td class="no">None</td>
+        <td>None</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
+<p class="ref-note">Source: CARs Part VI §601.01–601.07, TP 12880E Ch.1. Class B note: in Canada VFR is permitted in Class B airspace with an ATC clearance — it is not IFR-only. Class G ceiling: 700 ft AGL in southern Canada transition areas; 1,200 ft AGL in most other areas (per CARs 601.01).</p>
 
 <!-- Memory hook -->
 <div class="hook-box">
   <h2>Memory Hook — Classes at a Glance</h2>
-  <div class="hook-row"><span class="hook-badge">A + B</span><span class="hook-text"><strong>IFR only</strong> — clearance required. You won't fly here as a PPL student.</span></div>
-  <div class="hook-row"><span class="hook-badge">C</span><span class="hook-text"><strong>Clearance + radio</strong> — ATC separates IFR from VFR, not VFR from VFR.</span></div>
-  <div class="hook-row"><span class="hook-badge">D</span><span class="hook-text"><strong>Radio contact only</strong> — no clearance, but must establish 2-way. ATC separates IFR only.</span></div>
-  <div class="hook-row"><span class="hook-badge">E</span><span class="hook-text"><strong>No requirements for VFR</strong> — but it's still controlled (ATC serves IFR).</span></div>
-  <div class="hook-row"><span class="hook-badge">F</span><span class="hook-text"><strong>Special use</strong> — F(P) prohibited, F(R) restricted, F(A) advisory. Always check NOTAM.</span></div>
-  <div class="hook-row"><span class="hook-badge">G</span><span class="hook-text"><strong>Uncontrolled</strong> — no ATC. Lower weather minimums. See and avoid.</span></div>
+  <div class="hook-row"><span class="hook-badge">A</span><span class="hook-text"><strong>IFR only</strong> — 18,000 ft and up. VFR not permitted. IFR rating required.</span></div>
+  <div class="hook-row"><span class="hook-badge">B</span><span class="hook-text"><strong>Clearance required for everyone</strong> — 12,500–17,999 ft ASL. VFR <em>is</em> permitted with clearance. Not IFR-only (unlike US). Mode C required.</span></div>
+  <div class="hook-row"><span class="hook-badge">C</span><span class="hook-text"><strong>Clearance + radio</strong> — TCAs around major airports. ATC separates IFR from VFR, not VFR from VFR.</span></div>
+  <div class="hook-row"><span class="hook-badge">D</span><span class="hook-text"><strong>Radio contact only</strong> — control zones at towered airports. Must establish 2-way before entry; no clearance needed for VFR.</span></div>
+  <div class="hook-row"><span class="hook-badge">E</span><span class="hook-text"><strong>No requirements for VFR</strong> — but it's still controlled airspace. IFR aircraft are on ATC clearance; you're on your own (see and avoid).</span></div>
+  <div class="hook-row"><span class="hook-badge">F</span><span class="hook-text"><strong>Special use</strong> — F(R) restricted (need authorization); F(A) advisory (hazard warning). Always check NOTAM and CFS.</span></div>
+  <div class="hook-row"><span class="hook-badge">G</span><span class="hook-text"><strong>Uncontrolled</strong> — no ATC. Ceiling is 700 ft AGL in southern transition areas, 1,200 ft AGL elsewhere. No requirements; lower weather minima.</span></div>
 </div>
 
 </body>
