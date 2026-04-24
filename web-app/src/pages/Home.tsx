@@ -14,6 +14,7 @@ import TopicCoverageGrid from '../components/home/TopicCoverageGrid';
 import NextActionCard from '../components/home/NextActionCard';
 import type { TopicStat } from '../components/home/ReadinessGauge';
 import type { NextLesson } from '../components/home/NextActionCard';
+import { useSRSStore } from '../hooks/useSRSStore';
 
 const MONO = typographyTokens.fontFamily.mono;
 
@@ -52,8 +53,20 @@ function SectionHead({ title, meta }: { title: string; meta: string }) {
 export default function Home() {
   const { activeTrack, trackProgress } = useExamTrack();
   const [lastSession] = useState<string | null>(() => localStorage.getItem(LAST_SESSION_KEY));
+  const { getDueCount } = useSRSStore(activeTrack.id);
 
   const allLessons = useMemo(() => getLessonsByTrack(activeTrack.id), [activeTrack.id]);
+
+  const srsLessonSlugs = useMemo(() => allLessons.map((l) => l.slug), [allLessons]);
+  const srsQuestionsPerLesson = useMemo(() => {
+    const map: Record<string, number> = {};
+    for (const l of allLessons) map[l.slug] = l.questions.length;
+    return map;
+  }, [allLessons]);
+  const srsDueCount = useMemo(
+    () => getDueCount(srsLessonSlugs, srsQuestionsPerLesson),
+    [getDueCount, srsLessonSlugs, srsQuestionsPerLesson],
+  );
 
   // Filter topic config to the active track's topics (e.g. PSTAR = air-law only)
   const activeTopicConfig = useMemo(() => {
@@ -175,6 +188,59 @@ export default function Home() {
         {/* Topic Coverage */}
         <SectionHead title="Topic Coverage · TC Exam Weight" meta="4 Domains" />
         <TopicCoverageGrid stats={topicStats} />
+
+        {/* SRS Review Queue */}
+        {srsDueCount > 0 && (
+          <>
+            <SectionHead title="Spaced Repetition" meta={`${srsDueCount} DUE TODAY`} />
+            <Box
+              component={RouterLink}
+              to="/srs"
+              sx={(theme) => ({
+                display: 'block',
+                bgcolor: 'background.paper',
+                border: `1px solid ${theme.palette.divider}`,
+                borderLeft: '3px solid',
+                borderLeftColor: 'primary.main',
+                borderRadius: 1,
+                p: '18px',
+                textDecoration: 'none',
+                color: 'text.primary',
+                minHeight: 48,
+                transition: 'border-color 0.15s',
+                '&:hover': { borderColor: 'primary.main' },
+                mb: '14px',
+              })}
+            >
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <Box sx={{ fontFamily: MONO, fontSize: '10px', color: 'primary.main', letterSpacing: '0.15em', textTransform: 'uppercase', mb: '6px' }}>
+                  ▸ SRS · {activeTrack.code}
+                </Box>
+                <Box
+                  sx={{
+                    fontFamily: MONO,
+                    fontSize: '11px',
+                    bgcolor: 'primary.main',
+                    color: 'text.onAccent',
+                    px: '8px',
+                    py: '2px',
+                    borderRadius: '100px',
+                    fontWeight: 600,
+                  }}
+                >
+                  {srsDueCount}
+                </Box>
+              </Box>
+              <Box sx={{ fontSize: '17px', fontWeight: 600, mb: '6px', letterSpacing: '-0.01em' }}>Review Due Cards</Box>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Box sx={{ fontSize: '12px', color: 'text.secondary' }}>
+                  {srsDueCount} card{srsDueCount !== 1 ? 's' : ''} due · Spaced repetition queue
+                </Box>
+                <Box sx={{ color: 'primary.main', fontFamily: MONO, fontSize: '16px' }}>→</Box>
+              </Box>
+            </Box>
+          </>
+        )}
 
         {/* Practice & Exam */}
         <SectionHead title="Practice &amp; Exam" meta="2 Tracks" />

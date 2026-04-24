@@ -19,6 +19,7 @@ import SmartPlaylist from './pages/SmartPlaylist';
 import PlaylistEditor from './pages/PlaylistEditor';
 import UserPlaylistPage from './pages/UserPlaylistPage';
 import PSTARPath from './pages/PSTARPath';
+import SRSQueue from './pages/SRSQueue';
 
 const RAIL_EXPANDED = 240;
 const RAIL_COLLAPSED = 64;
@@ -118,6 +119,7 @@ export default function App() {
               <Route path="/playlist/user/:id" element={<UserPlaylistPage />} />
               <Route path="/playlist/user/:id/edit" element={<PlaylistEditor />} />
               <Route path="/pstar" element={<PSTARPath />} />
+              <Route path="/srs" element={<SRSQueue />} />
             </Routes>
           </Box>
           <StickyPlayerBar />
