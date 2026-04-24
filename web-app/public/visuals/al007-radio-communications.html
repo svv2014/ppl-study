@@ -14,39 +14,41 @@
   .alpha-letter { font-size: 16px; font-weight: 800; color: var(--accent); }
   .alpha-word { font-size: 13px; color: var(--text); }
 
-  /* Phraseology table */
-  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
-  th { background: var(--surface2); color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  /* Phraseology table overrides */
   .word-col { font-weight: 800; color: var(--accent); font-size: 14px; }
   .meaning-col { color: var(--text); }
-  .trap-col { font-size: 12px; color: #ff9090; }
+  .trap-col { font-size: 12px; color: var(--danger); }
 
   /* Light gun table */
   .gun-table td:first-child { font-weight: 700; }
-  .gun-green { color: #80e080; }
-  .gun-red { color: #ff9090; }
+  .gun-green { color: var(--success); }
+  .gun-red { color: var(--danger); }
   .gun-white { color: var(--text); }
   .gun-alt { color: var(--accent); }
+
+  /* Frequency table */
+  .freq-col { font-weight: 700; color: var(--accent); font-size: 14px; }
+
+  /* Radio call format */
+  .step-num { font-weight: 800; color: var(--accent); font-size: 15px; }
+  .example-col { font-style: italic; color: var(--text-muted); font-size: 12px; }
 
   @media (max-width: 500px) { .alphabet-grid { grid-template-columns: 1fr; } }
 
   @media (max-width: 480px) {
-    body { font-size: 14px; }
     td, .meaning-col { font-size: 14px; }
-    th { font-size: 11px; }
+    .trap-col, .example-col { font-size: 12px; }
     .word-col { font-size: 14px; }
-    .trap-col { font-size: 12px; }
     .alpha-word { font-size: 14px; }
   }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 
 <h1>AL-007 — Radio Communications</h1>
-<p class="subtitle">Transport Canada · CARs 602.136, 602.138, TP 12880E, AIM COM 5.0 · PPL Written Exam</p>
+<p class="subtitle">Transport Canada · CARs 602.136, 602.138, TP 12880E, AIM COM 5.1 · PPL Written Exam</p>
 
 <!-- ICAO phonetic alphabet -->
 <div class="section-label">ICAO Phonetic Alphabet</div>
@@ -78,6 +80,61 @@
   <div class="alpha-row"><span class="alpha-letter">M</span><span class="alpha-word">Mike</span></div>
   <div class="alpha-row"><span class="alpha-letter">Z</span><span class="alpha-word">Zulu</span></div>
 </div>
+
+<!-- VHF Frequencies -->
+<div class="section-label">Key VHF Frequencies — AIM COM 5.1</div>
+<table>
+  <thead>
+    <tr><th>Frequency</th><th>Purpose</th><th>Notes</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="freq-col">121.5 MHz</td>
+      <td>Emergency / Distress</td>
+      <td>International emergency frequency — ELT transmissions, Mayday/Pan-Pan calls; all aircraft monitor when not on a working frequency</td>
+    </tr>
+    <tr>
+      <td class="freq-col">122.8 MHz</td>
+      <td>UNICOM / MF (Mandatory Frequency)</td>
+      <td>Common frequency at uncontrolled aerodromes; pilots broadcast position and intentions — no ATC clearance is issued</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Standard radio call format -->
+<div class="section-label">Standard Initial Call Format — AIM COM 5.1</div>
+<table>
+  <thead>
+    <tr><th>#</th><th>Element</th><th>Example</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="step-num">1</td>
+      <td>Name of station called</td>
+      <td class="example-col">"Toronto Centre"</td>
+    </tr>
+    <tr>
+      <td class="step-num">2</td>
+      <td>Aircraft callsign (+ type on first call)</td>
+      <td class="example-col">"Cessna Golf Alpha Bravo Charlie"</td>
+    </tr>
+    <tr>
+      <td class="step-num">3</td>
+      <td>Position</td>
+      <td class="example-col">"30 miles north of Toronto"</td>
+    </tr>
+    <tr>
+      <td class="step-num">4</td>
+      <td>Altitude</td>
+      <td class="example-col">"5,500 feet"</td>
+    </tr>
+    <tr>
+      <td class="step-num">5</td>
+      <td>Request / intentions</td>
+      <td class="example-col">"Request traffic information"</td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- Standard phraseology -->
 <div class="section-label">Standard Phraseology — Key Words</div>
@@ -133,7 +190,7 @@
   <tbody>
     <tr>
       <td style="font-weight:600;">Take-off / Landing / Crossing / Hold-short clearance</td>
-      <td><span style="color:var(--accent);font-weight:700;">Runway designation + Aircraft call sign</span> + any hold-short instruction</td>
+      <td><strong>Runway designation + Aircraft call sign</strong> + any hold-short instruction</td>
     </tr>
     <tr>
       <td style="font-weight:600;">Taxi route including runway crossing</td>
@@ -190,7 +247,8 @@
   <h2>Common Exam Traps</h2>
   <div class="hook-row"><span class="hook-badge">Roger ≠ Comply</span><span class="hook-text">"Roger" confirms you received the message. <strong>"Wilco"</strong> means you will comply. A landing clearance requires a full readback — not just "Roger".</span></div>
   <div class="hook-row"><span class="hook-badge">Say Again</span><span class="hook-text">Use <strong>"Say Again"</strong> — not "Repeat". "Repeat" has a specific military meaning (fire again) and is non-standard in civilian aviation.</span></div>
-  <div class="hook-row"><span class="hook-badge">Uncontrolled</span><span class="hook-text">At uncontrolled aerodromes you are <strong>broadcasting position and intentions</strong>, not requesting clearance. No ATC present.</span></div>
+  <div class="hook-row"><span class="hook-badge">121.5 MHz</span><span class="hook-text">The emergency frequency is <strong>121.5 MHz</strong> — all aircraft should monitor it when not on another working frequency. It is the frequency for Mayday and Pan-Pan calls.</span></div>
+  <div class="hook-row"><span class="hook-badge">Uncontrolled</span><span class="hook-text">At uncontrolled aerodromes you are <strong>broadcasting position and intentions</strong> on 122.8 MHz MF, not requesting clearance. No ATC present.</span></div>
   <div class="hook-row"><span class="hook-badge">Niner</span><span class="hook-text">The digit 9 is pronounced <strong>"niner"</strong> in aviation to avoid confusion with the German word for "no" (nein).</span></div>
 </div>
 
