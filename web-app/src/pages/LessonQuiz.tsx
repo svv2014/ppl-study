@@ -172,9 +172,8 @@ export default function LessonQuiz() {
                   Retake
                 </Button>
                 <Button
-                  component={Link}
-                  to={lessonPath}
                   variant="contained"
+                  onClick={() => navigate(lessonPath, { state: { showComplete: true } })}
                   sx={TOUCH_TARGET}
                 >
                   Review lesson
