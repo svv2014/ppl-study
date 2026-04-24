@@ -38,8 +38,11 @@
       <div class="gauge-abbr">RPM</div>
       <svg viewBox="0 0 100 100" width="100%" height="90">
         <circle cx="50" cy="50" r="44" fill="#0d1b2a" stroke="#7a9ab5" stroke-width="2"/>
+        <!-- arc-green: instrument green-arc = normal operating range; hardcoded per design-exception, not a token alias -->
         <path d="M 10 70 A 44 44 0 0 1 90 70" fill="none" stroke="#4caf7d" stroke-width="7"/>
+        <!-- arc-yellow: instrument yellow-arc = caution range; hardcoded per design-exception -->
         <path d="M 72 28 A 44 44 0 0 1 90 70" fill="none" stroke="#f0c040" stroke-width="7"/>
+        <!-- arc-red: instrument red-line = never-exceed limit; hardcoded per design-exception -->
         <line x1="90" y1="70" x2="84" y2="66" stroke="#e05050" stroke-width="4" stroke-linecap="round"/>
         <!-- Needle -->
         <line x1="50" y1="50" x2="72" y2="22" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -55,7 +58,9 @@
       <div class="gauge-abbr">MAP — in. Hg</div>
       <svg viewBox="0 0 100 100" width="100%" height="90">
         <circle cx="50" cy="50" r="44" fill="#0d1b2a" stroke="#7a9ab5" stroke-width="2"/>
+        <!-- arc-green: normal MAP range; hardcoded per design-exception -->
         <path d="M 10 70 A 44 44 0 0 1 90 70" fill="none" stroke="#4caf7d" stroke-width="7"/>
+        <!-- arc-yellow: high MAP caution; hardcoded per design-exception -->
         <path d="M 72 28 A 44 44 0 0 1 90 70" fill="none" stroke="#f0c040" stroke-width="7"/>
         <!-- Needle -->
         <line x1="50" y1="50" x2="55" y2="12" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -207,7 +212,7 @@
   </table>
 
   <div class="note-box">
-    <strong>Critical Limits to Memorize:</strong> Oil pressure must be in the green within <strong>30 seconds</strong> of starting (cold) or engine must be shut down. Low oil pressure + high oil temperature = likely oil leak or pump failure — <strong>land immediately</strong>. EGT is used to lean the mixture: richest mixture at peak EGT minus ~50°F (rich of peak) or specific lean-of-peak per POH. Always refer to the specific aircraft POH for actual numerical limits.
+    <strong>Critical Limits to Memorize:</strong> Oil pressure must be in the green within <strong>30 seconds</strong> of starting (cold) or engine must be shut down. Low oil pressure + high oil temperature = likely oil leak or pump failure — <strong>land immediately</strong>. EGT is used to lean the mixture: richest mixture at peak EGT minus ~25°C (rich of peak) or specific lean-of-peak per POH. Always refer to the specific aircraft POH for actual numerical limits.
   </div>
 </div>
 </body>
