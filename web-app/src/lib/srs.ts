@@ -73,7 +73,7 @@ export function loadSRSData(trackId: string): SRSData {
 
 export function saveSRSData(trackId: string, data: SRSData): void {
   try {
-    localStorage.setItem(`${LS_KEY_PREFIX}${trackId}}`, JSON.stringify(data));
+    localStorage.setItem(`${LS_KEY_PREFIX}${trackId}`, JSON.stringify(data));
   } catch {
     // ignore storage errors
   }
