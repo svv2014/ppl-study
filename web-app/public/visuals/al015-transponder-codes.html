@@ -8,19 +8,19 @@
 <title>AL-015: Transponder Codes and Mode C Requirements</title>
 <style>
   .modes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 28px; }
-  .mode-card { background: var(--surface); border-radius: 10px; padding: 16px 18px; border: 1.5px solid var(--surface); }
+  .mode-card { background: var(--surface); border-radius: 8px; padding: 16px 18px; border: 1.5px solid var(--border); }
   .mode-label { font-size: 20px; font-weight: 900; color: var(--accent); margin-bottom: 6px; letter-spacing: 1px; }
   .mode-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
   .mode-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-  .mode-req { font-size: 11px; color: #80c880; margin-top: 8px; font-weight: 600; }
+  .mode-req { font-size: 11px; color: var(--success); margin-top: 8px; font-weight: 600; }
 
   .codes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 28px; }
   .code-card { background: var(--surface); border-radius: 8px; padding: 14px 16px; text-align: center; }
   .code-num { font-size: 30px; font-weight: 900; letter-spacing: 4px; margin-bottom: 6px; }
-  .code-1200 { color: #80c880; }
-  .code-7700 { color: #ff7070; }
+  .code-1200 { color: var(--success); }
+  .code-7700 { color: var(--danger); }
   .code-7600 { color: var(--accent); }
-  .code-7500 { color: #ff8080; }
+  .code-7500 { color: var(--danger); }
   .code-1000 { color: var(--text-muted); }
   .code-label { font-size: 12px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
   .code-desc { font-size: 11px; color: var(--text-muted); line-height: 1.4; }
@@ -126,7 +126,7 @@
       <td>CARs 605.35</td>
     </tr>
     <tr>
-      <td>Above 12,500 ft ASL in Class E</td>
+      <td>Above 12,500 ft ASL (any airspace)</td>
       <td class="yes">Yes</td>
       <td>CARs 605.35</td>
     </tr>
