@@ -145,14 +145,21 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
   function handleSkipBack() {
     const audio = audioRef.current;
     if (!audio) return;
+    if (audio.readyState < HTMLMediaElement.HAVE_METADATA) {
+      console.warn('[PlaylistPlayer] skip back ignored: audio not ready (readyState=%d)', audio.readyState);
+      return;
+    }
     audio.currentTime = Math.max(0, audio.currentTime - 15);
   }
 
   function handleSkipForward() {
     const audio = audioRef.current;
     if (!audio) return;
-    const dur = isFinite(audio.duration) ? audio.duration : 0;
-    audio.currentTime = Math.min(dur, audio.currentTime + 15);
+    if (isFinite(audio.duration)) {
+      audio.currentTime = Math.min(audio.duration, audio.currentTime + 15);
+    } else {
+      audio.currentTime = audio.currentTime + 15;
+    }
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {
