@@ -6,7 +6,7 @@ slug: load-factor
 title: "Load Factor and Maneuvering Speed"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/013-load-factor.m4a
 visual: /visuals/gk013-load-factor.html
 sources:
   - TP 12880E Chapter 3

@@ -6,7 +6,7 @@ slug: four-forces
 title: "Four Forces of Flight"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/002-four-forces.m4a
 visual: /visuals/gk002-four-forces.html
 sources:
   - TP 12880E Chapter 3

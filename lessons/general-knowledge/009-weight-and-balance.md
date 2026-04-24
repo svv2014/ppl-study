@@ -6,7 +6,7 @@ slug: weight-and-balance
 title: "Weight and Balance"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/009-weight-and-balance.m4a
 visual: /visuals/gk009-weight-and-balance.html
 sources:
   - TP 12880E Chapter 10

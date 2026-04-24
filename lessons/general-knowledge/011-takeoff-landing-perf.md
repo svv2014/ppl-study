@@ -6,7 +6,7 @@ slug: takeoff-landing-perf
 title: "Takeoff and Landing Performance"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/011-takeoff-landing-perf.m4a
 visual: /visuals/gk011-takeoff-landing-perf.html
 sources:
   - TP 12880E Chapter 11

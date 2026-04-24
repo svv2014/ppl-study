@@ -6,7 +6,7 @@ slug: electrical-system
 title: "Electrical System"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/005-electrical-system.m4a
 visual: /visuals/gk005-electrical-system.html
 sources:
   - TP 12880E Chapter 5
