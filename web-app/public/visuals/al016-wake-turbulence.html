@@ -7,8 +7,10 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>AL-016: Wake Turbulence — Categories, Avoidance, Timing</title>
 <style>
+  /* data-encoding: #ff7070 hardcoded — encodes HEAVY aviation severity (danger/red); not CSS-var mappable */
   .cat-heavy { color: #ff7070; font-weight: 700; }
   .cat-medium { color: var(--accent); font-weight: 700; }
+  /* data-encoding: #80e080 hardcoded — encodes LIGHT aviation severity (low-threat/green); not CSS-var mappable */
   .cat-light { color: #80e080; font-weight: 700; }
 
   .vortex-diagram { background: var(--surface); border-radius: 10px; padding: 20px; margin-bottom: 28px; }
@@ -117,7 +119,7 @@
     </tr>
     <tr>
       <td class="cat-light">Light</td>
-      <td>7,000 kg or less</td>
+      <td>Less than 7,000 kg</td>
       <td class="cat-light">Weakest</td>
     </tr>
   </tbody>
@@ -132,9 +134,14 @@
     <div class="fact-unit">feet per minute — sink below flight path</div>
   </div>
   <div class="fact-card">
-    <div class="fact-title">Recommended Time Sep.</div>
+    <div class="fact-title">Time Sep. — Approach / Depart</div>
     <div class="fact-value">2 min</div>
-    <div class="fact-unit">light aircraft behind heavy on same runway</div>
+    <div class="fact-unit">light aircraft behind heavy, same runway (AIM AIR 2.0)</div>
+  </div>
+  <div class="fact-card">
+    <div class="fact-title">Time Sep. — Same-Spot Landing</div>
+    <div class="fact-value">3 min</div>
+    <div class="fact-unit">touch-and-go / stop-and-go behind heavy at same touchdown point</div>
   </div>
   <div class="fact-card">
     <div class="fact-title">Crosswind Hazard</div>
@@ -153,7 +160,7 @@
 <div class="avoid-list">
   <div class="avoid-item">
     <span class="avoid-icon" aria-hidden="true">▶</span>
-    <span class="avoid-text"><strong>Landing behind heavy:</strong> Stay above the heavy's approach path and land beyond its touchdown point. Wait at least 2 minutes if same runway.</span>
+    <span class="avoid-text"><strong>Landing behind heavy:</strong> Stay above the heavy's glide path and land beyond its touchdown point. Wait at least 2 minutes if same runway. For touch-and-go or stop-and-go at the same touchdown point, wait at least <strong>3 minutes</strong>.</span>
   </div>
   <div class="avoid-item">
     <span class="avoid-icon" aria-hidden="true">▶</span>
@@ -174,6 +181,7 @@
   <h2>Memory Hook</h2>
   <div class="hook-row"><span class="hook-badge">SINK</span><span class="hook-text">Vortices always <strong>sink and drift downwind</strong> — fly above and upwind of a preceding heavy aircraft.</span></div>
   <div class="hook-row"><span class="hook-badge">2 MIN</span><span class="hook-text">Light behind heavy, same runway = <strong>2 minutes</strong> minimum wait after the heavy departs or lands.</span></div>
+  <div class="hook-row"><span class="hook-badge">3 MIN</span><span class="hook-text">Same-spot landing (touch-and-go / stop-and-go) behind heavy = <strong>3 minutes</strong> minimum.</span></div>
   <div class="hook-row"><span class="hook-badge">ROTATION</span><span class="hook-text">Vortices start at <strong>rotation</strong> on departure, at <strong>touchdown</strong> on landing. The zone in between is clear.</span></div>
 </div>
 
