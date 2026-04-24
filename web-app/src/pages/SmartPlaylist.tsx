@@ -13,7 +13,7 @@ const KIND_META: Record<string, { label: string; description: string; empty: str
     empty:
       "No incomplete lessons with audio are available. You've covered everything — great work!",
   },
-  review: {
+  due: {
     label: 'Due for Review',
     description: 'Lessons you completed more than 7 days ago. Time to keep them fresh.',
     empty: 'No lessons are due for review right now. Check back in a few days!',
@@ -40,7 +40,7 @@ export default function SmartPlaylist() {
   const lessons =
     kind === 'weakest'
       ? weakestTopicFirst(progress)
-      : kind === 'review'
+      : kind === 'due'
         ? dueForReview(progress)
         : [];
 
