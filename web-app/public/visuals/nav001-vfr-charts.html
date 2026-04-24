@@ -16,6 +16,7 @@ body { max-width: 860px; margin: auto; }
   .scale-eq strong { color: var(--accent); }
   .scale-bar { height: 8px; border-radius: 4px; margin: 10px 0 4px; display: flex; overflow: hidden; }
   .scale-seg-dark { background: var(--border); flex: 1; }
+  /* hardcoded: chart-accurate alternating scale-bar color — do not replace with token */
   .scale-seg-light { background: #3a6a9a; flex: 1; }
   .scale-bar-label { display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted); }
 
@@ -97,7 +98,7 @@ body { max-width: 860px; margin: auto; }
   <div class="scale-card">
     <div class="scale-title">VNC — 1:500,000</div>
     <div class="scale-sub">VFR Navigation Chart · Primary cross-country chart</div>
-    <div class="scale-eq"><strong>1 cm = 5 km</strong> on the ground<br>≈ 2.7 nautical miles per cm<br>60° latitude grid every 30 min of arc</div>
+    <div class="scale-eq"><strong>1 cm = 5 km</strong> on the ground<br>≈ 2.7 nautical miles per cm<br>lat/lon grid every 30 min of arc</div>
     <div class="scale-bar">
       <div class="scale-seg-dark"></div><div class="scale-seg-light"></div>
       <div class="scale-seg-dark"></div><div class="scale-seg-light"></div>

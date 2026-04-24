@@ -30,7 +30,7 @@ body { max-width: 860px; margin: auto; }
 <p class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</p>
 
 <!-- ── WIND TRIANGLE DIAGRAM ─────────────────────────────────────────── -->
-<div class="section-label">Wind Triangle — TT 090°, Wind from 270° (30 kt), TAS 120 kt</div>
+<div class="section-label">Wind Triangle — TT 090°, Wind from 180° (30 kt), TAS 120 kt</div>
 <div class="grid-wrap">
   <svg width="780" height="310" viewBox="0 0 780 310" style="max-width:100%;">
 
@@ -57,12 +57,12 @@ body { max-width: 860px; margin: auto; }
     <circle cx="705" cy="190" r="7" fill="#c04040" stroke="#ff8080" stroke-width="2"/>
     <text x="705" y="218" text-anchor="middle" font-size="13" fill="#ff8080" font-weight="700">B</text>
 
-    <!-- Wind vector: from 270° (left side, pushes right/east) — dashed, cyan -->
-    <!-- Wind from 270° means air moves toward 090°, blowing the aircraft north (upward in diagram) -->
+    <!-- Wind vector: from 180° (south, from the right side when heading east) — dashed, cyan -->
+    <!-- Wind from 180° blows northward, pushing the aircraft north of the desired track -->
     <!-- Wind arrow: starts at A, goes 30kt worth of vector — pushes aircraft northward -->
     <line x1="80" y1="190" x2="225" y2="130" stroke="#40c8c8" stroke-width="2" stroke-dasharray="5 3"/>
     <polygon points="225,125 218,140 232,138" fill="#40c8c8"/>
-    <text x="120" y="145" text-anchor="middle" font-size="10" fill="#40c8c8">Wind 270°/30 kt</text>
+    <text x="120" y="145" text-anchor="middle" font-size="10" fill="#40c8c8">Wind 180°/30 kt</text>
 
     <!-- TAS vector: from A angled slightly north to reach the ground track line at destination -->
     <!-- Aircraft heading is TT + WCA (to the right/south to compensate for northward wind push) -->
@@ -73,8 +73,8 @@ body { max-width: 860px; margin: auto; }
     <polygon points="660,210 672,218 658,224" fill="#f08040"/>
     <text x="370" y="242" text-anchor="middle" font-size="11" fill="#f08040" font-weight="600">True Heading (TH) — aircraft nose points here</text>
 
-    <!-- GS vector along track from A to B -->
-    <text x="395" y="175" text-anchor="middle" font-size="11" fill="#80c880" font-weight="600">GS ≈ 149 kt →</text>
+    <!-- GS vector along track from A to B; GS = √(TAS²−crosswind²) = √(120²−30²) ≈ 116 kt -->
+    <text x="395" y="175" text-anchor="middle" font-size="11" fill="#80c880" font-weight="600">GS ≈ 116 kt →</text>
 
     <!-- WCA arc at departure -->
     <path d="M 140 190 A 60 60 0 0 0 127 156" fill="none" stroke="#f0c040" stroke-width="1.5"/>
@@ -105,8 +105,8 @@ body { max-width: 860px; margin: auto; }
     <h3>Wind Correction Angle (WCA)</h3>
     <div class="big">TH = TT + WCA</div>
     <div class="sub">Apply WCA to True Track to get True Heading</div>
-    <p style="margin-top:12px;">WCA is the angle between your intended track and the direction you must point the aircraft nose to stay on track. You <strong>crab into the wind</strong>: if wind is from the left, WCA is positive (turn right); wind from the right, turn left.<br><br>
-    Example: TT 090°, wind from left, WCA = +14°<br><strong>TH = 090° + 14° = 104°</strong></p>
+    <p style="margin-top:12px;">WCA is the angle between your intended track and the direction you must point the aircraft nose to stay on track. You <strong>crab into the wind</strong>: if wind is from the right, WCA is positive (crab right, TH &gt; TT); wind from the left, WCA is negative (crab left, TH &lt; TT).<br><br>
+    Example: TT 090°, wind from right (180°), WCA = +14°<br><strong>TH = 090° + 14° = 104°</strong></p>
   </div>
   <div class="info-card">
     <h3>Ground Speed (GS)</h3>
