@@ -11,8 +11,9 @@ import AudioPlayer from '../components/AudioPlayer';
 import LessonCompleteScreen from '../components/LessonCompleteScreen';
 import type { LessonScore } from '../components/LessonCompleteScreen';
 import LessonPrevNext from '../components/LessonPrevNext';
+import LessonProgressBar from '../components/LessonProgressBar';
 import SourceList from '../components/SourceList';
-import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
+import { getLessonBySlug, getAdjacentLessons, getLessonsByTopic } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
 import { TOPIC_LABELS } from '../lib/curriculum';
@@ -92,6 +93,11 @@ export default function LessonDetail() {
   const { prev, next } = topic && slug && lesson
     ? getAdjacentLessons(topic, slug)
     : { prev: null, next: null };
+
+  const topicLessons = topic ? getLessonsByTopic(topic) : [];
+  const lessonIndex = lesson ? topicLessons.findIndex((l) => l.slug === lesson.slug) : -1;
+  const progressCurrent = lessonIndex >= 0 ? lessonIndex + 1 : 1;
+  const progressTotal = topicLessons.length;
 
   useEffect(() => {
     return () => {
@@ -189,6 +195,8 @@ export default function LessonDetail() {
       <Typography variant="h3" gutterBottom sx={{ mt: 2 }}>
         {lesson.title}
       </Typography>
+
+      <LessonProgressBar current={progressCurrent} total={progressTotal} />
 
       <AudioPlayer
         key={lesson.id}
