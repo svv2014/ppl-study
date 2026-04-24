@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-scheme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,7 @@
   td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
   .code { font-size: 18px; font-weight: 800; color: var(--accent); }
   .setting-val { font-weight: 600; color: var(--text); }
-  .reads-val { color: #80e0e0; }
+  .reads-val { color: var(--info); }
   .when-val { color: var(--text); font-size: 12px; }
 
   .altitude-bar { display: flex; flex-direction: column; margin-bottom: 28px; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--border); }
@@ -23,7 +23,7 @@
   .alt-content { padding: 14px 16px; }
   .alt-content .badge { display: inline-block; border-radius: 4px; padding: 3px 10px; font-size: 12px; font-weight: 700; margin-bottom: 6px; }
   .qne-badge { background: rgba(240,192,64,0.15); color: var(--accent); border: 1px solid rgba(240,192,64,0.4); }
-  .qnh-badge { background: rgba(80,160,255,0.12); color: #80b8ff; border: 1px solid rgba(80,160,255,0.3); }
+  .qnh-badge { background: rgba(80,160,255,0.12); color: var(--info); border: 1px solid rgba(80,160,255,0.3); }
   .alt-content p { font-size: 12px; color: var(--text); margin-top: 4px; }
 
   @media (max-width: 480px) {
@@ -36,7 +36,7 @@
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 
 <h1>AL-004 — Altimeter Settings</h1>
-<p class="subtitle">Transport Canada · CARs 602.35, TP 12880E Ch.8, AIM RAC 9.11 · PPL Written Exam</p>
+<p class="subtitle">Transport Canada · CARs 602.35–602.36, TP 12880E Ch.8, AIM RAC 9.11 · PPL Written Exam</p>
 
 <!-- Q-code reference table -->
 <div class="section-label">Q-Code Reference</div>
@@ -58,7 +58,7 @@
     </tr>
     <tr>
       <td><span class="code">QNE</span></td>
-      <td class="setting-val">Standard pressure<br><small style="color:var(--text-muted);">29.92 inHg / 1013.25 hPa — fixed value</small></td>
+      <td class="setting-val">Standard pressure<br><small style="color:var(--text-muted);">29.92 in Hg / 1013.2 hPa — fixed value</small></td>
       <td class="reads-val">Pressure altitude (Flight Levels)</td>
       <td class="when-val">At or above 18,000 ft ASL — FL180, FL200, FL240…</td>
     </tr>
@@ -80,7 +80,7 @@
       <div class="alt-desc">Class A airspace<br>Flight Levels</div>
     </div>
     <div class="alt-content">
-      <span class="badge qne-badge">QNE — 29.92 inHg</span>
+      <span class="badge qne-badge">QNE — 29.92 in Hg / 1013.2 hPa</span>
       <p>All aircraft use standard pressure. Altimeter reads <strong style="color:var(--accent);">pressure altitude</strong>. Expressed as FL180, FL200, etc. IFR only above this level.</p>
     </div>
   </div>
@@ -91,7 +91,7 @@
     </div>
     <div class="alt-content">
       <span class="badge qnh-badge">QNH — local sea-level pressure</span>
-      <p>Use the current altimeter setting from the nearest station. Altimeter reads <strong style="color:#80b8ff;">altitude above sea level</strong>. Update when crossing regions.</p>
+      <p>Use the current altimeter setting from the nearest station. Altimeter reads <strong style="color:var(--info);">altitude above sea level</strong>. Update when crossing regions.</p>
     </div>
   </div>
 </div>
@@ -101,7 +101,7 @@
   <h2>Memory Hooks</h2>
   <div class="hook-row"><span class="hook-badge">High → Low</span><span class="hook-text">Flying into lower pressure without resetting: your <strong>true altitude is lower</strong> than indicated — the ground is closer than you think. <strong>"High to low, look out below."</strong></span></div>
   <div class="hook-row"><span class="hook-badge">Setting Up</span><span class="hook-text">Turning the Kollsman knob <strong>higher</strong> increases indicated altitude. Turning it <strong>lower</strong> decreases indicated altitude.</span></div>
-  <div class="hook-row"><span class="hook-badge">QNH vs QNE</span><span class="hook-text">QNH changes constantly (local weather); QNE is always <strong>29.92 inHg</strong> (standard, fixed).</span></div>
+  <div class="hook-row"><span class="hook-badge">QNH vs QNE</span><span class="hook-text">QNH changes constantly (local weather); QNE is always <strong>29.92 in Hg</strong> (standard, fixed).</span></div>
 </div>
 
 </body>
