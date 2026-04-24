@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { alpha } from '@mui/material/styles';
-import { colorTokens, typographyTokens, radiusTokens } from '../tokens';
+import { alpha, useTheme } from '@mui/material/styles';
+import { typographyTokens, radiusTokens } from '../tokens';
 
 export type QuizOptionState = 'default' | 'selected' | 'correct' | 'wrong';
 
@@ -13,25 +13,27 @@ export interface QuizOptionProps {
   onClick?: () => void;
 }
 
-function accentColor(state: QuizOptionState): string {
-  switch (state) {
-    case 'correct': return colorTokens.success.main;
-    case 'wrong': return colorTokens.error.main;
-    case 'selected': return colorTokens.primary.main;
-    default: return colorTokens.divider;
-  }
-}
-
-function bgColor(state: QuizOptionState): string {
-  switch (state) {
-    case 'correct': return alpha(colorTokens.success.main, 0.1);
-    case 'wrong': return alpha(colorTokens.error.main, 0.1);
-    case 'selected': return alpha(colorTokens.primary.main, 0.08);
-    default: return colorTokens.background.paper;
-  }
-}
-
 export default function QuizOption({ optionKey, label, state, disabled, onClick }: QuizOptionProps) {
+  const theme = useTheme();
+
+  function accentColor(s: QuizOptionState): string {
+    switch (s) {
+      case 'correct': return theme.palette.success.main;
+      case 'wrong': return theme.palette.error.main;
+      case 'selected': return theme.palette.primary.main;
+      default: return theme.palette.divider;
+    }
+  }
+
+  function bgColor(s: QuizOptionState): string {
+    switch (s) {
+      case 'correct': return alpha(theme.palette.success.main, 0.1);
+      case 'wrong': return alpha(theme.palette.error.main, 0.1);
+      case 'selected': return alpha(theme.palette.primary.main, 0.08);
+      default: return theme.palette.background.paper;
+    }
+  }
+
   const accent = accentColor(state);
   const bg = bgColor(state);
   const isInteractive = !disabled && state === 'default' || state === 'selected';
@@ -58,7 +60,7 @@ export default function QuizOption({ optionKey, label, state, disabled, onClick 
         py: 1.25,
         gap: 1.5,
         backgroundColor: bg,
-        border: `1px solid ${colorTokens.divider}`,
+        border: `1px solid ${theme.palette.divider}`,
         borderLeft: `4px solid ${accent}`,
         borderRadius: `0 ${radiusTokens.sm}px ${radiusTokens.sm}px 0`,
         cursor: disabled ? 'default' : 'pointer',
@@ -69,7 +71,7 @@ export default function QuizOption({ optionKey, label, state, disabled, onClick 
           ? { transform: 'translateY(-1px)' }
           : {},
         '&:focus-visible': {
-          outline: `2px solid ${colorTokens.primary.main}`,
+          outline: `2px solid ${theme.palette.primary.main}`,
           outlineOffset: 2,
         },
       }}
@@ -80,7 +82,7 @@ export default function QuizOption({ optionKey, label, state, disabled, onClick 
           fontFamily: typographyTokens.fontFamily.mono,
           fontSize: '0.8125rem',
           fontWeight: 600,
-          color: accent === colorTokens.divider ? colorTokens.text.secondary : accent,
+          color: accent === theme.palette.divider ? theme.palette.text.secondary : accent,
           minWidth: 20,
           flexShrink: 0,
         }}
@@ -93,7 +95,7 @@ export default function QuizOption({ optionKey, label, state, disabled, onClick 
           fontFamily: typographyTokens.fontFamily.sans,
           fontSize: '1rem',
           lineHeight: 1.5,
-          color: colorTokens.text.primary,
+          color: theme.palette.text.primary,
         }}
       >
         {label}
