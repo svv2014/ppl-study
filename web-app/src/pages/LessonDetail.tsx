@@ -212,16 +212,18 @@ export default function LessonDetail() {
       />
 
       <Box sx={{ mt: 2, mb: 3, display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' }, flexWrap: 'wrap' }}>
-        <Button
-          variant="outlined"
-          size="small"
-          href={lesson.visual ? `${lesson.visual}?scheme=${mode}` : undefined}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ width: { xs: '100%', sm: 'auto' } }}
-        >
-          View Visual
-        </Button>
+        {lesson.visual && (
+          <Button
+            variant="outlined"
+            size="small"
+            href={`${lesson.visual}?scheme=${mode}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
+          >
+            View Visual
+          </Button>
+        )}
         <Button
           variant="outlined"
           size="small"
