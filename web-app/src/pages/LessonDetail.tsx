@@ -16,6 +16,7 @@ import SourceList from '../components/SourceList';
 import { getLessonBySlug, getAdjacentLessons, getLessonsByTopic } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
+import { useThemeMode } from '../context/ThemeModeContext';
 import { TOPIC_LABELS } from '../lib/curriculum';
 import { LAST_SESSION_KEY } from '../components/home/StatusBar';
 
@@ -86,6 +87,7 @@ export default function LessonDetail() {
   const { topic, slug } = useParams<{ topic: string; slug: string }>();
   const navigate = useNavigate();
   const location = useLocation();
+  const { mode } = useThemeMode();
   const { store } = useExamTrack();
   const { isComplete, markComplete } = useProgress(store);
   const [showComplete, setShowComplete] = useState(
@@ -210,16 +212,18 @@ export default function LessonDetail() {
       />
 
       <Box sx={{ mt: 2, mb: 3, display: 'flex', gap: 2, flexDirection: { xs: 'column', sm: 'row' }, flexWrap: 'wrap' }}>
-        <Button
-          variant="outlined"
-          size="small"
-          href={lesson.visual}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ width: { xs: '100%', sm: 'auto' } }}
-        >
-          View Visual
-        </Button>
+        {lesson.visual && (
+          <Button
+            variant="outlined"
+            size="small"
+            href={`${lesson.visual}?scheme=${mode}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{ width: { xs: '100%', sm: 'auto' } }}
+          >
+            View Visual
+          </Button>
+        )}
         <Button
           variant="outlined"
           size="small"
