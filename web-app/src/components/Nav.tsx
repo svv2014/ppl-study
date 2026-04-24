@@ -16,6 +16,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import QuizIcon from '@mui/icons-material/Quiz';
 import GradingIcon from '@mui/icons-material/Grading';
 import ChecklistIcon from '@mui/icons-material/Checklist';
+import HeadphonesIcon from '@mui/icons-material/Headphones';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
@@ -30,6 +31,7 @@ const NAV_LINKS = [
   { label: 'Practice Quiz', shortLabel: 'Quiz', to: '/exam', icon: <QuizIcon /> },
   { label: 'Final Exam', shortLabel: 'Final', to: '/final-exam', icon: <GradingIcon /> },
   { label: 'Study Plan', shortLabel: 'Plan', to: '/plan', icon: <ChecklistIcon /> },
+  { label: 'Listen', shortLabel: 'Listen', to: '/playlist', icon: <HeadphonesIcon /> },
 ];
 
 const RAIL_EXPANDED = 240;
