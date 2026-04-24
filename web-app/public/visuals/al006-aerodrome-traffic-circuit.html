@@ -20,9 +20,11 @@
   .leg-label { text-align: center; }
   .leg-name { font-size: 13px; font-weight: 700; color: var(--accent); display: block; }
   .leg-detail { font-size: 11px; color: var(--text-muted); display: block; margin-top: 3px; line-height: 1.4; }
+  /* Circuit diagram arrow/line color — domain-specific, not in the token set.
+     #80b8ff (light sky-blue) distinguishes the flight-path lines from
+     runway amber (--accent) and label grey (--text-muted); swapping to
+     --info (#5b9bd5) would reduce contrast against the dark background. */
   .leg-arrow { font-size: 20px; color: #80b8ff; display: block; margin-bottom: 4px; }
-
-  /* Direction arrows along legs */
   .arrow-h { display: flex; align-items: center; justify-content: center; padding: 4px 0; }
   .arrow-v { display: flex; align-items: center; justify-content: center; }
   .line-h { height: 2px; background: #80b8ff; flex: 1; }
@@ -36,6 +38,7 @@
   .base { grid-column: 1; grid-row: 2; }
   .final { grid-column: 2; grid-row: 4; }
 
+  /* Corner turn symbols use same domain-specific #80b8ff — see arrow comment above */
   .corner-tr { grid-column: 3; grid-row: 1; display: flex; align-items: flex-end; justify-content: flex-start; padding: 4px; color: #80b8ff; font-size: 16px; }
   .corner-br { grid-column: 3; grid-row: 5; display: flex; align-items: flex-start; justify-content: flex-start; padding: 4px; color: #80b8ff; font-size: 16px; }
   .corner-tl { grid-column: 1; grid-row: 1; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px; color: #80b8ff; font-size: 16px; }
@@ -156,6 +159,33 @@
   </div>
 </div>
 
+<!-- Radio calls — AIM RAC 4.5 -->
+<div class="section-label">Mandatory Radio Calls — AIM RAC 4.5</div>
+<table>
+  <thead>
+    <tr><th>Circuit Point</th><th>Call Format (ATF / MF — uncontrolled aerodrome)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="leg-name-col">Joining Downwind</td>
+      <td style="font-size:12px;">[Aerodrome] TRAFFIC, [Callsign], [Aircraft Type], JOINING DOWNWIND, RUNWAY [XX], [Aerodrome] TRAFFIC</td>
+    </tr>
+    <tr>
+      <td class="leg-name-col">Turning Base</td>
+      <td style="font-size:12px;">[Aerodrome] TRAFFIC, [Callsign], TURNING BASE, RUNWAY [XX], [Aerodrome] TRAFFIC</td>
+    </tr>
+    <tr>
+      <td class="leg-name-col">Final</td>
+      <td style="font-size:12px;">[Aerodrome] TRAFFIC, [Callsign], FINAL, RUNWAY [XX], [Aerodrome] TRAFFIC</td>
+    </tr>
+    <tr>
+      <td class="leg-name-col">Clear of Runway</td>
+      <td style="font-size:12px;">[Aerodrome] TRAFFIC, [Callsign], CLEAR OF RUNWAY [XX], [Aerodrome] TRAFFIC</td>
+    </tr>
+  </tbody>
+</table>
+<p style="font-size:11px;color:var(--text-muted);margin-bottom:28px;">Broadcasts are mandatory on Mandatory Frequency (MF) or Aerodrome Traffic Frequency (ATF) at uncontrolled aerodromes. At controlled aerodromes ATC provides sequencing — calls follow ATC instructions.</p>
+
 <!-- Legs table -->
 <div class="section-label">Circuit Legs — In Order</div>
 <table>
@@ -203,6 +233,7 @@
   <div class="hook-row"><span class="hook-badge">Altitude</span><span class="hook-text">Standard altitude is <strong>1,000 ft AGL</strong> for light aircraft. Always check the CFS for aerodrome-specific info.</span></div>
   <div class="hook-row"><span class="hook-badge">Downwind</span><span class="hook-text">The leg that runs <strong>parallel to the runway in the opposite direction to landing</strong>. This is the "which leg" question on the exam.</span></div>
   <div class="hook-row"><span class="hook-badge">Joining</span><span class="hook-text">Recommended join: <strong>45° to mid-downwind from the non-traffic side</strong> (the upwind side of the runway).</span></div>
+  <div class="hook-row"><span class="hook-badge">Radio</span><span class="hook-text">At uncontrolled aerodromes (ATF/MF) mandatory calls are made <strong>joining downwind, turning base, on final, and clear of runway</strong> — all four points per AIM RAC 4.5.</span></div>
 </div>
 
 </body>
