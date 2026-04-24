@@ -7,6 +7,14 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>AL-012: Pilot Licences &amp; Recency</title>
 <style>
+  /* Licence progression flow */
+  .progression { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-bottom: 28px; }
+  .prog-step { background: var(--surface); border: 1.5px solid var(--border); border-radius: 6px; padding: 8px 12px; text-align: center; flex: 1; min-width: 72px; }
+  .prog-step.highlight { border-color: var(--accent-dim); }
+  .prog-abbr { font-size: 14px; font-weight: 900; color: var(--accent); letter-spacing: 1px; }
+  .prog-label { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+  .prog-arrow { color: var(--text-muted); font-size: 16px; flex-shrink: 0; }
+
   .licence-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 32px; }
   .lic-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 14px 16px; }
   .lic-card.highlight { border-color: var(--accent-dim); }
@@ -23,6 +31,8 @@
   .req-label { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 3px; }
   .req-desc { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
   .req-desc strong { color: var(--text); }
+  .req-sub { font-size: 11px; color: var(--text-muted); margin-top: 5px; padding-left: 10px; border-left: 2px solid var(--border-hi); }
+  .req-sub strong { color: var(--accent); }
 
   .medical-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 32px; }
   .med-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 14px 16px; }
@@ -39,6 +49,9 @@
     body { font-size: 14px; }
     td, .req-desc, .lic-detail, .hook-text { font-size: 14px; }
     .req-num { font-size: 16px; min-width: 44px; }
+    .progression { gap: 3px; }
+    .prog-step { padding: 6px 8px; min-width: 56px; }
+    .prog-abbr { font-size: 12px; }
   }
 </style>
 </head>
@@ -51,6 +64,35 @@
 <h1>AL-012 — Pilot Licences &amp; Recency Requirements</h1>
 <p class="subtitle">Transport Canada · CARs Part 400 · TP 12880E · PPL Written Exam</p>
 
+<!-- Licence progression flow -->
+<div class="section-label">Licence Progression</div>
+<div class="progression">
+  <div class="prog-step">
+    <div class="prog-abbr">SPP</div>
+    <div class="prog-label">Student</div>
+  </div>
+  <div class="prog-arrow">→</div>
+  <div class="prog-step">
+    <div class="prog-abbr">RPP</div>
+    <div class="prog-label">Recreational</div>
+  </div>
+  <div class="prog-arrow">→</div>
+  <div class="prog-step highlight">
+    <div class="prog-abbr">PPL</div>
+    <div class="prog-label">Private</div>
+  </div>
+  <div class="prog-arrow">→</div>
+  <div class="prog-step">
+    <div class="prog-abbr">CPL</div>
+    <div class="prog-label">Commercial</div>
+  </div>
+  <div class="prog-arrow">→</div>
+  <div class="prog-step">
+    <div class="prog-abbr">ATPL</div>
+    <div class="prog-label">Airline</div>
+  </div>
+</div>
+
 <!-- Licence types -->
 <div class="section-label">Pilot Certificate / Licence Types</div>
 <div class="licence-grid">
@@ -60,8 +102,9 @@
     <ul class="lic-detail">
       <li>Solo flight only under instructor supervision</li>
       <li>Minimum age: 14 (aeroplane)</li>
-      <li>Within 25 NM of home aerodrome (solo cross-country with endorsement)</li>
+      <li>Within 25 NM of home aerodrome (solo XC with endorsement)</li>
       <li>Passengers: not permitted</li>
+      <li>Medical: Category 4</li>
     </ul>
   </div>
   <div class="lic-card">
@@ -73,6 +116,7 @@
       <li>Single-engine piston land ≤ 1200 kg</li>
       <li>One passenger only</li>
       <li>Within Canada only</li>
+      <li>Medical: Category 4</li>
     </ul>
   </div>
   <div class="lic-card highlight">
@@ -84,6 +128,7 @@
       <li>Any number of passengers (no hire/reward)</li>
       <li>Minimum 45 hours total (17 hrs PIC incl. 12 solo + 5 solo XC)</li>
       <li>Written exam + flight test required</li>
+      <li>Medical: Category 3</li>
     </ul>
   </div>
   <div class="lic-card">
@@ -94,6 +139,7 @@
       <li>Fly for hire/reward</li>
       <li>200 hours minimum total time</li>
       <li>Includes all PPL privileges</li>
+      <li>Medical: Category 1</li>
     </ul>
   </div>
   <div class="lic-card">
@@ -103,6 +149,7 @@
       <li>Minimum age: 21</li>
       <li>Required as PIC on airline operations</li>
       <li>1500 hours minimum total time</li>
+      <li>Medical: Category 1</li>
     </ul>
   </div>
 </div>
@@ -116,6 +163,7 @@
     <div>
       <div class="req-label">Flight Time in Previous 6 Months</div>
       <div class="req-desc">Must have flown at least <strong>5 hours as pilot-in-command</strong> on aeroplanes (or the applicable category/class) within the 6 months before the flight.</div>
+      <div class="req-sub"><strong>Includes at least 2 solo hours as PIC</strong> within the 5 hours. (CARs 401.05)</div>
     </div>
   </div>
   <div class="req-row">
@@ -153,7 +201,7 @@
 </table>
 
 <!-- Medical certificates -->
-<div class="section-label">Medical Certificate Requirements</div>
+<div class="section-label">Medical Certificate Requirements (CARs 404.04)</div>
 <div class="medical-grid">
   <div class="med-card">
     <div class="med-class">Cat 1</div>
@@ -166,7 +214,16 @@
   <div class="med-card">
     <div class="med-class">Cat 3</div>
     <div class="med-name">Category 3 Medical</div>
-    <div class="med-row"><span>Required for:</span><span>PPL / RPP / SPP</span></div>
+    <div class="med-row"><span>Required for:</span><span>PPL</span></div>
+    <div class="med-row"><span>Validity under 40:</span><span>60 months (5 yr)</span></div>
+    <div class="med-row"><span>Validity 40–49:</span><span>24 months (2 yr)</span></div>
+    <div class="med-row"><span>Validity 50+:</span><span>12 months (1 yr)</span></div>
+    <div class="med-row"><span>Examiner:</span><span>Designated Aviation Medical Examiner (DAME)</span></div>
+  </div>
+  <div class="med-card">
+    <div class="med-class">Cat 4</div>
+    <div class="med-name">Category 4 Medical</div>
+    <div class="med-row"><span>Required for:</span><span>SPP / RPP</span></div>
     <div class="med-row"><span>Validity under 40:</span><span>60 months (5 yr)</span></div>
     <div class="med-row"><span>Validity 40–49:</span><span>24 months (2 yr)</span></div>
     <div class="med-row"><span>Validity 50+:</span><span>12 months (1 yr)</span></div>
@@ -176,39 +233,45 @@
 
 <!-- Privileges comparison table -->
 <div class="section-label">Licence Privileges at a Glance</div>
+<div class="wide-table">
 <table>
   <thead>
-    <tr><th>Privilege</th><th>SPP</th><th>RPP</th><th>PPL</th><th>CPL</th></tr>
+    <tr><th>Privilege</th><th>SPP</th><th>RPP</th><th>PPL</th><th>CPL</th><th>ATPL</th></tr>
   </thead>
   <tbody>
     <tr>
       <td>Solo flight</td>
-      <td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td>
+      <td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td>
     </tr>
     <tr>
       <td>Carry passengers</td>
-      <td class="no">✗</td><td>1 max</td><td class="yes">✓</td><td class="yes">✓</td>
+      <td class="no">✗</td><td>1 max</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td>
     </tr>
     <tr>
       <td>Night flight</td>
-      <td class="no">✗</td><td class="no">✗</td><td>With night rating</td><td>With night rating</td>
+      <td class="no">✗</td><td class="no">✗</td><td>With night rating</td><td>With night rating</td><td class="yes">✓</td>
     </tr>
     <tr>
       <td>Hire/reward</td>
-      <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td>
+      <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td>
     </tr>
     <tr>
       <td>International</td>
-      <td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td>
+      <td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td>
+    </tr>
+    <tr>
+      <td>Airline PIC</td>
+      <td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="no">✗</td><td class="yes">✓</td>
     </tr>
   </tbody>
 </table>
+</div>
 
 <!-- Memory hook -->
 <div class="hook-box">
   <h2>Memory Hook — Recency</h2>
-  <div class="hook-row"><span class="hook-badge">5 × 6</span><span class="hook-text"><strong>"Five in Six"</strong> — 5 hours PIC + 5 T&amp;Ls, all within 6 months. Both conditions must be met to carry passengers.</span></div>
-  <div class="hook-row"><span class="hook-badge">Cat 3</span><span class="hook-text">Category <strong>3</strong> medical for PPL — think "3rd level" for private pilots. Valid <strong>5 years</strong> if you're under 40, shorter as you age.</span></div>
+  <div class="hook-row"><span class="hook-badge">5 × 6</span><span class="hook-text"><strong>"Five in Six"</strong> — 5 hours PIC (incl. 2 solo) + 5 T&amp;Ls, all within 6 months. Both conditions must be met to carry passengers.</span></div>
+  <div class="hook-row"><span class="hook-badge">Cat 1/3/4</span><span class="hook-text">Medical ladder: <strong>Cat 4</strong> for student/recreational, <strong>Cat 3</strong> for private, <strong>Cat 1</strong> for commercial/airline. Higher licence = stricter medical.</span></div>
 </div>
 
 </div>
