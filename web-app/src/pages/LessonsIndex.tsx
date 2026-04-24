@@ -14,6 +14,7 @@ import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
 import type { LessonStatus } from '../lib/types';
+import TopicMasteryCard from '../components/TopicMasteryCard';
 
 function statusChipProps(status: LessonStatus) {
   if (status === 'complete') return { label: 'Complete', color: 'success' as const };
@@ -44,9 +45,12 @@ export default function LessonsIndex() {
 
         return (
           <Box key={topic} id={topic} sx={{ mb: 5 }}>
-            <Typography variant="h5" gutterBottom>
-              {TOPIC_LABELS[topic]}
-            </Typography>
+            <TopicMasteryCard
+              topic={TOPIC_LABELS[topic]}
+              lessonCount={slots.length}
+              completedCount={0}
+              masteryPercent={0}
+            />
             <Divider sx={{ mb: 2 }} />
 
             <Box
