@@ -18,6 +18,10 @@
   .req { font-size: 12px; color: var(--text); }
   .req small { color: var(--text-muted); display: block; margin-top: 2px; }
 
+  /* Aviation data-encoding colors — exempt from token substitution.
+     Each airspace class uses a distinct ICAO-convention hue so they are
+     instantly distinguishable on a single glance; swapping to design-system
+     tokens would collapse distinctions needed for safety-critical recall. */
   .a  { background: #0a1525; } .badge-a  { background: #880e4f; color:#fff; }
   .b  { background: #0a1a30; } .badge-b  { background: #1565c0; color:#fff; }
   .c  { background: #0a2040; } .badge-c  { background: #1976d2; color:#fff; }
@@ -75,8 +79,8 @@
   </div>
   <div class="layer f">
     <div style="display:flex;align-items:center;gap:10px;"><span class="class-badge badge-f">F</span><div class="alt-range">Special use<br>(varies)</div></div>
-    <div><span class="rule-tag" style="background:rgba(255,200,0,0.1);color:var(--accent);border:1px solid rgba(255,200,0,0.3);">F(R)/F(A)</span></div>
-    <div class="req">F(R) = Restricted (auth required)<small>F(A) = Advisory (hazard warning)</small></div>
+    <div><span class="rule-tag" style="background:rgba(255,200,0,0.1);color:var(--accent);border:1px solid rgba(255,200,0,0.3);">F(P)/F(R)/F(A)</span></div>
+    <div class="req">F(P) = Prohibited · F(R) = Restricted<small>F(A) = Advisory (hazard warning)</small></div>
     <div class="req">Check NOTAM</div>
   </div>
   <div class="layer g">
@@ -94,7 +98,7 @@
   <div class="hook-row"><span class="hook-badge">C</span><span class="hook-text"><strong>Clearance + radio</strong> — ATC separates IFR from VFR, not VFR from VFR.</span></div>
   <div class="hook-row"><span class="hook-badge">D</span><span class="hook-text"><strong>Radio contact only</strong> — no clearance, but must establish 2-way. ATC separates IFR only.</span></div>
   <div class="hook-row"><span class="hook-badge">E</span><span class="hook-text"><strong>No requirements for VFR</strong> — but it's still controlled (ATC serves IFR).</span></div>
-  <div class="hook-row"><span class="hook-badge">F</span><span class="hook-text"><strong>Special use</strong> — F(R) restricted, F(A) advisory. Always check NOTAM.</span></div>
+  <div class="hook-row"><span class="hook-badge">F</span><span class="hook-text"><strong>Special use</strong> — F(P) prohibited, F(R) restricted, F(A) advisory. Always check NOTAM.</span></div>
   <div class="hook-row"><span class="hook-badge">G</span><span class="hook-text"><strong>Uncontrolled</strong> — no ATC. Lower weather minimums. See and avoid.</span></div>
 </div>
 
