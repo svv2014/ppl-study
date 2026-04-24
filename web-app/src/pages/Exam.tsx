@@ -7,7 +7,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import { alpha } from '@mui/material/styles';
+import { alpha, useTheme } from '@mui/material/styles';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
@@ -18,7 +18,7 @@ import { TOPIC_LABELS, TOPICS } from '../lib/curriculum';
 import QuizRunner from '../components/QuizRunner';
 import QuizOption from '../components/QuizOption';
 import type { QuizOptionState } from '../components/QuizOption';
-import { colorTokens, typographyTokens, radiusTokens } from '../tokens';
+import { typographyTokens, radiusTokens } from '../tokens';
 
 type Phase = 'select' | 'quiz' | 'results';
 type TopicFilter = 'all' | typeof TOPICS[number];
@@ -40,6 +40,7 @@ function deriveOptionState(
 }
 
 export default function Exam() {
+  const theme = useTheme();
   const [searchParams] = useSearchParams();
   const { store: activeStore } = useExamTrack();
   const { progress, store } = useProgress(activeStore);
@@ -123,8 +124,8 @@ export default function Exam() {
           sx={{
             p: 2,
             borderRadius: `${radiusTokens.sm}px`,
-            border: `1px solid ${colorTokens.info.main}`,
-            backgroundColor: alpha(colorTokens.info.main, 0.1),
+            border: `1px solid ${theme.palette.info.main}`,
+            backgroundColor: alpha(theme.palette.info.main, 0.1),
           }}
         >
           <Typography variant="body1" color="info.main">
@@ -149,9 +150,9 @@ export default function Exam() {
           sx={{
             mb: 3,
             p: 2,
-            backgroundColor: colorTokens.background.surfaceRaised,
-            border: `1px solid ${colorTokens.divider}`,
-            borderLeft: `4px solid ${colorTokens.primary.main}`,
+            backgroundColor: theme.palette.background.surfaceRaised,
+            border: `1px solid ${theme.palette.divider}`,
+            borderLeft: `4px solid ${theme.palette.primary.main}`,
             borderRadius: `0 ${radiusTokens.sm}px ${radiusTokens.sm}px 0`,
           }}
         >
@@ -160,7 +161,7 @@ export default function Exam() {
             sx={{
               mb: 2,
               fontFamily: typographyTokens.fontFamily.sans,
-              color: colorTokens.text.primary,
+              color: theme.palette.text.primary,
             }}
           >
             Your current quiz progress will be lost. Switch to the new lesson?
@@ -228,16 +229,16 @@ export default function Exam() {
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   backgroundColor: isSelected
-                    ? alpha(colorTokens.primary.main, 0.1)
-                    : colorTokens.background.paper,
-                  border: `1px solid ${colorTokens.divider}`,
-                  borderLeft: `4px solid ${isSelected ? colorTokens.primary.main : colorTokens.divider}`,
+                    ? alpha(theme.palette.primary.main, 0.1)
+                    : theme.palette.background.paper,
+                  border: `1px solid ${theme.palette.divider}`,
+                  borderLeft: `4px solid ${isSelected ? theme.palette.primary.main : theme.palette.divider}`,
                   borderRadius: `0 ${radiusTokens.sm}px ${radiusTokens.sm}px 0`,
                   cursor: 'pointer',
                   transition: 'transform 150ms ease-out',
                   '&:hover': { transform: 'translateY(-1px)' },
                   '&:focus-visible': {
-                    outline: `2px solid ${colorTokens.primary.main}`,
+                    outline: `2px solid ${theme.palette.primary.main}`,
                     outlineOffset: 2,
                   },
                 }}
@@ -377,9 +378,9 @@ export default function Exam() {
                         sx={{
                           p: 1.5,
                           mb: 1,
-                          border: `1px solid ${colorTokens.divider}`,
-                          borderLeft: `4px solid ${colorTokens.error.main}`,
-                          backgroundColor: alpha(colorTokens.error.main, 0.08),
+                          border: `1px solid ${theme.palette.divider}`,
+                          borderLeft: `4px solid ${theme.palette.error.main}`,
+                          backgroundColor: alpha(theme.palette.error.main, 0.08),
                           borderRadius: `0 ${radiusTokens.sm}px ${radiusTokens.sm}px 0`,
                         }}
                       >
@@ -391,7 +392,7 @@ export default function Exam() {
                         </Typography>
                         <Typography
                           variant="body2"
-                          sx={{ color: colorTokens.success.main }}
+                          sx={{ color: theme.palette.success.main }}
                         >
                           Correct: {pq.correctAnswer}. {q?.choices[pq.correctAnswer] ?? ''}
                         </Typography>

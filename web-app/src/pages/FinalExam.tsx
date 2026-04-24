@@ -18,10 +18,10 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 import { buildExamPool, scoreExam, formatTime, POOL_CONFIGS } from '../lib/final-exam';
 import type { ExamQuestion, ExamResult } from '../lib/final-exam';
-import { colorTokens } from '../tokens';
 
 type Phase = 'config' | 'running' | 'results';
 type PoolType = 'full' | 'quick' | 'custom';
@@ -89,6 +89,7 @@ function poolLabel(type: PoolType): string {
 }
 
 export default function FinalExam() {
+  const theme = useTheme();
   const [searchParams] = useSearchParams();
   const seedParam = searchParams.get('seed');
   const seedValue = seedParam !== null ? Number(seedParam) : undefined;
@@ -280,7 +281,7 @@ export default function FinalExam() {
               border: '1px solid',
               borderColor: 'primary.main',
               borderRadius: 2,
-              bgcolor: colorTokens.primary.muted,
+              bgcolor: theme.palette.primaryMuted,
             }}
           >
             <Typography variant="overline" color="primary.main">
@@ -324,7 +325,7 @@ export default function FinalExam() {
                 borderColor: poolType === type ? 'primary.main' : 'divider',
                 borderRadius: 2,
                 cursor: 'pointer',
-                bgcolor: poolType === type ? colorTokens.primary.muted : 'transparent',
+                bgcolor: poolType === type ? theme.palette.primaryMuted : 'transparent',
                 '&:hover': { borderColor: 'primary.main' },
               }}
             >
