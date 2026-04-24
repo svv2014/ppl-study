@@ -8,14 +8,14 @@
 <style>
   .rule-ref { color: var(--text-muted); font-size: 11px; }
   .alt-value { color: var(--accent); font-weight: 700; }
-  .dist-value { color: #80c880; font-weight: 600; }
+  .dist-value { color: var(--success); font-weight: 600; }
 
-  .diagram-box { background: var(--surface); border-radius: 10px; padding: 20px; margin-bottom: 28px; }
+  .diagram-box { background: var(--surface); border-radius: 8px; padding: 20px; margin-bottom: 28px; }
   .diagram-box h2 { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; font-weight: 600; }
   .alt-svg { width: 100%; height: auto; display: block; }
 
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px; }
-  .card { background: var(--surface); border-radius: 10px; padding: 16px 18px; }
+  .card { background: var(--surface); border-radius: 8px; padding: 16px 18px; }
   .card-title { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
   .card-rule { font-size: 11px; color: var(--text-muted); margin-bottom: 8px; }
   .card-body { font-size: 13px; color: var(--text); line-height: 1.6; }
@@ -46,7 +46,7 @@
     <text x="10" y="228" fill="#7a9ab5" font-size="10" font-family="sans-serif">Ground level</text>
 
     <!-- === OPEN TERRAIN (left side) === -->
-    <text x="30" y="20" fill="#7a9ab5" font-size="11" font-family="sans-serif" font-weight="600" text-decoration="underline">Open Terrain (CAR 602.13)</text>
+    <text x="30" y="20" fill="#7a9ab5" font-size="11" font-family="sans-serif" font-weight="600" text-decoration="underline">Open Terrain (CAR 602.15)</text>
 
     <!-- Person/structure on ground -->
     <!-- Stick figure -->
@@ -124,7 +124,7 @@
       <td>Open terrain (no people/structures)</td>
       <td class="alt-value">500 ft AGL</td>
       <td>Minimum clearance from any person, vessel, vehicle, or structure within <span class="dist-value">500 ft</span> horizontally</td>
-      <td class="rule-ref">CARs 602.13</td>
+      <td class="rule-ref">CARs 602.15</td>
     </tr>
     <tr>
       <td>Built-up area (city, town, settlement) or open-air assembly</td>
@@ -136,13 +136,42 @@
       <td>Over-water (within gliding range of shore)</td>
       <td class="alt-value">500 ft AGL</td>
       <td>Same as open terrain rule (persons/vessels/structures)</td>
-      <td class="rule-ref">CARs 602.13</td>
+      <td class="rule-ref">CARs 602.15</td>
     </tr>
     <tr>
-      <td>Emergency forced landing (only exception)</td>
+      <td>Emergency forced landing</td>
       <td>N/A</td>
       <td>Emergency allows deviation — document in journey log</td>
-      <td class="rule-ref">CARs 602.13(2)</td>
+      <td class="rule-ref">General safety</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Exceptions section -->
+<div class="section-label">Exceptions to Minimum Altitude Rules — CARs 602.16</div>
+<table>
+  <thead>
+    <tr>
+      <th>Exception</th>
+      <th>Applies To</th>
+      <th>Rule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Takeoff or landing at an aerodrome</td>
+      <td>During approach, landing, or departure from an aerodrome — deviation from 602.14/602.15 minimums is permitted as necessary</td>
+      <td class="rule-ref">CARs 602.16(a)</td>
+    </tr>
+    <tr>
+      <td>Agricultural operations (crop dusting)</td>
+      <td>Aerial application of fertilisers, pesticides, or seeding — low-altitude passes are permitted when operationally necessary</td>
+      <td class="rule-ref">CARs 602.16(b)</td>
+    </tr>
+    <tr>
+      <td>Search and rescue (SAR) operations</td>
+      <td>SAR missions conducted by or in cooperation with the Canadian Armed Forces or other authorised agencies</td>
+      <td class="rule-ref">CARs 602.16(c)</td>
     </tr>
   </tbody>
 </table>
@@ -157,7 +186,7 @@
   </div>
   <div class="card">
     <div class="card-title">Noise Abatement Procedures</div>
-    <div class="card-rule">CARs 602.15 / AIM AIR 1.2</div>
+    <div class="card-rule">AIM AIR 1.2</div>
     <div class="card-body">NOTAM or published procedures at specific aerodromes may require noise abatement routing — higher minimum altitudes, turn restrictions, or preferred runways. Compliance is mandatory where published. Does not replace CARs minimums.</div>
   </div>
   <div class="card">
