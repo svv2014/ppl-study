@@ -6,7 +6,7 @@ slug: pitot-static-instruments
 title: "Pitot-Static System"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/006-pitot-static-instruments.m4a
 visual: /visuals/gk006-pitot-static-instruments.html
 sources:
   - TP 12880E Chapter 8

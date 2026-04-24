@@ -6,7 +6,7 @@ slug: fuel-system
 title: "Fuel System"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/004-fuel-system.m4a
 visual: /visuals/gk004-fuel-system.html
 sources:
   - TP 12880E Chapter 5

@@ -6,7 +6,7 @@ slug: preflight-inspection
 title: "Pre-Flight Inspection and Maintenance"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/014-preflight-inspection.m4a
 visual: /visuals/gk014-preflight-inspection.html
 sources:
   - CARs Part V (Airworthiness)

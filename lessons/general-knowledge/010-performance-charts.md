@@ -6,7 +6,7 @@ slug: performance-charts
 title: "Performance Charts"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/010-performance-charts.m4a
 visual: /visuals/gk010-performance-charts.html
 sources:
   - TP 12880E Chapter 11

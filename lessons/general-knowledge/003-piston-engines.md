@@ -6,7 +6,7 @@ slug: piston-engines
 title: "Piston Engines"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/003-piston-engines.m4a
 visual: /visuals/gk003-piston-engines.html
 sources:
   - TP 12880E Chapter 5

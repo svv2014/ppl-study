@@ -6,7 +6,7 @@ slug: aircraft-parts-controls
 title: "Aircraft Parts and Controls"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/general-knowledge/001-aircraft-parts-controls.m4a
 visual: /visuals/gk001-aircraft-parts-controls.html
 sources:
   - TP 12880E Chapter 1
