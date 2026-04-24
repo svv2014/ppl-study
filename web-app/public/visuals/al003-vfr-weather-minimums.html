@@ -36,7 +36,7 @@
     white-space: nowrap;
   }
   .vis-pill { background: rgba(240,192,64,0.2); color: var(--accent); border: 1px solid rgba(240,192,64,0.4); }
-  .cloud-pill { background: rgba(100,180,255,0.15); color: #7ec8e3; border: 1px solid rgba(100,180,255,0.3); }
+  .cloud-pill { background: rgba(100,180,255,0.15); color: var(--info); border: 1px solid rgba(100,180,255,0.3); }
 
   .class-c { background: #0a2a4a; border: 1.5px solid #2a6db5; }
   .class-c .class-badge { background: #1565c0; color: #fff; }
@@ -61,7 +61,7 @@
   th { background: var(--surface2); color: var(--text-muted); padding: 10px 12px; text-align: left; font-weight: 600; letter-spacing: 0.5px; font-size: 11px; text-transform: uppercase; }
   td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
   .vis { color: var(--accent); font-weight: 700; }
-  .cloud { color: #7ec8e3; font-weight: 600; }
+  .cloud { color: var(--info); font-weight: 600; }
   .ctrl { background: rgba(20,60,100,0.3); }
   .unctrl { background: rgba(20,60,20,0.3); }
   .night { opacity: 0.85; }
@@ -70,7 +70,8 @@
     text-align: center; line-height: 22px; font-size: 11px; font-weight: 800;
     margin-right: 4px; vertical-align: middle;
   }
-  .bg-c { background: #1565c0; }
+  .bg-b { background: #1565c0; }
+  .bg-c { background: #1976d2; }
   .bg-d { background: #0277bd; }
   .bg-e { background: #006064; }
   .bg-g { background: #388e3c; }
@@ -90,13 +91,24 @@
   .tier-text strong { color: var(--accent); }
 
   .trap-box {
-    background: #2a1a0a;
-    border: 1.5px solid #8b4513;
+    background: rgba(224,80,80,0.08);
+    border: 1.5px solid rgba(224,80,80,0.35);
     border-radius: 10px;
     padding: 16px 20px;
   }
-  .trap-box h2 { font-size: 12px; color: #e08050; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
-  .trap-box p { font-size: 13px; color: #c8b8a8; line-height: 1.6; }
+  .trap-box h2 { font-size: 12px; color: var(--danger); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .trap-box p { font-size: 13px; color: var(--text); line-height: 1.6; }
+
+  .svfr-box {
+    background: rgba(91,155,213,0.08);
+    border: 1.5px solid rgba(91,155,213,0.35);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 32px;
+  }
+  .svfr-box h2 { font-size: 12px; color: var(--info); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+  .svfr-box p { font-size: 13px; color: var(--text); line-height: 1.6; }
+  .svfr-box ul { font-size: 13px; color: var(--text); line-height: 1.7; padding-left: 18px; margin-top: 6px; }
 
   @media (max-width: 480px) {
     .diagram { flex-direction: column; }
@@ -108,7 +120,7 @@
   <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 
 <h1>AL-003 — VFR Weather Minimums</h1>
-<p class="subtitle">Transport Canada · CARs 602.114–602.117 · PPL Written Exam</p>
+<p class="subtitle">Transport Canada · CARs 602.114–602.117 · Classes B–G · PPL Written Exam</p>
 
 <!-- Summary Table -->
 <div class="table-section">
@@ -126,7 +138,7 @@
     </thead>
     <tbody>
       <tr class="ctrl">
-        <td><span class="badge-sm bg-c">C</span><span class="badge-sm bg-d">D</span><span class="badge-sm bg-e">E</span></td>
+        <td><span class="badge-sm bg-b">B</span><span class="badge-sm bg-c">C</span><span class="badge-sm bg-d">D</span><span class="badge-sm bg-e">E</span></td>
         <td>Day</td>
         <td class="vis">3 SM</td>
         <td class="cloud">500 ft</td>
@@ -134,7 +146,7 @@
         <td class="cloud">2,000 ft</td>
       </tr>
       <tr class="ctrl night">
-        <td><span class="badge-sm bg-c">C</span><span class="badge-sm bg-d">D</span><span class="badge-sm bg-e">E</span></td>
+        <td><span class="badge-sm bg-b">B</span><span class="badge-sm bg-c">C</span><span class="badge-sm bg-d">D</span><span class="badge-sm bg-e">E</span></td>
         <td>Night 🌙</td>
         <td class="vis">5 SM</td>
         <td class="cloud">500 ft</td>
@@ -172,11 +184,11 @@
   <h2>5-Tier Memory Framework</h2>
   <div class="tier">
     <div class="tier-num">1</div>
-    <div class="tier-text"><strong>Controlled Day (C/D/E):</strong> 3 SM · 500 below · 1,000 above · 2,000 horizontal — the baseline</div>
+    <div class="tier-text"><strong>Controlled Day (B/C/D/E):</strong> 3 SM · 500 below · 1,000 above · 2,000 horizontal — the baseline</div>
   </div>
   <div class="tier">
     <div class="tier-num">2</div>
-    <div class="tier-text"><strong>Controlled Night (C/D/E):</strong> 5 SM · same cloud clearance — only visibility goes up</div>
+    <div class="tier-text"><strong>Controlled Night (B/C/D/E):</strong> 5 SM · same cloud clearance — only visibility goes up</div>
   </div>
   <div class="tier">
     <div class="tier-num">3</div>
@@ -190,6 +202,18 @@
     <div class="tier-num">5</div>
     <div class="tier-text"><strong>Class G Night:</strong> 3 SM · 500-1,000-2,000 — same as controlled day visibility</div>
   </div>
+</div>
+
+<!-- Special VFR -->
+<div class="svfr-box">
+  <h2>Special VFR (SVFR) — CARs 602.117</h2>
+  <p>SVFR is an ATC clearance that permits VFR flight in Class C or D airspace when conditions are below standard VFR minimums. It is not available on demand — ATC must authorize it.</p>
+  <ul>
+    <li>Minimum visibility: <strong>1 SM</strong> (lower than standard day VFR)</li>
+    <li>Cloud clearance: <strong>Clear of cloud</strong> (no separation distances)</li>
+    <li>Available only in <strong>Class C and D</strong> airspace with ATC clearance</li>
+    <li>Cannot be self-authorized — must be requested from and approved by ATC</li>
+  </ul>
 </div>
 
 <!-- Exam trap -->
