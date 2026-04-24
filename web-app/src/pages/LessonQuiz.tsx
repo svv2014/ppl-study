@@ -76,6 +76,14 @@ export default function LessonQuiz() {
 
   function handleQuizComplete(answers: Record<string, string>) {
     const result = scoreQuiz(answers, lesson!.questions);
+    try {
+      localStorage.setItem(
+        `ppl-quiz-result-${lesson!.id}`,
+        JSON.stringify({ correct: result.correct, total: result.total }),
+      );
+    } catch {
+      // storage unavailable — non-fatal
+    }
     setQuizResult(result);
     setPhase('results');
   }

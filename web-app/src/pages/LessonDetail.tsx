@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import Markdown from 'markdown-to-jsx';
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
@@ -9,6 +8,8 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { useState, useEffect, type ReactNode } from 'react';
 import AudioPlayer from '../components/AudioPlayer';
+import LessonCompleteScreen from '../components/LessonCompleteScreen';
+import type { LessonScore } from '../components/LessonCompleteScreen';
 import LessonPrevNext from '../components/LessonPrevNext';
 import SourceList from '../components/SourceList';
 import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
@@ -16,6 +17,8 @@ import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
 import { TOPIC_LABELS } from '../lib/curriculum';
 import { LAST_SESSION_KEY } from '../components/home/StatusBar';
+
+const QUIZ_RESULT_KEY = (lessonId: string) => `ppl-quiz-result-${lessonId}`;
 
 function MarkdownTable({ children }: { children?: ReactNode }) {
   return (
@@ -83,7 +86,7 @@ export default function LessonDetail() {
   const navigate = useNavigate();
   const { store } = useExamTrack();
   const { isComplete, markComplete } = useProgress(store);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showComplete, setShowComplete] = useState(false);
 
   const lesson = topic && slug ? getLessonBySlug(topic, slug) : undefined;
   const { prev, next } = topic && slug && lesson
@@ -130,7 +133,41 @@ export default function LessonDetail() {
 
   function handleMarkComplete() {
     markComplete(lesson!.id);
-    setShowSuccess(true);
+    setShowComplete(true);
+  }
+
+  function loadQuizScore(): LessonScore | null {
+    try {
+      const raw = localStorage.getItem(QUIZ_RESULT_KEY(lesson!.id));
+      if (!raw) return null;
+      const parsed = JSON.parse(raw) as { correct: number; total: number };
+      if (typeof parsed.correct !== 'number' || typeof parsed.total !== 'number') return null;
+      return parsed;
+    } catch {
+      return null;
+    }
+  }
+
+  if (showComplete) {
+    return (
+      <LessonCompleteScreen
+        lessonTitle={lesson.title}
+        score={loadQuizScore()}
+        hasNext={next !== null}
+        onNextLesson={() => {
+          if (next) {
+            navigate(`/lessons/${next.topic}/${next.slug}`);
+          } else {
+            navigate('/lessons');
+          }
+        }}
+        onReviewLesson={() => {
+          setShowComplete(false);
+          window.scrollTo({ top: 0 });
+        }}
+        onBackToTopics={() => navigate('/lessons')}
+      />
+    );
   }
 
   return (
@@ -191,12 +228,6 @@ export default function LessonDetail() {
       <SourceList sources={lesson.sources} />
 
       <Divider sx={{ mt: 4, mb: 3 }} />
-
-      {showSuccess && (
-        <Alert severity="success" sx={{ mb: 2 }} onClose={() => setShowSuccess(false)}>
-          Lesson marked as complete!
-        </Alert>
-      )}
 
       <Button
         variant={completed ? 'outlined' : 'contained'}
