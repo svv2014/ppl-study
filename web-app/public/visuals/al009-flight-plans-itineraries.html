@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-scheme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,14 +27,6 @@
   .field-desc { font-size: 13px; color: var(--text); padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
   .field-num + .field-desc { border-bottom: 1px solid rgba(255,255,255,0.04); }
 
-  /* SAR timing callout */
-  .sar-box { background: #1a2a1a; border: 1.5px solid #2d5a2d; border-radius: 8px; padding: 16px 20px; margin-bottom: 28px; }
-  .sar-box h3 { font-size: 12px; color: #80c880; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
-  .sar-row { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 8px; }
-  .sar-label { font-size: 11px; font-weight: 800; color: #80c880; background: #2d5a2d; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
-  .sar-text { font-size: 13px; color: #c8d8c8; line-height: 1.5; } /* design-exception: greenish SAR text, distinguishes from primary body text */
-  .sar-text strong { color: var(--accent); }
-
   @media (max-width: 640px) {
     .compare-grid { grid-template-columns: 1fr; }
     .field-list { grid-template-columns: 32px 1fr; }
@@ -42,7 +34,7 @@
 
   @media (max-width: 480px) {
     body { font-size: 14px; }
-    td, .compare-card p, .compare-card li, .sar-text, .field-desc { font-size: 14px; }
+    td, .compare-card p, .compare-card li, .hook-text, .field-desc { font-size: 14px; }
     th { font-size: 11px; }
   }
 </style>
@@ -54,29 +46,29 @@
   <h1>AL-009 — Flight Plans &amp; Itineraries</h1>
   <p class="subtitle">Transport Canada · CARs 602.73–602.78, TP 12880E, AIM RAC 3.6 · PPL Written Exam</p>
 
-  <div class="section-label">Flight Plan vs. Flight Itinerary</div>
+  <div class="section-label">Flight Plan (ATC) vs. Flight Itinerary (SAR) — CARs 602.73–602.75</div>
   <div class="compare-grid">
     <div class="compare-card">
       <span class="card-tag tag-atc">Flight Plan</span>
-      <h3>Filed with ATC / FSS</h3>
+      <h3>Filed with ATC / FSS — CARs 602.73</h3>
       <ul>
-        <li>Submitted to an ATC unit or Flight Service Station</li>
-        <li>Activates SAR alerting if overdue on arrival</li>
+        <li>Submitted to an ATC unit or Flight Service Station before departure</li>
+        <li>Activates SAR alerting automatically if overdue on arrival</li>
         <li><strong>Required</strong> for all IFR flights</li>
         <li>Required for VFR flights entering Class B airspace</li>
         <li>Recommended for any overwater or remote VFR flight</li>
-        <li>Must be closed — failure to close triggers a SAR response</li>
+        <li>Must be closed with ATC/FSS on arrival — failure to close triggers an unnecessary SAR response (CARs 602.77)</li>
       </ul>
     </div>
     <div class="compare-card">
       <span class="card-tag tag-resp">Flight Itinerary</span>
-      <h3>Left with a Responsible Person</h3>
+      <h3>Left with a Responsible Person — CARs 602.75</h3>
       <ul>
-        <li>Provided to a person on the ground (friend, FBO, employer)</li>
-        <li>Responsible person notifies SAR if pilot is overdue</li>
-        <li>Required for flights over remote or uninhabited terrain where a flight plan is not filed</li>
-        <li>No formal closing procedure — notify the responsible person upon arrival</li>
-        <li>SAR not automatically alerted — depends on responsible person acting</li>
+        <li>Provided to a responsible person on the ground (friend, FBO, employer) before departure</li>
+        <li>Responsible person notifies the nearest JRCC or ATC unit if pilot is overdue</li>
+        <li>Required for VFR flights over remote or uninhabited terrain where a flight plan is not filed (CARs 602.73(2))</li>
+        <li>No formal closing procedure — notify the responsible person upon safe arrival</li>
+        <li>SAR <strong>not</strong> automatically alerted — depends entirely on responsible person acting</li>
       </ul>
     </div>
   </div>
@@ -115,11 +107,18 @@
     </tbody>
   </table>
 
-  <div class="section-label">ICAO Flight Plan — Key Fields (Form CA 3093)</div>
+  <div class="note-box" style="margin-bottom:28px;">
+    <strong style="color:var(--accent);">Filing Deadlines</strong><br>
+    <strong>IFR:</strong> File at least <strong>30 minutes before</strong> estimated off-block time (EOBT) — AIM Canada RAC 3.6.<br>
+    <strong>VFR:</strong> File before departure. Class B requires the plan to be filed and a clearance obtained before entering the airspace.<br>
+    <strong>Closing (CARs 602.77):</strong> The pilot-in-command must close the flight plan by radio or phone to ATC/FSS immediately after landing. If the plan is not closed within <strong>1 hour of ETA</strong>, ATC/FSS declares the aircraft overdue and initiates SAR procedures.
+  </div>
+
+  <div class="section-label">ICAO Flight Plan — Key Fields (Form ICAO 7004)</div>
   <div class="field-list">
     <div class="field-num">7</div><div class="field-desc">Aircraft identification (call sign / registration)</div>
     <div class="field-num">8</div><div class="field-desc">Flight rules (I=IFR, V=VFR, Y/Z=mixed) and type of flight</div>
-    <div class="field-num">9</div><div class="field-desc">Number and type of aircraft; wake turbulence category; equipment</div>
+    <div class="field-num">9</div><div class="field-desc">Number of aircraft (if &gt;1), ICAO type designator (e.g. C172), and wake turbulence category (L/M/H)</div>
     <div class="field-num">10</div><div class="field-desc">Radio/navigation equipment and capabilities (COM/NAV/SSR)</div>
     <div class="field-num">13</div><div class="field-desc">Departure aerodrome (ICAO 4-letter code) and estimated off-block time (UTC)</div>
     <div class="field-num">15</div><div class="field-desc">Cruising speed, level, and route (airways or DCT)</div>
@@ -129,19 +128,19 @@
   </div>
 
   <div class="section-label">SAR Notification Timelines</div>
-  <div class="sar-box">
-    <h3>When Search and Rescue is Alerted</h3>
-    <div class="sar-row">
-      <span class="sar-label">Flight Plan</span>
-      <span class="sar-text">Aircraft is considered overdue when it has not arrived within <strong>1 hour</strong> of the ETA and has not closed the flight plan. ATC/FSS initiates the overdue aircraft procedure (ALERFA/DETRESFA).</span>
+  <div class="hook-box" style="margin-bottom:28px;">
+    <h2>When Search and Rescue is Alerted</h2>
+    <div class="hook-row">
+      <span class="hook-badge">Flight Plan</span>
+      <span class="hook-text">Aircraft is considered overdue when it has not arrived and the flight plan has not been closed within <strong>1 hour</strong> of the filed ETA. ATC/FSS initiates the overdue aircraft procedure (ALERFA → DETRESFA).</span>
     </div>
-    <div class="sar-row">
-      <span class="sar-label">Itinerary</span>
-      <span class="sar-text">The responsible person must notify the nearest JRCC (Joint Rescue Coordination Centre) or ATC unit within <strong>24 hours</strong> of the aircraft being overdue, or at whatever time is specified in the itinerary.</span>
+    <div class="hook-row">
+      <span class="hook-badge">Itinerary</span>
+      <span class="hook-text">The responsible person must notify the nearest JRCC (Joint Rescue Coordination Centre) or ATC unit if the aircraft is overdue — within <strong>24 hours</strong> of ETA or at the time specified in the itinerary. SAR is not automatically notified.</span>
     </div>
-    <div class="sar-row">
-      <span class="sar-label">Closing</span>
-      <span class="sar-text">A flight plan <strong>must be closed</strong> by radio, phone, or in person with ATC/FSS on arrival. Failure to close is an offence under CARs 602.77 and triggers an unnecessary SAR response.</span>
+    <div class="hook-row">
+      <span class="hook-badge">Closing</span>
+      <span class="hook-text">Pilot-in-command <strong>must close</strong> the flight plan by radio, phone, or in person with ATC/FSS immediately on arrival. Failure to close is an offence under <strong>CARs 602.77</strong> and triggers an unnecessary SAR response.</span>
     </div>
   </div>
 
