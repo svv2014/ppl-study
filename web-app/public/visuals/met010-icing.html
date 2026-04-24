@@ -31,7 +31,10 @@
       <!-- Temperature scale bar -->
       <rect x="40" y="70" width="640" height="50" fill="#2a4a5a" stroke="#243d52"/>
 
-      <!-- Zones: clear ice (0 to -10), mixed (-10 to -15), rime (-15 to -40) -->
+      <!-- data-encoding: icing domain colours — hardcoded by aviation convention, exempt from CSS var migration -->
+      <!-- #5b9bd5 = CLEAR ICE (0 to −10 °C, large supercooled drops) -->
+      <!-- #c08040 = MIXED ICE (−10 to −15 °C, worst aerodynamic shape) -->
+      <!-- #e8edf2 = RIME ICE (−15 to −40 °C, small opaque drops) -->
       <rect x="40" y="70" width="160" height="50" fill="#5b9bd5" opacity="0.55"/>
       <rect x="200" y="70" width="80" height="50" fill="#c08040" opacity="0.6"/>
       <rect x="280" y="70" width="400" height="50" fill="#e8edf2" opacity="0.35"/>
