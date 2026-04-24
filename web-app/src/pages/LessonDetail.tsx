@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import Markdown from 'markdown-to-jsx';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -85,9 +85,12 @@ const mdOptions = {
 export default function LessonDetail() {
   const { topic, slug } = useParams<{ topic: string; slug: string }>();
   const navigate = useNavigate();
+  const location = useLocation();
   const { store } = useExamTrack();
   const { isComplete, markComplete } = useProgress(store);
-  const [showComplete, setShowComplete] = useState(false);
+  const [showComplete, setShowComplete] = useState(
+    () => !!(location.state as { showComplete?: boolean } | null)?.showComplete,
+  );
 
   const lesson = topic && slug ? getLessonBySlug(topic, slug) : undefined;
   const { prev, next } = topic && slug && lesson
