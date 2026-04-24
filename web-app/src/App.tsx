@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom';
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { buildTheme } from './theme';
 import { useThemeMode } from './context/ThemeModeContext';
@@ -19,6 +19,11 @@ import SmartPlaylist from './pages/SmartPlaylist';
 import PlaylistEditor from './pages/PlaylistEditor';
 import UserPlaylistPage from './pages/UserPlaylistPage';
 import PSTARPath from './pages/PSTARPath';
+
+function PlaylistTopicRedirect() {
+  const { topic } = useParams<{ topic: string }>();
+  return <Navigate to={`/playlist/topic/${topic}`} replace />;
+}
 
 const RAIL_EXPANDED = 240;
 const RAIL_COLLAPSED = 64;
@@ -111,12 +116,13 @@ export default function App() {
               <Route path="/pstar-exam" element={<PSTARExam />} />
               <Route path="/plan" element={<Plan />} />
               <Route path="/playlist" element={<Playlist />} />
+              <Route path="/playlist/topic/:topic" element={<Playlist />} />
               <Route path="/playlist/smart/:kind" element={<SmartPlaylist />} />
               <Route path="/playlist/curated/:id" element={<Playlist />} />
-              <Route path="/playlist/:topic" element={<Playlist />} />
               <Route path="/playlist/new" element={<PlaylistEditor />} />
               <Route path="/playlist/user/:id" element={<UserPlaylistPage />} />
               <Route path="/playlist/user/:id/edit" element={<PlaylistEditor />} />
+              <Route path="/playlist/:topic" element={<PlaylistTopicRedirect />} />
               <Route path="/pstar" element={<PSTARPath />} />
             </Routes>
           </Box>

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -13,7 +12,6 @@ import type { Lesson } from '../lib/types';
 import { CURATED_PLAYLISTS } from '../data/curated-playlists';
 import { getUserPlaylists } from '../lib/user-playlists';
 import { typographyTokens } from '../tokens';
-import { useStickyPlayer } from '../context/StickyPlayerContext';
 
 // ── Static metadata per topic ──────────────────────────────────────────────
 
@@ -420,7 +418,7 @@ function PlaylistLibrary() {
       tagline: TOPIC_TAGLINES[t],
       lessonCount: count,
       durationMin: count * 20,
-      href: `/playlist/${t}`,
+      href: `/playlist/topic/${t}`,
       coverCode: TOPIC_CODES[t],
       coverAngle: TOPIC_COVER_ANGLES[t],
     };
@@ -580,17 +578,9 @@ function PlaylistLibrary() {
 interface TopicPlaylistProps {
   topic: string;
   lessons: ReturnType<typeof getLessonsByTopic>;
-  setLessons: (lessons: ReturnType<typeof getLessonsByTopic>) => void;
 }
 
-function TopicPlaylist({ topic, lessons, setLessons }: TopicPlaylistProps) {
-  useEffect(() => {
-    setLessons(lessons);
-    // No cleanup: lessons persist in context so StickyPlayerBar stays visible
-    // when the user navigates away. A subsequent TopicPlaylist mount will replace
-    // them via setLessons; explicit clear only happens on app unmount.
-  }, [topic]); // eslint-disable-line react-hooks/exhaustive-deps
-
+function TopicPlaylist({ topic, lessons }: TopicPlaylistProps) {
   if (lessons.length === 0) {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
@@ -609,9 +599,10 @@ function TopicPlaylist({ topic, lessons, setLessons }: TopicPlaylistProps) {
       <Typography variant="h4" gutterBottom>
         {TOPIC_LABELS[topic] ?? topic} — Playlist
       </Typography>
-      <Typography color="text.secondary" sx={{ mb: 2 }}>
-        {lessons.length} lesson{lessons.length !== 1 ? 's' : ''} queued — use the player bar at the bottom to play, skip, and control speed.
+      <Typography color="text.secondary" sx={{ mb: 3 }}>
+        {lessons.length} lesson{lessons.length !== 1 ? 's' : ''} · {fmtDuration(lessons.length * 20)} total
       </Typography>
+      <PlaylistPlayer lessons={lessons} />
     </Container>
   );
 }
@@ -620,7 +611,6 @@ function TopicPlaylist({ topic, lessons, setLessons }: TopicPlaylistProps) {
 
 export default function Playlist() {
   const { topic, id } = useParams<{ topic?: string; id?: string }>();
-  const { setLessons } = useStickyPlayer();
   const navigate = useNavigate();
 
   if (id !== undefined) {
@@ -671,7 +661,7 @@ export default function Playlist() {
       (l) => l.status !== 'planning' && l.audio !== null,
     );
 
-    return <TopicPlaylist topic={topic} lessons={lessons} setLessons={setLessons} />;
+    return <TopicPlaylist topic={topic} lessons={lessons} />;
   }
 
   return <PlaylistLibrary />;
