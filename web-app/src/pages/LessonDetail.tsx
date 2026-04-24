@@ -11,11 +11,12 @@ import AudioPlayer from '../components/AudioPlayer';
 import LessonCompleteScreen from '../components/LessonCompleteScreen';
 import type { LessonScore } from '../components/LessonCompleteScreen';
 import LessonPrevNext from '../components/LessonPrevNext';
+import LessonProgressBar from '../components/LessonProgressBar';
 import SourceList from '../components/SourceList';
 import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
-import { TOPIC_LABELS } from '../lib/curriculum';
+import { CURRICULUM, TOPIC_LABELS } from '../lib/curriculum';
 import { LAST_SESSION_KEY } from '../components/home/StatusBar';
 
 const QUIZ_RESULT_KEY = (lessonId: string) => `ppl-quiz-result-${lessonId}`;
@@ -92,6 +93,9 @@ export default function LessonDetail() {
   const { prev, next } = topic && slug && lesson
     ? getAdjacentLessons(topic, slug)
     : { prev: null, next: null };
+
+  const topicSlots = lesson ? CURRICULUM.filter((s) => s.topic === lesson.topic) : [];
+  const lessonPosition = lesson ? (topicSlots.findIndex((s) => s.id === lesson.id) + 1) : 0;
 
   useEffect(() => {
     return () => {
@@ -171,7 +175,15 @@ export default function LessonDetail() {
   }
 
   return (
-    <Container id="main-content" tabIndex={-1} maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: { xs: 2, sm: 3 }, py: 4 }}>
+    <Container id="main-content" tabIndex={-1} maxWidth={false} sx={{ maxWidth: 700, mx: 'auto', px: 0, py: 4 }}>
+      {lesson && topicSlots.length > 0 && (
+        <LessonProgressBar
+          position={lessonPosition}
+          total={topicSlots.length}
+          label={`${TOPIC_LABELS[lesson.topic]} · Lesson ${lessonPosition} of ${topicSlots.length}`}
+        />
+      )}
+      <Box sx={{ px: { xs: 2, sm: 3 } }}>
       <LessonPrevNext prev={prev} next={next} variant="compact" />
 
       <Box sx={{ mb: 1, display: 'flex', gap: 1, flexWrap: 'wrap', alignItems: 'center' }}>
@@ -242,6 +254,7 @@ export default function LessonDetail() {
       <Divider sx={{ mt: 3, mb: 2 }} />
 
       <LessonPrevNext prev={prev} next={next} variant="full" />
+      </Box>
     </Container>
   );
 }

@@ -14,6 +14,7 @@ import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
 import type { LessonStatus } from '../lib/types';
+import TopicMasteryCard from '../components/TopicMasteryCard';
 
 function statusChipProps(status: LessonStatus) {
   if (status === 'complete') return { label: 'Complete', color: 'success' as const };
@@ -22,7 +23,7 @@ function statusChipProps(status: LessonStatus) {
 }
 
 export default function LessonsIndex() {
-  const { store } = useExamTrack();
+  const { store, trackProgress } = useExamTrack();
   const { isComplete } = useProgress(store);
 
   const lessonMap = useMemo(() => {
@@ -38,6 +39,30 @@ export default function LessonsIndex() {
       <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
         {CURRICULUM.length} lessons across {TOPICS.length} topics
       </Typography>
+
+      {/* Topic mastery overview grid */}
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr 1fr', md: '1fr 1fr 1fr 1fr' },
+          gap: 1.5,
+          mb: 4,
+        }}
+      >
+        {TOPICS.map((topic) => {
+          const slots = CURRICULUM.filter((s) => s.topic === topic);
+          const topicCode = slots[0]?.id.split('-')[0] ?? topic.toUpperCase();
+          return (
+            <TopicMasteryCard
+              key={topic}
+              topicCode={topicCode}
+              topicLabel={TOPIC_LABELS[topic]}
+              slots={slots}
+              completedIds={trackProgress.completed}
+            />
+          );
+        })}
+      </Box>
 
       {TOPICS.map((topic) => {
         const slots = CURRICULUM.filter((s) => s.topic === topic);
