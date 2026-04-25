@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" data-scheme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/visuals/_theme-init.js"></script>
+<link rel="stylesheet" href="/visuals/_common.css">
+<title>ROC-A Reference — Standard Radio Phraseology (Canadian AIM RAC)</title>
+<style>
+  .call-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .call-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+  }
+  .call-template {
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+    background: var(--surface2);
+    border-left: 3px solid var(--accent-dim);
+    padding: 10px 14px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 8px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+  .call-template .var {
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .call-example {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding-left: 4px;
+  }
+  .call-example strong {
+    color: var(--accent);
+  }
+  .airport-type-label {
+    font-size: 11px;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+  .controlled-label {
+    background: rgba(91,155,213,0.15);
+    color: #5b9bd5;
+    border: 1px solid rgba(91,155,213,0.3);
+  }
+  .uncontrolled-label {
+    background: rgba(76,175,125,0.15);
+    color: #4caf7d;
+    border: 1px solid rgba(76,175,125,0.3);
+  }
+  .circuit-flow {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .circuit-step {
+    background: var(--surface2);
+    border: 1px solid var(--border-hi);
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .circuit-arrow {
+    color: var(--accent-dim);
+    font-size: 14px;
+  }
+  .circuit-step.active {
+    background: rgba(240,192,64,0.12);
+    border-color: rgba(240,192,64,0.4);
+    color: var(--accent);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<button
+  data-backlink="true"
+  onclick="if(window.history.length<=1){window.close();}else{window.history.back();}"
+  style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);"
+  aria-label="Back to lesson"
+>&#8592; Back to lesson</button>
+<style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<h1>ROC-A — Standard Radio Phraseology</h1>
+<p class="subtitle">Canadian AIM RAC · Transport Canada · ROC-A Quick Reference — NOT FAA phraseology</p>
+
+<!-- ── CONTROLLED AIRPORT ─────────────────────────────────────────────── -->
+<div class="section-label">Controlled Airport (Tower / Ground)</div>
+
+<div class="call-block">
+  <div class="airport-type-label controlled-label">CONTROLLED — Initial Call to Ground</div>
+  <div class="call-title">Taxi Request</div>
+  <div class="call-template">
+    <span class="var">[Airport] Ground</span>, <span class="var">[call sign]</span>,
+    at <span class="var">[location]</span>, request taxi,
+    runway <span class="var">[##]</span>, with <span class="var">[ATIS info letter / weather]</span>.
+  </div>
+  <div class="call-example">
+    <strong>Example:</strong> "Buttonville Ground, Cessna Golf-Charlie-Foxtrot-Bravo, at the main apron, request taxi, runway 15, with information Alpha."
+  </div>
+</div>
+
+<div class="call-block">
+  <div class="airport-type-label controlled-label">CONTROLLED — Before Runway Departure</div>
+  <div class="call-title">Takeoff Clearance Request (Contacting Tower)</div>
+  <div class="call-template">
+    <span class="var">[Airport] Tower</span>, <span class="var">[call sign]</span>,
+    holding short runway <span class="var">[##]</span>, ready for departure,
+    <span class="var">[VFR / IFR]</span>.
+  </div>
+  <div class="call-example">
+    <strong>Example:</strong> "Buttonville Tower, Cessna Golf-Charlie-Foxtrot-Bravo, holding short runway 15, ready for departure, VFR."
+    <br><br>
+    <strong>Note:</strong> ATC issues takeoff clearance; you do NOT depart until you hear "Cleared for takeoff runway ##."
+  </div>
+</div>
+
+<!-- ── UNCONTROLLED AIRPORT — CIRCUIT CALLS ──────────────────────────── -->
+<div class="section-label">Uncontrolled Airport — Circuit Position Reports (MF/ATF)</div>
+
+<div class="note-box" style="margin-bottom:16px;">
+  At an uncontrolled aerodrome with a <strong>Mandatory Frequency (MF)</strong> or
+  <strong>Aerodrome Traffic Frequency (ATF)</strong>, all pilots broadcast their
+  intentions and position. There is no ATC — these are <em>self-announce</em> calls.
+  Format: <strong>[Airport] traffic, [call sign], [position/intention], runway [##], [airport] traffic.</strong>
+  (AIM RAC 4.5.2, TP 14371)
+</div>
+
+<div class="circuit-flow" aria-label="Circuit sequence">
+  <span class="circuit-step active">Taxi / Departure</span>
+  <span class="circuit-arrow">→</span>
+  <span class="circuit-step">Upwind</span>
+  <span class="circuit-arrow">→</span>
+  <span class="circuit-step">Crosswind</span>
+  <span class="circuit-arrow">→</span>
+  <span class="circuit-step">Downwind</span>
+  <span class="circuit-arrow">→</span>
+  <span class="circuit-step">Base</span>
+  <span class="circuit-arrow">→</span>
+  <span class="circuit-step">Final</span>
+  <span class="circuit-arrow">→</span>
+  <span class="circuit-step">Clear of runway</span>
+</div>
+
+<div class="call-block">
+  <div class="call-title">Taxiing / Departing</div>
+  <div class="call-template">
+    <span class="var">[Airport]</span> traffic,
+    <span class="var">[call sign]</span>,
+    taxiing runway <span class="var">[##]</span>,
+    departing <span class="var">[direction / to destination]</span>,
+    <span class="var">[airport]</span> traffic.
+  </div>
+  <div class="call-example">
+    <strong>Example:</strong> "Rockcliffe traffic, Cessna Golf-Charlie-Foxtrot-Bravo, taxiing runway 09, departing to the west, Rockcliffe traffic."
+  </div>
+</div>
+
+<div class="call-block">
+  <div class="call-title">Upwind (after lift-off)</div>
+  <div class="call-template">
+    <span class="var">[Airport]</span> traffic,
+    <span class="var">[call sign]</span>,
+    upwind runway <span class="var">[##]</span>,
+    <span class="var">[airport]</span> traffic.
+  </div>
+</div>
+
+<div class="call-block">
+  <div class="call-title">Crosswind</div>
+  <div class="call-template">
+    <span class="var">[Airport]</span> traffic,
+    <span class="var">[call sign]</span>,
+    crosswind runway <span class="var">[##]</span>,
+    <span class="var">[airport]</span> traffic.
+  </div>
+</div>
+
+<div class="call-block">
+  <div class="call-title">Downwind</div>
+  <div class="call-template">
+    <span class="var">[Airport]</span> traffic,
+    <span class="var">[call sign]</span>,
+    left/right downwind runway <span class="var">[##]</span>,
+    <span class="var">[airport]</span> traffic.
+  </div>
+  <div class="call-example">
+    <strong>Example:</strong> "Rockcliffe traffic, Cessna Golf-Charlie-Foxtrot-Bravo, left downwind runway 09, Rockcliffe traffic."
+  </div>
+</div>
+
+<div class="call-block">
+  <div class="call-title">Base</div>
+  <div class="call-template">
+    <span class="var">[Airport]</span> traffic,
+    <span class="var">[call sign]</span>,
+    left/right base runway <span class="var">[##]</span>,
+    <span class="var">[airport]</span> traffic.
+  </div>
+</div>
+
+<div class="call-block">
+  <div class="call-title">Final</div>
+  <div class="call-template">
+    <span class="var">[Airport]</span> traffic,
+    <span class="var">[call sign]</span>,
+    final runway <span class="var">[##]</span>,
+    <span class="var">[airport]</span> traffic.
+  </div>
+  <div class="call-example">
+    <strong>Example:</strong> "Rockcliffe traffic, Cessna Golf-Charlie-Foxtrot-Bravo, final runway 09, Rockcliffe traffic."
+  </div>
+</div>
+
+<div class="call-block">
+  <div class="call-title">Clear of Active Runway (after landing)</div>
+  <div class="call-template">
+    <span class="var">[Airport]</span> traffic,
+    <span class="var">[call sign]</span>,
+    clear of runway <span class="var">[##]</span>,
+    taxiing to parking,
+    <span class="var">[airport]</span> traffic.
+  </div>
+</div>
+
+<div class="note-box">
+  <strong>Arriving aircraft (first call entering the MF/ATF zone):</strong><br>
+  "[Airport] traffic, [call sign], [aircraft type], [position relative to airport, altitude],
+  inbound for landing, runway [##], [airport] traffic."<br><br>
+  Always end self-announce calls by repeating the airport name — this helps
+  pilots on other frequencies recognise which airport the call belongs to.
+  (Source: AIM RAC 4.5.2)
+</div>
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-scheme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/visuals/_theme-init.js"></script>
+<link rel="stylesheet" href="/visuals/_common.css">
+<title>ROC-A Reference — Phonetic Alphabet &amp; Number Pronunciation</title>
+<style>
+  .alpha-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+  .alpha-row {
+    display: grid;
+    grid-template-columns: 36px 1fr 1fr;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 12px;
+  }
+  .alpha-letter {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+    text-align: center;
+  }
+  .alpha-word {
+    font-size: 13px;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .alpha-stress {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .digit-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+  .digit-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 8px;
+    text-align: center;
+  }
+  .digit-num {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+  }
+  .digit-say {
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 600;
+    display: block;
+    margin-top: 4px;
+  }
+  .digit-stress {
+    font-size: 10px;
+    color: var(--text-muted);
+    font-style: italic;
+    display: block;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .alpha-grid { grid-template-columns: 1fr; }
+    .digit-grid  { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 480px) {
+    .digit-grid  { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+<button
+  data-backlink="true"
+  onclick="if(window.history.length<=1){window.close();}else{window.history.back();}"
+  style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);"
+  aria-label="Back to lesson"
+>&#8592; Back to lesson</button>
+<style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<h1>ROC-A — Phonetic Alphabet &amp; Number Pronunciation</h1>
+<p class="subtitle">ICAO/Transport Canada · AIM RAC · ROC-A Written Exam Quick Reference</p>
+
+<div class="section-label">NATO Phonetic Alphabet — A to Z</div>
+<div class="alpha-grid">
+  <div class="alpha-row"><span class="alpha-letter">A</span><span class="alpha-word">Alpha</span><span class="alpha-stress">AL-fah</span></div>
+  <div class="alpha-row"><span class="alpha-letter">B</span><span class="alpha-word">Bravo</span><span class="alpha-stress">BRAH-voh</span></div>
+  <div class="alpha-row"><span class="alpha-letter">C</span><span class="alpha-word">Charlie</span><span class="alpha-stress">CHAR-lee</span></div>
+  <div class="alpha-row"><span class="alpha-letter">D</span><span class="alpha-word">Delta</span><span class="alpha-stress">DEL-tah</span></div>
+  <div class="alpha-row"><span class="alpha-letter">E</span><span class="alpha-word">Echo</span><span class="alpha-stress">EK-oh</span></div>
+  <div class="alpha-row"><span class="alpha-letter">F</span><span class="alpha-word">Foxtrot</span><span class="alpha-stress">FOKS-trot</span></div>
+  <div class="alpha-row"><span class="alpha-letter">G</span><span class="alpha-word">Golf</span><span class="alpha-stress">GOLF</span></div>
+  <div class="alpha-row"><span class="alpha-letter">H</span><span class="alpha-word">Hotel</span><span class="alpha-stress">hoh-TEL</span></div>
+  <div class="alpha-row"><span class="alpha-letter">I</span><span class="alpha-word">India</span><span class="alpha-stress">IN-dee-ah</span></div>
+  <div class="alpha-row"><span class="alpha-letter">J</span><span class="alpha-word">Juliet</span><span class="alpha-stress">JEW-lee-et</span></div>
+  <div class="alpha-row"><span class="alpha-letter">K</span><span class="alpha-word">Kilo</span><span class="alpha-stress">KEY-loh</span></div>
+  <div class="alpha-row"><span class="alpha-letter">L</span><span class="alpha-word">Lima</span><span class="alpha-stress">LEE-mah</span></div>
+  <div class="alpha-row"><span class="alpha-letter">M</span><span class="alpha-word">Mike</span><span class="alpha-stress">MIKE</span></div>
+  <div class="alpha-row"><span class="alpha-letter">N</span><span class="alpha-word">November</span><span class="alpha-stress">no-VEM-ber</span></div>
+  <div class="alpha-row"><span class="alpha-letter">O</span><span class="alpha-word">Oscar</span><span class="alpha-stress">OSS-kah</span></div>
+  <div class="alpha-row"><span class="alpha-letter">P</span><span class="alpha-word">Papa</span><span class="alpha-stress">PAH-pah</span></div>
+  <div class="alpha-row"><span class="alpha-letter">Q</span><span class="alpha-word">Quebec</span><span class="alpha-stress">keh-BEK</span></div>
+  <div class="alpha-row"><span class="alpha-letter">R</span><span class="alpha-word">Romeo</span><span class="alpha-stress">ROH-mee-oh</span></div>
+  <div class="alpha-row"><span class="alpha-letter">S</span><span class="alpha-word">Sierra</span><span class="alpha-stress">see-AIR-ah</span></div>
+  <div class="alpha-row"><span class="alpha-letter">T</span><span class="alpha-word">Tango</span><span class="alpha-stress">TANG-go</span></div>
+  <div class="alpha-row"><span class="alpha-letter">U</span><span class="alpha-word">Uniform</span><span class="alpha-stress">YOU-nee-form</span></div>
+  <div class="alpha-row"><span class="alpha-letter">V</span><span class="alpha-word">Victor</span><span class="alpha-stress">VIK-tah</span></div>
+  <div class="alpha-row"><span class="alpha-letter">W</span><span class="alpha-word">Whiskey</span><span class="alpha-stress">WISS-key</span></div>
+  <div class="alpha-row"><span class="alpha-letter">X</span><span class="alpha-word">X-ray</span><span class="alpha-stress">ECKS-ray</span></div>
+  <div class="alpha-row"><span class="alpha-letter">Y</span><span class="alpha-word">Yankee</span><span class="alpha-stress">YANG-key</span></div>
+  <div class="alpha-row"><span class="alpha-letter">Z</span><span class="alpha-word">Zulu</span><span class="alpha-stress">ZOO-loo</span></div>
+</div>
+
+<div class="section-label">ICAO Number Pronunciation — 0 to 9</div>
+<div class="digit-grid">
+  <div class="digit-card"><span class="digit-num">0</span><span class="digit-say">ZE-RO</span><span class="digit-stress">ZEE-ro</span></div>
+  <div class="digit-card"><span class="digit-num">1</span><span class="digit-say">WUN</span><span class="digit-stress">wun</span></div>
+  <div class="digit-card"><span class="digit-num">2</span><span class="digit-say">TOO</span><span class="digit-stress">too</span></div>
+  <div class="digit-card"><span class="digit-num">3</span><span class="digit-say">TREE</span><span class="digit-stress">tree</span></div>
+  <div class="digit-card"><span class="digit-num">4</span><span class="digit-say">FOW-er</span><span class="digit-stress">fow-er</span></div>
+  <div class="digit-card"><span class="digit-num">5</span><span class="digit-say">FIFE</span><span class="digit-stress">fyfe</span></div>
+  <div class="digit-card"><span class="digit-num">6</span><span class="digit-say">SIX</span><span class="digit-stress">six</span></div>
+  <div class="digit-card"><span class="digit-num">7</span><span class="digit-say">SEV-en</span><span class="digit-stress">sev-en</span></div>
+  <div class="digit-card"><span class="digit-num">8</span><span class="digit-say">AIT</span><span class="digit-stress">ayt</span></div>
+  <div class="digit-card"><span class="digit-num">9</span><span class="digit-say">NIN-er</span><span class="digit-stress">nyn-er</span></div>
+</div>
+
+<div class="note-box">
+  <strong>Why altered pronunciations?</strong> ICAO chose these to reduce confusion over radio when English is spoken by non-native speakers or in noisy RF environments. "TREE" (3) can't be mistaken for "free"; "FIFE" (5) is distinct from "fire"; "NIN-er" (9) avoids confusion with the German "nein" (no).
+  <br><br>
+  <strong>Hundreds and thousands:</strong> Each digit is spoken individually. Altitude 3,500 ft = "TREE FIFE ZE-RO ZE-RO". Frequency 126.7 MHz = "WUN TOO SIX DECIMAL SEV-en". (Source: AIM RAC 1.4, ICAO Doc 9432)
+</div>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" data-scheme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/visuals/_theme-init.js"></script>
+<link rel="stylesheet" href="/visuals/_common.css">
+<title>ROC-A Reference — Emergency &amp; Urgency Procedures</title>
+<style>
+  .emerg-block {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+  }
+  .emerg-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .emerg-badge {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    padding: 5px 14px;
+    border-radius: 4px;
+    white-space: nowrap;
+    min-width: 100px;
+    text-align: center;
+  }
+  /* MAYDAY — highest-priority distress call, red */
+  .badge-mayday {
+    background: rgba(224,80,80,0.20);
+    color: #e05050;          /* light-signal red: #e05050 */
+    border: 1.5px solid rgba(224,80,80,0.5);
+  }
+  /* PAN-PAN — urgency call, amber */
+  .badge-pan {
+    background: rgba(240,192,64,0.15);
+    color: #f0c040;          /* amber accent: #f0c040 */
+    border: 1.5px solid rgba(240,192,64,0.4);
+  }
+  .emerg-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .emerg-subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .format-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .format-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .format-list li:last-child { border-bottom: none; }
+  .step-num {
+    display: inline-block;
+    min-width: 22px;
+    height: 22px;
+    background: var(--surface2);
+    border: 1px solid var(--border-hi);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-label {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  /* Squawk code cards */
+  .squawk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .squawk-card {
+    border-radius: 8px;
+    padding: 16px 14px;
+    text-align: center;
+    border: 1.5px solid transparent;
+  }
+  /* 7500 hijack — red */
+  .sq-7500 {
+    background: rgba(224,80,80,0.12);   /* red: #e05050 */
+    border-color: rgba(224,80,80,0.40);
+  }
+  /* 7600 lost comms — white/info */
+  .sq-7600 {
+    background: rgba(228,236,245,0.08); /* white: #e4ecf5 */
+    border-color: rgba(228,236,245,0.25);
+  }
+  /* 7700 emergency — amber */
+  .sq-7700 {
+    background: rgba(240,192,64,0.12);  /* amber: #f0c040 */
+    border-color: rgba(240,192,64,0.40);
+  }
+  .sq-code {
+    font-size: 28px;
+    font-weight: 800;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .sq-7500 .sq-code { color: #e05050; }   /* red */
+  .sq-7600 .sq-code { color: #e4ecf5; }   /* white */
+  .sq-7700 .sq-code { color: #f0c040; }   /* amber */
+  .sq-meaning {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .sq-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  .lost-comms-steps {
+    counter-reset: lc-step;
+  }
+  .lc-step {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .lc-step:last-child { border-bottom: none; }
+  .lc-num {
+    display: inline-block;
+    min-width: 26px;
+    height: 26px;
+    background: rgba(91,155,213,0.15);
+    border: 1px solid rgba(91,155,213,0.35);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #5b9bd5;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 640px) {
+    .squawk-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<button
+  data-backlink="true"
+  onclick="if(window.history.length<=1){window.close();}else{window.history.back();}"
+  style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);"
+  aria-label="Back to lesson"
+>&#8592; Back to lesson</button>
+<style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<h1>ROC-A — Emergency &amp; Urgency Procedures</h1>
+<p class="subtitle">Canadian AIM RAC · Transport Canada · ROC-A Quick Reference</p>
+
+<!-- ── DISTRESS — MAYDAY ───────────────────────────────────────────────── -->
+<div class="section-label">Distress Call — MAYDAY</div>
+<div class="emerg-block">
+  <div class="emerg-header">
+    <span class="emerg-badge badge-mayday">MAYDAY</span>
+    <div>
+      <div class="emerg-title">Distress — Grave and Imminent Danger</div>
+      <div class="emerg-subtitle">Spoken 3 times. Use 121.5 MHz if unable to reach ATC. (AIM RAC 1.7)</div>
+    </div>
+  </div>
+  <ul class="format-list" aria-label="MAYDAY call format">
+    <li><span class="step-num">1</span><span><span class="step-label">Distress signal (×3):</span> "MAYDAY MAYDAY MAYDAY"</span></li>
+    <li><span class="step-num">2</span><span><span class="step-label">Station addressed:</span> Name of station (or "ALL STATIONS" if unknown)</span></li>
+    <li><span class="step-num">3</span><span><span class="step-label">Aircraft identification:</span> Call sign</span></li>
+    <li><span class="step-num">4</span><span><span class="step-label">Nature of distress:</span> Engine failure / fire / structural / etc.</span></li>
+    <li><span class="step-num">5</span><span><span class="step-label">Intentions:</span> Forced landing / ditching / etc.</span></li>
+    <li><span class="step-num">6</span><span><span class="step-label">Position:</span> Last known fix, bearing and distance from navaid, or lat/long</span></li>
+    <li><span class="step-num">7</span><span><span class="step-label">Altitude:</span> Current altitude / flight level</span></li>
+    <li><span class="step-num">8</span><span><span class="step-label">Persons on board (POB):</span> Number of souls on board</span></li>
+    <li><span class="step-num">9</span><span><span class="step-label">Any other information:</span> Fuel remaining, ELT status, aircraft colour, etc.</span></li>
+  </ul>
+  <div class="note-box" style="margin-top:14px;margin-bottom:0;">
+    <strong>Example:</strong> "MAYDAY MAYDAY MAYDAY, Ottawa Centre, Cessna Golf-Charlie-Foxtrot-Bravo, engine failure, forced landing, 15 miles south of Ottawa, 2,500 feet, 2 POB, Mayday."
+  </div>
+</div>
+
+<!-- ── URGENCY — PAN-PAN ───────────────────────────────────────────────── -->
+<div class="section-label">Urgency Call — PAN-PAN</div>
+<div class="emerg-block">
+  <div class="emerg-header">
+    <span class="emerg-badge badge-pan">PAN-PAN</span>
+    <div>
+      <div class="emerg-title">Urgency — Safety at Risk (Not Yet Grave)</div>
+      <div class="emerg-subtitle">Spoken 3 times. Used for medical, lost, low fuel, etc. (AIM RAC 1.7)</div>
+    </div>
+  </div>
+  <ul class="format-list" aria-label="PAN-PAN call format">
+    <li><span class="step-num">1</span><span><span class="step-label">Urgency signal (×3):</span> "PAN-PAN PAN-PAN PAN-PAN"</span></li>
+    <li><span class="step-num">2</span><span><span class="step-label">Station addressed:</span> Name of station or "ALL STATIONS"</span></li>
+    <li><span class="step-num">3</span><span><span class="step-label">Aircraft identification:</span> Call sign</span></li>
+    <li><span class="step-num">4</span><span><span class="step-label">Nature of urgency:</span> Medical / lost / fuel state / etc.</span></li>
+    <li><span class="step-num">5</span><span><span class="step-label">Intentions:</span> What you plan to do</span></li>
+    <li><span class="step-num">6</span><span><span class="step-label">Position:</span> Best known position</span></li>
+    <li><span class="step-num">7</span><span><span class="step-label">Altitude:</span> Current altitude</span></li>
+    <li><span class="step-num">8</span><span><span class="step-label">Persons on board:</span> Souls on board</span></li>
+    <li><span class="step-num">9</span><span><span class="step-label">Any other information:</span> Relevant details</span></li>
+  </ul>
+</div>
+
+<!-- ── TRANSPONDER CODES ───────────────────────────────────────────────── -->
+<div class="section-label">Emergency Transponder Codes</div>
+<!--
+  Light-signal colours hardcoded per spec:
+    green  #4caf7d  — not used for squawk cards (no green squawk)
+    red    #e05050  — 7500 hijack
+    white  #e4ecf5  — 7600 lost comms
+    amber  #f0c040  — 7700 emergency
+-->
+<div class="squawk-grid">
+  <div class="squawk-card sq-7500">
+    <span class="sq-code" aria-label="Squawk 7500">7500</span>
+    <span class="sq-meaning">HIJACK</span>
+    <span class="sq-note">Unlawful interference. Do NOT squawk unless actually under threat — ATC will immediately alert security services.</span>
+  </div>
+  <div class="squawk-card sq-7600">
+    <span class="sq-code" aria-label="Squawk 7600">7600</span>
+    <span class="sq-meaning">LOST COMMS</span>
+    <span class="sq-note">Radio failure. Squawk 7600 and follow lost-comms procedures below.</span>
+  </div>
+  <div class="squawk-card sq-7700">
+    <span class="sq-code" aria-label="Squawk 7700">7700</span>
+    <span class="sq-meaning">EMERGENCY</span>
+    <span class="sq-note">General emergency. Squawk 7700 with any MAYDAY situation; retains last assigned squawk on secondary systems.</span>
+  </div>
+</div>
+
+<!-- ── LOST COMMUNICATIONS ─────────────────────────────────────────────── -->
+<div class="section-label">Lost Communications — Step-by-Step</div>
+<div class="emerg-block">
+  <div class="lost-comms-steps" aria-label="Lost communications procedure">
+    <div class="lc-step">
+      <span class="lc-num">1</span>
+      <span><strong>Squawk 7600</strong> on the transponder to alert ATC of radio failure.</span>
+    </div>
+    <div class="lc-step">
+      <span class="lc-num">2</span>
+      <span><strong>Try all frequencies</strong> — attempt to re-establish contact on last assigned, guard (121.5 MHz), and other known frequencies.</span>
+    </div>
+    <div class="lc-step">
+      <span class="lc-num">3</span>
+      <span><strong>Check equipment</strong> — confirm volume, headset plugs, avionics master switch, breakers, and that squelch is not too high.</span>
+    </div>
+    <div class="lc-step">
+      <span class="lc-num">4</span>
+      <span><strong>Listen and look</strong> — ATC may continue to give instructions; watch for light signals from the control tower (see Light Signals reference card).</span>
+    </div>
+    <div class="lc-step">
+      <span class="lc-num">5</span>
+      <span><strong>If in controlled airspace:</strong> remain in VMC if possible; follow the expected routing and altitude. Proceed to destination, rock wings to acknowledge light signals.</span>
+    </div>
+    <div class="lc-step">
+      <span class="lc-num">6</span>
+      <span><strong>Arrival at controlled aerodrome:</strong> Enter the circuit normally; watch the tower for a <em>steady green</em> light signal (cleared to land). Rock wings to confirm receipt.</span>
+    </div>
+    <div class="lc-step">
+      <span class="lc-num">7</span>
+      <span><strong>After landing:</strong> Telephone ATC immediately to report the failure. (AIM RAC 1.9, CARs 602.136)</span>
+    </div>
+  </div>
+</div>
+
+<div class="note-box">
+  <strong>MAYDAY vs PAN-PAN:</strong> MAYDAY = grave and imminent danger requiring immediate assistance. PAN-PAN = urgent but not yet catastrophic — time to think and plan. Upgrade a PAN-PAN to MAYDAY if the situation deteriorates. Cancel either with "MAYDAY/PAN-PAN [call sign] cancel distress/urgency." (Source: AIM RAC 1.7)
+</div>
+
+</body>
+</html>
