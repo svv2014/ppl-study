@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" data-scheme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="/visuals/_theme-init.js"></script>
+<link rel="stylesheet" href="/visuals/_common.css">
+<title>ROC-A Reference — ATC Light Signals (AIM RAC 4.5)</title>
+<style>
+  /*
+   * ATC light-signal colours hardcoded per spec (colour-only is not sufficient
+   * for accessibility — every cell also carries a text label):
+   *   green   #4caf7d  — cleared / safe to proceed
+   *   red     #e05050  — stop / do not land / unsafe
+   *   white   #e4ecf5  — return to start / land here (combined with green)
+   *   amber   #f0c040  — exercise caution (alternating red/green uses both)
+   *
+   * Source: AIM RAC 4.5.7 (Light Signals from ATC Tower)
+   */
+
+  .sig-grid {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 28px;
+  }
+  .sig-grid th {
+    background: var(--surface2);
+    color: var(--accent);
+    font-size: 12px;
+    padding: 10px 14px;
+    letter-spacing: 0.5px;
+    text-align: left;
+  }
+  .sig-grid td {
+    font-size: 13px;
+    color: var(--text);
+    padding: 11px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .sig-grid tr:last-child td { border-bottom: none; }
+
+  /* Colour dot + label — paired so colour is not the sole indicator */
+  .sig-light {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(255,255,255,0.15);
+  }
+  /* Green dot */
+  .dot-green { background: #4caf7d; }   /* #4caf7d — cleared/safe */
+  /* Red dot */
+  .dot-red   { background: #e05050; }   /* #e05050 — stop/danger */
+  /* White dot */
+  .dot-white { background: #e4ecf5; }   /* #e4ecf5 — return/land with green */
+  /* Amber (alternating) — split half/half */
+  .dot-alt {
+    background: linear-gradient(135deg, #e05050 50%, #4caf7d 50%);
+    /* alternating red #e05050 / green #4caf7d */
+  }
+
+  .sig-type-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+  /* Steady light badge */
+  .badge-steady {
+    background: rgba(91,155,213,0.15);
+    color: #5b9bd5;
+    border: 1px solid rgba(91,155,213,0.3);
+  }
+  /* Flashing light badge */
+  .badge-flash {
+    background: rgba(240,192,64,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(240,192,64,0.3);
+  }
+  /* Alternating badge */
+  .badge-alt {
+    background: rgba(224,80,80,0.12);
+    color: #e05050;
+    border: 1px solid rgba(224,80,80,0.3);
+  }
+
+  .section-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.7;
+  }
+
+  .colour-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 24px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .legend-item strong {
+    color: var(--text);
+  }
+
+  @media (max-width: 640px) {
+    .sig-grid th:nth-child(3),
+    .sig-grid td:nth-child(3) { display: none; }
+  }
+</style>
+</head>
+<body>
+<button
+  data-backlink="true"
+  onclick="if(window.history.length<=1){window.close();}else{window.history.back();}"
+  style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);"
+  aria-label="Back to lesson"
+>&#8592; Back to lesson</button>
+<style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<h1>ROC-A — ATC Light Signals</h1>
+<p class="subtitle">Canadian AIM RAC 4.5.7 · Transport Canada · ROC-A Quick Reference</p>
+
+<p class="section-note">
+  Used by ATC when radio communication is impossible or has failed. Colour alone does not fully convey meaning —
+  the <em>type</em> of signal (steady, flashing, alternating) is equally important.
+  Acknowledge receipt by rocking wings (day) or flashing landing/navigation lights (night).
+</p>
+
+<!-- Colour legend — pairs colour with text so info is not colour-only -->
+<div class="colour-legend" aria-label="Colour legend">
+  <div class="legend-item"><span class="dot dot-green" aria-hidden="true"></span><strong>Green</strong> — cleared / proceed</div>
+  <div class="legend-item"><span class="dot dot-red"   aria-hidden="true"></span><strong>Red</strong> — stop / danger / do not land</div>
+  <div class="legend-item"><span class="dot dot-white" aria-hidden="true"></span><strong>White</strong> — return / land here (with green)</div>
+  <div class="legend-item"><span class="dot dot-alt"   aria-hidden="true"></span><strong>Alt. Red/Green</strong> — extreme caution</div>
+</div>
+
+<!-- ── AIRCRAFT ON THE GROUND ─────────────────────────────────────────── -->
+<div class="section-label">Aircraft on the Ground</div>
+<div class="wide-table">
+<table class="sig-grid" aria-label="Light signals for aircraft on the ground">
+  <thead>
+    <tr>
+      <th>Signal</th>
+      <th>Type</th>
+      <th>Colour</th>
+      <th>Meaning for Aircraft on Ground</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-green" aria-hidden="true"></span>
+          Green
+        </span>
+        <span class="sig-type-badge badge-steady">STEADY</span>
+      </td>
+      <td>Steady Green</td>
+      <td style="color:#4caf7d;font-weight:700;">#4caf7d</td>
+      <td><strong>Cleared to take off.</strong> ATC has approved your departure from the runway in use.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-green" aria-hidden="true"></span>
+          Green
+        </span>
+        <span class="sig-type-badge badge-flash">FLASHING</span>
+      </td>
+      <td>Flashing Green</td>
+      <td style="color:#4caf7d;font-weight:700;">#4caf7d</td>
+      <td><strong>Cleared to taxi.</strong> You may taxi but are NOT cleared for takeoff.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-red" aria-hidden="true"></span>
+          Red
+        </span>
+        <span class="sig-type-badge badge-steady">STEADY</span>
+      </td>
+      <td>Steady Red</td>
+      <td style="color:#e05050;font-weight:700;">#e05050</td>
+      <td><strong>Stop.</strong> Halt immediately. Do not proceed until cleared.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-red" aria-hidden="true"></span>
+          Red
+        </span>
+        <span class="sig-type-badge badge-flash">FLASHING</span>
+      </td>
+      <td>Flashing Red</td>
+      <td style="color:#e05050;font-weight:700;">#e05050</td>
+      <td><strong>Taxi clear of the runway in use.</strong> An aircraft on approach or another runway conflict requires you to clear immediately.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-white" aria-hidden="true"></span>
+          White
+        </span>
+        <span class="sig-type-badge badge-flash">FLASHING</span>
+      </td>
+      <td>Flashing White</td>
+      <td style="color:#e4ecf5;font-weight:700;">#e4ecf5</td>
+      <td><strong>Return to starting point on the aerodrome.</strong> You are directed back to where you began your taxi.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-alt" aria-hidden="true"></span>
+          Alt. R/G
+        </span>
+        <span class="sig-type-badge badge-alt">ALTERNATING</span>
+      </td>
+      <td>Alternating Red &amp; Green</td>
+      <td style="color:#e05050;font-weight:700;">#e05050 <span style="color:var(--text-muted)">/</span> <span style="color:#4caf7d;">#4caf7d</span></td>
+      <td><strong>Exercise extreme caution.</strong> A hazard exists — proceed with maximum vigilance.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<!-- ── AIRCRAFT IN FLIGHT ──────────────────────────────────────────────── -->
+<div class="section-label">Aircraft in Flight</div>
+<div class="wide-table">
+<table class="sig-grid" aria-label="Light signals for aircraft in flight">
+  <thead>
+    <tr>
+      <th>Signal</th>
+      <th>Type</th>
+      <th>Colour</th>
+      <th>Meaning for Aircraft in Flight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-green" aria-hidden="true"></span>
+          Green
+        </span>
+        <span class="sig-type-badge badge-steady">STEADY</span>
+      </td>
+      <td>Steady Green</td>
+      <td style="color:#4caf7d;font-weight:700;">#4caf7d</td>
+      <td><strong>Cleared to land.</strong> The runway is clear and you are authorised for landing.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-green" aria-hidden="true"></span>
+          Green
+        </span>
+        <span class="sig-type-badge badge-flash">FLASHING</span>
+      </td>
+      <td>Flashing Green</td>
+      <td style="color:#4caf7d;font-weight:700;">#4caf7d</td>
+      <td><strong>Return for landing.</strong> Continue to circuit; a steady green will follow when cleared to land.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-red" aria-hidden="true"></span>
+          Red
+        </span>
+        <span class="sig-type-badge badge-steady">STEADY</span>
+      </td>
+      <td>Steady Red</td>
+      <td style="color:#e05050;font-weight:700;">#e05050</td>
+      <td><strong>Give way to other aircraft and continue circling.</strong> Do not land — continue the circuit and await further signals.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-red" aria-hidden="true"></span>
+          Red
+        </span>
+        <span class="sig-type-badge badge-flash">FLASHING</span>
+      </td>
+      <td>Flashing Red</td>
+      <td style="color:#e05050;font-weight:700;">#e05050</td>
+      <td><strong>Airport unsafe — do not land.</strong> A hazard exists on or near the runway; divert or continue circling.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-white" aria-hidden="true"></span>
+          White
+        </span>
+        <span class="sig-type-badge badge-flash">FLASHING</span>
+      </td>
+      <td>Flashing White</td>
+      <td style="color:#e4ecf5;font-weight:700;">#e4ecf5</td>
+      <td><strong>Land at this aerodrome and proceed to the apron.</strong> A flashing green will follow when you may land.</td>
+    </tr>
+    <tr>
+      <td>
+        <span class="sig-light">
+          <span class="dot dot-alt" aria-hidden="true"></span>
+          Alt. R/G
+        </span>
+        <span class="sig-type-badge badge-alt">ALTERNATING</span>
+      </td>
+      <td>Alternating Red &amp; Green</td>
+      <td style="color:#e05050;font-weight:700;">#e05050 <span style="color:var(--text-muted)">/</span> <span style="color:#4caf7d;">#4caf7d</span></td>
+      <td><strong>Exercise extreme caution.</strong> A hazard exists — you may proceed but with maximum vigilance.</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="note-box">
+  <strong>Acknowledge receipt:</strong> In flight, rock wings (day) or flash landing/navigation lights (night).
+  On the ground, flash landing lights or move ailerons.
+  <br><br>
+  <strong>Key distinctions:</strong> Steady Green on ground = <em>take off</em>; in flight = <em>land</em>.
+  Flashing Green on ground = <em>taxi</em>; in flight = <em>return for landing</em>.
+  Steady Red on ground = <em>stop</em>; in flight = <em>circle and give way</em>.
+  <br><br>
+  Source: AIM RAC 4.5.7 — Light Signals from ATC Tower. These signals apply when radio communication cannot be established or has failed.
+</div>
+
+</body>
+</html>
