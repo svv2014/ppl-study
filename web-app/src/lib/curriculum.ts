@@ -76,6 +76,17 @@ export const CURRICULUM: CurriculumSlot[] = [
   { id: 'GK-012', slug: 'stalls-spins', title: 'Stalls and Spins', topic: 'general-knowledge', order: 12 },
   { id: 'GK-013', slug: 'load-factor', title: 'Load Factor and Maneuvering Speed', topic: 'general-knowledge', order: 13 },
   { id: 'GK-014', slug: 'preflight-inspection', title: 'Pre-Flight Inspection and Maintenance', topic: 'general-knowledge', order: 14 },
+
+  // Radio — ROC-A (9)
+  { id: 'ROC-001', slug: 'roc-a-overview', title: 'ROC-A Overview: Exam, Licensing, and the Radiocommunication Act', topic: 'radio', order: 1 },
+  { id: 'ROC-002', slug: 'phonetic-alphabet-numbers', title: 'Phonetic Alphabet and Number Pronunciation', topic: 'radio', order: 2 },
+  { id: 'ROC-003', slug: 'radiotelephony-procedures', title: 'Standard Radiotelephony Procedures and Phraseology', topic: 'radio', order: 3 },
+  { id: 'ROC-004', slug: 'vhf-frequency-bands', title: 'VHF Frequency Bands and Aeronautical Channel Use', topic: 'radio', order: 4 },
+  { id: 'ROC-005', slug: 'atc-ground-communications', title: 'ATC and Ground Station Communications', topic: 'radio', order: 5 },
+  { id: 'ROC-006', slug: 'distress-urgency-signals', title: 'Distress (MAYDAY) and Urgency (PAN-PAN) Signals', topic: 'radio', order: 6 },
+  { id: 'ROC-007', slug: 'atis-unicom-multicom', title: 'ATIS, UNICOM, MULTICOM, and MF Procedures', topic: 'radio', order: 7 },
+  { id: 'ROC-008', slug: 'radio-equipment-licencing', title: 'Radio Equipment, Station Licencing, and Operator Obligations', topic: 'radio', order: 8 },
+  { id: 'ROC-009', slug: 'roc-a-practice-scenarios', title: 'ROC-A Practice: Full-Flight Communication Scenarios', topic: 'radio', order: 9 },
 ];
 
 export const TOPIC_LABELS: Record<string, string> = {
@@ -83,6 +94,7 @@ export const TOPIC_LABELS: Record<string, string> = {
   'navigation': 'Navigation',
   'meteorology': 'Meteorology',
   'general-knowledge': 'General Knowledge',
+  'radio': 'Radio (ROC-A)',
 };
 
-export const TOPICS = ['air-law', 'navigation', 'meteorology', 'general-knowledge'] as const;
+export const TOPICS = ['air-law', 'navigation', 'meteorology', 'general-knowledge', 'radio'] as const;
