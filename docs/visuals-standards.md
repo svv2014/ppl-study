@@ -82,6 +82,73 @@ For reference, the most commonly used visual palette values:
 See `docs/design/DESIGN-SYSTEM.md §2.1` for the full token table including
 `--surface`, `--border`, `--success`, `--danger`, and `--info`.
 
+## Illustration Style
+
+This section defines the visual quality target. It describes what the output *looks like*,
+not the toolchain used to produce it (toolchain is covered by "Generation approach" above).
+The goal: a student opening a visual should feel it belongs in a quality ground-school
+workbook, not a system-administration manual.
+
+### Rendering target
+
+**Illustrative / diagrammatic.** Visuals are clear, purposeful HTML+CSS/SVG art that reads
+like a technical illustration or textbook plate. They are:
+
+- **Not** hand-drawn or sketch-style (no rough strokes, no simulated pencil texture).
+- **Not** purely schematic wireframe (no bare boxes-and-lines with no visual hierarchy).
+
+### Perspective conventions
+
+| Content type | Perspective |
+|---|---|
+| Airspace / chart structures | 2-D top-down |
+| Aircraft diagrams | Side elevation |
+| Instrument / panel layouts | Front-on panel view |
+| Circuit-pattern spatial concepts (height layering required) | ¾ isometric |
+
+Use the listed perspective for the content type. Do not mix perspectives in a single
+diagram without a clear visual break.
+
+### Line weights
+
+Three weight classes only — no hairlines below 1 px:
+
+| Class | Weight | Use |
+|---|---|---|
+| Thick outline | 2–3 px | Boundary shapes, primary subject outlines |
+| Medium rule | 1.5 px | Secondary structures, dividing lines |
+| Thin detail / leader | 1 px | Construction lines, dimension leaders, fine detail |
+
+### Label typography
+
+- Font and size tokens come from `_common.css`. Do not introduce ad-hoc `font-size`
+  overrides below **11 px** anywhere in a visual.
+- Leader lines connecting a label to a diagram element: **1 px stroke** with a
+  **4 px filled endpoint dot** at the diagram end.
+- All label text must meet the contrast thresholds in the Accessibility requirements
+  section below.
+
+### Shading conventions
+
+- Use **flat colour fills** as the base for all shapes.
+- Where depth is needed, add exactly one **highlight band** (a lighter tint of the fill
+  colour) and one **shadow band** (a darker tint). No more than two tint steps per shape.
+- **No CSS gradients** unless the gradient is data-encoding — i.e. it communicates
+  altitude layers or atmospheric depth as part of the diagram's meaning, not merely
+  as decoration.
+
+### Colour use
+
+- Source all colours from `_common.css` CSS custom properties (`--bg`, `--accent`,
+  `--text-muted`, `--surface`, `--border`, `--success`, `--danger`, `--info`, etc.).
+- **Domain colours** (airspace class colours, weather severity levels, signal/NAV
+  colours) may use hardcoded hex values **only when a CSS variable does not exist for
+  that specific domain meaning**.
+- Every hardcoded hex in a visual **must** carry an inline comment explaining the
+  domain meaning, e.g. `/* Class C airspace — ICAO cyan */`.
+
+---
+
 ## File naming
 
 ```
@@ -242,3 +309,21 @@ bash scripts/add-visual-backlink.sh
 - **No copyright-protected charts.** Do not reproduce VNC/VTA chart extracts or
   other Transport Canada map products verbatim. Diagrams must be original
   illustrations inspired by the content, not reproductions of licensed materials.
+- **No clip-art silhouettes or icon-font glyphs used as primary illustration** — build
+  shapes from HTML/CSS or SVG paths.
+
+## Acceptance checklist
+
+Before a new or rebuilt visual is considered done, verify every item below. All answers
+must be **Yes**.
+
+| # | Criterion | Yes / No |
+|---|---|---|
+| 1 | Links `/visuals/_common.css` in `<head>`; no re-declared tokens | |
+| 2 | Includes the canonical back-link button immediately after `<body>` | |
+| 3 | Uses the correct perspective for its content type (top-down / elevation / panel / isometric) per the Illustration Style section | |
+| 4 | Line weights stay within the three defined classes (2–3 px / 1.5 px / 1 px); no hairlines below 1 px | |
+| 5 | No `font-size` below 11 px; labels use `_common.css` tokens | |
+| 6 | All colours sourced from CSS custom properties; any hardcoded hex has an inline comment explaining the domain meaning | |
+| 7 | Colour is not the sole means of conveying information (labels, icons, or text accompany colour coding) | |
+| 8 | `npm run build` passes with the file in place; no JavaScript frameworks or external `<script src>` tags | |
