@@ -14,14 +14,7 @@ import { TOPIC_PLAYLISTS } from '../data/playlists';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
-import type { LessonStatus } from '../lib/types';
 import TopicMasteryCard from '../components/TopicMasteryCard';
-
-function statusChipProps(status: LessonStatus) {
-  if (status === 'complete') return { label: 'Complete', color: 'success' as const };
-  if (status === 'draft') return { label: 'Draft', color: 'warning' as const };
-  return { label: 'Planning', color: 'default' as const };
-}
 
 export default function LessonsIndex() {
   const { store } = useExamTrack();
@@ -72,7 +65,6 @@ export default function LessonsIndex() {
                       <CardContent sx={{ pb: '12px !important' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
                           <Chip label={slot.id} size="small" variant="outlined" color="default" sx={{ fontFamily: 'monospace', fontWeight: 600 }} />
-                          <Chip label="Planning" size="small" color="default" />
                         </Box>
                         <Typography variant="body2" color="text.disabled">
                           {slot.title}
@@ -81,8 +73,6 @@ export default function LessonsIndex() {
                     </Card>
                   );
                 }
-
-                const chipProps = statusChipProps(lesson.status);
 
                 return (
                   <Card
@@ -114,13 +104,6 @@ export default function LessonsIndex() {
                             color="primary"
                             sx={{ fontFamily: 'monospace', fontWeight: 600 }}
                           />
-                          <Chip label={`${lesson.duration_min} min`} size="small" variant="outlined" color="info" />
-                          <Chip {...chipProps} size="small" />
-                          {lesson.audio ? (
-                            <Chip label="▶ Audio" size="small" color="warning" />
-                          ) : (
-                            <Chip label="Pending" size="small" color="default" />
-                          )}
                           {done && <Chip label="✓" size="small" color="success" />}
                         </Box>
                         <Typography variant="body2" sx={{ color: done ? 'text.secondary' : 'text.primary' }}>
