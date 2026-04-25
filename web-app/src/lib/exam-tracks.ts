@@ -41,8 +41,8 @@ export const EXAM_TRACKS: ExamTrack[] = [
     code: 'RROE',
     name: 'Radio Operator',
     tagline: 'Restricted Radiotelephone Operator Certificate (Aeronautical)',
-    status: 'coming-soon',
-    lessonFilter: noLessons,
+    status: 'active',
+    lessonFilter: (l) => l.topic === 'radio',
   },
   {
     id: 'ppl-h',
