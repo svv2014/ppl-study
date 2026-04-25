@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GK-009: Weight and Balance</title>
 <script src="/visuals/_theme-init.js"></script>
-<link rel="stylesheet" href="_common.css">
+<link rel="stylesheet" href="/visuals/_common.css">
 <style>
   .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
   td { text-align: right; }
@@ -29,6 +29,77 @@
 <div class="container">
   <h1>GK-009 — Weight &amp; Balance</h1>
   <p class="subtitle">Transport Canada · TP 12880E · PPL Written Exam</p>
+
+  <!-- ── Horizontal beam diagram: datum, arms, and CG marker ── -->
+  <div class="diagram-box" style="margin-bottom:24px;">
+    <svg viewBox="0 0 700 130" width="100%" height="120">
+      <defs>
+        <marker id="arrowWt" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+          <polygon points="0,0 7,3.5 0,7" fill="#5b9bd5"/>
+        </marker>
+      </defs>
+
+      <!-- Aircraft silhouette (simple side-elevation) -->
+      <path d="M 70 58 Q 90 46 140 44 Q 200 44 220 56 Q 228 62 220 70 Q 160 76 88 74 Q 70 72 68 64 Z" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+      <!-- Wing stub (side view) -->
+      <polygon points="148 48 200 46 200 54 148 54" fill="#243d52" stroke="#7a9ab5" stroke-width="1"/>
+      <!-- Nose -->
+      <ellipse cx="72" cy="62" rx="12" ry="10" fill="#1e3a50" stroke="#7a9ab5" stroke-width="1.5"/>
+
+      <!-- ── Beam (fuselage datum line) ── -->
+      <line x1="60" y1="90" x2="640" y2="90" stroke="#7a9ab5" stroke-width="3"/>
+
+      <!-- Datum (reference zero) -->
+      <line x1="100" y1="78" x2="100" y2="102" stroke="#f0c040" stroke-width="2"/>
+      <text x="100" y="114" text-anchor="middle" fill="#f0c040" font-size="11" font-weight="bold">DATUM</text>
+      <text x="100" y="125" text-anchor="middle" fill="#f0c040" font-size="11">0"</text>
+
+      <!-- Arm: Pilot seats at 85" -->
+      <line x1="270" y1="82" x2="270" y2="98" stroke="#4caf7d" stroke-width="1.5"/>
+      <text x="270" y="112" text-anchor="middle" fill="#4caf7d" font-size="11">Seats</text>
+      <text x="270" y="123" text-anchor="middle" fill="#4caf7d" font-size="11">85"</text>
+      <!-- Weight arrow down at seats -->
+      <line x1="270" y1="70" x2="270" y2="82" stroke="#5b9bd5" stroke-width="2" marker-end="url(#arrowWt)"/>
+
+      <!-- Arm: Fuel tanks at 96" -->
+      <line x1="368" y1="82" x2="368" y2="98" stroke="#4caf7d" stroke-width="1.5"/>
+      <text x="368" y="112" text-anchor="middle" fill="#4caf7d" font-size="11">Fuel</text>
+      <text x="368" y="123" text-anchor="middle" fill="#4caf7d" font-size="11">96"</text>
+      <!-- Weight arrow down at fuel -->
+      <line x1="368" y1="70" x2="368" y2="82" stroke="#5b9bd5" stroke-width="2" marker-end="url(#arrowWt)"/>
+
+      <!-- Arm: Baggage at 140" -->
+      <line x1="540" y1="82" x2="540" y2="98" stroke="#4caf7d" stroke-width="1.5"/>
+      <text x="540" y="112" text-anchor="middle" fill="#4caf7d" font-size="11">Baggage</text>
+      <text x="540" y="123" text-anchor="middle" fill="#4caf7d" font-size="11">140"</text>
+      <!-- Weight arrow down at baggage -->
+      <line x1="540" y1="70" x2="540" y2="82" stroke="#5b9bd5" stroke-width="2" marker-end="url(#arrowWt)"/>
+
+      <!-- CG position marker at 88.5" (approx x=345 mapping: 100+(88.5/140)*440=100+278=378 → but scale: each inch ≈ 3.86px from datum at x=100) -->
+      <!-- Scale: datum=100px, 140"=540px → 440px/140" = 3.14 px/inch; 88.5" → x=100+88.5*3.14=100+278=378 -->
+      <polygon points="378,76 372,88 384,88" fill="#f0c040" stroke="#f0c040" stroke-width="1"/>
+      <text x="378" y="68" text-anchor="middle" fill="#f0c040" font-size="11" font-weight="bold">CG</text>
+      <text x="378" y="57" text-anchor="middle" fill="#f0c040" font-size="11">88.5"</text>
+
+      <!-- Forward CG limit line -->
+      <line x1="257" y1="78" x2="257" y2="100" stroke="#5b9bd5" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="257" y="56" text-anchor="middle" fill="#5b9bd5" font-size="11">Fwd</text>
+      <text x="257" y="67" text-anchor="middle" fill="#5b9bd5" font-size="11">limit</text>
+
+      <!-- Aft CG limit line -->
+      <line x1="408" y1="78" x2="408" y2="100" stroke="#e05050" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="408" y="56" text-anchor="middle" fill="#e05050" font-size="11">Aft</text>
+      <text x="408" y="67" text-anchor="middle" fill="#e05050" font-size="11">limit</text>
+
+      <!-- CG envelope shading (green zone between limits) -->
+      <rect x="257" y="86" width="151" height="8" rx="2" fill="rgba(76,175,125,0.2)" stroke="rgba(76,175,125,0.4)" stroke-width="1"/>
+      <text x="332" y="97" text-anchor="middle" fill="#4caf7d" font-size="11">Within envelope</text>
+
+      <!-- Weight arrows label -->
+      <text x="185" y="65" text-anchor="middle" fill="#5b9bd5" font-size="11">Weight</text>
+      <text x="185" y="76" text-anchor="middle" fill="#5b9bd5" font-size="11">downward</text>
+    </svg>
+  </div>
 
   <div class="formula-box">
     <div class="formula">CG = Total Moment ÷ Total Weight</div>
