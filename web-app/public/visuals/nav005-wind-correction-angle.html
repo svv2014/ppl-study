@@ -31,93 +31,129 @@ body { max-width: 860px; margin: auto; }
 <p class="subtitle">Transport Canada · TP 12880E Ch.9 · PPL Written Exam</p>
 
 <!-- ── WIND TRIANGLE DIAGRAM ─────────────────────────────────────────── -->
-<div class="section-label">Wind Triangle — TT 090°, Wind from 180° (30 kt), TAS 120 kt</div>
+<div class="section-label">Wind Triangle — TT 090°, Wind from 180° (30 kt), TAS 120 kt · Scale: 5 px / kt</div>
 <div class="grid-wrap">
-  <svg width="780" height="310" viewBox="0 0 780 310" style="max-width:100%;">
+  <!--
+    VECTOR DIAGRAM: GS = TAS + Wind  (all vectors at 5 px/kt scale)
+
+    Points:
+      A = (60, 230)   — departure
+      W = (60,  80)   — wind tip: A moved 150 px north (30 kt × 5 = 150 px, wind blows northward)
+      B = (641, 230)  — GS destination: A moved 581 px east (116.2 kt × 5 ≈ 581 px)
+
+    Vectors (head-to-tail → closed triangle):
+      Wind:  A → W  (cyan dashed, 30 kt northward, from 180°)
+      TAS:   W → B  (orange solid, 120 kt, heading ≈ 104°)  ← closes the triangle
+      GS:    A → B  (blue solid, 116 kt east, True Track 090°)
+
+    Verify TAS: |W→B| = |(641-60, 230-80)| = |(581,150)| = √(337561+22500) = √360061 ≈ 600 px = 120 kt ✓
+    WCA = arctan(150/581) ≈ 14.5° (TH = TT + WCA = 090° + 14° ≈ 104°) ✓
+  -->
+  <svg width="780" height="290" viewBox="0 0 780 290" style="max-width:100%;">
 
     <!-- Background -->
-    <rect x="10" y="10" width="760" height="290" fill="#0d2040" rx="6"/>
+    <rect x="10" y="10" width="760" height="270" fill="#0d2040" rx="6"/>
 
-    <!-- Grid -->
-    <line x1="10"  y1="155" x2="770" y2="155" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
-    <line x1="390" y1="10"  x2="390" y2="300" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 4"/>
-    <line x1="10"  y1="90"  x2="770" y2="90"  stroke="#1a3a5a" stroke-width="0.6" stroke-dasharray="3 5"/>
-    <line x1="10"  y1="220" x2="770" y2="220" stroke="#1a3a5a" stroke-width="0.6" stroke-dasharray="3 5"/>
+    <!-- Grid lines (background) -->
+    <line x1="10"  y1="155" x2="770" y2="155" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 5"/>
+    <line x1="60"  y1="10"  x2="60"  y2="280" stroke="#1a3a5a" stroke-width="0.8" stroke-dasharray="4 5"/>
+    <line x1="60"  y1="80"  x2="770" y2="80"  stroke="#1a3a5a" stroke-width="0.6" stroke-dasharray="3 5"/>
+    <line x1="641" y1="10"  x2="641" y2="280" stroke="#1a3a5a" stroke-width="0.6" stroke-dasharray="3 5"/>
 
-    <!-- True Track line (A to B, horizontal) -->
-    <line x1="80" y1="190" x2="690" y2="190" stroke="#3a7ad5" stroke-width="2" stroke-dasharray="6 4"/>
-    <!-- Track arrowhead -->
-    <polygon points="690,185 705,190 690,195" fill="#3a7ad5"/>
-    <text x="385" y="210" text-anchor="middle" font-size="11" fill="#3a7ad5">True Track 090° — Ground Track</text>
+    <!-- ── GS vector: A → B (True Track 090°, 116 kt east) ─────────── -->
+    <!-- A = (60,230), B = (641,230) -->
+    <line x1="60" y1="230" x2="641" y2="230" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round"/>
+    <polygon points="641,225 657,230 641,235" fill="#3a7ad5"/>
+    <text x="348" y="248" text-anchor="middle" font-size="11" fill="#3a7ad5" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">GS ≈ 116 kt — True Track 090°</text>
 
-    <!-- Departure A -->
-    <circle cx="80" cy="190" r="7" fill="#f0c040" stroke="#0d2040" stroke-width="2"/>
-    <text x="80" y="218" text-anchor="middle" font-size="13" fill="#f0c040" font-weight="700">A</text>
+    <!-- ── Wind vector: A → W (wind from 180°, blows northward, 30 kt) -->
+    <!-- A = (60,230), W = (60,80) -->
+    <line x1="60" y1="230" x2="60" y2="80" stroke="#40c8c8" stroke-width="2.2" stroke-dasharray="7 4" stroke-linecap="round"/>
+    <polygon points="55,80 65,80 60,64" fill="#40c8c8"/>
+    <text x="18" y="162" text-anchor="middle" font-size="10" fill="#40c8c8" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif" transform="rotate(-90,18,162)">Wind 180°/30 kt</text>
 
-    <!-- Destination B -->
-    <circle cx="705" cy="190" r="7" fill="#c04040" stroke="#ff8080" stroke-width="2"/>
-    <text x="705" y="218" text-anchor="middle" font-size="13" fill="#ff8080" font-weight="700">B</text>
+    <!-- ── TAS vector: W → B (closes the triangle, 120 kt, TH ≈ 104°) -->
+    <!-- W = (60,80), B = (641,230) -->
+    <line x1="60" y1="80" x2="641" y2="230" stroke="#f08040" stroke-width="2.5" stroke-linecap="round"/>
+    <polygon points="641,225 657,230 641,235" fill="#f08040" opacity="0"/>
+    <!-- arrowhead at B for TAS (offset slightly so both arrows are visible) -->
+    <polygon points="634,222 650,228 636,236" fill="#f08040"/>
+    <text x="356" y="148" text-anchor="middle" font-size="11" fill="#f08040" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">TAS 120 kt — TH ≈ 104°</text>
 
-    <!-- Wind vector: from 180° (south, from the right side when heading east) — dashed, cyan -->
-    <!-- Wind from 180° blows northward, pushing the aircraft north of the desired track -->
-    <!-- Wind arrow: starts at A, goes 30kt worth of vector — pushes aircraft northward -->
-    <line x1="80" y1="190" x2="225" y2="130" stroke="#40c8c8" stroke-width="2" stroke-dasharray="5 3"/>
-    <polygon points="225,125 218,140 232,138" fill="#40c8c8"/>
-    <text x="120" y="145" text-anchor="middle" font-size="10" fill="#40c8c8">Wind 180°/30 kt</text>
+    <!-- ── WCA arc at A, from track direction (east) to TAS direction ── -->
+    <!--
+      TAS direction from A: (B - W) = (581, 150) → unit vector (0.968, 0.250)
+      Arc at r=55: from (60+55, 230) = (115, 230) eastward
+                   to (60+55*0.968, 230+55*0.250) = (113.2, 243.8)
+      Sweep clockwise (sweep=1) from east to TAS direction.
+    -->
+    <path d="M 115 230 A 55 55 0 0 1 113.2 243.8"
+          fill="none" stroke="#f0c040" stroke-width="1.8"/>
+    <text x="130" y="252" font-size="10" fill="#f0c040" font-weight="700" font-family="'Segoe UI',system-ui,sans-serif">WCA ≈ 14°</text>
 
-    <!-- TAS vector: from A angled slightly north to reach the ground track line at destination -->
-    <!-- Aircraft heading is TT + WCA (to the right/south to compensate for northward wind push) -->
-    <!-- TAS arrow from A to destination, angled slightly south of track -->
-    <line x1="80" y1="190" x2="690" y2="190" stroke="#0d2040" stroke-width="0"/>
-    <!-- TH arrow (actual heading, angled slightly south) -->
-    <line x1="80" y1="190" x2="660" y2="215" stroke="#f08040" stroke-width="2.5"/>
-    <polygon points="660,210 672,218 658,224" fill="#f08040"/>
-    <text x="370" y="242" text-anchor="middle" font-size="11" fill="#f08040" font-weight="600">True Heading (TH) — aircraft nose points here</text>
+    <!-- ── Vertex labels ─────────────────────────────────────────────── -->
+    <!-- A (departure) -->
+    <circle cx="60" cy="230" r="7" fill="#f0c040" stroke="#0d2040" stroke-width="1.5"/>
+    <text x="60" y="262" text-anchor="middle" font-size="12" fill="#f0c040" font-weight="800" font-family="'Segoe UI',system-ui,sans-serif">A</text>
+    <text x="60" y="274" text-anchor="middle" font-size="9" fill="#7a9ab5" font-family="'Segoe UI',system-ui,sans-serif">departure</text>
 
-    <!-- GS vector along track from A to B; GS = √(TAS²−crosswind²) = √(120²−30²) ≈ 116 kt -->
-    <text x="395" y="175" text-anchor="middle" font-size="11" fill="#80c880" font-weight="600">GS ≈ 116 kt →</text>
+    <!-- W (wind tip) -->
+    <circle cx="60" cy="80" r="6" fill="#40c8c8" stroke="#0d2040" stroke-width="1.5"/>
+    <text x="76" y="77" font-size="11" fill="#40c8c8" font-weight="700" font-family="'Segoe UI',system-ui,sans-serif">W — wind tip</text>
+    <text x="76" y="90" font-size="9" fill="#5a9a9a" font-family="'Segoe UI',system-ui,sans-serif">30 kt × 5 = 150 px ↑</text>
 
-    <!-- WCA arc at departure -->
-    <path d="M 140 190 A 60 60 0 0 0 127 156" fill="none" stroke="#f0c040" stroke-width="1.5"/>
-    <text x="162" y="168" font-size="10" fill="#f0c040" font-weight="700">WCA ≈ 14°</text>
+    <!-- B (GS destination / TAS tip — same point) -->
+    <circle cx="641" cy="230" r="7" fill="#c04040" stroke="#ff8080" stroke-width="1.5"/>
+    <text x="655" y="226" font-size="12" fill="#ff8080" font-weight="800" font-family="'Segoe UI',system-ui,sans-serif">B</text>
+    <text x="655" y="238" font-size="9" fill="#7a9ab5" font-family="'Segoe UI',system-ui,sans-serif">destination</text>
 
-    <!-- North arrow (top right) -->
-    <line x1="720" y1="70" x2="720" y2="35" stroke="#c8d8e8" stroke-width="1.5"/>
-    <polygon points="720,30 715,45 725,45" fill="#c8d8e8"/>
-    <text x="720" y="85" text-anchor="middle" font-size="11" fill="#c8d8e8" font-weight="700">N</text>
+    <!-- ── Scale bar ─────────────────────────────────────────────────── -->
+    <line x1="500" y1="270" x2="750" y2="270" stroke="#7a9ab5" stroke-width="1.5"/>
+    <line x1="500" y1="265" x2="500" y2="275" stroke="#7a9ab5" stroke-width="1.5"/>
+    <line x1="750" y1="265" x2="750" y2="275" stroke="#7a9ab5" stroke-width="1.5"/>
+    <text x="625" y="283" text-anchor="middle" font-size="9" fill="#7a9ab5" font-family="'Segoe UI',system-ui,sans-serif">50 kt = 250 px</text>
 
-    <!-- Legend box -->
-    <rect x="20" y="228" width="230" height="68" fill="#0a1a35" rx="5" stroke="#1a3a5a" stroke-width="1"/>
-    <text x="35" y="245" font-size="10" fill="#7a9ab5" font-weight="600">LEGEND</text>
-    <line x1="35" y1="255" x2="65" y2="255" stroke="#3a7ad5" stroke-width="2" stroke-dasharray="5 3"/>
-    <text x="72" y="259" font-size="10" fill="#3a7ad5">True Track (090°)</text>
-    <line x1="35" y1="270" x2="65" y2="270" stroke="#40c8c8" stroke-width="2" stroke-dasharray="4 3"/>
-    <text x="72" y="274" font-size="10" fill="#40c8c8">Wind Vector</text>
-    <line x1="35" y1="285" x2="65" y2="285" stroke="#f08040" stroke-width="2"/>
-    <text x="72" y="289" font-size="10" fill="#f08040">True Heading (TH)</text>
+    <!-- ── North arrow ──────────────────────────────────────────────── -->
+    <line x1="730" y1="60" x2="730" y2="25" stroke="#c8d8e8" stroke-width="1.5"/>
+    <polygon points="730,20 725,35 735,35" fill="#c8d8e8"/>
+    <text x="730" y="75" text-anchor="middle" font-size="11" fill="#c8d8e8" font-weight="700" font-family="'Segoe UI',system-ui,sans-serif">N</text>
+
+    <!-- ── Legend ───────────────────────────────────────────────────── -->
+    <rect x="472" y="14" width="276" height="60" fill="#0a1a35" rx="5" stroke="#1a3a5a" stroke-width="1"/>
+    <text x="488" y="30" font-size="9" fill="#7a9ab5" font-weight="700" font-family="'Segoe UI',system-ui,sans-serif">LEGEND</text>
+    <line x1="488" y1="42" x2="518" y2="42" stroke="#3a7ad5" stroke-width="2.5"/>
+    <text x="523" y="46" font-size="9" fill="#3a7ad5" font-family="'Segoe UI',system-ui,sans-serif">GS (A→B along track)</text>
+    <line x1="488" y1="56" x2="518" y2="56" stroke="#40c8c8" stroke-width="2" stroke-dasharray="5 3"/>
+    <text x="523" y="60" font-size="9" fill="#40c8c8" font-family="'Segoe UI',system-ui,sans-serif">Wind vector (A→W)</text>
+    <line x1="620" y1="42" x2="650" y2="42" stroke="#f08040" stroke-width="2.5"/>
+    <text x="655" y="46" font-size="9" fill="#f08040" font-family="'Segoe UI',system-ui,sans-serif">TAS (W→B, heading)</text>
 
   </svg>
 </div>
 
-<!-- ── CONCEPT CARDS ──────────────────────────────────────────────────── -->
-<div class="section-label">Key Concepts</div>
+<!-- ── HOW THE TRIANGLE WORKS ─────────────────────────────────────────── -->
+<div class="section-label">Reading the Vector Triangle</div>
 <div class="two-col">
   <div class="info-card">
-    <h3>Wind Correction Angle (WCA)</h3>
+    <h3>The Three Vectors</h3>
+    <p>The wind triangle is a <strong>closed vector chain</strong>: GS = TAS + Wind.
+    The aircraft points its nose along <strong>TAS</strong> to compensate for wind drift so the
+    actual path over ground follows <strong>GS</strong> along the desired track.</p>
     <div class="big">TH = TT + WCA</div>
-    <div class="sub">Apply WCA to True Track to get True Heading</div>
-    <p style="margin-top:12px;">WCA is the angle between your intended track and the direction you must point the aircraft nose to stay on track. You <strong>crab into the wind</strong>: if wind is from the right, WCA is positive (crab right, TH &gt; TT); wind from the left, WCA is negative (crab left, TH &lt; TT).<br><br>
-    Example: TT 090°, wind from right (180°), WCA = +14°<br><strong>TH = 090° + 14° = 104°</strong></p>
+    <div class="sub">WCA is the crab angle measured at vertex A</div>
+    <p style="margin-top:12px;"><strong>Example:</strong> TT 090°, Wind 180°/30 kt, TAS 120 kt<br>
+    WCA = arcsin(30/120) ≈ <strong>14°</strong><br>
+    TH = 090° + 14° = <strong>104°</strong> (nose points south-of-east)</p>
   </div>
   <div class="info-card">
     <h3>Ground Speed (GS)</h3>
     <div class="big">GS ≠ TAS</div>
     <div class="sub">Wind changes your speed over the ground</div>
-    <p style="margin-top:12px;"><strong>Headwind</strong> component reduces GS below TAS.<br>
-    <strong>Tailwind</strong> component increases GS above TAS.<br>
-    <strong>Pure crosswind</strong> has only a small effect on GS (reduces it slightly).<br><br>
-    Example: TAS 120 kt, 30 kt direct tailwind<br><strong>GS ≈ 150 kt</strong><br>
-    30 kt direct headwind → <strong>GS ≈ 90 kt</strong></p>
+    <p style="margin-top:12px;"><strong>Pure crosswind example (above):</strong><br>
+    GS = √(TAS² − crosswind²)<br>
+    GS = √(120² − 30²) = √13,500 ≈ <strong>116 kt</strong><br><br>
+    <strong>Headwind 30 kt:</strong> GS = TAS − 30 = <strong>90 kt</strong><br>
+    <strong>Tailwind 30 kt:</strong> GS = TAS + 30 = <strong>150 kt</strong></p>
   </div>
 </div>
 
@@ -146,16 +182,16 @@ body { max-width: 860px; margin: auto; }
       <td>Minimum time en route; fly heading = track</td>
     </tr>
     <tr>
-      <td><strong>Left Crosswind (wind from left)</strong></td>
+      <td><strong>Left Crosswind (from left)</strong></td>
       <td>Crab left → TH &lt; TT</td>
       <td>GS slightly &lt; TAS</td>
-      <td>WCA is negative; subtract from TT</td>
+      <td>WCA negative; subtract from TT</td>
     </tr>
     <tr>
-      <td><strong>Right Crosswind (wind from right)</strong></td>
+      <td><strong>Right Crosswind (from right)</strong></td>
       <td>Crab right → TH &gt; TT</td>
       <td>GS slightly &lt; TAS</td>
-      <td>WCA is positive; add to TT</td>
+      <td>WCA positive; add to TT</td>
     </tr>
   </tbody>
 </table>
