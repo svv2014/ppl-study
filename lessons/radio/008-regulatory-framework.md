@@ -6,7 +6,7 @@ slug: regulatory-framework
 title: "Radio Regulatory Framework — Radiocommunication Act and ROC-A"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/radio/008-regulatory-framework.m4a
 visual: ''
 sources:
   - Radiocommunication Act R.S.C. 1985 c. R-2

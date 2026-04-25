@@ -6,7 +6,7 @@ slug: phonetic-alphabet-numbers
 title: "Phonetic Alphabet and Number Pronunciation"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/radio/001-phonetic-alphabet-numbers.m4a
 visual: ''
 sources:
   - ISED RIC-21
@@ -79,23 +79,13 @@ Radio communication over VHF introduces noise, static, and occasional interferen
 
 **The NATO/ICAO Phonetic Alphabet**
 
-Here is the complete alphabet as standardized by ICAO and adopted in Canada through ISED RIC-21:
+Here is the complete alphabet as standardized by ICAO and adopted in Canada through ISED RIC-21. Listen through all twenty-six words and say each one aloud as you follow along.
 
-| Letter | Phonetic Word | Letter | Phonetic Word |
-|--------|--------------|--------|--------------|
-| A | Alfa | N | November |
-| B | Bravo | O | Oscar |
-| C | Charlie | P | Papa |
-| D | Delta | Q | Quebec |
-| E | Echo | R | Romeo |
-| F | Foxtrot | S | Sierra |
-| G | Golf | T | Tango |
-| H | Hotel | U | Uniform |
-| I | India | V | Victor |
-| J | Juliet | W | Whiskey |
-| K | Kilo | X | X-ray |
-| L | Lima | Y | Yankee |
-| M | Mike | Z | Zulu |
+Alfa. Bravo. Charlie. Delta. Echo. Foxtrot. Golf. Hotel. India. Juliet. Kilo. Lima. Mike. November. Oscar. Papa. Quebec. Romeo. Sierra. Tango. Uniform. Victor. Whiskey. X-ray. Yankee. Zulu.
+
+Memorize this list. It is the foundation of every radio transmission you will ever make. Let's go through it once more, this time with the letter:
+
+A — Alfa. B — Bravo. C — Charlie. D — Delta. E — Echo. F — Foxtrot. G — Golf. H — Hotel. I — India. J — Juliet. K — Kilo. L — Lima. M — Mike. N — November. O — Oscar. P — Papa. Q — Quebec. R — Romeo. S — Sierra. T — Tango. U — Uniform. V — Victor. W — Whiskey. X — X-ray. Y — Yankee. Z — Zulu.
 
 A few words deserve special attention. "Alfa" is spelled with an "f" — this ensures proper pronunciation in languages where "ph" might be pronounced differently. "Juliett" in the ICAO standard has a double "t" to clarify pronunciation. "Quebec" is spoken "Keh-BEK." "Lima" rhymes with "Emma," not with the capital of Peru as some English speakers assume.
 
@@ -103,20 +93,7 @@ A few words deserve special attention. "Alfa" is spelled with an "f" — this en
 
 **Number Pronunciation**
 
-Aviation uses a specific set of number pronunciations that differ from everyday speech. Here are the digits zero through nine:
-
-| Digit | Pronunciation |
-|-------|--------------|
-| 0 | Zero |
-| 1 | One |
-| 2 | Two |
-| 3 | Tree |
-| 4 | Fower |
-| 5 | Fife |
-| 6 | Six |
-| 7 | Seven |
-| 8 | Ait |
-| 9 | **Niner** |
+Aviation uses a specific set of number pronunciations that differ from everyday speech. The digits zero through nine in aviation are: Zero. One. Two. Tree. Fower. Fife. Six. Seven. Ait. Niner.
 
 Two digits need special emphasis. **"Niner"** is used instead of "nine" to avoid confusion with the German word "Nein" (meaning "no"), and to make the syllable sound distinctly different from "five" in a noisy environment. **"Tree"** is used for three because "three" can be mistaken for "free" by non-native English speakers. **"Fower"** for four prevents confusion with "for." **"Fife"** for five provides a clearer sound than "five" with its soft trailing vowel.
 

@@ -6,7 +6,7 @@ slug: emergency-comms
 title: "Emergency Communications"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/radio/006-emergency-comms.m4a
 visual: ''
 sources:
   - AIM SAR 3.0
