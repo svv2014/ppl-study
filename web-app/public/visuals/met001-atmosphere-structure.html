@@ -7,15 +7,9 @@
 <script src="/visuals/_theme-init.js"></script>
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
-  /* Visual-specific layout */
-  .layout { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; align-items: start; }
-  @media (max-width: 640px) {
-    .layout { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 480px) {
-    body { font-size: 14px; padding: 16px; }
-    .layout { grid-template-columns: 1fr; }
-  }
+  .layout { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: start; }
+  @media (max-width: 640px) { .layout { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { body { font-size: 14px; padding: 16px; } }
 </style>
 </head>
 <body>
@@ -26,65 +20,119 @@
   <p class="subtitle">Transport Canada · TP 12880E Ch. 8 · AIM MET 1.0</p>
 
   <div class="layout">
+    <!-- Temperature / Altitude grid with ISA lapse rate diagonal -->
     <div class="diagram-box">
-      <svg viewBox="0 0 360 360" width="100%" height="360">
-        <!-- Gradient for layers -->
+      <svg viewBox="0 0 380 400" width="100%" height="400" aria-label="Temperature vs altitude diagram showing atmosphere layers and ISA lapse rate">
         <defs>
-          <linearGradient id="tropo" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0%" stop-color="#2d4a6a"/>
-            <stop offset="100%" stop-color="#1a2d45"/>
+          <!-- Troposphere fill -->
+          <linearGradient id="tropo-bg" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#1a3550"/>
+            <stop offset="100%" stop-color="#0f2035"/>
           </linearGradient>
-          <linearGradient id="strato" x1="0" y1="1" x2="0" y2="0">
-            <stop offset="0%" stop-color="#1a2d45"/>
-            <stop offset="100%" stop-color="#0d1b2a"/>
+          <!-- Stratosphere fill -->
+          <linearGradient id="strato-bg" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#0a1525"/>
+            <stop offset="100%" stop-color="#060e18"/>
           </linearGradient>
         </defs>
 
-        <!-- Axis -->
-        <line x1="70" y1="340" x2="70" y2="20" stroke="#7a9ab5" stroke-width="1.5"/>
-        <text x="40" y="180" text-anchor="middle" fill="#7a9ab5" font-size="10" transform="rotate(-90,40,180)">Altitude (ft)</text>
+        <!-- Chart area bounds: x 70–360, y 20–350 (altitude bottom=350, top=20) -->
+        <!-- Temperature axis: -60°C (x=70) to +30°C (x=360), 9°C per 30px -->
+        <!-- Altitude axis: 0 ft (y=350) to 55,000 ft (y=20), 10,000 ft per ~60px -->
 
-        <!-- Y-axis ticks -->
-        <g font-size="10" fill="#7a9ab5">
-          <line x1="65" y1="340" x2="75" y2="340" stroke="#7a9ab5"/>
-          <text x="60" y="343" text-anchor="end">SL</text>
-          <line x1="65" y1="280" x2="75" y2="280" stroke="#7a9ab5"/>
-          <text x="60" y="283" text-anchor="end">10k</text>
-          <line x1="65" y1="220" x2="75" y2="220" stroke="#7a9ab5"/>
-          <text x="60" y="223" text-anchor="end">20k</text>
-          <line x1="65" y1="160" x2="75" y2="160" stroke="#7a9ab5"/>
-          <text x="60" y="163" text-anchor="end">30k</text>
-          <line x1="65" y1="130" x2="75" y2="130" stroke="#7a9ab5"/>
-          <text x="60" y="133" text-anchor="end">36k</text>
-          <line x1="65" y1="70" x2="75" y2="70" stroke="#7a9ab5"/>
-          <text x="60" y="73" text-anchor="end">50k</text>
+        <!-- Troposphere band (0–36,000 ft → y=350 to y=134) -->
+        <rect x="70" y="134" width="290" height="216" fill="url(#tropo-bg)"/>
+
+        <!-- Tropopause band (36,000 ft → y=134, height 10px) -->
+        <rect x="70" y="126" width="290" height="12" fill="#f0c040" opacity="0.30"/>
+
+        <!-- Stratosphere band (36,000–55,000 ft → y=20 to y=134) -->
+        <rect x="70" y="20" width="290" height="108" fill="url(#strato-bg)"/>
+
+        <!-- Grid lines (horizontal — every 10,000 ft) -->
+        <g stroke="#1a3550" stroke-width="1" opacity="0.6">
+          <line x1="70" y1="350" x2="360" y2="350"/>
+          <line x1="70" y1="290" x2="360" y2="290"/>
+          <line x1="70" y1="230" x2="360" y2="230"/>
+          <line x1="70" y1="170" x2="360" y2="170"/>
+          <line x1="70" y1="134" x2="360" y2="134"/>
+          <line x1="70" y1="80" x2="360" y2="80"/>
+          <line x1="70" y1="20" x2="360" y2="20"/>
         </g>
 
-        <!-- Troposphere -->
-        <rect x="75" y="130" width="260" height="210" fill="url(#tropo)" stroke="#243d52"/>
-        <text x="205" y="240" text-anchor="middle" fill="#f0c040" font-size="14" font-weight="bold">TROPOSPHERE</text>
-        <text x="205" y="258" text-anchor="middle" fill="#e8edf2" font-size="11">Weather lives here</text>
-        <text x="205" y="274" text-anchor="middle" fill="#7a9ab5" font-size="10">Temperature ↓ with altitude</text>
+        <!-- Grid lines (vertical — every 15°C) -->
+        <g stroke="#1a3550" stroke-width="1" opacity="0.6">
+          <!-- -60 x=70, -45 x=120, -30 x=170, -15 x=220, 0 x=270, +15 x=320 -->
+          <line x1="120" y1="20" x2="120" y2="350"/>
+          <line x1="170" y1="20" x2="170" y2="350"/>
+          <line x1="220" y1="20" x2="220" y2="350"/>
+          <line x1="270" y1="20" x2="270" y2="350"/>
+          <line x1="320" y1="20" x2="320" y2="350"/>
+        </g>
 
-        <!-- Tropopause band -->
-        <rect x="75" y="122" width="260" height="12" fill="#f0c040" opacity="0.35"/>
-        <text x="205" y="131" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="bold">TROPOPAUSE</text>
+        <!-- Axes -->
+        <line x1="70" y1="20" x2="70" y2="355" stroke="#7a9ab5" stroke-width="1.5"/>
+        <line x1="65" y1="350" x2="365" y2="350" stroke="#7a9ab5" stroke-width="1.5"/>
 
-        <!-- Stratosphere -->
-        <rect x="75" y="20" width="260" height="102" fill="url(#strato)" stroke="#243d52"/>
-        <text x="205" y="75" text-anchor="middle" fill="#e8edf2" font-size="13" font-weight="bold">STRATOSPHERE</text>
-        <text x="205" y="92" text-anchor="middle" fill="#7a9ab5" font-size="10">Temperature ↑ with altitude</text>
-        <text x="205" y="106" text-anchor="middle" fill="#7a9ab5" font-size="10">Ozone layer · smooth air</text>
+        <!-- Y-axis labels (altitude) -->
+        <g font-size="10" fill="#7a9ab5" text-anchor="end">
+          <text x="64" y="353">SL</text>
+          <text x="64" y="293">10k</text>
+          <text x="64" y="233">20k</text>
+          <text x="64" y="173">30k</text>
+          <text x="64" y="137">36k</text>
+          <text x="64" y="83">50k</text>
+        </g>
+        <text x="18" y="190" fill="#7a9ab5" font-size="11" transform="rotate(-90,18,190)" text-anchor="middle">Altitude (ft)</text>
 
-        <!-- Lapse rate arrow in troposphere -->
-        <line x1="100" y1="330" x2="100" y2="140" stroke="#4caf7d" stroke-width="1.5" stroke-dasharray="4,3"/>
-        <text x="106" y="235" fill="#4caf7d" font-size="9">ISA lapse rate</text>
-        <text x="106" y="247" fill="#4caf7d" font-size="9">≈ 2°C / 1,000 ft</text>
+        <!-- X-axis labels (temperature) -->
+        <g font-size="10" fill="#7a9ab5" text-anchor="middle">
+          <text x="70"  y="366">−60</text>
+          <text x="120" y="366">−45</text>
+          <text x="170" y="366">−30</text>
+          <text x="220" y="366">−15</text>
+          <text x="270" y="366">0</text>
+          <text x="320" y="366">+15</text>
+          <text x="360" y="366">+30</text>
+        </g>
+        <text x="215" y="384" fill="#7a9ab5" font-size="11" text-anchor="middle">Temperature (°C)</text>
 
-        <!-- Tropopause height range annotation -->
-        <line x1="335" y1="180" x2="335" y2="90" stroke="#f0c040" stroke-width="1"/>
-        <text x="345" y="138" fill="#f0c040" font-size="9" text-anchor="start">varies</text>
-        <text x="345" y="150" fill="#f0c040" font-size="9" text-anchor="start">by lat.</text>
+        <!-- ISA lapse rate line (diagonal) -->
+        <!-- At sea level: 15°C → x = 70 + (15+60)/90*290 = 70 + 75/90*290 ≈ 70+242 = 312, y=350 -->
+        <!-- At 36,000 ft: -56°C → x = 70 + (-56+60)/90*290 = 70 + 4/90*290 ≈ 70+13 = 83, y=134 -->
+        <!-- Linear: ~2°C per 1000ft, 36000ft = 72°C drop, 15°C - 72°C = -57°C (use -56°C ISA) -->
+        <line x1="312" y1="350" x2="83" y2="134"
+              stroke="#4caf7d" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Endpoint dots -->
+        <circle cx="312" cy="350" r="4" fill="#4caf7d"/>
+        <circle cx="83" cy="134" r="4" fill="#4caf7d"/>
+        <!-- Lapse rate label -->
+        <text x="210" y="238" fill="#4caf7d" font-size="10" font-weight="bold" transform="rotate(-32,210,238)">ISA lapse rate ≈ 2°C / 1,000 ft</text>
+
+        <!-- Stratosphere isothermal line (flat at -56°C, y=134 to y=80, x stays at 83) -->
+        <!-- Then slight warming: from ~-56°C at 36k to -3°C at 50k (strato warming) -->
+        <line x1="83" y1="134" x2="83" y2="80"
+              stroke="#5b9bd5" stroke-width="2" stroke-dasharray="5,3"/>
+        <!-- Stratosphere warms above ~32km — simplified shown as slight rightward angle -->
+        <line x1="83" y1="80" x2="140" y2="20"
+              stroke="#5b9bd5" stroke-width="2" stroke-dasharray="5,3"/>
+        <text x="95" y="55" fill="#5b9bd5" font-size="9">Strato warms</text>
+        <text x="95" y="65" fill="#5b9bd5" font-size="9">(ozone layer)</text>
+
+        <!-- Layer labels -->
+        <text x="215" y="252" text-anchor="middle" fill="#f0c040" font-size="13" font-weight="bold">TROPOSPHERE</text>
+        <text x="215" y="268" text-anchor="middle" fill="#e4ecf5" font-size="10">Weather · all precip · turbulence</text>
+        <text x="215" y="282" text-anchor="middle" fill="#7a9ab5" font-size="10">Temperature ↓ with altitude</text>
+
+        <text x="215" y="128" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="bold">TROPOPAUSE ≈ 36,000 ft (Canada)</text>
+
+        <text x="215" y="65" text-anchor="middle" fill="#e4ecf5" font-size="12" font-weight="bold">STRATOSPHERE</text>
+        <text x="215" y="80" text-anchor="middle" fill="#7a9ab5" font-size="10">Smooth · dry · no weather</text>
+
+        <!-- Sea-level reference dot and annotation -->
+        <line x1="312" y1="350" x2="312" y2="340" stroke="#f0c040" stroke-width="1"/>
+        <text x="314" y="338" fill="#f0c040" font-size="9">15°C / 29.92 inHg</text>
+        <text x="314" y="348" fill="#f0c040" font-size="9">ISA sea level</text>
       </svg>
     </div>
 
@@ -97,12 +145,17 @@
       <div class="fact-card">
         <div class="fact-label">Standard Lapse Rate</div>
         <div class="fact-value">≈ 2 °C / 1,000 ft</div>
-        <div class="fact-note">Temperature decreases predictably through the troposphere.</div>
+        <div class="fact-note">Temperature decreases predictably through the troposphere (shown as green diagonal).</div>
       </div>
       <div class="fact-card">
         <div class="fact-label">Pressure Drop Rule</div>
         <div class="fact-value">≈ 1 inHg / 1,000 ft</div>
-        <div class="fact-note">Only valid near the surface; rate decreases with altitude.</div>
+        <div class="fact-note">Valid near the surface; rate decreases with altitude.</div>
+      </div>
+      <div class="fact-card">
+        <div class="fact-label">Tropopause (Canada)</div>
+        <div class="fact-value">≈ 36,000 ft</div>
+        <div class="fact-note">ISA temperature at tropopause: −56 °C. Ozone layer above.</div>
       </div>
     </div>
   </div>
@@ -121,7 +174,7 @@
 
   <div class="memory-hook">
     <span class="badge">EXAM HOOK</span><br>
-    <strong>All weather is in the troposphere.</strong> Temperature drops with altitude at ≈ 2 °C per 1,000 ft (ISA), pressure drops ≈ 1 inHg per 1,000 ft near the surface. Above the tropopause (≈ 36,000 ft over Canada), the stratosphere is isothermal then warms — smooth air, no clouds, no weather.
+    <strong>All weather is in the troposphere.</strong> Temperature drops with altitude at ≈ 2 °C per 1,000 ft (ISA lapse rate — the green diagonal on the chart). Pressure drops ≈ 1 inHg per 1,000 ft near the surface. Above the tropopause (≈ 36,000 ft over Canada), the stratosphere is first isothermal then warms (ozone absorption) — smooth air, no clouds, no weather.
   </div>
 </div>
 </body>
