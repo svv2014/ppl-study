@@ -5,6 +5,7 @@ import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import AddIcon from '@mui/icons-material/Add';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -25,6 +26,8 @@ export default function TrackSwitcher() {
   }, [activeTrack.id, trackProgress.completed]);
   const [anchor, setAnchor] = useState<null | HTMLElement>(null);
   const open = Boolean(anchor);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleOpen = (e: React.MouseEvent<HTMLElement>) => setAnchor(e.currentTarget);
   const handleClose = () => setAnchor(null);
@@ -32,6 +35,11 @@ export default function TrackSwitcher() {
   const handleSelect = (trackId: string) => {
     setActiveTrack(trackId);
     handleClose();
+  };
+
+  const showComingSoon = (trackName: string) => {
+    setSnackbarMessage(`${trackName} is coming soon — check back later`);
+    setSnackbarOpen(true);
   };
 
   return (
@@ -93,11 +101,27 @@ export default function TrackSwitcher() {
         {availableTracks.map((track) => {
           const isActiveTrack = track.id === activeTrack.id;
           const isSelectable = track.status === 'active';
+          const isComingSoon = track.status === 'coming-soon';
+          const isLocked = track.status === 'locked';
+
+          const handleClick = isSelectable
+            ? () => handleSelect(track.id)
+            : isComingSoon
+              ? () => showComingSoon(track.name)
+              : undefined;
+
+          const handleKeyDown = (e: React.KeyboardEvent) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              if (isComingSoon) showComingSoon(track.name);
+            }
+          };
 
           return (
             <MenuItem
               key={track.id}
-              onClick={isSelectable ? () => handleSelect(track.id) : undefined}
+              onClick={handleClick}
+              onKeyDown={isComingSoon || isLocked ? handleKeyDown : undefined}
               selected={isActiveTrack}
               disableRipple={!isSelectable}
               sx={{
@@ -130,11 +154,20 @@ export default function TrackSwitcher() {
                 <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2 }}>
                   {track.tagline}
                 </Typography>
+                {isLocked && track.unlockHint && (
+                  <Typography
+                    variant="caption"
+                    color="text.disabled"
+                    sx={{ lineHeight: 1.2, fontStyle: 'italic', display: 'block' }}
+                  >
+                    {track.unlockHint}
+                  </Typography>
+                )}
               </Box>
-              {track.status === 'locked' && (
+              {isLocked && (
                 <LockIcon sx={{ fontSize: '1rem', color: 'text.disabled', flexShrink: 0 }} />
               )}
-              {track.status === 'coming-soon' && (
+              {isComingSoon && (
                 <Chip
                   label="Soon"
                   size="small"
@@ -167,6 +200,13 @@ export default function TrackSwitcher() {
           </Typography>
         </MenuItem>
       </Menu>
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={3000}
+        onClose={() => setSnackbarOpen(false)}
+        message={snackbarMessage}
+      />
     </>
   );
 }
