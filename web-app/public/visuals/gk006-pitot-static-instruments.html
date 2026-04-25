@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GK-006: Pitot-Static System</title>
 <script src="/visuals/_theme-init.js"></script>
-<link rel="stylesheet" href="_common.css">
+<link rel="stylesheet" href="/visuals/_common.css">
 <style>
   .diagram-box { margin-bottom: 24px; }
   .layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
@@ -43,52 +43,93 @@
       <rect x="20" y="85" width="70" height="30" rx="4" fill="#1e3a50" stroke="#f0c040" stroke-width="2"/>
       <polygon points="90,85 110,100 90,115" fill="#f0c040"/>
       <text x="55" y="102" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="bold">PITOT</text>
-      <text x="55" y="78" text-anchor="middle" fill="#7a9ab5" font-size="8">Ram air pressure</text>
+      <text x="55" y="78" text-anchor="middle" fill="#7a9ab5" font-size="11">Ram air</text>
 
       <!-- Static Port (left lower) -->
       <rect x="20" y="155" width="70" height="30" rx="4" fill="#1e3a50" stroke="#5b9bd5" stroke-width="2"/>
       <text x="55" y="173" text-anchor="middle" fill="#5b9bd5" font-size="10" font-weight="bold">STATIC</text>
-      <text x="55" y="148" text-anchor="middle" fill="#7a9ab5" font-size="8">Ambient pressure</text>
-      <text x="55" y="192" text-anchor="middle" fill="#7a9ab5" font-size="8">PORT</text>
+      <text x="55" y="148" text-anchor="middle" fill="#7a9ab5" font-size="11">Ambient</text>
+      <text x="55" y="192" text-anchor="middle" fill="#7a9ab5" font-size="11">PORT</text>
 
       <!-- Pitot line (amber) going to ASI -->
       <line x1="110" y1="100" x2="320" y2="100" stroke="#f0c040" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrowP)"/>
-      <text x="215" y="92" text-anchor="middle" fill="#f0c040" font-size="8">Pitot pressure</text>
+      <text x="215" y="92" text-anchor="middle" fill="#f0c040" font-size="11">Pitot pressure</text>
 
       <!-- Static lines (blue) - branch to three instruments -->
       <line x1="90" y1="170" x2="560" y2="170" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="5,3"/>
       <!-- static → ASI -->
-      <line x1="355" y1="170" x2="355" y2="130" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowS)"/>
+      <line x1="355" y1="170" x2="355" y2="136" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowS)"/>
       <!-- static → Altimeter -->
-      <line x1="480" y1="170" x2="480" y2="130" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowS)"/>
+      <line x1="480" y1="170" x2="480" y2="136" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowS)"/>
       <!-- static → VSI -->
-      <line x1="595" y1="170" x2="595" y2="130" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowS)"/>
-      <text x="400" y="185" text-anchor="middle" fill="#5b9bd5" font-size="8">Static pressure line</text>
+      <line x1="595" y1="170" x2="595" y2="136" stroke="#5b9bd5" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowS)"/>
+      <text x="400" y="185" text-anchor="middle" fill="#5b9bd5" font-size="11">Static pressure line</text>
 
-      <!-- ASI Instrument -->
-      <rect x="320" y="50" width="70" height="80" rx="5" fill="#0d1b2a" stroke="#f0c040" stroke-width="2"/>
-      <circle cx="355" cy="80" r="22" fill="#0d2040" stroke="#7a9ab5" stroke-width="1"/>
-      <text x="355" y="85" text-anchor="middle" fill="#f0c040" font-size="8">ASI</text>
-      <text x="355" y="40" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">AIRSPEED</text>
-      <text x="355" y="145" text-anchor="middle" fill="#7a9ab5" font-size="8">Pitot + Static</text>
+      <!-- ═══ ASI Instrument face ═══ -->
+      <rect x="318" y="45" width="74" height="90" rx="5" fill="#0d1b2a" stroke="#f0c040" stroke-width="2"/>
+      <text x="355" y="38" text-anchor="middle" fill="#e8edf2" font-size="11" font-weight="bold">AIRSPEED</text>
+      <!-- Outer bezel ring -->
+      <circle cx="355" cy="83" r="28" fill="#0a1520" stroke="#3a5870" stroke-width="1.5"/>
+      <!-- White arc: Vso→Vfe — flap operating range (hardcoded white = standard FAA/TC color for flap speed arc) -->
+      <path d="M 336 97 A 24 24 0 0 1 345 60" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+      <!-- Green arc: Vs1→Vno — normal operating range (hardcoded #4caf7d = safe/normal, not a token alias) -->
+      <path d="M 340 95 A 24 24 0 0 1 377 63" fill="none" stroke="#4caf7d" stroke-width="5" stroke-linecap="round"/>
+      <!-- Yellow arc: Vno→Vne — caution/smooth-air-only range (hardcoded #f0c040 = caution, not a token alias) -->
+      <path d="M 377 63 A 24 24 0 0 1 379 83" fill="none" stroke="#f0c040" stroke-width="5" stroke-linecap="round"/>
+      <!-- Red radial: Vne — never-exceed speed limit (hardcoded #e05050 = danger/limit, not a token alias) -->
+      <line x1="379" y1="81" x2="383" y2="80" stroke="#e05050" stroke-width="4" stroke-linecap="round"/>
+      <!-- Needle pointing at cruise band (~60° from top = green arc) -->
+      <line x1="355" y1="83" x2="371" y2="63" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="355" cy="83" r="3" fill="#7a9ab5"/>
+      <text x="355" y="101" text-anchor="middle" fill="#f0c040" font-size="11" font-weight="bold">ASI</text>
+      <text x="355" y="147" text-anchor="middle" fill="#7a9ab5" font-size="11">Pitot + Static</text>
 
-      <!-- Altimeter Instrument -->
-      <rect x="445" y="50" width="70" height="80" rx="5" fill="#0d1b2a" stroke="#5b9bd5" stroke-width="2"/>
-      <circle cx="480" cy="80" r="22" fill="#0d2040" stroke="#7a9ab5" stroke-width="1"/>
-      <text x="480" y="85" text-anchor="middle" fill="#5b9bd5" font-size="8">ALT</text>
-      <text x="480" y="40" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">ALTIMETER</text>
-      <text x="480" y="145" text-anchor="middle" fill="#7a9ab5" font-size="8">Static only</text>
+      <!-- ═══ Altimeter Instrument face ═══ -->
+      <rect x="443" y="45" width="74" height="90" rx="5" fill="#0d1b2a" stroke="#5b9bd5" stroke-width="2"/>
+      <text x="480" y="38" text-anchor="middle" fill="#e8edf2" font-size="11" font-weight="bold">ALTIMETER</text>
+      <circle cx="480" cy="83" r="28" fill="#0a1520" stroke="#3a5870" stroke-width="1.5"/>
+      <!-- Altimeter tick ring: major tick every 36° (=1000 ft), 10 ticks -->
+      <line x1="480" y1="55" x2="480" y2="62" stroke="#e8edf2" stroke-width="1.5"/>
+      <line x1="497" y1="57" x2="494" y2="63" stroke="#e8edf2" stroke-width="1.5"/>
+      <line x1="508" y1="66" x2="503" y2="70" stroke="#e8edf2" stroke-width="1.5"/>
+      <line x1="508" y1="83" x2="502" y2="83" stroke="#e8edf2" stroke-width="1.5"/>
+      <line x1="497" y1="100" x2="494" y2="94" stroke="#e8edf2" stroke-width="1.5"/>
+      <line x1="480" y1="111" x2="480" y2="104" stroke="#e8edf2" stroke-width="1.5"/>
+      <line x1="463" y1="100" x2="466" y2="94" stroke="#e8edf2" stroke-width="1.5"/>
+      <line x1="452" y1="83" x2="458" y2="83" stroke="#e8edf2" stroke-width="1.5"/>
+      <line x1="452" y1="66" x2="457" y2="70" stroke="#e8edf2" stroke-width="1.5"/>
+      <line x1="463" y1="57" x2="466" y2="63" stroke="#e8edf2" stroke-width="1.5"/>
+      <!-- Altimeter long hand (hundreds of feet) pointing to ~1500 ft -->
+      <line x1="480" y1="83" x2="470" y2="60" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      <!-- Altimeter short hand (thousands of feet) pointing to 1 -->
+      <line x1="480" y1="83" x2="480" y2="68" stroke="#5b9bd5" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="480" cy="83" r="3" fill="#7a9ab5"/>
+      <text x="480" y="101" text-anchor="middle" fill="#5b9bd5" font-size="11" font-weight="bold">ALT</text>
+      <text x="480" y="147" text-anchor="middle" fill="#7a9ab5" font-size="11">Static only</text>
 
-      <!-- VSI Instrument -->
-      <rect x="560" y="50" width="70" height="80" rx="5" fill="#0d1b2a" stroke="#5b9bd5" stroke-width="2"/>
-      <circle cx="595" cy="80" r="22" fill="#0d2040" stroke="#7a9ab5" stroke-width="1"/>
-      <text x="595" y="85" text-anchor="middle" fill="#5b9bd5" font-size="8">VSI</text>
-      <text x="595" y="40" text-anchor="middle" fill="#e8edf2" font-size="9" font-weight="bold">VERT SPEED</text>
-      <text x="595" y="145" text-anchor="middle" fill="#7a9ab5" font-size="8">Static only</text>
+      <!-- ═══ VSI Instrument face ═══ -->
+      <rect x="558" y="45" width="74" height="90" rx="5" fill="#0d1b2a" stroke="#5b9bd5" stroke-width="2"/>
+      <text x="595" y="38" text-anchor="middle" fill="#e8edf2" font-size="11" font-weight="bold">VERT SPEED</text>
+      <circle cx="595" cy="83" r="28" fill="#0a1520" stroke="#3a5870" stroke-width="1.5"/>
+      <!-- VSI scale: 0 at right (9 o'clock on standard VSI = level flight), UP arcs top, DOWN arcs bottom -->
+      <!-- VSI "CLIMB" upper half arc -->
+      <path d="M 567 83 A 28 28 0 0 1 595 55" fill="none" stroke="#4caf7d" stroke-width="4" stroke-linecap="round"/>
+      <!-- VSI "DESCENT" lower half arc -->
+      <path d="M 567 83 A 28 28 0 0 0 595 111" fill="none" stroke="#e05050" stroke-width="4" stroke-linecap="round"/>
+      <!-- Zero line horizontal tick at left (level flight = zero) -->
+      <line x1="567" y1="83" x2="574" y2="83" stroke="#ffffff" stroke-width="2.5"/>
+      <!-- CLIMB and DESCENT labels -->
+      <text x="595" y="72" text-anchor="middle" fill="#4caf7d" font-size="8">CLIMB</text>
+      <text x="595" y="96" text-anchor="middle" fill="#e05050" font-size="8">DESCENT</text>
+      <!-- VSI needle pointing at zero (level flight) -->
+      <line x1="595" y1="83" x2="571" y2="83" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="595" cy="83" r="3" fill="#7a9ab5"/>
+      <text x="595" y="101" text-anchor="middle" fill="#5b9bd5" font-size="11" font-weight="bold">VSI</text>
+      <text x="595" y="147" text-anchor="middle" fill="#7a9ab5" font-size="11">Static only</text>
 
       <!-- Pitot heat label -->
       <rect x="20" y="40" width="70" height="22" rx="3" fill="#2a1a0d" stroke="#f0a040" stroke-width="1"/>
-      <text x="55" y="55" text-anchor="middle" fill="#f0a040" font-size="8">PITOT HEAT SW</text>
+      <text x="55" y="55" text-anchor="middle" fill="#f0a040" font-size="11">PITOT HEAT SW</text>
     </svg>
   </div>
 
