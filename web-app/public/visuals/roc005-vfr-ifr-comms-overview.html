@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROC-005: VFR/IFR Communications Overview</title>
+<link rel="stylesheet" href="/visuals/_common.css">
+<style>
+  .col-vfr { background: rgba(76,175,125,0.08); border-top: 3px solid #4caf7d; }
+  .col-ifr { background: rgba(91,155,213,0.08); border-top: 3px solid #5b9bd5; }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .compare-col {
+    border-radius: 8px;
+    padding: 18px 16px;
+    border: 1px solid var(--border);
+  }
+  .compare-col h3 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    letter-spacing: 0.5px;
+  }
+  .col-vfr h3 { color: #4caf7d; }
+  .col-ifr h3 { color: #5b9bd5; }
+  .compare-col ul {
+    padding-left: 16px;
+    margin: 0;
+  }
+  .compare-col li {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 4px;
+  }
+  .phase-tag {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 1px 7px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 4px;
+    white-space: nowrap;
+  }
+  .ph-pre    { background: rgba(240,192,64,0.12); color: var(--accent); border: 1px solid rgba(240,192,64,0.3); }
+  .ph-dep    { background: rgba(76,175,125,0.12); color: #4caf7d; border: 1px solid rgba(76,175,125,0.3); }
+  .ph-enr    { background: rgba(91,155,213,0.12); color: #5b9bd5; border: 1px solid rgba(91,155,213,0.3); }
+  .ph-arr    { background: rgba(224,80,80,0.12); color: #e05050; border: 1px solid rgba(224,80,80,0.3); }
+
+  @media (max-width: 560px) {
+    .compare-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<div class="container">
+  <h1>ROC-005 — VFR / IFR Communications Overview</h1>
+  <p class="subtitle">AIM COM 4.0 · CARs Part VI · ISED RIC-21 · ROC-A Written Exam</p>
+
+  <div class="section-title">VFR vs IFR at a Glance</div>
+  <div class="compare-grid">
+    <div class="compare-col col-vfr">
+      <h3>VFR Communications</h3>
+      <ul>
+        <li>Radio required in Class B, C, D airspace and at MF aerodromes</li>
+        <li>Class E and G: no radio required (recommended)</li>
+        <li>Self-announce at non-towered (MF) aerodromes on 122.8 MHz</li>
+        <li>No ATC clearance required in Class D — radio contact only</li>
+        <li>VFR flight plans reported to FSS; not mandatory but strongly recommended</li>
+        <li>ATIS must be obtained before contacting tower at controlled airports</li>
+        <li>Transponder required in Class B and C (Mode C); recommended elsewhere</li>
+      </ul>
+    </div>
+    <div class="compare-col col-ifr">
+      <h3>IFR Communications</h3>
+      <ul>
+        <li>Radio mandatory at all times while operating IFR</li>
+        <li>ATC clearance required before entering controlled airspace IFR</li>
+        <li>Position reports at all compulsory reporting points</li>
+        <li>Must acknowledge all ATC instructions and read back clearances</li>
+        <li>Transponder Mode C required in all controlled airspace</li>
+        <li>Lost communications procedures defined: squawk 7600, attempt 121.5</li>
+        <li>Clearance delivery before taxi at large airports</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title">Communication Flow by Flight Phase</div>
+  <table>
+    <thead>
+      <tr><th>Phase</th><th>VFR (Controlled Airport)</th><th>IFR</th><th>VFR (Non-Towered / MF)</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="phase-tag ph-pre">Pre-flight</span></td>
+        <td>Obtain ATIS</td>
+        <td>File IFR flight plan; obtain ATIS; call Clearance Delivery</td>
+        <td>Check NOTAMs; note MF frequency</td>
+      </tr>
+      <tr>
+        <td><span class="phase-tag ph-dep">Departure</span></td>
+        <td>Ground → Tower; squawk as assigned; contact Departure when directed</td>
+        <td>Clearance Delivery → Ground → Tower → Departure; fly SID if assigned</td>
+        <td>Self-announce on 122.8 MHz: "taxiing for runway XX"</td>
+      </tr>
+      <tr>
+        <td><span class="phase-tag ph-enr">Enroute</span></td>
+        <td>Contact Centre/Area if transiting controlled; file position reports with FSS</td>
+        <td>Continuous ATC contact; report at compulsory fixes; request altitude changes</td>
+        <td>Monitor 126.7 MHz for FSS; file VFR position reports; blind calls for traffic</td>
+      </tr>
+      <tr>
+        <td><span class="phase-tag ph-arr">Arrival</span></td>
+        <td>Obtain ATIS; contact Approach or Tower; read back runway and clearance</td>
+        <td>Contact Approach; obtain ILS/RNAV clearance; read back all items; cancel IFR on ground</td>
+        <td>Self-announce on 122.8 MHz: circuit position calls at each leg; landing intention</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Key Radio Equipment Requirements by Airspace</div>
+  <table>
+    <thead>
+      <tr><th>Airspace</th><th>VHF Radio</th><th>Transponder</th><th>ATIS before contact</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Class A</strong></td><td class="yes">Required (IFR only)</td><td class="yes">Mode C</td><td>N/A</td></tr>
+      <tr><td><strong>Class B</strong></td><td class="yes">Required</td><td class="yes">Mode C</td><td class="yes">Yes</td></tr>
+      <tr><td><strong>Class C</strong></td><td class="yes">Required</td><td class="yes">Mode C</td><td class="yes">Yes</td></tr>
+      <tr><td><strong>Class D</strong></td><td class="yes">Required</td><td>Recommended</td><td class="yes">Yes (if available)</td></tr>
+      <tr><td><strong>Class E</strong></td><td class="no">Not required (VFR)</td><td class="no">Not required (VFR)</td><td>N/A</td></tr>
+      <tr><td><strong>Class G</strong></td><td class="no">Not required</td><td class="no">Not required</td><td>N/A</td></tr>
+      <tr><td><strong>MF Aerodrome</strong></td><td class="yes">Required (on 122.8)</td><td>Recommended</td><td>Check CFS</td></tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>VFR radio rule:</strong> Radio required in B, C, D, and at MF aerodromes. Not required in E or G (but strongly recommended). <strong>IFR:</strong> always on radio, always on ATC, always read back clearances. ATIS first — then call ATC at any towered airport.
+  </div>
+</div>
+</body>
+</html>

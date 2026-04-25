@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROC-002: Standard Phraseology and Readback</title>
+<link rel="stylesheet" href="/visuals/_common.css">
+<style>
+  .call-template {
+    background: var(--surface);
+    border: 1.5px solid var(--border-hi);
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 24px;
+  }
+  .call-template h3 {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .call-parts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 8px;
+  }
+  .call-part {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px 12px;
+  }
+  .call-part-num {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .call-part-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .call-part-eg {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+  .readback-must { color: #4caf7d; font-weight: 700; }
+  .readback-opt  { color: var(--text-muted); }
+  .example-exchange {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  .tx-atc   { color: var(--info); }
+  .tx-pilot { color: #4caf7d; }
+  .tx-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-right: 6px; opacity: 0.7; }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<div class="container">
+  <h1>ROC-002 — Standard Phraseology &amp; Readback</h1>
+  <p class="subtitle">ISED RIC-21 · AIM COM 4.0 · ICAO Annex 10 Vol. II · ROC-A Written Exam</p>
+
+  <div class="section-title">Standard Initial Call Format</div>
+  <div class="call-template">
+    <h3>Structure — say it in this order every time</h3>
+    <div class="call-parts">
+      <div class="call-part">
+        <div class="call-part-num">Part 1</div>
+        <div class="call-part-label">Who you're calling</div>
+        <div class="call-part-eg">"Ottawa Tower"</div>
+      </div>
+      <div class="call-part">
+        <div class="call-part-num">Part 2</div>
+        <div class="call-part-label">Who you are</div>
+        <div class="call-part-eg">"Cessna Golf Charlie Delta Foxtrot"</div>
+      </div>
+      <div class="call-part">
+        <div class="call-part-num">Part 3</div>
+        <div class="call-part-label">Where you are</div>
+        <div class="call-part-eg">"ten miles south"</div>
+      </div>
+      <div class="call-part">
+        <div class="call-part-num">Part 4</div>
+        <div class="call-part-label">What you want</div>
+        <div class="call-part-eg">"request landing"</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Example Radio Exchange</div>
+  <div class="example-exchange">
+    <div class="tx-atc"><span class="tx-label">ATC</span> "Golf Charlie Delta Foxtrot, Ottawa Tower, runway two five, cleared to land, wind two four zero at one zero."</div>
+    <div class="tx-pilot"><span class="tx-label">Pilot</span> "Runway two five, cleared to land, Golf Charlie Delta Foxtrot."</div>
+  </div>
+  <div class="note-box" style="margin-bottom:24px;">
+    After initial contact ATC will use abbreviated callsigns. A pilot may abbreviate only after ATC does so first. Once established, use the same abbreviation ATC uses. (AIM COM 4.1.2)
+  </div>
+
+  <div class="section-title">Mandatory Readback Items</div>
+  <table>
+    <thead>
+      <tr><th>Instruction</th><th>Readback</th><th>Example readback</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Runway in use / take-off / landing clearance</td>
+        <td><span class="readback-must">Mandatory</span></td>
+        <td>"Runway three six, cleared for takeoff, C-GCDF"</td>
+      </tr>
+      <tr>
+        <td>Cleared to cross active runway</td>
+        <td><span class="readback-must">Mandatory</span></td>
+        <td>"Cross runway two five, C-GCDF"</td>
+      </tr>
+      <tr>
+        <td>Holding short of active runway</td>
+        <td><span class="readback-must">Mandatory</span></td>
+        <td>"Hold short runway two five, C-GCDF"</td>
+      </tr>
+      <tr>
+        <td>Assigned heading</td>
+        <td><span class="readback-must">Mandatory</span></td>
+        <td>"Turn left heading two seven zero, C-GCDF"</td>
+      </tr>
+      <tr>
+        <td>Assigned altitude / FL</td>
+        <td><span class="readback-must">Mandatory</span></td>
+        <td>"Climb and maintain five thousand five hundred, C-GCDF"</td>
+      </tr>
+      <tr>
+        <td>Altimeter setting</td>
+        <td><span class="readback-must">Mandatory</span></td>
+        <td>"QNH two niner niner two, C-GCDF"</td>
+      </tr>
+      <tr>
+        <td>Transponder code (squawk)</td>
+        <td><span class="readback-must">Mandatory</span></td>
+        <td>"Squawk four five three two, C-GCDF"</td>
+      </tr>
+      <tr>
+        <td>Frequency change</td>
+        <td><span class="readback-must">Mandatory</span></td>
+        <td>"One two two decimal eight, C-GCDF, good day"</td>
+      </tr>
+      <tr>
+        <td>Taxi route instructions</td>
+        <td><span class="readback-opt">Recommended</span></td>
+        <td>Read back turns and hold-short points</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">Standard Acknowledgement Words</div>
+  <table>
+    <thead>
+      <tr><th>Word / Phrase</th><th>Meaning</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Roger</strong></td><td>I have received your last transmission (not an acknowledgement of compliance)</td></tr>
+      <tr><td><strong>Wilco</strong></td><td>I understand and will comply (replaces both "Roger" and "Affirmative" + intent)</td></tr>
+      <tr><td><strong>Affirmative</strong></td><td>Yes / that is correct</td></tr>
+      <tr><td><strong>Negative</strong></td><td>No / that is not correct</td></tr>
+      <tr><td><strong>Standby</strong></td><td>I must pause — wait for further transmission</td></tr>
+      <tr><td><strong>Say again</strong></td><td>Repeat your last transmission (never "repeat" — that is an artillery term)</td></tr>
+      <tr><td><strong>Correction</strong></td><td>An error was made; correct version follows</td></tr>
+      <tr><td><strong>Over</strong></td><td>My transmission is complete and I expect a response</td></tr>
+      <tr><td><strong>Out</strong></td><td>Conversation is complete — no response expected</td></tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>Readback rule:</strong> Always read back runway, clearance, heading, altitude, altimeter, squawk, and frequency. "Roger" does NOT confirm compliance — use "Wilco" if you intend to comply. Never say "repeat" on aviation radio — say <em>say again</em>.
+  </div>
+</div>
+</body>
+</html>

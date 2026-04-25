@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROC-008: Regulatory Framework</title>
+<link rel="stylesheet" href="/visuals/_common.css">
+<style>
+  .reg-pillar {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .reg-pillar h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .reg-pillar p {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .reg-pillar ul {
+    padding-left: 16px;
+    margin: 6px 0 0;
+  }
+  .reg-pillar li {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+  .org-tag {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .org-ised { background: rgba(91,155,213,0.15); color: #5b9bd5; border: 1px solid rgba(91,155,213,0.3); }
+  .org-tc   { background: rgba(76,175,125,0.15); color: #4caf7d; border: 1px solid rgba(76,175,125,0.3); }
+  .org-icao { background: rgba(240,192,64,0.12); color: var(--accent); border: 1px solid rgba(240,192,64,0.3); }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<div class="container">
+  <h1>ROC-008 — Regulatory Framework</h1>
+  <p class="subtitle">Radiocommunication Act · ISED RIC-21 · ICAO Annex 10 · ROC-A Written Exam</p>
+
+  <div class="section-title">Regulatory Pillars</div>
+
+  <div class="reg-pillar">
+    <h3>Radiocommunication Act (Canada) <span class="org-tag org-ised">ISED</span></h3>
+    <p>Federal statute administered by Innovation, Science and Economic Development Canada (ISED). Governs all radio transmitters in Canada — including aircraft.</p>
+    <ul>
+      <li>Prohibits operating a radio transmitter without a valid licence or authorization</li>
+      <li>Aeronautical radio operators must hold a <strong>Restricted Operator Certificate — Aeronautical</strong> (ROC-A)</li>
+      <li>Aircraft must hold a <strong>Aeronautical Station Licence</strong> (issued by ISED) to operate a transmitter on board</li>
+      <li>The ROC-A is an ISED certificate — it is separate from Transport Canada pilot licensing</li>
+    </ul>
+  </div>
+
+  <div class="reg-pillar">
+    <h3>Restricted Operator Certificate — Aeronautical (ROC-A) <span class="org-tag org-ised">ISED</span></h3>
+    <p>The individual certificate required by any person who operates an aeronautical mobile radio station (the aircraft radio).</p>
+    <ul>
+      <li>Examined and issued by ISED-accredited examiners</li>
+      <li>Tests: radio operation, phonetic alphabet, distress procedures, frequencies, regulations</li>
+      <li>Valid for life (no renewal required) once issued</li>
+      <li>Endorsements exist for HF and satellite operations (not required for basic VHF)</li>
+      <li>Not the same as a pilot licence — a non-pilot ground operator needs one too</li>
+    </ul>
+  </div>
+
+  <div class="reg-pillar">
+    <h3>Aeronautical Station Licence <span class="org-tag org-ised">ISED</span></h3>
+    <p>The station (aircraft) licence for the radio equipment installed in the aircraft.</p>
+    <ul>
+      <li>Required for Canadian-registered aircraft operating in Canada and abroad</li>
+      <li>Document must be carried on board while the aircraft is operated</li>
+      <li>The pilot certificate and station licence together satisfy ROC-A operational requirements</li>
+    </ul>
+  </div>
+
+  <div class="reg-pillar">
+    <h3>Canadian Aviation Regulations (CARs) <span class="org-tag org-tc">TC</span></h3>
+    <p>Transport Canada regulations governing aviation operations, including when radio use is required, airspace communications, and phraseology standards.</p>
+    <ul>
+      <li>CARs Part VI sets radio requirements per airspace class</li>
+      <li>Phraseology standards in AIM (Aeronautical Information Manual) supplement the CARs</li>
+      <li>TC enforces CARs; ISED enforces Radiocommunication Act — separate agencies</li>
+    </ul>
+  </div>
+
+  <div class="reg-pillar">
+    <h3>ICAO Annex 10 — Aeronautical Telecommunications <span class="org-tag org-icao">ICAO</span></h3>
+    <p>International standards adopted by Canada. Sets phonetic alphabet, distress phraseology, and frequency allocations used globally.</p>
+    <ul>
+      <li>Annex 10 Vol. II covers communication procedures (phonetic alphabet, readback, MAYDAY)</li>
+      <li>Canada's domestic rules must meet or exceed ICAO standards</li>
+    </ul>
+  </div>
+
+  <div class="section-title">Station Log Requirements</div>
+  <table>
+    <thead>
+      <tr><th>Operation type</th><th>Log required?</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Commercial air operations (CAR 702/703/704/705)</td>
+        <td class="yes">Required</td>
+        <td>Radio log must record all distress and urgency communications; operational communications as required by ops spec</td>
+      </tr>
+      <tr>
+        <td>Private pilot VFR flight (CAR 401)</td>
+        <td class="no">Not required</td>
+        <td>No station log required for private non-commercial operations under the Radiocommunication Act for aeronautical mobile</td>
+      </tr>
+      <tr>
+        <td>Distress / MAYDAY communications (any operation)</td>
+        <td class="yes">Required</td>
+        <td>Record in any available log or note; preserve for investigation. ISED and TC may require the record.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note-box">
+    <strong>ROC-A vs Pilot Licence:</strong> The ROC-A (ISED) and the PPL/CPL (Transport Canada) are two separate credentials from two different federal departments. You need both to legally operate an aircraft radio in Canada. A student pilot who has not yet obtained a ROC-A must operate under the supervision of a person who holds one. (Radiocommunication Act s. 13)
+  </div>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>Two agencies, two documents:</strong> ISED issues the ROC-A (operator certificate) and the Aeronautical Station Licence (aircraft licence). TC issues the pilot licence. The ROC-A exam tests radio operation — it is ISED's exam, not TC's. Log required for commercial ops and all distress communications.
+  </div>
+</div>
+</body>
+</html>

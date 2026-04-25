@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROC-006: Emergency Communications</title>
+<link rel="stylesheet" href="/visuals/_common.css">
+<style>
+  /* ── Squawk code colour tiles — data-encoding domain colours ─────────── */
+  /* 7700 Emergency: red — immediate danger */
+  .sq-7700 { background: rgba(224,80,80,0.18); border: 2px solid #e05050; color: #e05050; }
+  /* 7600 Lost comms: amber — impaired but not immediately lethal */
+  .sq-7600 { background: rgba(240,192,64,0.15); border: 2px solid #f0c040; color: #f0c040; }
+  /* 7500 Hijack: orange-amber — unlawful interference */
+  .sq-7500 { background: rgba(224,140,40,0.18); border: 2px solid #e08828; color: #e08828; }
+
+  .squawk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .squawk-card {
+    border-radius: 8px;
+    padding: 18px 14px;
+    text-align: center;
+  }
+  .sq-code {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    font-variant-numeric: tabular-nums;
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .sq-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .sq-desc {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ── MAYDAY signal flow ────────────────────────────────────────────────── */
+  .flow-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 32px;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-bottom: none;
+    position: relative;
+  }
+  .flow-step:first-child { border-radius: 8px 8px 0 0; }
+  .flow-step:last-child  { border-radius: 0 0 8px 8px; border-bottom: 1px solid var(--border); }
+  .flow-arrow {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    color: var(--text-muted);
+    padding: 2px 0;
+    background: var(--surface);
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    border-bottom: none;
+  }
+  .flow-icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 32px;
+    font-size: 15px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .icon-emergency { background: rgba(224,80,80,0.2); color: #e05050; border: 1.5px solid #e05050; }
+  .icon-action    { background: rgba(76,175,125,0.15); color: #4caf7d; border: 1.5px solid #4caf7d; }
+  .icon-freq      { background: rgba(91,155,213,0.15); color: #5b9bd5; border: 1.5px solid #5b9bd5; }
+  .icon-xpdr      { background: rgba(224,80,80,0.15); color: #e05050; border: 1.5px solid rgba(224,80,80,0.5); }
+
+  .flow-body { flex: 1; }
+  .flow-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 2px;
+  }
+  .flow-main {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.4;
+  }
+  .flow-detail {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .flow-quote {
+    font-size: 12px;
+    color: var(--accent);
+    font-style: italic;
+    margin-top: 4px;
+  }
+
+  /* ── MAYDAY content elements ─────────────────────────────────────────── */
+  .mayday-badge {
+    display: inline-block;
+    background: rgba(224,80,80,0.18);
+    color: #e05050;
+    border: 1.5px solid rgba(224,80,80,0.5);
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+  .panpan-badge {
+    display: inline-block;
+    background: rgba(240,192,64,0.15);
+    color: #f0c040;
+    border: 1.5px solid rgba(240,192,64,0.4);
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-size: 14px;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+  .distress-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .distress-card {
+    border-radius: 8px;
+    padding: 16px;
+    border: 1.5px solid;
+  }
+  .card-mayday { background: rgba(224,80,80,0.08); border-color: rgba(224,80,80,0.4); }
+  .card-panpan { background: rgba(240,192,64,0.08); border-color: rgba(240,192,64,0.4); }
+  .distress-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+  .card-mayday h3 { color: #e05050; }
+  .card-panpan h3 { color: #f0c040; }
+  .distress-card p  { font-size: 12px; color: var(--text); line-height: 1.6; }
+  .distress-card ul { padding-left: 16px; margin: 6px 0 0; }
+  .distress-card li { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+
+  @media (max-width: 560px) {
+    .squawk-grid { grid-template-columns: 1fr; }
+    .distress-compare { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<div class="container">
+  <h1>ROC-006 — Emergency Communications</h1>
+  <p class="subtitle">AIM COM 4.3 · CARs 602.135–602.138 · ICAO Annex 10 · ROC-A Written Exam</p>
+
+  <!-- ── Squawk codes ───────────────────────────────────────────────────── -->
+  <div class="section-title">Emergency Transponder Codes</div>
+  <div class="squawk-grid">
+    <div class="squawk-card sq-7700" role="region" aria-label="Squawk 7700 — Emergency">
+      <span class="sq-code">7700</span>
+      <span class="sq-name">Emergency</span>
+      <span class="sq-desc">General emergency — grave and imminent danger, immediate assistance required. Set immediately upon declaring MAYDAY.</span>
+    </div>
+    <div class="squawk-card sq-7600" role="region" aria-label="Squawk 7600 — Lost Communications">
+      <span class="sq-code">7600</span>
+      <span class="sq-name">Lost Comms</span>
+      <span class="sq-desc">Radio failure — cannot receive or transmit. ATC will provide light signals. Fly expected clearance or squawk 7700 if also in distress.</span>
+    </div>
+    <div class="squawk-card sq-7500" role="region" aria-label="Squawk 7500 — Hijacking">
+      <span class="sq-code">7500</span>
+      <span class="sq-name">Hijacking</span>
+      <span class="sq-desc">Unlawful interference (hijacking in progress). Do not confirm verbally over radio unless safe to do so. ATC will initiate response.</span>
+    </div>
+  </div>
+
+  <!-- ── MAYDAY vs PAN PAN ─────────────────────────────────────────────── -->
+  <div class="section-title">MAYDAY vs PAN PAN</div>
+  <div class="distress-compare">
+    <div class="distress-card card-mayday">
+      <h3>&#9888; MAYDAY (×3)</h3>
+      <p><strong>Grave and imminent danger</strong> — immediate assistance required.</p>
+      <ul>
+        <li>Declare for: engine failure, fire, loss of control, medical emergency with incapacitation</li>
+        <li>Squawk <strong>7700</strong></li>
+        <li>Transmit on <strong>121.5 MHz</strong> if possible</li>
+        <li>ATC provides priority handling and may alert SAR</li>
+      </ul>
+    </div>
+    <div class="distress-card card-panpan">
+      <h3>&#9998; PAN PAN (×3)</h3>
+      <p><strong>Urgency condition</strong> — safety of aircraft or person, but not immediately life-threatening.</p>
+      <ul>
+        <li>Declare for: fuel state concern, passenger medical (non-incapacitating), lost (unsure of position), minor system failure</li>
+        <li>Squawk <strong>7700</strong> or as directed by ATC</li>
+        <li>Maintain working frequency; switch to 121.5 if no response</li>
+        <li>Can be upgraded to MAYDAY if situation worsens</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ── MAYDAY signal flow ─────────────────────────────────────────────── -->
+  <div class="section-title">MAYDAY — Signal Flow &amp; Response Sequence</div>
+  <div class="flow-container">
+    <div class="flow-step">
+      <div class="flow-icon icon-emergency">!</div>
+      <div class="flow-body">
+        <div class="flow-label">Step 1 — Declare</div>
+        <div class="flow-main">Transmit MAYDAY three times</div>
+        <div class="flow-quote">"MAYDAY MAYDAY MAYDAY — [callsign], [nature of emergency], [position], [altitude], [intentions], [souls on board], [fuel endurance]"</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon icon-freq">▶</div>
+      <div class="flow-body">
+        <div class="flow-label">Step 2 — Frequency</div>
+        <div class="flow-main">Transmit on 121.5 MHz if working frequency cannot be raised</div>
+        <div class="flow-detail">121.5 MHz is the international distress frequency — all ATC facilities and SAR units monitor it continuously.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon icon-xpdr">T</div>
+      <div class="flow-body">
+        <div class="flow-label">Step 3 — Squawk</div>
+        <div class="flow-main">Select squawk <strong>7700</strong> on transponder (if not already assigned a code)</div>
+        <div class="flow-detail">Squawk 7700 alerts radar facilities immediately. ATC can track and coordinate SAR response from your radar return.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon icon-action">&#10003;</div>
+      <div class="flow-body">
+        <div class="flow-label">Step 4 — Communicate</div>
+        <div class="flow-main">Maintain frequency; respond to ATC; state intentions clearly</div>
+        <div class="flow-detail">ATC will clear other traffic and offer vectors to nearest suitable airport. Continue giving position updates as the situation develops.</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-icon icon-action">&#9992;</div>
+      <div class="flow-body">
+        <div class="flow-label">Step 5 — SAR Activation (if needed)</div>
+        <div class="flow-main">GMDSS / JRCC notified by ATC — Search and Rescue activated</div>
+        <div class="flow-detail">Joint Rescue Coordination Centre (JRCC) coordinates SAR assets. ELT activates automatically on impact (121.5 MHz and 406 MHz digital). Provide souls on board and fuel endurance early — these determine SAR resource dispatch.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ELT note ───────────────────────────────────────────────────────── -->
+  <div class="section-title">Emergency Locator Transmitter (ELT)</div>
+  <table>
+    <thead>
+      <tr><th>Type</th><th>Activation</th><th>Frequencies</th><th>Coverage</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Automatic (impact-activated)</td>
+        <td>G-force impact threshold (~5g)</td>
+        <td>121.5 MHz (analogue) + 406 MHz (digital)</td>
+        <td>406 MHz received by COSPAS-SARSAT satellite; global</td>
+      </tr>
+      <tr>
+        <td>Manual activation</td>
+        <td>Pilot activates on panel or via external switch</td>
+        <td>121.5 MHz + 406 MHz</td>
+        <td>Same as automatic</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="note-box">
+    <strong>Cancel the MAYDAY:</strong> Once the emergency is resolved, cancel the distress message on the same frequency and/or on 121.5 MHz to prevent unnecessary SAR activation. State: <em>"All stations, [callsign], cancel MAYDAY, [reason]."</em>  (AIM COM 4.3.2)
+  </div>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>Squawk codes:</strong> 7700 = Emergency (red alert) · 7600 = Lost comms (radio failure) · 7500 = Hijack. <strong>MAYDAY</strong> = imminent danger; <strong>PAN PAN</strong> = urgency but not yet life-threatening. Emergency frequency = <strong>121.5 MHz</strong>. Always give: position, nature, intentions, souls on board, fuel endurance.
+  </div>
+</div>
+</body>
+</html>

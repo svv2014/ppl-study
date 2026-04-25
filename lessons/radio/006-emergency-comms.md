@@ -7,7 +7,7 @@ title: "Emergency Communications"
 duration_min: 20
 status: complete
 audio: null
-visual: ''
+visual: '/visuals/roc006-emergency-comms.html'
 sources:
   - AIM SAR 3.0
   - AIM COM 4.0

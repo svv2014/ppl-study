@@ -7,7 +7,7 @@ title: "Aviation Frequency Reference"
 duration_min: 20
 status: complete
 audio: null
-visual: ''
+visual: '/visuals/roc003-frequencies-reference.html'
 sources:
   - ISED RIC-21
   - AIM COM 4.0

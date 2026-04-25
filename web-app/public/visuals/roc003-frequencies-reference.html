@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROC-003: Frequencies Reference</title>
+<link rel="stylesheet" href="/visuals/_common.css">
+<style>
+  .freq-band {
+    display: inline-block;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  /* Data-encoding domain colours — hardcoded per visuals-standards.md */
+  .band-emergency  { background: rgba(224,80,80,0.18); color: #e05050; border: 1px solid rgba(224,80,80,0.35); }
+  .band-guard      { background: rgba(224,80,80,0.10); color: #f07070; border: 1px solid rgba(224,80,80,0.25); }
+  .band-atc        { background: rgba(91,155,213,0.15); color: #5b9bd5; border: 1px solid rgba(91,155,213,0.3); }
+  .band-unicom     { background: rgba(76,175,125,0.15); color: #4caf7d; border: 1px solid rgba(76,175,125,0.3); }
+  .band-enroute    { background: rgba(240,192,64,0.12); color: var(--accent); border: 1px solid rgba(240,192,64,0.3); }
+  .band-nav        { background: rgba(138,110,180,0.15); color: #9b82c8; border: 1px solid rgba(138,110,180,0.3); }
+  .band-military   { background: rgba(160,120,60,0.18); color: #c89840; border: 1px solid rgba(160,120,60,0.3); }
+
+  .freq-mhz {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    font-variant-numeric: tabular-nums;
+  }
+  .freq-range {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<div class="container">
+  <h1>ROC-003 — Frequencies Reference</h1>
+  <p class="subtitle">AIM COM 4.0 · Canada Flight Supplement · ISED RIC-21 · ROC-A Written Exam</p>
+
+  <div class="section-title">Critical and Fixed Frequencies</div>
+  <div class="wide-table">
+    <table>
+      <thead>
+        <tr><th>Frequency</th><th>Type</th><th>Purpose</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="freq-mhz">121.5 MHz</span></td>
+          <td><span class="freq-band band-emergency">DISTRESS / GUARD</span></td>
+          <td>International aeronautical distress, ELT activation</td>
+          <td>All aircraft should monitor when possible. ELTs transmit here automatically on impact. (AIM COM 4.3.1)</td>
+        </tr>
+        <tr>
+          <td><span class="freq-mhz">243.0 MHz</span></td>
+          <td><span class="freq-band band-military">MILITARY GUARD</span></td>
+          <td>Military equivalent of 121.5 MHz (UHF)</td>
+          <td>Not used by civil VHF radios; mil aircraft monitor. Noted in AIM.</td>
+        </tr>
+        <tr>
+          <td><span class="freq-mhz">122.8 MHz</span></td>
+          <td><span class="freq-band band-unicom">UNICOM / MF</span></td>
+          <td>Non-towered aerodrome traffic advisories and ground-to-air communications</td>
+          <td>Used at Mandatory Frequency (MF) aerodromes. Pilots self-announce position and intentions. (AIM RAC 4.5)</td>
+        </tr>
+        <tr>
+          <td><span class="freq-mhz">126.7 MHz</span></td>
+          <td><span class="freq-band band-enroute">EN ROUTE / FSS</span></td>
+          <td>En-route advisory, FSS relay, air-to-ground away from controlled aerodromes</td>
+          <td>Common enroute frequency. Also used for FSS contacts on airways. (AIM COM 4.1.4)</td>
+        </tr>
+        <tr>
+          <td><span class="freq-mhz">123.45 MHz</span></td>
+          <td><span class="freq-band band-enroute">AIR-TO-AIR</span></td>
+          <td>GA air-to-air coordination</td>
+          <td>Informal air-to-air; not for ATC contact. Widely used by GA pilots for air-to-air when in vicinity.</td>
+        </tr>
+        <tr>
+          <td><span class="freq-mhz">122.75 MHz</span></td>
+          <td><span class="freq-band band-enroute">AIR-TO-AIR (alt)</span></td>
+          <td>Alternative air-to-air coordination frequency</td>
+          <td>Used when 123.45 is congested. Check CFS for local conventions.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">Frequency Bands by Service</div>
+  <div class="wide-table">
+    <table>
+      <thead>
+        <tr><th>Band / Range</th><th>Service</th><th>Typical use</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="freq-mhz">118.000–136.975 MHz</span><br><span class="freq-range">VHF COM</span></td>
+          <td><span class="freq-band band-atc">ATC / COM</span></td>
+          <td>Tower, approach, departure, ground, centre (ACC). All controlled-airspace comms. 25 kHz spacing.</td>
+        </tr>
+        <tr>
+          <td><span class="freq-mhz">108.000–117.975 MHz</span><br><span class="freq-range">VHF NAV</span></td>
+          <td><span class="freq-band band-nav">VOR / ILS / LOC</span></td>
+          <td>VOR navigation, ILS localizer, marker beacons. NAV radios only — not COM. Odd tenths = VOR; even tenths = ILS loc.</td>
+        </tr>
+        <tr>
+          <td>ATIS (discrete)</td>
+          <td><span class="freq-band band-atc">ATIS</span></td>
+          <td>Automatic Terminal Information Service — continuous weather and NOTAM broadcast. Frequency in CFS per airport. Obtain before calling tower.</td>
+        </tr>
+        <tr>
+          <td>Ground Control (discrete)</td>
+          <td><span class="freq-band band-atc">GROUND</span></td>
+          <td>Taxi instructions at towered airports. Below ~118 MHz. Check CFS. Contact before taxiing.</td>
+        </tr>
+        <tr>
+          <td>Clearance Delivery (discrete)</td>
+          <td><span class="freq-band band-atc">CLNC DEL</span></td>
+          <td>IFR clearance pickup before pushback/taxi at busy airports. See CFS.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <strong>Canada Flight Supplement (CFS):</strong> all aerodrome frequencies are listed in the CFS entry for each airport. Always check the CFS for the correct ATIS, ground, tower, and approach frequencies before flight. Frequencies listed here are defaults — confirm locally.
+  </div>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>The numbers to memorise:</strong> 121.5 = International distress / ELT guard · 122.8 = Non-towered / MF · 126.7 = En route / FSS. VHF COM range is 118–137 MHz; VHF NAV is 108–118 MHz. ATIS: get it first, then call tower.
+  </div>
+</div>
+</body>
+</html>

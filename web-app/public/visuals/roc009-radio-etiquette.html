@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROC-009: Radio Etiquette</title>
+<link rel="stylesheet" href="/visuals/_common.css">
+<style>
+  .rule-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .rule-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .rule-num {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .rule-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .rule-card p {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+  .do-dont {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .do-col   { border-top: 3px solid #4caf7d; }
+  .dont-col { border-top: 3px solid #e05050; }
+  .do-col h3   { color: #4caf7d; }
+  .dont-col h3 { color: #e05050; }
+  .dd-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+    padding: 16px;
+  }
+  .dd-block h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .dd-block ul {
+    padding-left: 16px;
+    margin: 0;
+  }
+  .dd-block li {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 4px;
+  }
+  .dd-block .example {
+    font-size: 11px;
+    color: var(--accent);
+    font-style: italic;
+    display: block;
+    margin-top: 1px;
+    padding-left: 12px;
+  }
+  @media (max-width: 560px) {
+    .rule-grid { grid-template-columns: 1fr; }
+    .do-dont   { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<div class="container">
+  <h1>ROC-009 — Radio Etiquette</h1>
+  <p class="subtitle">ISED RIC-21 · AIM COM 4.0 · ICAO Annex 10 Vol. II · ROC-A Written Exam</p>
+
+  <div class="section-title">Core Rules</div>
+  <div class="rule-grid">
+    <div class="rule-card">
+      <div class="rule-num">Rule 1</div>
+      <h3>Listen before transmitting</h3>
+      <p>Monitor the frequency for at least 5 seconds before keying the PTT. Transmitting while others are talking causes both transmissions to be lost (stepped-on). This is the single most important habit.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 2</div>
+      <h3>Keep transmissions brief</h3>
+      <p>Radio time is shared. Plan what you're going to say before pressing PTT. Avoid filler words, pauses mid-transmission, and unnecessary repetition. State who, where, what — then release.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 3</div>
+      <h3>Use standard phraseology</h3>
+      <p>ICAO/ISED standard words carry precise meaning. Plain language is permitted when standard phrases don't cover the situation, but standard phrases reduce ambiguity and speed up communication.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 4</div>
+      <h3>Speak at a moderate pace</h3>
+      <p>Speak clearly at a conversational pace — not fast (hard to write down) and not slow (wastes airtime). Slow down slightly when giving alphanumeric strings (frequencies, squawk codes, clearances).</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 5</div>
+      <h3>Correct microphone technique</h3>
+      <p>Hold the mic 2–5 cm from your mouth. Press PTT, pause 1 second before speaking (to let the transmitter activate), then speak. Release PTT only after finishing. Avoid wind and breathing noise.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 6</div>
+      <h3>Read back mandatory items</h3>
+      <p>Always read back: runway, take-off/landing clearance, hold-short instructions, heading, altitude, altimeter, transponder code, and frequency changes. Omitting a readback signals non-receipt to ATC.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 7</div>
+      <h3>Callsign every transmission</h3>
+      <p>End every transmission with your callsign (abbreviated after first contact). This lets ATC and other traffic identify who just transmitted, especially important on busy tower frequencies.</p>
+    </div>
+    <div class="rule-card">
+      <div class="rule-num">Rule 8</div>
+      <h3>"Standby" buys time</h3>
+      <p>If you cannot respond immediately (head-down, busy), say "Standby, [callsign]" and ATC will wait. Never leave ATC without an acknowledgement — a missed call may lead ATC to assume a radio failure.</p>
+    </div>
+  </div>
+
+  <div class="section-title">Do vs Don't</div>
+  <div class="do-dont">
+    <div class="do-col">
+      <div class="dd-block">
+        <h3>&#10003; Do</h3>
+        <ul>
+          <li>Use phonetic alphabet for all letters<span class="example">"Golf Charlie Delta Foxtrot" not "G-C-D-F"</span></li>
+          <li>Say "say again" to request a repeat<span class="example">"Say again altitude, C-GCDF"</span></li>
+          <li>State "Correction" then re-transmit if you made an error</li>
+          <li>Use "Affirmative" and "Negative" for yes/no</li>
+          <li>Say "Wilco" if you intend to comply<span class="example">Means "understood, will comply"</span></li>
+          <li>Cancel VFR flight plan when safely on ground</li>
+          <li>Monitor 121.5 MHz whenever a second radio is available</li>
+        </ul>
+      </div>
+    </div>
+    <div class="dont-col">
+      <div class="dd-block">
+        <h3>&#10007; Don't</h3>
+        <ul>
+          <li>Say "repeat" — this is artillery jargon; say "say again"</li>
+          <li>Transmit personal information, profanity, or music</li>
+          <li>Use "Over and out" — "Over" expects a reply; "Out" ends the call. Don't mix them.</li>
+          <li>Say "Roger" when you mean "Wilco" — "Roger" means received, not agreed</li>
+          <li>Transmit on guard (121.5 MHz) for routine calls</li>
+          <li>Hold PTT without speaking — this blocks the frequency for all users</li>
+          <li>Abbreviate callsign before ATC does so first</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">Blocked / Jammed Frequency</div>
+  <table>
+    <thead>
+      <tr><th>Symptom</th><th>Likely cause</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Continuous carrier noise, no voice</td>
+        <td>Stuck PTT somewhere on the frequency</td>
+        <td>Attempt to reach ATC on alternate frequency or 121.5 MHz; report the block</td>
+      </tr>
+      <tr>
+        <td>Squealing / heterodyne on frequency</td>
+        <td>Two stations transmitting simultaneously</td>
+        <td>Listen before transmitting; try again after the squeal clears</td>
+      </tr>
+      <tr>
+        <td>No response from ATC after two calls</td>
+        <td>Frequency congestion, weak signal, or radio failure</td>
+        <td>Try alternate ATC frequency; try 121.5 MHz; squawk 7600 if radio failure confirmed</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="memory-hook">
+    <span class="badge">EXAM HOOK</span><br>
+    <strong>Radio etiquette summary:</strong> Listen → Think → Transmit → Identify. Never say "repeat" (say <em>say again</em>). "Roger" = received; "Wilco" = will comply. End every call with your callsign. Monitor 121.5 MHz on second radio whenever possible.
+  </div>
+</div>
+</body>
+</html>

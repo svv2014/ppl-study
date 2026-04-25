@@ -7,7 +7,7 @@ title: "Radio Etiquette and Professional Practice"
 duration_min: 20
 status: complete
 audio: null
-visual: ''
+visual: '/visuals/roc009-radio-etiquette.html'
 sources:
   - ISED RIC-21
   - AIM COM 4.0

@@ -7,7 +7,7 @@ title: "Light Gun Signals"
 duration_min: 20
 status: complete
 audio: null
-visual: ''
+visual: '/visuals/roc007-light-signals.html'
 sources:
   - AIM RAC 4.6
   - CARs 602.98
