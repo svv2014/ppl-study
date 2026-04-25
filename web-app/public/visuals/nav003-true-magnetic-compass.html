@@ -28,59 +28,151 @@ body { max-width: 860px; margin: auto; }
 <h1>NAV-003 — True vs Magnetic vs Compass Heading</h1>
 <p class="subtitle">Transport Canada · TP 12880E Ch.9 · AIM GEN 1.1 · PPL Written Exam</p>
 
-<div class="section-label">The Three North References and TVMDC Chain</div>
+<div class="section-label">Heading Indicator — Three North References (angles exaggerated for clarity)</div>
 <div class="diagram-wrap">
-  <svg width="720" height="320" viewBox="0 0 720 320" style="max-width:100%;">
-    <rect x="30" y="20" width="280" height="280" fill="#0d2040" rx="6"/>
-    <!-- True North arrow (straight up) -->
-    <line x1="170" y1="270" x2="170" y2="60" stroke="#3a7ad5" stroke-width="2.5" stroke-linecap="round"/>
-    <polygon points="170,55 164,72 176,72" fill="#3a7ad5"/>
-    <text x="170" y="47" fill="#3a7ad5" font-size="11" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">TRUE NORTH</text>
-    <!-- Magnetic North — 10°W variation, offset left -->
-    <line x1="170" y1="270" x2="132" y2="62" stroke="#f0c040" stroke-width="2.5" stroke-linecap="round"/>
-    <polygon points="130,56 122,74 137,72" fill="#f0c040"/>
-    <text x="98" y="47" fill="#f0c040" font-size="11" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">MAG NORTH</text>
-    <!-- Compass North — 4°W deviation, further left -->
-    <line x1="170" y1="270" x2="116" y2="64" stroke="#80c880" stroke-width="2" stroke-dasharray="6 3" stroke-linecap="round"/>
-    <polygon points="114,58 107,76 122,74" fill="#80c880"/>
-    <text x="56" y="47" fill="#80c880" font-size="10" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">COMPASS N</text>
-    <!-- VAR arc -->
-    <path d="M 170 195 A 55 55 0 0 0 143 153" fill="none" stroke="#f0c040" stroke-width="1" stroke-dasharray="3 2"/>
-    <text x="210" y="178" fill="#f0c040" font-size="10" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">VAR 10°W</text>
-    <!-- DEV arc -->
-    <path d="M 143 158 A 18 18 0 0 0 128 145" fill="none" stroke="#80c880" stroke-width="1" stroke-dasharray="3 2"/>
-    <text x="45" y="168" fill="#80c880" font-size="10" font-weight="600" font-family="'Segoe UI',system-ui,sans-serif">DEV 4°W</text>
-    <!-- Aircraft -->
-    <polygon points="170,270 163,295 170,288 177,295" fill="#c8d8e8" opacity="0.7"/>
-    <text x="170" y="311" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">Aircraft (Ontario)</text>
+  <svg width="740" height="340" viewBox="0 0 740 340" style="max-width:100%;">
 
-    <!-- Right panel: conversion chain -->
-    <rect x="340" y="20" width="340" height="280" rx="6" fill="#0a1a35" stroke="#1a3a5a" stroke-width="1.5"/>
-    <text x="510" y="46" fill="#7a9ab5" font-size="11" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif" letter-spacing="1">T V M D C — CONVERSION CHAIN</text>
+    <!-- ── LEFT PANEL: Compass Rose / Heading Indicator ──────────────── -->
+    <rect x="10" y="10" width="310" height="320" fill="#0d2040" rx="6"/>
+    <text x="165" y="35" text-anchor="middle" fill="#7a9ab5" font-size="10" font-weight="700" font-family="'Segoe UI',system-ui,sans-serif">HEADING INDICATOR (DI)</text>
+    <text x="165" y="48" text-anchor="middle" fill="#5a7a9a" font-size="9" font-family="'Segoe UI',system-ui,sans-serif">angles exaggerated — real VAR/DEV are smaller</text>
+
+    <!-- Compass rose outer bezel -->
+    <circle cx="165" cy="195" r="128" fill="#071830" stroke="#3a5a7a" stroke-width="3"/>
+    <circle cx="165" cy="195" r="122" fill="#0a1a35" stroke="#1a3a5a" stroke-width="1"/>
+
+    <!-- Major tick marks every 30° (length 10) and minor every 10° (length 5) -->
+    <!-- 0° (N) -->
+    <line x1="165" y1="67" x2="165" y2="77" stroke="#c8d8e8" stroke-width="2"/>
+    <!-- 10° -->
+    <line x1="187" y1="69" x2="184" y2="74" stroke="#7a9ab5" stroke-width="1.2"/>
+    <!-- 20° -->
+    <line x1="208" y1="75" x2="203" y2="79" stroke="#7a9ab5" stroke-width="1.2"/>
+    <!-- 30° (NE) -->
+    <line x1="229" y1="84" x2="224" y2="93" stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- 40° -->
+    <line x1="247" y1="97" x2="242" y2="103" stroke="#7a9ab5" stroke-width="1.2"/>
+    <!-- 50° -->
+    <line x1="262" y1="113" x2="256" y2="117" stroke="#7a9ab5" stroke-width="1.2"/>
+    <!-- 60° (E-NE) -->
+    <line x1="275" y1="133" x2="268" y2="137" stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- 90° (E) -->
+    <line x1="293" y1="195" x2="283" y2="195" stroke="#c8d8e8" stroke-width="2"/>
+    <!-- 120° -->
+    <line x1="276" y1="257" x2="269" y2="253" stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- 150° -->
+    <line x1="229" y1="306" x2="224" y2="297" stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- 180° (S) -->
+    <line x1="165" y1="323" x2="165" y2="313" stroke="#c8d8e8" stroke-width="2"/>
+    <!-- 210° -->
+    <line x1="101" y1="306" x2="106" y2="297" stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- 240° -->
+    <line x1="54" y1="257" x2="61" y2="253" stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- 270° (W) -->
+    <line x1="37" y1="195" x2="47" y2="195" stroke="#c8d8e8" stroke-width="2"/>
+    <!-- 300° -->
+    <line x1="55" y1="133" x2="62" y2="137" stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- 330° -->
+    <line x1="101" y1="84" x2="106" y2="93" stroke="#c8d8e8" stroke-width="1.5"/>
+
+    <!-- Cardinal direction labels -->
+    <text x="165" y="62" text-anchor="middle" fill="#c8d8e8" font-size="13" font-weight="800" font-family="'Segoe UI',system-ui,sans-serif">N</text>
+    <text x="297" y="199" text-anchor="start" fill="#c8d8e8" font-size="13" font-weight="800" font-family="'Segoe UI',system-ui,sans-serif">E</text>
+    <text x="165" y="331" text-anchor="middle" fill="#c8d8e8" font-size="13" font-weight="800" font-family="'Segoe UI',system-ui,sans-serif">S</text>
+    <text x="33" y="199" text-anchor="end" fill="#c8d8e8" font-size="13" font-weight="800" font-family="'Segoe UI',system-ui,sans-serif">W</text>
+
+    <!-- ── Three heading needles, all starting from TH=360°/000° ────── -->
+    <!--
+      Example (Ontario flight): TH = 000°, VAR = 20°W, DEV = 8°W
+      → MH = TH + VAR(W) = 000° + 20° = 020°
+      → CH = MH + DEV(W) = 020° + 8° = 028°
+      Values exaggerated so needle separation is visually clear.
+      Real Canadian values: VAR 10–19°W, DEV typically 2–5°.
+    -->
+
+    <!-- True Heading (TH 000°) — Blue: straight up to North -->
+    <!-- endpoint: (165, 195 - 118) = (165, 77) -->
+    <line x1="165" y1="195" x2="165" y2="77" stroke="#3a7ad5" stroke-width="3.5" stroke-linecap="round"/>
+    <polygon points="165,72 158,88 172,88" fill="#3a7ad5"/>
+
+    <!-- Magnetic Heading (MH 020°) — Yellow: offset 20° clockwise from TH -->
+    <!-- endpoint: (165 + 118*sin20°, 195 - 118*cos20°) = (165+40.4, 195-110.9) = (205.4, 84.1) -->
+    <line x1="165" y1="195" x2="205" y2="84" stroke="#f0c040" stroke-width="3" stroke-linecap="round"/>
+    <polygon points="205,79 196,92 213,90" fill="#f0c040"/>
+
+    <!-- Compass Heading (CH 028°) — Green dashed: further 8° clockwise from MH -->
+    <!-- endpoint: (165 + 118*sin28°, 195 - 118*cos28°) = (165+55.4, 195-104.2) = (220.4, 90.8) -->
+    <line x1="165" y1="195" x2="220" y2="91" stroke="#80c880" stroke-width="2.5" stroke-dasharray="7 3" stroke-linecap="round"/>
+    <polygon points="220,86 211,98 228,97" fill="#80c880"/>
+
+    <!-- ── Variation arc (r=72) from TH 000° to MH 020° ─────────────── -->
+    <!-- Start: (165, 195-72) = (165, 123) -->
+    <!-- End: (165+72*sin20°, 195-72*cos20°) = (165+24.6, 195-67.6) = (189.6, 127.4) -->
+    <path d="M 165 123 A 72 72 0 0 1 189.6 127.4"
+          fill="none" stroke="#f0c040" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <!-- VAR label near midpoint of arc (at bearing 10°, r=82) -->
+    <!-- (165+82*sin10°, 195-82*cos10°) = (165+14.2, 195-80.7) = (179.2, 114.3) -->
+    <text x="190" y="112" fill="#f0c040" font-size="10" font-weight="700" font-family="'Segoe UI',system-ui,sans-serif">VAR 20°W</text>
+
+    <!-- ── Deviation arc (r=93) from MH 020° to CH 028° ─────────────── -->
+    <!-- Start: (165+93*sin20°, 195-93*cos20°) = (165+31.8, 195-87.4) = (196.8, 107.6) -->
+    <!-- End: (165+93*sin28°, 195-93*cos28°) = (165+43.7, 195-82.1) = (208.7, 112.9) -->
+    <path d="M 196.8 107.6 A 93 93 0 0 1 208.7 112.9"
+          fill="none" stroke="#80c880" stroke-width="1.8" stroke-dasharray="4 3"/>
+    <!-- DEV label near midpoint of arc (at bearing 24°, r=105) -->
+    <!-- (165+105*sin24°, 195-105*cos24°) = (165+42.7, 195-95.9) = (207.7, 99.1) -->
+    <text x="214" y="100" fill="#80c880" font-size="10" font-weight="700" font-family="'Segoe UI',system-ui,sans-serif">DEV 8°W</text>
+
+    <!-- Centre dot (aircraft position) -->
+    <circle cx="165" cy="195" r="6" fill="#1a3a5a" stroke="#3a7ad5" stroke-width="2"/>
+    <circle cx="165" cy="195" r="2" fill="#c8d8e8"/>
+
+    <!-- Needle legend (bottom of left panel) -->
+    <line x1="28" y1="300" x2="55" y2="300" stroke="#3a7ad5" stroke-width="2.5"/>
+    <text x="60" y="304" font-size="9" fill="#3a7ad5" font-family="'Segoe UI',system-ui,sans-serif">TH (True)</text>
+    <line x1="28" y1="314" x2="55" y2="314" stroke="#f0c040" stroke-width="2.5"/>
+    <text x="60" y="318" font-size="9" fill="#f0c040" font-family="'Segoe UI',system-ui,sans-serif">MH (Magnetic)</text>
+    <line x1="165" y1="300" x2="192" y2="300" stroke="#80c880" stroke-width="2" stroke-dasharray="6 3"/>
+    <text x="197" y="304" font-size="9" fill="#80c880" font-family="'Segoe UI',system-ui,sans-serif">CH (Compass)</text>
+
+    <!-- ── RIGHT PANEL: TVMDC Conversion Chain ────────────────────────── -->
+    <rect x="340" y="10" width="390" height="320" rx="6" fill="#0a1a35" stroke="#1a3a5a" stroke-width="1.5"/>
+    <text x="535" y="36" fill="#7a9ab5" font-size="11" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif" letter-spacing="1">T V M D C — CONVERSION CHAIN</text>
+
     <!-- TRUE box -->
-    <rect x="365" y="56" width="290" height="34" rx="6" fill="#3a7ad5" opacity="0.2"/>
-    <rect x="365" y="56" width="290" height="34" rx="6" fill="none" stroke="#3a7ad5" stroke-width="1.5"/>
-    <text x="510" y="71" fill="#3a7ad5" font-size="13" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">T — TRUE HEADING (TH)</text>
-    <text x="510" y="84" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">from VNC chart (geographic north)</text>
+    <rect x="365" y="46" width="340" height="38" rx="6" fill="#3a7ad5" opacity="0.18"/>
+    <rect x="365" y="46" width="340" height="38" rx="6" fill="none" stroke="#3a7ad5" stroke-width="1.5"/>
+    <text x="535" y="62" fill="#3a7ad5" font-size="13" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">T — TRUE HEADING (TH)</text>
+    <text x="535" y="78" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">from VNC chart (geographic north)</text>
+
     <!-- VAR step -->
-    <text x="510" y="113" fill="#f0c040" font-size="12" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">V — ± Variation</text>
-    <text x="510" y="127" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">West (+) add   East (−) subtract</text>
-    <line x1="510" y1="131" x2="510" y2="141" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="3 2"/>
-    <polygon points="510,144 505,136 515,136" fill="#f0c040"/>
+    <text x="535" y="107" fill="#f0c040" font-size="12" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">V — ± Variation</text>
+    <text x="535" y="121" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">West (+) add · East (−) subtract</text>
+    <line x1="535" y1="125" x2="535" y2="137" stroke="#f0c040" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="535,141 529,131 541,131" fill="#f0c040"/>
+
     <!-- MAGNETIC box -->
-    <rect x="365" y="143" width="290" height="34" rx="6" fill="#f0c040" opacity="0.12"/>
-    <rect x="365" y="143" width="290" height="34" rx="6" fill="none" stroke="#f0c040" stroke-width="1.5"/>
-    <text x="510" y="158" fill="#f0c040" font-size="13" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">M — MAGNETIC HEADING (MH)</text>
-    <text x="510" y="171" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">set on Heading Indicator (DI)</text>
+    <rect x="365" y="141" width="340" height="38" rx="6" fill="#f0c040" opacity="0.12"/>
+    <rect x="365" y="141" width="340" height="38" rx="6" fill="none" stroke="#f0c040" stroke-width="1.5"/>
+    <text x="535" y="157" fill="#f0c040" font-size="13" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">M — MAGNETIC HEADING (MH)</text>
+    <text x="535" y="172" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">set on Heading Indicator (DI)</text>
+
     <!-- DEV step -->
-    <text x="510" y="200" fill="#80c880" font-size="12" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">D — ± Deviation</text>
-    <text x="510" y="214" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">compass correction card</text>
-    <line x1="510" y1="218" x2="510" y2="228" stroke="#80c880" stroke-width="1.5" stroke-dasharray="3 2"/>
-    <polygon points="510,231 505,223 515,223" fill="#80c880"/>
+    <text x="535" y="201" fill="#80c880" font-size="12" font-weight="700" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">D — ± Deviation</text>
+    <text x="535" y="215" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">compass correction card · unique per aircraft</text>
+    <line x1="535" y1="219" x2="535" y2="230" stroke="#80c880" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <polygon points="535,234 529,224 541,224" fill="#80c880"/>
+
     <!-- COMPASS box -->
-    <rect x="365" y="230" width="290" height="28" rx="6" fill="#80c880" opacity="0.12"/>
-    <rect x="365" y="230" width="290" height="28" rx="6" fill="none" stroke="#80c880" stroke-width="1.5"/>
-    <text x="510" y="248" fill="#80c880" font-size="13" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">C — COMPASS HEADING (CH)</text>
+    <rect x="365" y="234" width="340" height="34" rx="6" fill="#80c880" opacity="0.12"/>
+    <rect x="365" y="234" width="340" height="34" rx="6" fill="none" stroke="#80c880" stroke-width="1.5"/>
+    <text x="535" y="254" fill="#80c880" font-size="13" font-weight="800" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">C — COMPASS HEADING (CH)</text>
+
+    <!-- Formula summary at bottom -->
+    <rect x="365" y="278" width="340" height="40" rx="4" fill="#0d2040"/>
+    <text x="535" y="294" fill="#7a9ab5" font-size="10" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">MH = TH ± VAR · CH = MH ± DEV</text>
+    <text x="535" y="309" fill="#5a7a9a" font-size="9" text-anchor="middle" font-family="'Segoe UI',system-ui,sans-serif">EAST = LEAST (subtract) · WEST = BEST (add)</text>
+
   </svg>
 </div>
 

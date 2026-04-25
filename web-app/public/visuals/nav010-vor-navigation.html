@@ -7,10 +7,13 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>NAV-010 — VOR Navigation</title>
 <style>
+body { max-width: 860px; margin: auto; }
+
   @media (max-width: 480px) {
     body { font-size: 14px; overflow-x: hidden; }
     .two-col { grid-template-columns: 1fr; }
     .card table { display: block; overflow-x: auto; }
+    .grid-wrap svg { width: 100%; height: auto; }
   }
 </style>
 </head>
@@ -19,193 +22,265 @@
   <style>
 .container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}
 </style>
-<div class="container">
-  <h1>NAV-010 — VOR Navigation</h1>
-  <div class="subtitle">Transport Canada · TP 12880E Ch.9 · AIM RAC 1.5 · PPL Written Exam</div>
+<h1>NAV-010 — VOR Navigation</h1>
+<p class="subtitle">Transport Canada · TP 12880E Ch.9 · AIM RAC 1.5 · PPL Written Exam</p>
 
-  <div class="section-label">VOR Station — Radials and CDI Indication</div>
-  <div class="card" style="padding: 12px 16px;">
-    <svg viewBox="0 0 820 340" width="100%" style="display:block;">
-      <rect width="820" height="340" fill="#0d2240" rx="8"/>
+<div class="section-label">VOR Station · Radials · CDI Instrument Faces</div>
+<div class="grid-wrap">
+  <!--
+    LEFT: VOR compass rose showing radials, station, two aircraft positions.
+    RIGHT: Two CDI instrument faces in proper circular gauge layout.
+    assessment-state: #80c880 = on-course (green), #e07070 = off-course (red) — do not replace with tokens
+  -->
+  <svg viewBox="0 0 840 360" width="100%" style="display:block;">
+    <rect width="840" height="360" fill="#0d2240" rx="8"/>
 
-      <!-- VOR station at center-left area -->
-      <!-- Compass rose -->
-      <circle cx="280" cy="170" r="110" fill="none" stroke="#1a3a5a" stroke-width="1.5"/>
-      <circle cx="280" cy="170" r="108" fill="none" stroke="#0a2040" stroke-width="8"/>
+    <!-- ══════════════════════════════════════════════════════════════ -->
+    <!-- LEFT PANEL: VOR Compass Rose (centre 260, 180) ═══════════════ -->
+    <!-- ══════════════════════════════════════════════════════════════ -->
 
-      <!-- Compass tick marks -->
-      <g stroke="#3a6a8a" stroke-width="1">
-        <line x1="280" y1="62" x2="280" y2="72"/>
-        <line x1="358" y1="92" x2="352" y2="100"/>
-        <line x1="388" y1="170" x2="378" y2="170"/>
-        <line x1="358" y1="248" x2="352" y2="240"/>
-        <line x1="280" y1="278" x2="280" y2="268"/>
-        <line x1="202" y1="248" x2="208" y2="240"/>
-        <line x1="172" y1="170" x2="182" y2="170"/>
-        <line x1="202" y1="92" x2="208" y2="100"/>
-      </g>
+    <!-- Outer compass ring -->
+    <circle cx="260" cy="180" r="128" fill="#071830" stroke="#3a5a7a" stroke-width="2.5"/>
+    <circle cx="260" cy="180" r="122" fill="#0a1a35" stroke="#1a3050" stroke-width="1"/>
 
-      <!-- Cardinal labels -->
-      <text x="280" y="56" text-anchor="middle" fill="#7a9ab5" font-size="11" font-weight="700">360/N</text>
-      <text x="394" y="174" text-anchor="start" fill="#7a9ab5" font-size="11" font-weight="700">090/E</text>
-      <text x="280" y="292" text-anchor="middle" fill="#7a9ab5" font-size="11" font-weight="700">180/S</text>
-      <text x="166" y="174" text-anchor="end" fill="#7a9ab5" font-size="11" font-weight="700">270/W</text>
+    <!-- Compass tick marks (major at cardinals + 45°, minor every 10°) -->
+    <!-- N (0°)  --> <line x1="260" y1="52"  x2="260" y2="62"  stroke="#c8d8e8" stroke-width="2"/>
+    <!-- NE (45°) --> <line x1="351" y1="89"  x2="344" y2="96"  stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- E (90°)  --> <line x1="388" y1="180" x2="378" y2="180" stroke="#c8d8e8" stroke-width="2"/>
+    <!-- SE (135°)--> <line x1="351" y1="271" x2="344" y2="264" stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- S (180°) --> <line x1="260" y1="308" x2="260" y2="298" stroke="#c8d8e8" stroke-width="2"/>
+    <!-- SW (225°)--> <line x1="169" y1="271" x2="176" y2="264" stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- W (270°) --> <line x1="132" y1="180" x2="142" y2="180" stroke="#c8d8e8" stroke-width="2"/>
+    <!-- NW (315°)--> <line x1="169" y1="89"  x2="176" y2="96"  stroke="#c8d8e8" stroke-width="1.5"/>
+    <!-- minor at 10°/20° etc. -->
+    <line x1="282" y1="53"  x2="279" y2="57"  stroke="#3a6a8a" stroke-width="1"/>
+    <line x1="303" y1="57"  x2="298" y2="61"  stroke="#3a6a8a" stroke-width="1"/>
+    <line x1="321" y1="66"  x2="315" y2="71"  stroke="#3a6a8a" stroke-width="1"/>
+    <line x1="238" y1="53"  x2="241" y2="57"  stroke="#3a6a8a" stroke-width="1"/>
+    <line x1="217" y1="57"  x2="222" y2="61"  stroke="#3a6a8a" stroke-width="1"/>
+    <line x1="199" y1="66"  x2="205" y2="71"  stroke="#3a6a8a" stroke-width="1"/>
 
-      <!-- Radial lines (every 45 degrees) -->
-      <!-- 000 -->
-      <line x1="280" y1="60" x2="280" y2="140" stroke="#2a5a8a" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <!-- 045 radial (NE) -->
-      <line x1="280" y1="170" x2="358" y2="92" stroke="#f0c040" stroke-width="2.5"/>
-      <text x="368" y="84" fill="#f0c040" font-size="11" font-weight="700">045°</text>
-      <!-- 090 -->
-      <line x1="310" y1="170" x2="390" y2="170" stroke="#2a5a8a" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <!-- 135 -->
-      <line x1="280" y1="170" x2="358" y2="248" stroke="#2a5a8a" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <text x="365" y="262" fill="#7a9ab5" font-size="10">135°</text>
-      <!-- 180 -->
-      <line x1="280" y1="200" x2="280" y2="280" stroke="#2a5a8a" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <!-- 225 -->
-      <line x1="280" y1="170" x2="202" y2="248" stroke="#2a5a8a" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <text x="164" y="262" fill="#7a9ab5" font-size="10">225°</text>
-      <!-- 270 -->
-      <line x1="170" y1="170" x2="250" y2="170" stroke="#2a5a8a" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <text x="142" y="165" fill="#7a9ab5" font-size="10">270°</text>
-      <!-- 315 -->
-      <line x1="280" y1="170" x2="202" y2="92" stroke="#2a5a8a" stroke-width="1.5" stroke-dasharray="4,3"/>
-      <text x="152" y="86" fill="#7a9ab5" font-size="10">315°</text>
+    <!-- Cardinal labels -->
+    <text x="260" y="47"  text-anchor="middle" fill="#c8d8e8" font-size="12" font-weight="700">360/N</text>
+    <text x="396" y="184" text-anchor="start"  fill="#c8d8e8" font-size="12" font-weight="700">090/E</text>
+    <text x="260" y="325" text-anchor="middle" fill="#c8d8e8" font-size="12" font-weight="700">180/S</text>
+    <text x="124" y="184" text-anchor="end"    fill="#c8d8e8" font-size="12" font-weight="700">270/W</text>
 
-      <!-- VOR station symbol -->
-      <circle cx="280" cy="170" r="18" fill="#0d2240" stroke="#f0c040" stroke-width="2"/>
-      <circle cx="280" cy="170" r="10" fill="#1a2d4a" stroke="#f0c040" stroke-width="1.5"/>
-      <polygon points="280,162 274,178 280,174 286,178" fill="#f0c040"/>
-      <text x="280" y="200" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="700">VOR</text>
-      <text x="280" y="212" text-anchor="middle" fill="#7a9ab5" font-size="9">YYZ</text>
+    <!-- Dashed radials at every 45° (minor) -->
+    <line x1="260" y1="58"  x2="260" y2="148" stroke="#2a5a8a" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <line x1="260" y1="212" x2="260" y2="302" stroke="#2a5a8a" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <line x1="148" y1="180" x2="238" y2="180" stroke="#2a5a8a" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <line x1="282" y1="180" x2="372" y2="180" stroke="#2a5a8a" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <line x1="169" y1="89"  x2="214" y2="134" stroke="#2a5a8a" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <line x1="306" y1="226" x2="351" y2="271" stroke="#2a5a8a" stroke-width="1.2" stroke-dasharray="4,3"/>
+    <line x1="169" y1="271" x2="214" y2="226" stroke="#2a5a8a" stroke-width="1.2" stroke-dasharray="4,3"/>
 
-      <!-- assessment-state: #80c880 = on-course (green), #e07070 = off-course (red) — do not replace with tokens -->
-      <!-- Aircraft on 045 radial (centered CDI) -->
-      <g transform="translate(348,84) rotate(225)">
-        <polygon points="0,-10 -5,7 0,3 5,7" fill="#80c880" stroke="#40a040" stroke-width="1"/>
-        <line x1="-8" y1="0" x2="8" y2="0" stroke="#80c880" stroke-width="1.5"/>
-      </g>
-      <text x="390" y="72" fill="#80c880" font-size="10">On 045 radial</text>
-      <text x="390" y="84" fill="#80c880" font-size="10">CDI centered</text>
-      <text x="390" y="96" fill="#80c880" font-size="10">FROM flag</text>
+    <!-- 045° radial (highlighted — aircraft tracking this one) -->
+    <line x1="260" y1="180" x2="351" y2="89"  stroke="#f0c040" stroke-width="2.5"/>
+    <text x="360" y="82"  fill="#f0c040" font-size="11" font-weight="700">045°</text>
 
-      <!-- Off-course aircraft (below the 045 radial) -->
-      <g transform="translate(340,132) rotate(225)">
-        <polygon points="0,-10 -5,7 0,3 5,7" fill="#e07070" stroke="#a04040" stroke-width="1"/>
-        <line x1="-8" y1="0" x2="8" y2="0" stroke="#e07070" stroke-width="1.5"/>
-      </g>
-      <text x="362" y="128" fill="#e07070" font-size="10">Off course</text>
-      <text x="362" y="140" fill="#e07070" font-size="10">CDI deflected</text>
-      <text x="362" y="152" fill="#e07070" font-size="10">needle RIGHT</text>
+    <!-- Radial degree labels (NW, SW) -->
+    <text x="148" y="82"  fill="#7a9ab5" font-size="10">315°</text>
+    <text x="148" y="268" fill="#7a9ab5" font-size="10">225°</text>
+    <text x="306" y="278" fill="#7a9ab5" font-size="10">135°</text>
 
-      <!-- CDI instruments panel -->
-      <!-- Instrument 1: Centered -->
-      <rect x="510" y="60" width="80" height="120" fill="#0a1828" stroke="#2a4a6a" stroke-width="1.5" rx="5"/>
-      <text x="550" y="78" text-anchor="middle" fill="#7a9ab5" font-size="9" font-weight="700">CDI — CENTERED</text>
-      <!-- CDI face -->
-      <circle cx="550" cy="128" r="38" fill="#0d2240" stroke="#3a5a7a" stroke-width="1"/>
-      <!-- Dots -->
-      <circle cx="524" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="532" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="540" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="558" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="566" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="574" cy="128" r="3" fill="#3a5a7a"/>
-      <!-- Needle centered -->
-      <rect x="548" y="100" width="4" height="56" fill="#80c880" rx="2"/>
-      <!-- TO/FROM flag -->
-      <rect x="534" y="104" width="18" height="12" fill="#2d5a2d" rx="2"/>
-      <text x="543" y="114" text-anchor="middle" fill="#80c880" font-size="8" font-weight="700">FROM</text>
+    <!-- VOR station symbol (centre) -->
+    <circle cx="260" cy="180" r="20" fill="#0d2240" stroke="#f0c040" stroke-width="2"/>
+    <circle cx="260" cy="180" r="11" fill="#1a2d4a" stroke="#f0c040" stroke-width="1.5"/>
+    <polygon points="260,171 254,187 260,183 266,187" fill="#f0c040"/>
+    <text x="260" y="210" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="700">VOR</text>
+    <text x="260" y="222" text-anchor="middle" fill="#7a9ab5" font-size="9">YYZ</text>
 
-      <!-- Instrument 2: Deflected right -->
-      <rect x="610" y="60" width="80" height="120" fill="#0a1828" stroke="#2a4a6a" stroke-width="1.5" rx="5"/>
-      <text x="650" y="78" text-anchor="middle" fill="#7a9ab5" font-size="9" font-weight="700">CDI — DEFLECTED</text>
-      <circle cx="650" cy="128" r="38" fill="#0d2240" stroke="#3a5a7a" stroke-width="1"/>
-      <circle cx="624" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="632" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="640" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="658" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="666" cy="128" r="3" fill="#3a5a7a"/>
-      <circle cx="674" cy="128" r="3" fill="#3a5a7a"/>
-      <!-- Needle deflected right (+16px) -->
-      <rect x="664" y="100" width="4" height="56" fill="#e07070" rx="2"/>
-      <rect x="634" y="104" width="18" height="12" fill="#2d5a2d" rx="2"/>
-      <text x="643" y="114" text-anchor="middle" fill="#80c880" font-size="8" font-weight="700">FROM</text>
+    <!-- Cone of silence ring -->
+    <circle cx="260" cy="180" r="24" fill="none" stroke="#c87040" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <text x="260" y="254" text-anchor="middle" fill="#c87040" font-size="9">Cone of silence</text>
+    <text x="260" y="266" text-anchor="middle" fill="#c87040" font-size="9">(directly overhead)</text>
 
-      <!-- Labels below instruments -->
-      <text x="550" y="195" text-anchor="middle" fill="#80c880" font-size="10">On course</text>
-      <text x="650" y="195" text-anchor="middle" fill="#e07070" font-size="10">Fly RIGHT</text>
+    <!-- assessment-state: #80c880 = on-course (green), #e07070 = off-course (red) — do not replace with tokens -->
 
-      <!-- OBS knob label -->
-      <text x="510" y="220" fill="#7a9ab5" font-size="10">OBS set to 045°</text>
-      <text x="510" y="233" fill="#7a9ab5" font-size="10">Aircraft hdg: 225° (inbound)</text>
+    <!-- Aircraft on 045° radial (correct position, CDI centred) -->
+    <g transform="translate(342,87) rotate(225)">
+      <polygon points="0,-10 -5,8 0,4 5,8" fill="#80c880" stroke="#30a030" stroke-width="1"/>
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#80c880" stroke-width="1.5"/>
+    </g>
+    <text x="362" y="76"  fill="#80c880" font-size="10">On R-045 · CDI centred</text>
 
-      <!-- Cone of silence indicator -->
-      <circle cx="280" cy="170" r="22" fill="none" stroke="#c87040" stroke-width="1.5" stroke-dasharray="3,3"/>
-      <text x="280" y="265" text-anchor="middle" fill="#c87040" font-size="9">Cone of silence</text>
-      <text x="280" y="277" text-anchor="middle" fill="#c87040" font-size="9">(directly overhead)</text>
+    <!-- Aircraft south of 045° radial (off course → CDI deflects right) -->
+    <g transform="translate(336,130) rotate(225)">
+      <polygon points="0,-10 -5,8 0,4 5,8" fill="#e07070" stroke="#a02020" stroke-width="1"/>
+      <line x1="-8" y1="0" x2="8" y2="0" stroke="#e07070" stroke-width="1.5"/>
+    </g>
+    <text x="356" y="124" fill="#e07070" font-size="10">Off course (south)</text>
+    <text x="356" y="136" fill="#e07070" font-size="10">CDI deflects right</text>
 
-      <!-- Radial label on 045 line -->
-      <text x="318" y="118" fill="#f0c040" font-size="9" transform="rotate(-45,318,118)">Radial 045</text>
-    </svg>
-  </div>
+    <!-- Panel title -->
+    <text x="260" y="20" text-anchor="middle" fill="#5a8ab5" font-size="10" font-weight="700">VOR STATION — RADIALS &amp; AIRCRAFT POSITIONS</text>
 
-  <div class="section-label">VOR Terminology</div>
-  <div class="card" style="padding: 0; overflow: hidden;">
-    <table>
-      <thead>
-        <tr><th>Term</th><th>Stands For</th><th>Definition</th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Radial</strong></td><td>—</td><td>A magnetic bearing measured <strong>FROM</strong> the VOR station outward (e.g. R-045 is northeast of station)</td></tr>
-        <tr><td><strong>OBS</strong></td><td>Omnibearing Selector</td><td>Knob that selects the course (radial) you want to track or intercept</td></tr>
-        <tr><td><strong>CDI</strong></td><td>Course Deviation Indicator</td><td>Needle showing whether aircraft is left or right of selected course; each dot ≈ 2° off course</td></tr>
-        <tr><td><strong>TO Flag</strong></td><td>—</td><td>Station is ahead of you on the selected course; flying the OBS heading takes you toward the VOR</td></tr>
-        <tr><td><strong>FROM Flag</strong></td><td>—</td><td>Station is behind you on the selected course; flying the OBS heading takes you away from the VOR</td></tr>
-        <tr><td><strong>Cone of Silence</strong></td><td>—</td><td>Small area directly overhead the VOR where signal is unreliable; CDI may fluctuate and flag may show OFF</td></tr>
-        <tr><td><strong>Full-scale deflection</strong></td><td>—</td><td>CDI pegged at edge = 10° or more off the selected course</td></tr>
-      </tbody>
-    </table>
-  </div>
+    <!-- ══════════════════════════════════════════════════════════════ -->
+    <!-- RIGHT PANEL: Two CDI Instrument Faces ════════════════════════ -->
+    <!-- ══════════════════════════════════════════════════════════════ -->
 
-  <div class="section-label">Procedures</div>
-  <div class="two-col">
-    <div class="card">
-      <h3>Intercepting a Radial</h3>
-      <ul>
-        <li>1. Tune and identify the VOR (listen for Morse ident)</li>
-        <li>2. Twist OBS to the desired radial</li>
-        <li>3. Determine if TO or FROM and which side of course you are on</li>
-        <li>4. Turn to an intercept heading (30–45° cut toward the needle)</li>
-        <li>5. As CDI centers, turn to track the course</li>
-        <li>6. Apply wind correction angle to maintain centered CDI</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Tracking a Radial</h3>
-      <ul>
-        <li>Establish a wind correction angle (WCA) — try 10° initially</li>
-        <li>If CDI drifts, <strong style="color:var(--accent)">bracket and halve</strong>: double the correction, then halve when back on course</li>
-        <li>Keep corrections small — max 20° WCA in light winds</li>
-        <li>OBS setting does NOT change — only aircraft heading changes</li>
-        <li>Recheck station ident every 10–15 min en route</li>
-        <li>Station passage: flag flips FROM→TO, CDI swings</li>
-      </ul>
-    </div>
-  </div>
+    <!-- Panel background -->
+    <rect x="440" y="10" width="390" height="340" fill="#071830" rx="6" stroke="#1a3050" stroke-width="1"/>
+    <text x="635" y="30" text-anchor="middle" fill="#5a8ab5" font-size="10" font-weight="700">CDI INSTRUMENT FACES — OBS SET 045°</text>
 
-  <div class="section-label">Memory Hook</div>
-  <div class="memory-hook">
-    <div class="badge">Memory Hook</div>
+    <!-- ── CDI #1: ON COURSE (needle centred, FROM flag) ─────────────── -->
+    <!-- Centre: (530, 185), radius 72 -->
+
+    <!-- Outer bezel ring -->
+    <circle cx="530" cy="190" r="76" fill="#0a1020" stroke="#3a5a7a" stroke-width="3"/>
+    <circle cx="530" cy="190" r="70" fill="#071530" stroke="#1a3050" stroke-width="1"/>
+
+    <!-- Bezel notch / course index at top (OBS cursor triangle) -->
+    <polygon points="530,114 524,128 536,128" fill="#f0c040"/>
+    <line x1="530" y1="128" x2="530" y2="136" stroke="#f0c040" stroke-width="1.5"/>
+
+    <!-- OBS course label -->
+    <text x="530" y="108" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="700">045°</text>
+    <text x="530" y="98"  text-anchor="middle" fill="#7a9ab5" font-size="9">OBS</text>
+
+    <!-- Scale dots — 4 left, 4 right, centre mark -->
+    <!-- Each dot is 8 px from center (8px ≈ 2° per dot) -->
+    <circle cx="498" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="506" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="514" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="522" cy="190" r="3.5" fill="#3a5a7a"/>
+    <!-- centre reference -->
+    <circle cx="530" cy="190" r="3"   fill="#1a3050" stroke="#3a5a7a"/>
+    <circle cx="538" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="546" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="554" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="562" cy="190" r="3.5" fill="#3a5a7a"/>
+
+    <!-- CDI Needle CENTRED — assessment-state: #80c880 = on course -->
+    <rect x="527" y="145" width="6" height="90" fill="#80c880" rx="3"/>
+
+    <!-- TO/FROM flag (green = FROM, aircraft departing VOR) -->
+    <rect x="517" y="152" width="26" height="15" fill="#1a3a1a" rx="3" stroke="#2d5a2d"/>
+    <text x="530" y="163" text-anchor="middle" fill="#80c880" font-size="9" font-weight="700">FROM</text>
+
+    <!-- Scale ticks on edge at ±90° (left/right) -->
+    <line x1="458" y1="190" x2="464" y2="190" stroke="#3a5a7a" stroke-width="1.5"/>
+    <line x1="596" y1="190" x2="602" y2="190" stroke="#3a5a7a" stroke-width="1.5"/>
+
+    <!-- Instrument label below -->
+    <text x="530" y="272" text-anchor="middle" fill="#80c880" font-size="11" font-weight="700">ON COURSE</text>
+    <text x="530" y="285" text-anchor="middle" fill="#7a9ab5" font-size="9">needle centred · FROM flag</text>
+
+    <!-- Bottom arrow label -->
+    <text x="530" y="302" text-anchor="middle" fill="#7a9ab5" font-size="9">Aircraft heading 225° (inbound)</text>
+    <text x="530" y="315" text-anchor="middle" fill="#7a9ab5" font-size="9">flying outbound on R-045</text>
+
+    <!-- CDI #1 label title -->
+    <text x="530" y="345" text-anchor="middle" fill="#5a8ab5" font-size="10" font-weight="700">CDI #1</text>
+
+    <!-- ── CDI #2: OFF COURSE (needle deflected right, FROM flag) ─────── -->
+    <!-- Centre: (720, 185), radius 72 -->
+
+    <!-- Outer bezel ring -->
+    <circle cx="720" cy="190" r="76" fill="#0a1020" stroke="#3a5a7a" stroke-width="3"/>
+    <circle cx="720" cy="190" r="70" fill="#071530" stroke="#1a3050" stroke-width="1"/>
+
+    <!-- OBS cursor at top -->
+    <polygon points="720,114 714,128 726,128" fill="#f0c040"/>
+    <line x1="720" y1="128" x2="720" y2="136" stroke="#f0c040" stroke-width="1.5"/>
+    <text x="720" y="108" text-anchor="middle" fill="#f0c040" font-size="10" font-weight="700">045°</text>
+    <text x="720" y="98"  text-anchor="middle" fill="#7a9ab5" font-size="9">OBS</text>
+
+    <!-- Scale dots — same layout as CDI #1 -->
+    <circle cx="688" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="696" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="704" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="712" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="720" cy="190" r="3"   fill="#1a3050" stroke="#3a5a7a"/>
+    <circle cx="728" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="736" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="744" cy="190" r="3.5" fill="#3a5a7a"/>
+    <circle cx="752" cy="190" r="3.5" fill="#3a5a7a"/>
+
+    <!-- CDI Needle DEFLECTED RIGHT — assessment-state: #e07070 = off course -->
+    <!-- shifted +24px (3 dots right ≈ 6° off radial) -->
+    <rect x="741" y="145" width="6" height="90" fill="#e07070" rx="3"/>
+
+    <!-- TO/FROM flag (green = FROM) -->
+    <rect x="707" y="152" width="26" height="15" fill="#1a3a1a" rx="3" stroke="#2d5a2d"/>
+    <text x="720" y="163" text-anchor="middle" fill="#80c880" font-size="9" font-weight="700">FROM</text>
+
+    <!-- Scale ticks on edge -->
+    <line x1="648" y1="190" x2="654" y2="190" stroke="#3a5a7a" stroke-width="1.5"/>
+    <line x1="786" y1="190" x2="792" y2="190" stroke="#3a5a7a" stroke-width="1.5"/>
+
+    <!-- Instrument label below -->
+    <text x="720" y="272" text-anchor="middle" fill="#e07070" font-size="11" font-weight="700">FLY RIGHT</text>
+    <text x="720" y="285" text-anchor="middle" fill="#7a9ab5" font-size="9">needle right → turn right</text>
+
+    <!-- Annotation arrow -->
+    <line x1="744" y1="155" x2="760" y2="143" stroke="#e07070" stroke-width="1.2" stroke-dasharray="3,2"/>
+    <text x="762" y="140" fill="#e07070" font-size="9">~6° off radial</text>
+
+    <!-- Fly toward needle reminder -->
+    <text x="720" y="302" text-anchor="middle" fill="#7a9ab5" font-size="9">Aircraft is SOUTH of R-045</text>
+    <text x="720" y="315" text-anchor="middle" fill="#7a9ab5" font-size="9">turn right to intercept radial</text>
+
+    <!-- CDI #2 label -->
+    <text x="720" y="345" text-anchor="middle" fill="#5a8ab5" font-size="10" font-weight="700">CDI #2</text>
+
+  </svg>
+</div>
+
+<div class="section-label">VOR Terminology</div>
+<div class="card" style="padding: 0; overflow: hidden;">
+  <table>
+    <thead>
+      <tr><th>Term</th><th>Stands For</th><th>Definition</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Radial</strong></td><td>—</td><td>A magnetic bearing measured <strong>FROM</strong> the VOR station outward (e.g. R-045 is northeast of station)</td></tr>
+      <tr><td><strong>OBS</strong></td><td>Omnibearing Selector</td><td>Knob that selects the course (radial) you want to track or intercept</td></tr>
+      <tr><td><strong>CDI</strong></td><td>Course Deviation Indicator</td><td>Needle showing whether aircraft is left or right of selected course; each dot ≈ 2° off course</td></tr>
+      <tr><td><strong>TO Flag</strong></td><td>—</td><td>Station is ahead of you on the selected course; flying the OBS heading takes you toward the VOR</td></tr>
+      <tr><td><strong>FROM Flag</strong></td><td>—</td><td>Station is behind you on the selected course; flying the OBS heading takes you away from the VOR</td></tr>
+      <tr><td><strong>Cone of Silence</strong></td><td>—</td><td>Small area directly overhead the VOR where signal is unreliable; CDI may fluctuate and flag may show OFF</td></tr>
+      <tr><td><strong>Full-scale deflection</strong></td><td>—</td><td>CDI pegged at edge = 10° or more off the selected course</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="section-label">Procedures</div>
+<div class="two-col">
+  <div class="card">
+    <h3>Intercepting a Radial</h3>
     <ul>
-      <li><strong style="color:#80c880">Radials are FROM:</strong> A radial always goes FROM the station. R-090 is the line going east from the VOR. You are on R-090 when you are east of the station.</li>
-      <li><strong style="color:#80c880">OBS ≠ heading:</strong> The OBS sets the course line, not your heading. You fly a different heading to correct for wind while tracking the OBS course.</li>
-      <li><strong style="color:#80c880">Cone of silence:</strong> When directly overhead, the CDI goes crazy and the flag may go to OFF — this is normal. Note the time and continue.</li>
-      <li><strong style="color:#80c880">CDI "fly toward the needle":</strong> Needle deflected right = turn right to get back on course.</li>
+      <li>1. Tune and identify the VOR (listen for Morse ident)</li>
+      <li>2. Twist OBS to the desired radial</li>
+      <li>3. Determine if TO or FROM and which side of course you are on</li>
+      <li>4. Turn to an intercept heading (30–45° cut toward the needle)</li>
+      <li>5. As CDI centers, turn to track the course</li>
+      <li>6. Apply wind correction angle to maintain centered CDI</li>
     </ul>
   </div>
+  <div class="card">
+    <h3>Tracking a Radial</h3>
+    <ul>
+      <li>Establish a wind correction angle (WCA) — try 10° initially</li>
+      <li>If CDI drifts, <strong style="color:var(--accent)">bracket and halve</strong>: double the correction, then halve when back on course</li>
+      <li>Keep corrections small — max 20° WCA in light winds</li>
+      <li>OBS setting does NOT change — only aircraft heading changes</li>
+      <li>Recheck station ident every 10–15 min en route</li>
+      <li>Station passage: flag flips FROM→TO, CDI swings</li>
+    </ul>
+  </div>
+</div>
+
+<div class="section-label">Memory Hook</div>
+<div class="memory-hook">
+  <div class="badge">Memory Hook</div>
+  <ul>
+    <li><strong style="color:#80c880">Radials are FROM:</strong> A radial always goes FROM the station. R-090 is the line going east from the VOR. You are on R-090 when you are east of the station.</li>
+    <li><strong style="color:#80c880">OBS ≠ heading:</strong> The OBS sets the course line, not your heading. You fly a different heading to correct for wind while tracking the OBS course.</li>
+    <li><strong style="color:#80c880">Cone of silence:</strong> When directly overhead, the CDI goes crazy and the flag may go to OFF — this is normal. Note the time and continue.</li>
+    <li><strong style="color:#80c880">CDI "fly toward the needle":</strong> Needle deflected right = turn right to get back on course.</li>
+  </ul>
 </div>
 </body>
 </html>
