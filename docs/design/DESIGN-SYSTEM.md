@@ -210,6 +210,33 @@ Icon button, 100 px pill radius, 48 × 48 px, sun icon in light mode and moon in
 
 Pill button with accent-soft badge + track code + name + progress + chevron. Click opens menu with: active-track section, your-other-tracks section, locked/coming-soon tracks (50 % opacity), and "Add another track" placeholder. See `multi-track.html` for binding spec.
 
+### 5.10 Playlist link button (TopicMasteryCard)
+
+An optional inline `▶ Playlist` button rendered inside `TopicMasteryCard` when a `playlistUrl` prop is provided. It must be **entirely absent** (not disabled) when `playlistUrl` is falsy.
+
+- **Component:** MUI `Button` rendered as `<a>`, `size="small"`, `variant="outlined"`.
+- **Label:** `▶ Playlist` — monospace, uppercase, `0.6875rem`, letter-spacing `wide` (0.05em).
+- **Color:** `theme.palette.primary.main` for text and border; hover background uses `theme.palette.primaryMuted`.
+- **Radius:** `radiusTokens.xs` (3 px) — sharp, cockpit style.
+- **Link behavior:** `target="_blank"` + `rel="noopener noreferrer"` — always opens in a new tab.
+- **Token rule:** No hardcoded hex. All color references must go through `theme.palette.*` or `radiusTokens`.
+
+```tsx
+{playlistUrl && (
+  <Button
+    component="a"
+    href={playlistUrl}
+    target="_blank"
+    rel="noopener noreferrer"
+    size="small"
+    variant="outlined"
+    sx={{ /* see TopicMasteryCard.tsx for full sx */ }}
+  >
+    ▶ Playlist
+  </Button>
+)}
+```
+
 ### 5.9 Sticky player bar (StickyPlayerBar.tsx)
 
 Fixed-position audio player bar that persists across routes. Mounts at app root inside `BrowserRouter` so it survives navigation.
