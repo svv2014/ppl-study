@@ -6,7 +6,7 @@ slug: light-signals
 title: "Light Gun Signals"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/radio/007-light-signals.m4a
 visual: ''
 sources:
   - AIM RAC 4.6

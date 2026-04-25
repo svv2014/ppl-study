@@ -6,7 +6,7 @@ slug: frequencies-reference
 title: "Aviation Frequency Reference"
 duration_min: 20
 status: complete
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/radio/003-frequencies-reference.m4a
 visual: ''
 sources:
   - ISED RIC-21
