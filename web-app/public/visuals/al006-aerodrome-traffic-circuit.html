@@ -7,140 +7,310 @@
 <link rel="stylesheet" href="/visuals/_common.css">
 <title>AL-006: Aerodrome Traffic Circuit</title>
 <style>
-  /* Circuit diagram using CSS grid */
-  .circuit-container { background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; padding: 24px; margin-bottom: 28px; }
-  .circuit-diagram { display: grid; grid-template-columns: 1fr 180px 1fr; grid-template-rows: auto auto auto auto auto; gap: 0; max-width: 600px; margin: 0 auto; }
+  .diagram-wrap {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 4px 8px;
+    margin-bottom: 28px;
+    overflow-x: hidden;
+  }
+  .circuit-svg { display: block; margin: 0 auto; }
 
-  /* Runway */
-  .runway-cell { grid-column: 2; grid-row: 3; display: flex; align-items: center; justify-content: center; }
-  .runway { background: #2a3a4a; border: 2px solid var(--accent); border-radius: 4px; padding: 8px 16px; text-align: center; font-size: 11px; font-weight: 800; color: var(--accent); letter-spacing: 2px; width: 100%; }
-  .runway-arrows { font-size: 14px; display: block; margin-top: 2px; color: var(--text-muted); }
-
-  /* Leg labels */
-  .leg-cell { display: flex; align-items: center; justify-content: center; padding: 8px; }
-  .leg-label { text-align: center; }
-  .leg-name { font-size: 13px; font-weight: 700; color: var(--accent); display: block; }
-  .leg-detail { font-size: 11px; color: var(--text-muted); display: block; margin-top: 3px; line-height: 1.4; }
-  /* Circuit diagram arrow/line color — domain-specific, not in the token set.
-     #80b8ff (light sky-blue) distinguishes the flight-path lines from
-     runway amber (--accent) and label grey (--text-muted); swapping to
-     --info (#5b9bd5) would reduce contrast against the dark background. */
-  .leg-arrow { font-size: 20px; color: #80b8ff; display: block; margin-bottom: 4px; }
-  .arrow-h { display: flex; align-items: center; justify-content: center; padding: 4px 0; }
-  .arrow-v { display: flex; align-items: center; justify-content: center; }
-  .line-h { height: 2px; background: #80b8ff; flex: 1; }
-  .line-v { width: 2px; background: #80b8ff; flex: 1; min-height: 40px; }
-  .arrowhead { color: #80b8ff; font-size: 14px; }
-
-  /* Grid positions for legs */
-  .upwind { grid-column: 2; grid-row: 5; }
-  .crosswind { grid-column: 3; grid-row: 2; }
-  .downwind { grid-column: 2; grid-row: 1; }
-  .base { grid-column: 1; grid-row: 2; }
-  .final { grid-column: 2; grid-row: 4; }
-
-  /* Corner turn symbols use same domain-specific #80b8ff — see arrow comment above */
-  .corner-tr { grid-column: 3; grid-row: 1; display: flex; align-items: flex-end; justify-content: flex-start; padding: 4px; color: #80b8ff; font-size: 16px; }
-  .corner-br { grid-column: 3; grid-row: 5; display: flex; align-items: flex-start; justify-content: flex-start; padding: 4px; color: #80b8ff; font-size: 16px; }
-  .corner-tl { grid-column: 1; grid-row: 1; display: flex; align-items: flex-end; justify-content: flex-end; padding: 4px; color: #80b8ff; font-size: 16px; }
-  .corner-bl { grid-column: 1; grid-row: 5; display: flex; align-items: flex-start; justify-content: flex-end; padding: 4px; color: #80b8ff; font-size: 16px; }
-
-  .diagram-note { text-align: center; font-size: 11px; color: var(--text-muted); margin-top: 12px; }
-
-  /* Legs reference table */
-  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 28px; }
-  th { background: var(--surface2); color: var(--text-muted); padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
-  .leg-name-col { font-weight: 700; color: var(--accent); }
-  .leg-order { display: inline-block; width: 20px; height: 20px; border-radius: 50%; background: var(--border); color: var(--text-muted); font-size: 10px; font-weight: 800; text-align: center; line-height: 20px; margin-right: 6px; }
-
-  /* Standards panel */
-  .standards-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+  .standards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 28px;
+  }
   .std-card { background: var(--surface2); border-radius: 8px; padding: 14px 16px; }
-  .std-card h3 { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .std-card h3 {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
   .std-value { font-size: 16px; font-weight: 800; color: var(--accent); }
   .std-note { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 
-  @media (max-width: 600px) { .standards-grid { grid-template-columns: 1fr; } }
+  .leg-name-col { font-weight: 700; color: var(--accent); }
 
+  @media (max-width: 600px) { .standards-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 400px) { .standards-grid { grid-template-columns: 1fr; } }
   @media (max-width: 480px) {
     body { font-size: 14px; }
-    .circuit-diagram { grid-template-columns: 1fr 120px 1fr; }
-    .leg-name { font-size: 11px; }
-    .leg-detail { font-size: 10px; }
-    td, td strong { font-size: 14px; }
-    th { font-size: 11px; }
-    .std-value { font-size: 15px; }
+    td, th { font-size: 12px; }
   }
 </style>
 </head>
 <body>
-  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:var(--accent);border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
-  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<button
+  data-backlink="true"
+  onclick="if(window.history.length<=1){window.close();}else{window.history.back();}"
+  style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);"
+  aria-label="Back to lesson">&#8592; Back to lesson</button>
+<style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
 
 <h1>AL-006 — Aerodrome Traffic Circuit</h1>
 <p class="subtitle">Transport Canada · CARs 602.96, 602.105, TP 12880E, AIM RAC 4.5 · PPL Written Exam</p>
 
-<!-- Circuit diagram -->
-<div class="section-label">Standard Left-Hand Circuit (all turns to the left)</div>
-<div class="circuit-container">
-  <div class="circuit-diagram">
-    <!-- Row 1: Downwind label + corners -->
-    <div class="corner-tl">↙</div>
-    <div class="leg-cell downwind">
-      <div class="leg-label">
-        <span class="leg-name">⬅ DOWNWIND</span>
-        <span class="leg-detail">Parallel to runway<br>Opposite direction to landing<br>1,000 ft AGL · pre-landing checks</span>
-      </div>
-    </div>
-    <div class="corner-tr">↙</div>
+<!-- ═══════════════════════════════════════════════════════════
+     PLAN-VIEW SVG DIAGRAM
+     Orientation: ↑ = north. Runway 36/18 runs N–S.
+     Landing direction = RWY 36 (heading north, threshold at top, y=115).
+     Departure end = RWY 18 (bottom of runway, y=355).
 
-    <!-- Row 2: Base label + crosswind label -->
-    <div class="leg-cell base">
-      <div class="leg-label">
-        <span class="leg-name">BASE ↓</span>
-        <span class="leg-detail">90° to runway<br>Toward runway<br>Extend flaps</span>
-      </div>
-    </div>
-    <div></div><!-- empty runway column row 2 -->
-    <div class="leg-cell crosswind">
-      <div class="leg-label">
-        <span class="leg-name">CROSSWIND ↑</span>
-        <span class="leg-detail">90° to runway<br>Away from runway<br>Climb to circuit altitude</span>
-      </div>
-    </div>
+     LEFT-HAND circuit (standard): turns counter-clockwise, west of runway.
+       Amber solid line, var(--accent) = #f0c040.
+     RIGHT-HAND circuit (exception): turns clockwise, east of runway.
+       Blue-grey dashed, var(--text-muted) = #7a9ab5.
 
-    <!-- Row 3: Runway -->
-    <div></div>
-    <div class="runway-cell">
-      <div class="runway">RUNWAY<span class="runway-arrows">▲ ▼</span></div>
-    </div>
-    <div></div>
+     Key x coords:
+       runway-left=184  runway-cx=200  runway-right=216
+       upwind-x=208 (slight right offset so upwind/final don't overlap)
+       final-x=192  (slight left offset)
+       left-edge=52  right-edge=330
+     Key y coords:
+       circuit-top=60   runway-threshold=115  runway-departure=355
+       circuit-bottom=440
+     ═══════════════════════════════════════════════════════════ -->
+<div class="section-label">Standard Circuit — Plan View (Top-Down)</div>
+<div class="diagram-wrap">
+  <svg
+    class="circuit-svg"
+    viewBox="0 0 400 510"
+    width="100%"
+    style="max-width:620px;"
+    role="img"
+    aria-label="Top-down plan view of aerodrome traffic circuit. Runway runs north–south centre-right. Left-hand circuit in amber counter-clockwise west of runway; right-hand exception dashed blue-grey east of runway. ATC radio call points at downwind abeam threshold, base turn, and final approach.">
 
-    <!-- Row 4: Final label -->
-    <div></div>
-    <div class="leg-cell final">
-      <div class="leg-label">
-        <span class="leg-name">FINAL ↓</span>
-        <span class="leg-detail">Aligned with runway<br>Into wind · descending<br>to land</span>
-      </div>
-    </div>
-    <div></div>
+    <defs>
+      <!-- Amber filled arrowhead — left-hand circuit direction markers -->
+      <marker id="arr-a" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 Z" fill="#f0c040"/>
+      </marker>
+      <!-- Blue-grey filled arrowhead — right-hand circuit (exception) -->
+      <marker id="arr-m" viewBox="0 0 10 10" refX="9" refY="5"
+              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M0,0 L10,5 L0,10 Z" fill="#7a9ab5"/>
+      </marker>
+    </defs>
 
-    <!-- Row 5: Upwind label + corners -->
-    <div class="corner-bl">↖</div>
-    <div class="leg-cell upwind">
-      <div class="leg-label">
-        <span class="leg-name">UPWIND ➡</span>
-        <span class="leg-detail">After take-off · climb-out<br>Same direction as runway</span>
-      </div>
-    </div>
-    <div class="corner-br">↖</div>
-  </div>
-  <p class="diagram-note">Left-hand circuit shown. Arrows indicate direction of aircraft travel. All turns to the LEFT.</p>
-</div>
+    <!-- ── North compass indicator ─────────────────────────────── -->
+    <text x="20" y="24" font-size="13" font-weight="700" text-anchor="middle"
+          fill="#7a9ab5" font-family="Inter,system-ui,sans-serif">N</text>
+    <line x1="20" y1="28" x2="20" y2="50"
+          stroke="#7a9ab5" stroke-width="1.5" marker-end="url(#arr-m)"/>
 
-<!-- Standards -->
+    <!-- ── RUNWAY ─────────────────────────────────────────────── -->
+    <!-- Parallel-rectangle runway with distinct fill and amber border.
+         fill="#142a40" = var(--surface2) — nearest token for runway body dark shade -->
+    <rect x="184" y="115" width="32" height="240" rx="2"
+          fill="#142a40" stroke="#f0c040" stroke-width="1.5"/>
+    <!-- Threshold bar at landing end (RWY 36 — north/top) -->
+    <rect x="184" y="115" width="32" height="7" rx="1"
+          fill="#f0c040" opacity="0.8"/>
+    <!-- Displaced-threshold marks at departure end (RWY 18 — south) -->
+    <line x1="184" y1="355" x2="216" y2="355"
+          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5"/>
+    <!-- Runway centreline dashes -->
+    <line x1="200" y1="130" x2="200" y2="346"
+          stroke="#7a9ab5" stroke-width="1" stroke-dasharray="10,7" opacity="0.35"/>
+    <!-- Runway designator numbers -->
+    <text x="200" y="111" text-anchor="middle" font-size="10" font-weight="800"
+          fill="#f0c040" font-family="Inter,system-ui,sans-serif">36</text>
+    <text x="200" y="374" text-anchor="middle" font-size="10" font-weight="800"
+          fill="#f0c040" font-family="Inter,system-ui,sans-serif">18</text>
+    <!-- Landing direction caret inside runway -->
+    <text x="200" y="150" text-anchor="middle" font-size="15"
+          fill="#f0c040" opacity="0.5" font-family="Inter,system-ui,sans-serif">↑</text>
+
+    <!-- Extended centreline guides (faint) -->
+    <line x1="200" y1="62" x2="200" y2="115"
+          stroke="#7a9ab5" stroke-width="1" stroke-dasharray="5,6" opacity="0.2"/>
+    <line x1="200" y1="355" x2="200" y2="440"
+          stroke="#7a9ab5" stroke-width="1" stroke-dasharray="5,6" opacity="0.2"/>
+
+    <!-- ═══ LEFT-HAND CIRCUIT (STANDARD) ─ amber, solid ══════════ -->
+    <!--
+      1. Upwind:     depart RWY 18 (y=355), fly north past threshold, x=208
+      2. Crosswind:  turn left (west) at circuit altitude, y=60
+      3. Downwind:   turn left (south), parallel to runway, x=52
+      4. Base:       turn left (east), toward runway, y=440
+      5. Final:      turn left (north), aligned with runway, x=192 → threshold y=120
+    -->
+    <line x1="208" y1="353" x2="208" y2="63"
+          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
+    <line x1="208" y1="63" x2="55"  y2="63"
+          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
+    <line x1="55"  y1="63" x2="55"  y2="438"
+          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
+    <line x1="55"  y1="438" x2="192" y2="438"
+          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
+    <line x1="192" y1="438" x2="192" y2="122"
+          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
+
+    <!-- ═══ RIGHT-HAND CIRCUIT (EXCEPTION) ─ muted dashed ════════ -->
+    <!-- Only unique legs drawn (crosswind/downwind/base) — upwind/final shared -->
+    <line x1="208" y1="63" x2="328" y2="63"
+          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="7,4"
+          marker-end="url(#arr-m)" opacity="0.65"/>
+    <line x1="328" y1="63" x2="328" y2="438"
+          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="7,4"
+          marker-end="url(#arr-m)" opacity="0.65"/>
+    <line x1="328" y1="438" x2="208" y2="438"
+          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="7,4"
+          marker-end="url(#arr-m)" opacity="0.65"/>
+
+    <!-- ═══ ATC RADIO CALL MARKERS ════════════════════════════════ -->
+    <!--
+      Circles mark position-report points required at controlled aerodromes.
+      1. Downwind — abeam the landing threshold (RWY 36, y=115, on downwind x=55)
+      2. Base turn — at the downwind-to-base corner (x=55, y=438)
+      3. Final     — established on final (x=192, y=310 mid-final)
+    -->
+    <!-- Call 1: Downwind abeam landing threshold -->
+    <circle cx="55" cy="115" r="9" fill="none" stroke="#5b9bd5" stroke-width="2"/>
+    <text x="55" y="119" text-anchor="middle" font-size="8" font-weight="800"
+          fill="#5b9bd5" font-family="Inter,system-ui,sans-serif">R</text>
+
+    <!-- Call 2: Base turn -->
+    <circle cx="55" cy="438" r="9" fill="none" stroke="#5b9bd5" stroke-width="2"/>
+    <text x="55" y="442" text-anchor="middle" font-size="8" font-weight="800"
+          fill="#5b9bd5" font-family="Inter,system-ui,sans-serif">R</text>
+
+    <!-- Call 3: Final (mid-final) -->
+    <circle cx="192" cy="310" r="9" fill="none" stroke="#5b9bd5" stroke-width="2"/>
+    <text x="192" y="314" text-anchor="middle" font-size="8" font-weight="800"
+          fill="#5b9bd5" font-family="Inter,system-ui,sans-serif">R</text>
+
+    <!-- ═══ INLINE-SVG AIRCRAFT SILHOUETTES ══════════════════════ -->
+    <!--
+      Generic top-down airplane shape — no brand marks.
+      Nose points toward +y in local coords (rotate so nose points in heading direction).
+      Path: nose (top), swept wings, T-tail (bottom). Filled var(--text-muted).
+    -->
+    <!-- Aircraft on downwind leg, heading south (rotate 180° → nose down) -->
+    <g transform="translate(55,252) rotate(180) scale(0.95)">
+      <path d="M0,-12 L3,-5 L14,2 L14,6 L3,3 L4,10 L7,14 L2,14 L0,11 L-2,14 L-7,14 L-4,10 L-3,3 L-14,6 L-14,2 L-3,-5 Z"
+            fill="#7a9ab5" opacity="0.7"/>
+    </g>
+
+    <!-- Aircraft on base leg, heading east (rotate 90° → nose right) -->
+    <g transform="translate(124,438) rotate(90) scale(0.95)">
+      <path d="M0,-12 L3,-5 L14,2 L14,6 L3,3 L4,10 L7,14 L2,14 L0,11 L-2,14 L-7,14 L-4,10 L-3,3 L-14,6 L-14,2 L-3,-5 Z"
+            fill="#7a9ab5" opacity="0.6"/>
+    </g>
+
+    <!-- Aircraft on final, heading north (rotate 0° → nose up) -->
+    <g transform="translate(192,370) rotate(0) scale(0.95)">
+      <path d="M0,-12 L3,-5 L14,2 L14,6 L3,3 L4,10 L7,14 L2,14 L0,11 L-2,14 L-7,14 L-4,10 L-3,3 L-14,6 L-14,2 L-3,-5 Z"
+            fill="#7a9ab5" opacity="0.5"/>
+    </g>
+
+    <!-- ═══ LEG LABELS ════════════════════════════════════════════ -->
+
+    <!-- UPWIND — right of runway, mid-upwind -->
+    <text x="225" y="207" font-size="12" font-weight="700"
+          fill="#e4ecf5" text-anchor="start" font-family="Inter,system-ui,sans-serif">UPWIND</text>
+    <text x="225" y="220" font-size="10"
+          fill="#7a9ab5" text-anchor="start" font-family="Inter,system-ui,sans-serif">climb-out · same hdg</text>
+
+    <!-- CROSSWIND — above crosswind leg -->
+    <text x="132" y="51" font-size="12" font-weight="700"
+          fill="#e4ecf5" text-anchor="middle" font-family="Inter,system-ui,sans-serif">CROSSWIND</text>
+    <text x="132" y="41" font-size="10"
+          fill="#7a9ab5" text-anchor="middle" font-family="Inter,system-ui,sans-serif">90° away · climb</text>
+
+    <!-- DOWNWIND — left side, rotated to read bottom-to-top -->
+    <text x="22" y="252"
+          font-size="12" font-weight="700"
+          fill="#e4ecf5" text-anchor="middle"
+          transform="rotate(-90 22 252)"
+          font-family="Inter,system-ui,sans-serif">DOWNWIND</text>
+    <text x="9" y="252"
+          font-size="10"
+          fill="#7a9ab5" text-anchor="middle"
+          transform="rotate(-90 9 252)"
+          font-family="Inter,system-ui,sans-serif">parallel · opp direction</text>
+
+    <!-- BASE — below base leg -->
+    <text x="124" y="455" font-size="12" font-weight="700"
+          fill="#e4ecf5" text-anchor="middle" font-family="Inter,system-ui,sans-serif">BASE</text>
+    <text x="124" y="467" font-size="10"
+          fill="#7a9ab5" text-anchor="middle" font-family="Inter,system-ui,sans-serif">90° toward runway</text>
+
+    <!-- FINAL — left of final approach path -->
+    <text x="178" y="285" font-size="12" font-weight="700"
+          fill="#e4ecf5" text-anchor="end" font-family="Inter,system-ui,sans-serif">FINAL</text>
+    <text x="178" y="298" font-size="10"
+          fill="#7a9ab5" text-anchor="end" font-family="Inter,system-ui,sans-serif">aligned · descending</text>
+
+    <!-- RIGHT-HAND label — east side, rotated -->
+    <text x="350" y="252"
+          font-size="10" font-weight="700"
+          fill="#7a9ab5" text-anchor="middle"
+          transform="rotate(90 350 252)"
+          opacity="0.75"
+          font-family="Inter,system-ui,sans-serif">RIGHT-HAND</text>
+    <text x="363" y="252"
+          font-size="9"
+          fill="#7a9ab5" text-anchor="middle"
+          transform="rotate(90 363 252)"
+          opacity="0.7"
+          font-family="Inter,system-ui,sans-serif">CFS / NOTAM / ATC only</text>
+
+    <!-- ═══ ALTITUDE LABEL — 1,000 ft AGL ════════════════════════ -->
+    <!-- Tick line from circuit-top (y=63) leftward, label to the left -->
+    <line x1="39" y1="63" x2="52" y2="63"
+          stroke="#f0c040" stroke-width="1" stroke-dasharray="3,3" opacity="0.55"/>
+    <text x="37" y="59" font-size="10" font-weight="700"
+          fill="#f0c040" text-anchor="end" font-family="Inter,system-ui,sans-serif">1,000 ft AGL</text>
+    <text x="37" y="71" font-size="9"
+          fill="#7a9ab5" text-anchor="end" font-family="Inter,system-ui,sans-serif">circuit altitude</text>
+
+    <!-- ═══ RADIO CALL ANNOTATIONS ════════════════════════════════ -->
+    <text x="73" y="112" font-size="9" font-weight="700"
+          fill="#5b9bd5" text-anchor="start" font-family="Inter,system-ui,sans-serif">Downwind call</text>
+    <text x="73" y="123" font-size="8"
+          fill="#7a9ab5" text-anchor="start" font-family="Inter,system-ui,sans-serif">abeam landing threshold</text>
+
+    <text x="73" y="435" font-size="9" font-weight="700"
+          fill="#5b9bd5" text-anchor="start" font-family="Inter,system-ui,sans-serif">Base call</text>
+
+    <text x="206" y="307" font-size="9" font-weight="700"
+          fill="#5b9bd5" text-anchor="start" font-family="Inter,system-ui,sans-serif">Final call</text>
+
+    <!-- ═══ LEGEND ════════════════════════════════════════════════ -->
+    <rect x="10" y="481" width="378" height="24" rx="4"
+          fill="#0f1f33" stroke="#1a3550" stroke-width="1"/>
+    <!-- Left-hand legend swatch -->
+    <line x1="18" y1="493" x2="42" y2="493"
+          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
+    <text x="47" y="497" font-size="9"
+          fill="#e4ecf5" font-family="Inter,system-ui,sans-serif">Left-hand (standard)</text>
+    <!-- Right-hand legend swatch -->
+    <line x1="158" y1="493" x2="182" y2="493"
+          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="5,3"
+          marker-end="url(#arr-m)" opacity="0.8"/>
+    <text x="187" y="497" font-size="9"
+          fill="#7a9ab5" font-family="Inter,system-ui,sans-serif">Right-hand (CFS/ATC)</text>
+    <!-- Radio call legend swatch -->
+    <circle cx="303" cy="493" r="5" fill="none" stroke="#5b9bd5" stroke-width="1.5"/>
+    <text x="308" y="490" font-size="8" font-weight="800"
+          fill="#5b9bd5" font-family="Inter,system-ui,sans-serif">R</text>
+    <text x="316" y="497" font-size="9"
+          fill="#7a9ab5" font-family="Inter,system-ui,sans-serif">ATC radio call</text>
+
+  </svg>
+</div><!-- /.diagram-wrap -->
+
+<!-- ═══════════════════════════════════════════════════════════
+     CIRCUIT STANDARDS
+     ═══════════════════════════════════════════════════════════ -->
 <div class="section-label">Circuit Standards</div>
 <div class="standards-grid">
   <div class="std-card">
@@ -156,85 +326,77 @@
   <div class="std-card">
     <h3>Standard Join</h3>
     <div class="std-value">45° Mid-Downwind</div>
-    <div class="std-note">From non-traffic (upwind) side, 45° angle to mid-point of downwind</div>
+    <div class="std-note">From non-traffic (upwind) side, 45° to mid-point of downwind leg</div>
   </div>
 </div>
 
-<!-- Radio calls — AIM RAC 4.5 -->
-<div class="section-label">Mandatory Radio Calls — AIM RAC 4.5</div>
-<table>
-  <thead>
-    <tr><th>Circuit Point</th><th>Call Format (ATF / MF — uncontrolled aerodrome)</th></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="leg-name-col">Joining Downwind</td>
-      <td style="font-size:12px;">[Aerodrome] TRAFFIC, [Callsign], [Aircraft Type], JOINING DOWNWIND, RUNWAY [XX], [Aerodrome] TRAFFIC</td>
-    </tr>
-    <tr>
-      <td class="leg-name-col">Turning Base</td>
-      <td style="font-size:12px;">[Aerodrome] TRAFFIC, [Callsign], TURNING BASE, RUNWAY [XX], [Aerodrome] TRAFFIC</td>
-    </tr>
-    <tr>
-      <td class="leg-name-col">Final</td>
-      <td style="font-size:12px;">[Aerodrome] TRAFFIC, [Callsign], FINAL, RUNWAY [XX], [Aerodrome] TRAFFIC</td>
-    </tr>
-    <tr>
-      <td class="leg-name-col">Clear of Runway</td>
-      <td style="font-size:12px;">[Aerodrome] TRAFFIC, [Callsign], CLEAR OF RUNWAY [XX], [Aerodrome] TRAFFIC</td>
-    </tr>
-  </tbody>
-</table>
-<p style="font-size:11px;color:var(--text-muted);margin-bottom:28px;">Broadcasts are mandatory on Mandatory Frequency (MF) or Aerodrome Traffic Frequency (ATF) at uncontrolled aerodromes. At controlled aerodromes ATC provides sequencing — calls follow ATC instructions.</p>
-
-<!-- Legs table -->
+<!-- ═══════════════════════════════════════════════════════════
+     CIRCUIT LEGS TABLE
+     ═══════════════════════════════════════════════════════════ -->
 <div class="section-label">Circuit Legs — In Order</div>
 <table>
   <thead>
-    <tr><th>Order</th><th>Leg</th><th>Description</th><th>Key Actions</th></tr>
+    <tr><th>#</th><th>Leg</th><th>Description</th><th>Key Actions</th></tr>
   </thead>
   <tbody>
     <tr>
-      <td><span style="color:var(--accent);font-weight:800;">1</span></td>
+      <td><strong style="color:var(--accent);">1</strong></td>
       <td class="leg-name-col">Upwind</td>
       <td>Departure, same direction as runway heading, climbing</td>
       <td style="font-size:12px;color:var(--text-muted);">Initial climb-out, retract flaps</td>
     </tr>
     <tr>
-      <td><span style="color:var(--accent);font-weight:800;">2</span></td>
+      <td><strong style="color:var(--accent);">2</strong></td>
       <td class="leg-name-col">Crosswind</td>
       <td>Perpendicular to runway, away from aerodrome</td>
-      <td style="font-size:12px;color:var(--text-muted);">Continue climb to circuit altitude</td>
+      <td style="font-size:12px;color:var(--text-muted);">Continue climb to 1,000 ft AGL circuit altitude</td>
     </tr>
     <tr>
-      <td><span style="color:var(--accent);font-weight:800;">3</span></td>
+      <td><strong style="color:var(--accent);">3</strong></td>
       <td class="leg-name-col">Downwind</td>
-      <td>Parallel to runway, opposite direction to landing, at circuit altitude</td>
-      <td style="font-size:12px;color:var(--text-muted);">ATIS/altimeter, fuel, pre-landing checks</td>
+      <td>Parallel to runway, opposite direction to landing, at 1,000 ft AGL</td>
+      <td style="font-size:12px;color:var(--text-muted);">ATIS/altimeter, fuel, pre-landing checks; radio call abeam threshold</td>
     </tr>
     <tr>
-      <td><span style="color:var(--accent);font-weight:800;">4</span></td>
+      <td><strong style="color:var(--accent);">4</strong></td>
       <td class="leg-name-col">Base</td>
       <td>Perpendicular to runway, toward the runway</td>
-      <td style="font-size:12px;color:var(--text-muted);">Reduce speed, extend flaps, begin descent</td>
+      <td style="font-size:12px;color:var(--text-muted);">Reduce speed, extend flaps, begin descent; radio call</td>
     </tr>
     <tr>
-      <td><span style="color:var(--accent);font-weight:800;">5</span></td>
+      <td><strong style="color:var(--accent);">5</strong></td>
       <td class="leg-name-col">Final</td>
       <td>Aligned with runway, into wind, descending to land</td>
-      <td style="font-size:12px;color:var(--text-muted);">Manage descent rate, airspeed, alignment</td>
+      <td style="font-size:12px;color:var(--text-muted);">Manage descent rate, airspeed, alignment; radio call</td>
     </tr>
   </tbody>
 </table>
 
-<!-- Memory hooks -->
+<!-- ═══════════════════════════════════════════════════════════
+     MEMORY HOOKS
+     ═══════════════════════════════════════════════════════════ -->
 <div class="hook-box">
   <h2>Key Facts for the Exam</h2>
-  <div class="hook-row"><span class="hook-badge">Direction</span><span class="hook-text"><strong>Left-hand turns</strong> are the Canadian standard. Right-hand only when published in CFS, NOTAM, or directed by ATC.</span></div>
-  <div class="hook-row"><span class="hook-badge">Altitude</span><span class="hook-text">Standard altitude is <strong>1,000 ft AGL</strong> for light aircraft. Always check the CFS for aerodrome-specific info.</span></div>
-  <div class="hook-row"><span class="hook-badge">Downwind</span><span class="hook-text">The leg that runs <strong>parallel to the runway in the opposite direction to landing</strong>. This is the "which leg" question on the exam.</span></div>
-  <div class="hook-row"><span class="hook-badge">Joining</span><span class="hook-text">Recommended join: <strong>45° to mid-downwind from the non-traffic side</strong> (the upwind side of the runway).</span></div>
-  <div class="hook-row"><span class="hook-badge">Radio</span><span class="hook-text">At uncontrolled aerodromes (ATF/MF) mandatory calls are made <strong>joining downwind, turning base, on final, and clear of runway</strong> — all four points per AIM RAC 4.5.</span></div>
+  <div class="hook-row">
+    <span class="hook-badge">Direction</span>
+    <span class="hook-text"><strong>Left-hand turns</strong> are the Canadian standard. Right-hand only when published in CFS, NOTAM, or directed by ATC.</span>
+  </div>
+  <div class="hook-row">
+    <span class="hook-badge">Altitude</span>
+    <span class="hook-text">Standard altitude is <strong>1,000 ft AGL</strong> for light aircraft. Always check the CFS for aerodrome-specific info.</span>
+  </div>
+  <div class="hook-row">
+    <span class="hook-badge">Downwind</span>
+    <span class="hook-text">The leg that runs <strong>parallel to the runway in the opposite direction to landing</strong>. This is the "which leg" question on the exam.</span>
+  </div>
+  <div class="hook-row">
+    <span class="hook-badge">Joining</span>
+    <span class="hook-text">Recommended join: <strong>45° to mid-downwind from the non-traffic (upwind) side</strong> of the runway.</span>
+  </div>
+  <div class="hook-row">
+    <span class="hook-badge">Radio</span>
+    <span class="hook-text">Three call positions at controlled aerodromes: <strong>downwind abeam the threshold, turning base, and established on final</strong> (AIM RAC 4.5).</span>
+  </div>
 </div>
 
 </body>
