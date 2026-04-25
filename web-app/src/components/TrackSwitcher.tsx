@@ -6,14 +6,15 @@ import Divider from '@mui/material/Divider';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 import AddIcon from '@mui/icons-material/Add';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LockIcon from '@mui/icons-material/Lock';
 import { useExamTrack } from '../context/ExamTrackContext';
 import { getLessonsByTrack } from '../lib/lesson-loader';
-import { colorTokens } from '../tokens';
 
 export default function TrackSwitcher() {
+  const theme = useTheme();
   const { activeTrack, setActiveTrack, availableTracks, trackProgress } = useExamTrack();
 
   const progressPct = useMemo(() => {
@@ -50,14 +51,14 @@ export default function TrackSwitcher() {
           fontWeight: 600,
           letterSpacing: '0.06em',
           textTransform: 'uppercase',
-          color: colorTokens.primary.main,
-          border: `1px solid ${colorTokens.primary.main}`,
+          color: theme.palette.primary.main,
+          border: `1px solid ${theme.palette.primary.main}`,
           minWidth: 0,
           whiteSpace: 'nowrap',
           lineHeight: 1.5,
           '&:hover': {
-            backgroundColor: colorTokens.primary.muted,
-            borderColor: colorTokens.primary.main,
+            backgroundColor: theme.palette.primaryMuted,
+            borderColor: theme.palette.primary.main,
           },
         }}
       >
@@ -73,8 +74,8 @@ export default function TrackSwitcher() {
             sx: {
               minWidth: 240,
               maxWidth: 'min(280px, calc(100vw - 32px))',
-              backgroundColor: colorTokens.background.paper,
-              border: `1px solid ${colorTokens.divider}`,
+              backgroundColor: theme.palette.background.paper,
+              border: `1px solid ${theme.palette.divider}`,
               backgroundImage: 'none',
             },
           },
@@ -108,11 +109,11 @@ export default function TrackSwitcher() {
                 py: 1,
                 cursor: isSelectable ? 'pointer' : 'default',
                 '&.Mui-selected': {
-                  backgroundColor: colorTokens.primary.muted,
-                  '&:hover': { backgroundColor: colorTokens.primary.muted },
+                  backgroundColor: theme.palette.primaryMuted,
+                  '&:hover': { backgroundColor: theme.palette.primaryMuted },
                 },
                 '&:hover': {
-                  backgroundColor: isSelectable ? colorTokens.primary.muted : 'transparent',
+                  backgroundColor: isSelectable ? theme.palette.primaryMuted : 'transparent',
                 },
               }}
             >
@@ -142,8 +143,8 @@ export default function TrackSwitcher() {
                     fontSize: '0.5625rem',
                     height: 16,
                     flexShrink: 0,
-                    backgroundColor: colorTokens.background.surfaceRaised,
-                    color: colorTokens.text.secondary,
+                    backgroundColor: theme.palette.background.surfaceRaised,
+                    color: theme.palette.text.secondary,
                     '& .MuiChip-label': { px: 0.75 },
                   }}
                 />
