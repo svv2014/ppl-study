@@ -1,4 +1,5 @@
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
@@ -9,6 +10,7 @@ interface Props {
   lessonCount: number;
   completedCount: number;
   masteryPercent: number;
+  playlistUrl?: string;
 }
 
 export default function TopicMasteryCard({
@@ -16,6 +18,7 @@ export default function TopicMasteryCard({
   lessonCount,
   completedCount,
   masteryPercent,
+  playlistUrl,
 }: Props) {
   const theme = useTheme();
 
@@ -37,20 +40,51 @@ export default function TopicMasteryCard({
         {topic}
       </Typography>
 
-      <Typography
-        component="div"
-        sx={{
-          fontFamily: typographyTokens.fontFamily.mono,
-          fontSize: '0.6875rem',
-          fontWeight: typographyTokens.weight.medium,
-          letterSpacing: typographyTokens.letterSpacing.wider,
-          textTransform: 'uppercase',
-          color: theme.palette.text.secondary,
-          mb: 1.5,
-        }}
-      >
-        {completedCount} / {lessonCount} LESSONS
-      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
+        <Typography
+          component="div"
+          sx={{
+            fontFamily: typographyTokens.fontFamily.mono,
+            fontSize: '0.6875rem',
+            fontWeight: typographyTokens.weight.medium,
+            letterSpacing: typographyTokens.letterSpacing.wider,
+            textTransform: 'uppercase',
+            color: theme.palette.text.secondary,
+          }}
+        >
+          {completedCount} / {lessonCount} LESSONS
+        </Typography>
+        {playlistUrl && (
+          <Button
+            component="a"
+            href={playlistUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="small"
+            variant="outlined"
+            sx={{
+              fontFamily: typographyTokens.fontFamily.mono,
+              fontSize: '0.6875rem',
+              fontWeight: typographyTokens.weight.medium,
+              letterSpacing: typographyTokens.letterSpacing.wide,
+              textTransform: 'uppercase',
+              color: theme.palette.primary.main,
+              borderColor: theme.palette.primary.main,
+              borderRadius: `${radiusTokens.xs}px`,
+              py: 0,
+              px: 1,
+              minWidth: 0,
+              lineHeight: 1.8,
+              '&:hover': {
+                borderColor: theme.palette.primary.main,
+                backgroundColor: theme.palette.primaryMuted,
+              },
+            }}
+          >
+            ▶ Playlist
+          </Button>
+        )}
+      </Box>
 
       <LinearProgress
         variant="determinate"

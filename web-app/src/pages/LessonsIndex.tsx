@@ -10,6 +10,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 
 import { CURRICULUM, TOPIC_LABELS, TOPICS } from '../lib/curriculum';
+import { TOPIC_PLAYLISTS } from '../data/playlists';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
@@ -50,6 +51,7 @@ export default function LessonsIndex() {
               lessonCount={slots.length}
               completedCount={0}
               masteryPercent={0}
+              playlistUrl={TOPIC_PLAYLISTS[topic]}
             />
             <Divider sx={{ mb: 2 }} />
 
