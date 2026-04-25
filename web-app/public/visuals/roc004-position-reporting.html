@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/visuals/_common.css">
+<title>ROC-004: Position Reporting</title>
+<style>
+  .report-flow {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+  }
+  .report-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 13px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .report-step:last-child { border-bottom: none; }
+  .step-num {
+    width: 26px;
+    height: 26px;
+    min-width: 26px;
+    background: var(--surface2);
+    border: 1px solid var(--border-hi);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 26px;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .step-label   { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
+  .step-content { font-size: 13px; color: var(--text); line-height: 1.5; }
+  .step-eg      { font-size: 12px; color: var(--accent); font-style: italic; margin-top: 3px; }
+
+  .example-block {
+    background: var(--surface);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    padding: 14px 18px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text);
+  }
+
+  /* Data-encoding tags for requirement level */
+  .tag-mand { background: rgba(224,80,80,0.15); color: #e05050; border: 1px solid rgba(224,80,80,0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+  .tag-mf   { background: rgba(76,175,125,0.12); color: #4caf7d; border: 1px solid rgba(76,175,125,0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+  .tag-atc  { background: rgba(91,155,213,0.12); color: #5b9bd5; border: 1px solid rgba(91,155,213,0.3); font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap; }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<h1>ROC-004 — Position Reporting</h1>
+<p class="subtitle">AIM COM 4.0 · AIM RAC 3.7 · ICAO Annex 10 · ROC-A Written Exam</p>
+
+<div class="section-label">Standard Position Report — 7 Elements</div>
+<div class="report-flow">
+  <div class="report-step">
+    <div class="step-num">1</div>
+    <div>
+      <div class="step-label">Aircraft identification</div>
+      <div class="step-content">Your callsign as filed (or abbreviated if ATC has done so).</div>
+      <div class="step-eg">"Golf Charlie Delta Foxtrot"</div>
+    </div>
+  </div>
+  <div class="report-step">
+    <div class="step-num">2</div>
+    <div>
+      <div class="step-label">Position</div>
+      <div class="step-content">Named waypoint, fix, or distance/bearing from a known point.</div>
+      <div class="step-eg">"over GOSPO intersection" / "five miles north of Smiths Falls"</div>
+    </div>
+  </div>
+  <div class="report-step">
+    <div class="step-num">3</div>
+    <div>
+      <div class="step-label">Time (UTC)</div>
+      <div class="step-content">Time at position — minutes only if within the hour.</div>
+      <div class="step-eg">"at two three" (0023Z) or "at one four three zero" (1430Z)</div>
+    </div>
+  </div>
+  <div class="report-step">
+    <div class="step-num">4</div>
+    <div>
+      <div class="step-label">Altitude or Flight Level</div>
+      <div class="step-content">Cruising altitude ASL or flight level. State climbing/descending if applicable.</div>
+      <div class="step-eg">"five thousand five hundred" / "flight level one eight zero"</div>
+    </div>
+  </div>
+  <div class="report-step">
+    <div class="step-num">5</div>
+    <div>
+      <div class="step-label">Type of flight plan</div>
+      <div class="step-content">VFR or IFR (when relevant to context or required by ATC).</div>
+      <div class="step-eg">"VFR"</div>
+    </div>
+  </div>
+  <div class="report-step">
+    <div class="step-num">6</div>
+    <div>
+      <div class="step-label">Next reporting point and ETA</div>
+      <div class="step-content">The next waypoint and estimated arrival time.</div>
+      <div class="step-eg">"estimating Pembroke at four five"</div>
+    </div>
+  </div>
+  <div class="report-step">
+    <div class="step-num">7</div>
+    <div>
+      <div class="step-label">Remarks (if any)</div>
+      <div class="step-content">Operationally significant information: weather deviations, turbulence, fuel state.</div>
+      <div class="step-eg">"light turbulence at this level"</div>
+    </div>
+  </div>
+</div>
+
+<div class="section-label">Example Position Report</div>
+<div class="example-block">
+  "Ottawa Radio, Golf Charlie Delta Foxtrot, over Almonte at three five, five thousand five hundred VFR, estimating Pembroke at five two, nil remarks."
+</div>
+
+<div class="section-label">When Position Reports Are Required</div>
+<table>
+  <thead>
+    <tr><th>Situation</th><th>Requirement</th><th>Frequency</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>IFR — compulsory reporting points</td>
+      <td><span class="tag-mand">Mandatory</span></td>
+      <td>ATC/FSS as assigned</td>
+    </tr>
+    <tr>
+      <td>VFR with flight plan — points noted in plan</td>
+      <td><span class="tag-mand">Mandatory</span></td>
+      <td>FSS (126.7 or local)</td>
+    </tr>
+    <tr>
+      <td>Arriving/departing MF aerodrome</td>
+      <td><span class="tag-mf">MF Required</span> — announce intentions</td>
+      <td>122.8 MHz</td>
+    </tr>
+    <tr>
+      <td>Within ATZ at MF aerodrome</td>
+      <td><span class="tag-mf">MF Required</span> — circuit positions</td>
+      <td>122.8 MHz</td>
+    </tr>
+    <tr>
+      <td>VFR in controlled airspace</td>
+      <td><span class="tag-atc">ATC Directed</span> — when requested</td>
+      <td>Assigned ATC frequency</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="note-box">
+  <strong>MF vs UNICOM:</strong> At a Mandatory Frequency (MF) aerodrome, pilots broadcast position and intentions on 122.8 MHz — not to receive a clearance, but to share traffic information. No ATC clearance exists at an MF field. Monitor the MF within the MF area and broadcast 5 minutes before entering.
+</div>
+
+<div class="hook-box">
+  <h2>Memory Hook</h2>
+  <div class="hook-row"><span class="hook-badge">7</span><span class="hook-text">ID → Position → Time → Altitude → Flight type → Next fix + ETA → Remarks</span></div>
+  <div class="hook-row"><span class="hook-badge">MF</span><span class="hook-text">122.8 MHz — self-announce at MF aerodromes. <strong>No clearance.</strong> Just traffic information.</span></div>
+  <div class="hook-row"><span class="hook-badge">FSS</span><span class="hook-text">VFR flight plan → report to FSS at each plan fix. Call 126.7 or local FSS frequency.</span></div>
+</div>
+
+</body>
+</html>

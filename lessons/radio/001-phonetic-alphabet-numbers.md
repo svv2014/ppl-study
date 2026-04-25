@@ -7,7 +7,7 @@ title: "Phonetic Alphabet and Number Pronunciation"
 duration_min: 20
 status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/radio/001-phonetic-alphabet-numbers.m4a
-visual: ''
+visual: '/visuals/roc001-phonetic-alphabet-numbers.html'
 sources:
   - ISED RIC-21
   - AIM COM 4.0

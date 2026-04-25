@@ -7,7 +7,7 @@ title: "VFR and IFR Communications Overview"
 duration_min: 20
 status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/radio/005-vfr-ifr-comms-overview.m4a
-visual: ''
+visual: '/visuals/roc005-vfr-ifr-comms-overview.html'
 sources:
   - AIM RAC 4.3
   - AIM COM 4.0

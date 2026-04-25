@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/visuals/_common.css">
+<title>ROC-007: Light Gun Signals</title>
+<style>
+  /* ── Light signal colour dots — data-encoding domain colours ──────────
+   * Steady green   = cleared / safe to proceed       (#4caf7d)
+   * Flashing green = conditional clearance           (#4caf7d, semi-opaque)
+   * Steady red     = stop / do not land              (#e05050)
+   * Flashing red   = danger / clear area             (#e05050, semi-opaque)
+   * Flashing white = administrative / return         (#e4ecf5, semi-opaque)
+   * Alt red+green  = extreme caution                 (split)
+   */
+  .sig-dot {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 50%;
+    vertical-align: middle;
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,0.10);
+  }
+  .sig-green-s { background: #4caf7d; }
+  .sig-green-f { background: #4caf7d; opacity: 0.55; }
+  .sig-red-s   { background: #e05050; }
+  .sig-red-f   { background: #e05050; opacity: 0.55; }
+  .sig-white-f { background: #e4ecf5; opacity: 0.65; }
+  .sig-alt     { background: linear-gradient(135deg, #e05050 50%, #4caf7d 50%); }
+
+  .sig-cell {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    white-space: nowrap;
+  }
+  .sig-name { font-size: 12px; color: var(--text); }
+  .flash-indicator { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
+
+  /* Meaning colour coding — data-encoding */
+  .m-safe    { color: #4caf7d; font-weight: 700; }
+  .m-caution { color: #f0c040; font-weight: 700; }
+  .m-stop    { color: #e05050; font-weight: 700; }
+  .m-danger  { color: #e08828; font-weight: 700; }
+  .m-admin   { color: var(--text-muted); font-weight: 600; }
+</style>
+</head>
+<body>
+  <button data-backlink="true" onclick="if(window.history.length<=1){window.close();}else{window.history.back();}" style="position:fixed;top:12px;left:12px;z-index:9999;background:rgba(13,27,42,0.9);color:#f0c040;border:1.5px solid rgba(240,192,64,0.4);border-radius:6px;padding:10px 14px;font-size:14px;font-family:inherit;cursor:pointer;min-width:44px;min-height:44px;line-height:1.2;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);" aria-label="Back to lesson">&#8592; Back to lesson</button>
+  <style>.container{padding-top:56px!important;}@media(max-width:480px){.container{padding-top:60px!important;}}</style>
+
+<h1>ROC-007 — Light Gun Signals</h1>
+<p class="subtitle">CARs 602.101 · AIM RAC 4.5.5 · ICAO Annex 2 · ROC-A Written Exam</p>
+
+<div class="note-box" style="margin-bottom:24px;">
+  Light signals are used when radio communication is unavailable or impractical. The tower light gun is authoritative — obey even if you have radio contact. Colour is the primary cue; steadiness indicates immediacy vs. conditionality. (CARs 602.101)
+</div>
+
+<!-- ── Tower → Aircraft in flight ────────────────────────────────────── -->
+<div class="section-label">Tower → Aircraft in Flight</div>
+<div class="wide-table">
+  <table>
+    <thead>
+      <tr><th style="width:180px;">Signal</th><th>Type</th><th>Meaning</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-green-s" aria-label="Steady green"></span><span class="sig-name">Steady Green</span></div></td>
+        <td>Continuous green</td>
+        <td><span class="m-safe">Cleared to land</span></td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-green-f" aria-label="Flashing green"></span><span class="sig-name">Flashing Green <span class="flash-indicator">●●●</span></span></div></td>
+        <td>Flashing green</td>
+        <td><span class="m-caution">Return for landing</span> (landing clearance to follow)</td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-red-s" aria-label="Steady red"></span><span class="sig-name">Steady Red</span></div></td>
+        <td>Continuous red</td>
+        <td><span class="m-stop">Give way to other aircraft; continue circling</span></td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-red-f" aria-label="Flashing red"></span><span class="sig-name">Flashing Red <span class="flash-indicator">●●●</span></span></div></td>
+        <td>Flashing red</td>
+        <td><span class="m-danger">Aerodrome unsafe — do not land</span></td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-white-f" aria-label="Flashing white"></span><span class="sig-name">Flashing White <span class="flash-indicator">●●●</span></span></div></td>
+        <td>Flashing white</td>
+        <td><span class="m-admin">Not used for aircraft in flight</span></td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-alt" aria-label="Alternating red and green"></span><span class="sig-name">Alternating Red/Green</span></div></td>
+        <td>Alternating</td>
+        <td><span class="m-caution">Exercise extreme caution</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── Tower → Aircraft on ground ────────────────────────────────────── -->
+<div class="section-label">Tower → Aircraft on Ground</div>
+<div class="wide-table">
+  <table>
+    <thead>
+      <tr><th style="width:180px;">Signal</th><th>Type</th><th>Meaning</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-green-s" aria-label="Steady green"></span><span class="sig-name">Steady Green</span></div></td>
+        <td>Continuous green</td>
+        <td><span class="m-safe">Cleared for take-off</span></td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-green-f" aria-label="Flashing green"></span><span class="sig-name">Flashing Green <span class="flash-indicator">●●●</span></span></div></td>
+        <td>Flashing green</td>
+        <td><span class="m-safe">Cleared to taxi</span></td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-red-s" aria-label="Steady red"></span><span class="sig-name">Steady Red</span></div></td>
+        <td>Continuous red</td>
+        <td><span class="m-stop">Stop</span></td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-red-f" aria-label="Flashing red"></span><span class="sig-name">Flashing Red <span class="flash-indicator">●●●</span></span></div></td>
+        <td>Flashing red</td>
+        <td><span class="m-danger">Taxi clear of runway in use</span></td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-white-f" aria-label="Flashing white"></span><span class="sig-name">Flashing White <span class="flash-indicator">●●●</span></span></div></td>
+        <td>Flashing white</td>
+        <td><span class="m-admin">Return to starting point on aerodrome</span></td>
+      </tr>
+      <tr>
+        <td><div class="sig-cell"><span class="sig-dot sig-alt" aria-label="Alternating red and green"></span><span class="sig-name">Alternating Red/Green</span></div></td>
+        <td>Alternating</td>
+        <td><span class="m-caution">Exercise extreme caution</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── Aircraft → Tower acknowledgement ─────────────────────────────── -->
+<div class="section-label">Aircraft → Tower — Acknowledgement Signals</div>
+<table>
+  <thead>
+    <tr><th>Condition</th><th>In flight (day)</th><th>In flight (night)</th><th>On ground (day)</th><th>On ground (night)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Acknowledge light signal received</td>
+      <td>Rock wings</td>
+      <td>Flash landing lights on/off twice</td>
+      <td>Move ailerons or rudder</td>
+      <td>Flash navigation lights on/off twice</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="note-box" style="margin-top:24px;">
+  <strong>Colour is the primary cue:</strong>
+  <span style="color:#4caf7d;font-weight:700;">Green = go/proceed</span> ·
+  <span style="color:#e05050;font-weight:700;">Red = stop/danger</span> ·
+  <span style="color:#e4ecf5;font-weight:600;">White = administrative (ground only)</span>.
+  Steady = immediate action. Flashing = conditional or upcoming action. Alternating red/green = extreme caution regardless of phase.
+</div>
+
+<div class="hook-box">
+  <h2>Memory Hook — 6 Signals × 2 Phases</h2>
+  <div class="hook-row"><span class="hook-badge" style="background:rgba(76,175,125,0.2);color:#4caf7d;border-color:#4caf7d;">Steady G</span><span class="hook-text">In flight: <strong>cleared to land</strong> · On ground: <strong>cleared take-off</strong></span></div>
+  <div class="hook-row"><span class="hook-badge" style="background:rgba(76,175,125,0.1);color:#80c880;border-color:#4caf7d;">Flash G</span><span class="hook-text">In flight: <strong>return for landing</strong> · On ground: <strong>cleared to taxi</strong></span></div>
+  <div class="hook-row"><span class="hook-badge" style="background:rgba(224,80,80,0.2);color:#e05050;border-color:#e05050;">Steady R</span><span class="hook-text">In flight: <strong>give way, keep circling</strong> · On ground: <strong>stop</strong></span></div>
+  <div class="hook-row"><span class="hook-badge" style="background:rgba(224,80,80,0.1);color:#f08080;border-color:#e05050;">Flash R</span><span class="hook-text">In flight: <strong>aerodrome unsafe, don't land</strong> · On ground: <strong>clear runway</strong></span></div>
+  <div class="hook-row"><span class="hook-badge" style="background:rgba(228,236,245,0.1);color:#b0bfcc;border-color:#6070808;">Flash W</span><span class="hook-text">In flight: N/A · On ground: <strong>return to start</strong></span></div>
+  <div class="hook-row"><span class="hook-badge" style="background:linear-gradient(135deg,rgba(224,80,80,0.2) 50%,rgba(76,175,125,0.2) 50%);color:var(--text);border-color:var(--border-hi);">Alt R/G</span><span class="hook-text"><strong>Extreme caution</strong> — both phases</span></div>
+</div>
+
+</body>
+</html>
