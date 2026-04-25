@@ -7,16 +7,14 @@
 <script src="/visuals/_theme-init.js"></script>
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
-  .diagram-box { background: var(--surface); border: 1px solid var(--border-hi); border-radius: 8px; padding: 16px; margin-bottom: 14px; }
   .mass-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-bottom: 14px; }
   .mass-card { background: var(--surface); border: 1px solid var(--border-hi); border-radius: 8px; padding: 12px; text-align: center; }
   .mass-card .code { font-size: 18px; color: var(--accent); font-weight: bold; font-family: 'Consolas', monospace; }
   .mass-card .name { font-size: 11px; color: var(--text); margin-top: 4px; }
   .mass-card .note { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
-  .caption { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 8px; }
   @media (max-width: 480px) {
     body { padding: 16px; font-size: 14px; }
-    .mass-grid { grid-template-columns: 1fr; }
+    .mass-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -29,66 +27,250 @@
 
   <div class="section-title" style="margin-top: 0;">Cold Front — Steep Slope</div>
   <div class="diagram-box">
-    <svg viewBox="0 0 700 220" width="100%" height="220">
-      <line x1="30" y1="190" x2="670" y2="190" stroke="#7a9ab5" stroke-width="1.5"/>
-      <!-- Cold air wedge -->
-      <polygon points="30,190 30,40 260,190" fill="#5b9bd5" opacity="0.35" stroke="#5b9bd5" stroke-width="1.5"/>
-      <text x="95" y="120" fill="#5b9bd5" font-size="12" font-weight="bold">COLD AIR</text>
-      <text x="95" y="136" fill="#7a9ab5" font-size="10">(advancing →)</text>
-      <!-- Warm air pushed up -->
-      <text x="440" y="110" fill="#e05050" font-size="12" font-weight="bold">WARM AIR</text>
-      <text x="440" y="126" fill="#7a9ab5" font-size="10">(lifted rapidly)</text>
-      <!-- CB cell -->
-      <path d="M 230 190 Q 220 100 270 70 Q 320 50 340 85 Q 360 130 340 190 Z"
-            fill="#3a3a5a" stroke="#e05050" stroke-width="1.5"/>
-      <path d="M 270 65 L 240 50 L 350 50 L 360 65 Z" fill="#3a3a5a" stroke="#e05050"/>
-      <text x="295" y="130" text-anchor="middle" fill="#e8edf2" font-size="11" font-weight="bold">CB</text>
-      <!-- Direction -->
-      <path d="M 20 200 L 260 200" stroke="#5b9bd5" stroke-width="1.8" fill="none" marker-end="url(#mov)"/>
-      <text x="140" y="215" text-anchor="middle" fill="#5b9bd5" font-size="10">Front motion · 20–30 kt</text>
+    <!--
+      Cold front symbol convention:
+      Triangles (spikes) point in the direction of frontal movement,
+      drawn on the front line at regular intervals.
+    -->
+    <svg viewBox="0 0 700 240" width="100%" height="240" aria-label="Cold front cross-section showing steep slope with triangle front symbols">
+
+      <!-- Ground line -->
+      <line x1="30" y1="200" x2="670" y2="200" stroke="#7a9ab5" stroke-width="1.5"/>
+
+      <!-- Cold air wedge (advancing from left) -->
+      <polygon points="30,200 30,50 270,200" fill="rgba(91,155,213,0.20)" stroke="#5b9bd5" stroke-width="1.5"/>
+      <text x="95" y="130" fill="#5b9bd5" font-size="13" font-weight="bold">COLD AIR</text>
+      <text x="95" y="147" fill="#7a9ab5" font-size="10">(advancing →)</text>
+
+      <!-- Warm air (pushed up and right) -->
+      <text x="460" y="110" fill="#e05050" font-size="13" font-weight="bold">WARM AIR</text>
+      <text x="460" y="127" fill="#7a9ab5" font-size="10">(lifted rapidly)</text>
+
+      <!-- CB storm cell over front -->
+      <path d="M 245 200 Q 235 120 278 85 Q 322 58 342 88 Q 365 130 345 200 Z"
+            fill="#3a3050" stroke="#e05050" stroke-width="1.8" opacity="0.9"/>
+      <!-- Anvil -->
+      <path d="M 278 82 L 250 65 L 355 65 L 365 82 Z" fill="#2a2850" stroke="#9060d0" stroke-width="1.5" opacity="0.9"/>
+      <text x="305" y="135" text-anchor="middle" fill="#e8edf2" font-size="11" font-weight="bold">CB</text>
+
+      <!-- ── COLD FRONT SYMBOLS: filled triangles on the front line ── -->
+      <!--
+        Front line runs from bottom-left (30,200) to upper-right along the cold-air wedge edge.
+        The slope line goes from (30,200) to (270,200) at ground → actually the sloped edge
+        goes (30,50) to (270,200). We place triangles along the ground surface line where
+        the front meets the ground, and a few along the slope above ground.
+        Convention: triangles point in direction of motion (rightward / toward warm air).
+      -->
+
+      <!-- Front ground position marker line segment -->
+      <line x1="270" y1="200" x2="30" y2="50" stroke="#5b9bd5" stroke-width="2.5"/>
+
+      <!-- Triangle symbols along the front line (pointing right = direction of movement) -->
+      <!-- Each triangle: base on the line, apex pointing toward warm air (right) -->
+      <!-- Points along line from (270,200) going toward (30,50):
+           parametric: x=270-240t, y=200-150t for t in [0,1]
+           Place 5 triangles at t=0.05, 0.2, 0.35, 0.5, 0.65 -->
+
+      <!-- t=0.05: x=258, y=192.5 -->
+      <!-- t=0.20: x=222, y=170 -->
+      <!-- t=0.35: x=186, y=147.5 -->
+      <!-- t=0.50: x=150, y=125 -->
+      <!-- t=0.65: x=114, y=102.5 -->
+
+      <!-- Line direction vector: dx=-240, dy=-150, len≈283. Perp (rightward normal): dy,-dx = -150,240 normalised -->
+      <!-- Unit along line: (-240/283, -150/283) ≈ (-0.849, -0.530) -->
+      <!-- Right-perpendicular (toward warm air): (-0.530, 0.849) rotated... -->
+      <!-- Actually for a cold front moving rightward, triangles point to the RIGHT of the front direction of motion. -->
+      <!-- Direction of motion is rightward (+x). Normal pointing into warm air is +x direction roughly. -->
+      <!-- Each triangle: base is a short segment perpendicular to the front line, apex 12px toward warm air (+x, -y slightly) -->
+      <!-- Simplified: triangle base along front, apex at +15px in motion direction (right) -->
+
       <defs>
-        <marker id="mov" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+        <!-- Cold front triangle: base 10px along front, apex 14px toward warm air -->
+        <!-- Warm front semi-circle: radius 8px toward cold air -->
+      </defs>
+
+      <!-- Cold front triangles (filled blue, pointing right toward warm air) -->
+      <!-- Triangle 1: at (258, 193) -->
+      <polygon points="254,197 262,197 268,186" fill="#5b9bd5" stroke="#5b9bd5" stroke-width="0.5"/>
+      <!-- Triangle 2: at (222, 171) -->
+      <polygon points="218,175 226,175 232,164" fill="#5b9bd5" stroke="#5b9bd5" stroke-width="0.5"/>
+      <!-- Triangle 3: at (186, 148) -->
+      <polygon points="182,152 190,152 196,141" fill="#5b9bd5" stroke="#5b9bd5" stroke-width="0.5"/>
+      <!-- Triangle 4: at (150, 126) -->
+      <polygon points="146,130 154,130 160,119" fill="#5b9bd5" stroke="#5b9bd5" stroke-width="0.5"/>
+      <!-- Triangle 5: at (114, 103) -->
+      <polygon points="110,107 118,107 124,96" fill="#5b9bd5" stroke="#5b9bd5" stroke-width="0.5"/>
+      <!-- Triangle 6: at (82, 78) -->
+      <polygon points="78,82 86,82 92,71" fill="#5b9bd5" stroke="#5b9bd5" stroke-width="0.5"/>
+
+      <!-- Symbol legend label -->
+      <text x="30" y="220" fill="#5b9bd5" font-size="10">▲ Cold front symbols (triangles point toward warm air)</text>
+
+      <!-- Direction motion arrow -->
+      <path d="M 20 210 L 265 210" stroke="#5b9bd5" stroke-width="1.8" fill="none" marker-end="url(#movC)"/>
+      <text x="140" y="232" text-anchor="middle" fill="#5b9bd5" font-size="10">Front motion · 20–30 kt</text>
+
+      <!-- Annotation -->
+      <text x="500" y="22" text-anchor="middle" fill="#f0c040" font-size="11" font-weight="bold">Slope ≈ 1:50 — narrow ~50–100 NM · short-lived showers/TS</text>
+
+      <defs>
+        <marker id="movC" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
           <polygon points="0,0 7,3.5 0,7" fill="#5b9bd5"/>
         </marker>
       </defs>
-      <text x="350" y="22" text-anchor="middle" fill="#f0c040" font-size="12" font-weight="bold">Slope ≈ 1:50 — narrow band (~50–100 NM), short-lived showers/TS</text>
     </svg>
   </div>
 
   <div class="section-title">Warm Front — Shallow Slope</div>
   <div class="diagram-box">
-    <svg viewBox="0 0 700 220" width="100%" height="220">
-      <line x1="30" y1="190" x2="670" y2="190" stroke="#7a9ab5" stroke-width="1.5"/>
-      <!-- Cold air retreating (left) -->
-      <polygon points="30,190 30,110 550,190" fill="#5b9bd5" opacity="0.3" stroke="#5b9bd5" stroke-width="1.2"/>
-      <text x="100" y="155" fill="#5b9bd5" font-size="12" font-weight="bold">COLD AIR</text>
-      <text x="100" y="171" fill="#7a9ab5" font-size="10">(retreating)</text>
-      <!-- Warm air sliding up -->
-      <text x="520" y="100" fill="#e05050" font-size="12" font-weight="bold">WARM AIR</text>
-      <text x="520" y="116" fill="#7a9ab5" font-size="10">(slides up slowly)</text>
+    <!--
+      Warm front symbol convention:
+      Semi-circles (bumps) on the front line pointing in the direction of frontal movement,
+      drawn at regular intervals.
+    -->
+    <svg viewBox="0 0 700 240" width="100%" height="240" aria-label="Warm front cross-section showing shallow slope with semi-circle front symbols">
 
-      <!-- Cloud sequence -->
-      <ellipse cx="120" cy="80" rx="40" ry="10" fill="#2a4a5a" stroke="#7a9ab5"/>
-      <text x="120" y="83" text-anchor="middle" fill="#e8edf2" font-size="9">CI / CS</text>
-      <ellipse cx="250" cy="110" rx="55" ry="14" fill="#2a4a5a" stroke="#7a9ab5"/>
-      <text x="250" y="114" text-anchor="middle" fill="#e8edf2" font-size="9">AS / AC</text>
-      <rect x="350" y="140" width="180" height="40" rx="6" fill="#2a4a5a" stroke="#7a9ab5"/>
-      <text x="440" y="162" text-anchor="middle" fill="#e8edf2" font-size="10" font-weight="bold">NS · steady rain</text>
+      <!-- Ground line -->
+      <line x1="30" y1="200" x2="670" y2="200" stroke="#7a9ab5" stroke-width="1.5"/>
 
-      <path d="M 660 200 L 420 200" stroke="#e05050" stroke-width="1.8" fill="none" marker-end="url(#movW)"/>
-      <text x="540" y="215" text-anchor="middle" fill="#e05050" font-size="10">Front motion · 10–15 kt</text>
+      <!-- Cold air (left, retreating) — shallow wedge -->
+      <polygon points="30,200 30,120 560,200" fill="rgba(91,155,213,0.18)" stroke="#5b9bd5" stroke-width="1.2"/>
+      <text x="120" y="162" fill="#5b9bd5" font-size="13" font-weight="bold">COLD AIR</text>
+      <text x="120" y="178" fill="#7a9ab5" font-size="10">(retreating)</text>
+
+      <!-- Warm air (right, advancing slowly) -->
+      <text x="545" y="115" fill="#e05050" font-size="13" font-weight="bold">WARM AIR</text>
+      <text x="545" y="131" fill="#7a9ab5" font-size="10">(slides up slowly)</text>
+
+      <!-- Cloud sequence showing progressive sequence along warm front -->
+      <!-- Cirrus at top-left (leading edge, 500+ NM ahead) -->
+      <path d="M 80,88 Q 100,78 130,80 Q 160,78 175,88" stroke="#c8dff0" stroke-width="2" fill="none" opacity="0.8"/>
+      <path d="M 85,96 Q 110,88 140,90 Q 165,88 178,96" stroke="#c8dff0" stroke-width="1.5" fill="none" opacity="0.6"/>
+      <text x="130" y="110" text-anchor="middle" fill="#c8dff0" font-size="10" font-weight="bold">CI / CS</text>
+
+      <!-- Altostratus (middle distance) -->
+      <path d="M 235,118 Q 260,108 310,110 Q 360,108 385,118 Q 385,132 310,132 Q 235,132 235,118 Z"
+            fill="#253d55" stroke="#5b8ab5" stroke-width="1.5" opacity="0.8"/>
+      <text x="310" y="145" text-anchor="middle" fill="#7ab5d5" font-size="10" font-weight="bold">AS / AC</text>
+
+      <!-- Nimbostratus (near front, low and thick) -->
+      <path d="M 420,145 Q 440,132 490,130 Q 540,128 560,138 Q 565,155 490,160 Q 420,162 420,145 Z"
+            fill="#1e2d3d" stroke="#4a7090" stroke-width="1.5" opacity="0.9"/>
+      <!-- Rain from NS -->
+      <g stroke="#5b9bd5" stroke-width="1" opacity="0.7">
+        <line x1="436" y1="162" x2="433" y2="198"/>
+        <line x1="452" y1="162" x2="449" y2="198"/>
+        <line x1="468" y1="162" x2="465" y2="198"/>
+        <line x1="484" y1="162" x2="481" y2="198"/>
+        <line x1="500" y1="162" x2="497" y2="198"/>
+        <line x1="516" y1="160" x2="513" y2="198"/>
+        <line x1="532" y1="158" x2="529" y2="198"/>
+        <line x1="548" y1="158" x2="545" y2="198"/>
+      </g>
+      <text x="490" y="178" text-anchor="middle" fill="#5b9bd5" font-size="10" font-weight="bold">NS · steady rain</text>
+
+      <!-- Front surface line (along ground, warm front advances left-to-right) -->
+      <!-- Front position: approximately at x=560 at ground, sloping up to left -->
+      <line x1="560" y1="200" x2="30" y2="120" stroke="#e05050" stroke-width="2.5"/>
+
+      <!-- ── WARM FRONT SYMBOLS: semi-circles on the front line ── -->
+      <!--
+        Warm front: semi-circles (bumps/humps) pointing toward cold air direction,
+        placed along the front line. Semi-circles on the side the front is moving into.
+        Warm front moves from right to left (→ advancing into cold air on left).
+        So semi-circles face LEFT (toward cold air / direction of motion).
+        Line from (560,200) to (30,120): dx=-530, dy=-80
+        Unit vector: len=sqrt(530²+80²)≈536. Along: (-0.989,-0.149). Perp toward left/motion: ...
+        For simplicity, place semi-circles as arcs centered on the line, protruding toward warm side (left).
+      -->
+
+      <!-- Points along the warm front line (560,200) to (30,120):
+           parametric x=560-530t, y=200-80t
+           t=0.08: x=518, y=193.6
+           t=0.22: x=443, y=182.4
+           t=0.36: x=369, y=171.2
+           t=0.50: x=295, y=160
+           t=0.64: x=220, y=148.8
+           t=0.78: x=147, y=137.6
+      -->
+
+      <!-- Semi-circle symbols for warm front (filled red, opening toward warm air = right side) -->
+      <!-- Each semi-circle is drawn as an arc protruding toward the warm air side -->
+      <!-- Warm air is above the front line, so semi-circles protrude upward (toward y decreasing) -->
+
+      <!-- sc1 at (518, 194) -->
+      <path d="M 511,197 A 8,8 0 0 1 525,197" stroke="#e05050" stroke-width="2" fill="#e05050" opacity="0.85"/>
+      <!-- sc2 at (443, 183) -->
+      <path d="M 436,186 A 8,8 0 0 1 450,186" stroke="#e05050" stroke-width="2" fill="#e05050" opacity="0.85"/>
+      <!-- sc3 at (369, 172) -->
+      <path d="M 362,175 A 8,8 0 0 1 376,175" stroke="#e05050" stroke-width="2" fill="#e05050" opacity="0.85"/>
+      <!-- sc4 at (295, 161) -->
+      <path d="M 288,164 A 8,8 0 0 1 302,164" stroke="#e05050" stroke-width="2" fill="#e05050" opacity="0.85"/>
+      <!-- sc5 at (220, 150) -->
+      <path d="M 213,153 A 8,8 0 0 1 227,153" stroke="#e05050" stroke-width="2" fill="#e05050" opacity="0.85"/>
+      <!-- sc6 at (147, 139) -->
+      <path d="M 140,142 A 8,8 0 0 1 154,142" stroke="#e05050" stroke-width="2" fill="#e05050" opacity="0.85"/>
+
+      <!-- Symbol legend -->
+      <text x="30" y="220" fill="#e05050" font-size="10">⌢ Warm front symbols (semi-circles point toward cold air)</text>
+
+      <!-- Direction motion arrow -->
+      <path d="M 660,210 L 420,210" stroke="#e05050" stroke-width="1.8" fill="none" marker-end="url(#movW)"/>
+      <text x="540" y="225" text-anchor="middle" fill="#e05050" font-size="10">Front motion · 10–15 kt</text>
+
+      <!-- Annotation -->
+      <text x="350" y="22" text-anchor="middle" fill="#f0c040" font-size="11" font-weight="bold">Slope ≈ 1:200 — broad ~300+ NM · long steady precipitation</text>
+
       <defs>
         <marker id="movW" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
           <polygon points="7,0 0,3.5 7,7" fill="#e05050"/>
         </marker>
       </defs>
-      <text x="350" y="22" text-anchor="middle" fill="#f0c040" font-size="12" font-weight="bold">Slope ≈ 1:200 — broad band (~300+ NM), long steady precipitation</text>
+    </svg>
+  </div>
+
+  <div class="section-title">Occluded Front — Symbol Reference</div>
+  <div class="diagram-box">
+    <!--
+      Occluded front: alternating triangles and semi-circles on the same line,
+      both pointing in the direction of motion. Colour: purple.
+    -->
+    <svg viewBox="0 0 500 80" width="100%" height="80" aria-label="Occluded front symbol showing alternating triangles and semi-circles">
+      <text x="20" y="20" fill="#b090e8" font-size="12" font-weight="bold">Occluded Front — alternating triangles + semi-circles (purple)</text>
+      <!-- Occluded front line -->
+      <line x1="20" y1="55" x2="480" y2="55" stroke="#9060d0" stroke-width="2.5"/>
+      <!-- Alternating triangle + semicircle pattern along the line -->
+      <!-- Triangle at x=60 -->
+      <polygon points="53,59 67,59 60,46" fill="#9060d0" stroke="#9060d0" stroke-width="0.5"/>
+      <!-- Semicircle at x=100 -->
+      <path d="M 93,59 A 7,7 0 0 1 107,59" stroke="#9060d0" stroke-width="2" fill="#9060d0" opacity="0.85"/>
+      <!-- Triangle at x=140 -->
+      <polygon points="133,59 147,59 140,46" fill="#9060d0" stroke="#9060d0" stroke-width="0.5"/>
+      <!-- Semicircle at x=180 -->
+      <path d="M 173,59 A 7,7 0 0 1 187,59" stroke="#9060d0" stroke-width="2" fill="#9060d0" opacity="0.85"/>
+      <!-- Triangle at x=220 -->
+      <polygon points="213,59 227,59 220,46" fill="#9060d0" stroke="#9060d0" stroke-width="0.5"/>
+      <!-- Semicircle at x=260 -->
+      <path d="M 253,59 A 7,7 0 0 1 267,59" stroke="#9060d0" stroke-width="2" fill="#9060d0" opacity="0.85"/>
+      <!-- Triangle at x=300 -->
+      <polygon points="293,59 307,59 300,46" fill="#9060d0" stroke="#9060d0" stroke-width="0.5"/>
+      <!-- Semicircle at x=340 -->
+      <path d="M 333,59 A 7,7 0 0 1 347,59" stroke="#9060d0" stroke-width="2" fill="#9060d0" opacity="0.85"/>
+      <!-- Triangle at x=380 -->
+      <polygon points="373,59 387,59 380,46" fill="#9060d0" stroke="#9060d0" stroke-width="0.5"/>
+      <!-- Semicircle at x=420 -->
+      <path d="M 413,59 A 7,7 0 0 1 427,59" stroke="#9060d0" stroke-width="2" fill="#9060d0" opacity="0.85"/>
+      <!-- Triangle at x=460 -->
+      <polygon points="453,59 467,59 460,46" fill="#9060d0" stroke="#9060d0" stroke-width="0.5"/>
+      <!-- Hazards label -->
+      <text x="250" y="76" text-anchor="middle" fill="#b090e8" font-size="10">Cold front overtaking warm — hazards of both · widespread prolonged precipitation</text>
     </svg>
   </div>
 
   <div class="section-title">Quick Comparison</div>
   <table>
-    <thead><tr><th>Feature</th><th>Cold Front</th><th>Warm Front</th><th>Occluded</th></tr></thead>
+    <thead><tr><th>Feature</th><th>Cold Front ▲</th><th>Warm Front ⌢</th><th>Occluded ▲⌢</th></tr></thead>
     <tbody>
       <tr><td>Slope</td><td>Steep (~1:50)</td><td>Shallow (~1:200)</td><td>Mixed</td></tr>
       <tr><td>Speed</td><td>20–30 kt</td><td>10–15 kt</td><td>Slow — "stalled"</td></tr>
@@ -113,7 +295,7 @@
 
   <div class="memory-hook">
     <span class="badge">EXAM HOOK</span><br>
-    <strong>Cold front</strong>: steep, fast, short &amp; violent — think <strong>CBs, gust fronts, sharp wind shift clockwise, pressure rise</strong>. <strong>Warm front</strong>: shallow, slow, long &amp; steady — think <strong>CI → CS → AS → NS sequence, low ceilings, rime icing</strong>. At any front, expect <strong>wind shift and pressure change</strong> at passage. Occluded = cold front overtaking warm — hazards of both.
+    <strong>Cold front ▲</strong>: steep, fast, short &amp; violent — think <strong>CBs, gust fronts, sharp wind shift clockwise, pressure rise</strong>. <strong>Warm front ⌢</strong>: shallow, slow, long &amp; steady — think <strong>CI → CS → AS → NS sequence, low ceilings, rime icing</strong>. At any front, expect <strong>wind shift and pressure change</strong> at passage. Occluded = cold front overtaking warm — hazards of both.
   </div>
 </div>
 </body>

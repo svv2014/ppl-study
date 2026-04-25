@@ -7,30 +7,22 @@
 <script src="/visuals/_theme-init.js"></script>
 <link rel="stylesheet" href="/visuals/_common.css">
 <style>
-  .tier { display: grid; grid-template-columns: 160px 1fr; gap: 16px; align-items: stretch; margin-bottom: 10px; }
-  .tier-label { background: var(--border); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
-  .tier-label .alt { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; }
-  .tier-label .name { font-size: 16px; color: var(--accent); font-weight: bold; margin-top: 4px; }
-  .tier-label .range { font-size: 12px; color: var(--text); margin-top: 4px; }
-  .tier-clouds { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-  .cloud-card { background: var(--border); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
-  .cloud-card .cname { font-size: 13px; color: var(--accent); font-weight: bold; margin-bottom: 4px; }
-  .cloud-card .cabbr { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; }
-  .cloud-card .cnote { font-size: 11px; color: var(--text); margin-top: 6px; line-height: 1.45; }
+  /* Altitude diagram layout */
+  .cloud-diagram { width: 100%; overflow-x: auto; }
+  .tier-info { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+  .tier-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .tier-card .cname { font-size: 13px; color: var(--accent); font-weight: bold; margin-bottom: 2px; }
+  .tier-card .cabbr { font-size: 10px; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 6px; }
+  .tier-card .cnote { font-size: 11px; color: var(--text); line-height: 1.45; }
   .stability-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .stab-card { background: var(--border); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+  .stab-card { background: var(--surface); border: 1.5px solid var(--border); border-radius: 8px; padding: 14px; }
   .stab-card h3 { font-size: 13px; color: var(--accent); margin-bottom: 8px; letter-spacing: 0.5px; }
   .stab-card ul { margin-left: 18px; color: var(--text); font-size: 12px; line-height: 1.7; }
   @media (max-width: 640px) {
-    .tier { grid-template-columns: 1fr; }
+    .tier-info { grid-template-columns: 1fr; }
     .stability-grid { grid-template-columns: 1fr; }
   }
-  @media (max-width: 480px) {
-    body { font-size: 14px; padding: 16px; }
-    .tier { grid-template-columns: 1fr; }
-    .tier-clouds { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); }
-    .stability-grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 480px) { body { font-size: 14px; padding: 16px; } }
 </style>
 </head>
 <body>
@@ -40,49 +32,181 @@
   <h1>MET-003 — Cloud Types &amp; Formation</h1>
   <p class="subtitle">Transport Canada · TP 12880E · AIM MET 2.0</p>
 
-  <div class="section-title" style="margin-top: 0;">Three Height Tiers (Mid-Latitudes)</div>
+  <div class="section-title" style="margin-top: 0;">Cloud Altitude Bands (Mid-Latitudes)</div>
 
-  <div class="tier">
-    <div class="tier-label">
-      <div class="alt">High</div>
-      <div class="name">Cirro-</div>
-      <div class="range">&gt; 20,000 ft</div>
-      <div class="range" style="color:var(--text-muted);">Ice crystals</div>
-    </div>
-    <div class="tier-clouds">
-      <div class="cloud-card"><div class="cname">Cirrus</div><div class="cabbr">CI</div><div class="cnote">Wispy streaks — fair weather, but may signal approaching warm front 24–48 h out.</div></div>
-      <div class="cloud-card"><div class="cname">Cirrostratus</div><div class="cabbr">CS</div><div class="cnote">Thin sheet — halo around sun/moon. Warm front signal.</div></div>
-      <div class="cloud-card"><div class="cname">Cirrocumulus</div><div class="cabbr">CC</div><div class="cnote">"Mackerel sky" — small ripples high up.</div></div>
-    </div>
+  <!-- SVG altitude diagram with blob cloud shapes at correct bands -->
+  <div class="diagram-box cloud-diagram">
+    <svg viewBox="0 0 760 420" width="100%" height="420" aria-label="Cloud types diagram showing cloud shapes at correct altitude bands">
+
+      <!-- Altitude band fills -->
+      <!-- High (>20,000 ft): y=20 to y=150 -->
+      <rect x="80" y="20" width="670" height="130" rx="4" fill="#0a1e30" stroke="#1a3550" stroke-width="1"/>
+      <!-- Middle (6,500–20,000 ft): y=155 to y=270 -->
+      <rect x="80" y="155" width="670" height="115" rx="4" fill="#0c2035" stroke="#1a3550" stroke-width="1"/>
+      <!-- Low (0–6,500 ft): y=275 to y=400 -->
+      <rect x="80" y="275" width="670" height="125" rx="4" fill="#0f2340" stroke="#1a3550" stroke-width="1"/>
+
+      <!-- Altitude axis -->
+      <line x1="78" y1="20" x2="78" y2="405" stroke="#7a9ab5" stroke-width="1.5"/>
+
+      <!-- Altitude ticks + labels -->
+      <g font-size="10" fill="#7a9ab5" text-anchor="end">
+        <line x1="73" y1="400" x2="83" y2="400" stroke="#7a9ab5"/>
+        <text x="70" y="403">SL</text>
+        <line x1="73" y1="280" x2="83" y2="280" stroke="#7a9ab5"/>
+        <text x="70" y="283">6,500 ft</text>
+        <line x1="73" y1="155" x2="83" y2="155" stroke="#7a9ab5"/>
+        <text x="70" y="158">20,000 ft</text>
+        <line x1="73" y1="20" x2="83" y2="20" stroke="#7a9ab5"/>
+        <text x="70" y="23">55,000 ft</text>
+      </g>
+      <text x="22" y="215" fill="#7a9ab5" font-size="11" transform="rotate(-90,22,215)" text-anchor="middle">Altitude</text>
+
+      <!-- Band labels (left side inside) -->
+      <text x="92" y="42" fill="#f0c040" font-size="12" font-weight="bold">HIGH · Cirro-</text>
+      <text x="92" y="56" fill="#7a9ab5" font-size="10">&gt; 20,000 ft · Ice crystals</text>
+
+      <text x="92" y="174" fill="#f0c040" font-size="12" font-weight="bold">MIDDLE · Alto-</text>
+      <text x="92" y="188" fill="#7a9ab5" font-size="10">6,500–20,000 ft · Water + ice</text>
+
+      <text x="92" y="295" fill="#f0c040" font-size="12" font-weight="bold">LOW · Strato-</text>
+      <text x="92" y="309" fill="#7a9ab5" font-size="10">Surface–6,500 ft · Mostly water</text>
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- HIGH CLOUDS — wispy/filament SVG blob shapes -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <!-- Cirrus (CI) — wispy streaks -->
+      <g transform="translate(310, 70)">
+        <!-- Wispy curved filaments for cirrus -->
+        <path d="M-55,10 Q-30,-8 0,-5 Q30,-2 55,8" stroke="#c8dff0" stroke-width="2" fill="none" opacity="0.85"/>
+        <path d="M-45,18 Q-15,5 10,2 Q35,0 50,12" stroke="#c8dff0" stroke-width="1.5" fill="none" opacity="0.65"/>
+        <path d="M-40,0 Q-10,-12 20,-8 Q40,-4 55,-2" stroke="#c8dff0" stroke-width="1.5" fill="none" opacity="0.55"/>
+        <text x="0" y="32" text-anchor="middle" fill="#e4ecf5" font-size="11" font-weight="bold">Cirrus</text>
+        <text x="0" y="44" text-anchor="middle" fill="#7a9ab5" font-size="9">CI · wispy streaks · ice</text>
+      </g>
+
+      <!-- Cirrostratus (CS) — thin translucent veil -->
+      <g transform="translate(490, 75)">
+        <ellipse cx="0" cy="0" rx="65" ry="16" fill="#1a3a5a" stroke="#c8dff0" stroke-width="1.5" opacity="0.5"/>
+        <ellipse cx="0" cy="0" rx="65" ry="16" fill="none" stroke="#c8dff0" stroke-width="1" opacity="0.4" stroke-dasharray="4,4"/>
+        <text x="0" y="28" text-anchor="middle" fill="#e4ecf5" font-size="11" font-weight="bold">Cirrostratus</text>
+        <text x="0" y="40" text-anchor="middle" fill="#7a9ab5" font-size="9">CS · thin veil · halo</text>
+      </g>
+
+      <!-- Cirrocumulus (CC) — small rippled puffs -->
+      <g transform="translate(660, 72)">
+        <!-- Row of small puffy blobs -->
+        <path d="M-35,5 Q-30,-4 -22,-4 Q-14,-4 -10,3 Q-6,-6 2,-6 Q10,-6 14,3 Q18,-4 26,-4 Q34,-4 38,5 Q38,14 0,14 Q-35,14 -35,5 Z" fill="#1e3f5a" stroke="#b0cce0" stroke-width="1.5" opacity="0.9"/>
+        <path d="M-28,12 Q-22,4 -14,4 Q-6,4 -2,12 Q2,4 10,4 Q18,4 22,12 Q22,20 -3,20 Q-28,20 -28,12 Z" fill="#1a3855" stroke="#b0cce0" stroke-width="1" opacity="0.75"/>
+        <text x="0" y="34" text-anchor="middle" fill="#e4ecf5" font-size="11" font-weight="bold">Cirrocumulus</text>
+        <text x="0" y="46" text-anchor="middle" fill="#7a9ab5" font-size="9">CC · mackerel sky</text>
+      </g>
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- MIDDLE CLOUDS — layered/lumpy blob shapes -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <!-- Altostratus (AS) — wide grey-blue sheet -->
+      <g transform="translate(310, 215)">
+        <path d="M-80,8 Q-70,-6 -50,-8 Q-30,-10 0,-8 Q30,-10 50,-8 Q70,-6 80,8 Q70,20 0,20 Q-70,20 -80,8 Z" fill="#253d55" stroke="#5b8ab5" stroke-width="1.5" opacity="0.85"/>
+        <path d="M-60,18 Q-40,10 0,10 Q40,10 60,18 Q60,26 0,26 Q-60,26 -60,18 Z" fill="#1e3245" stroke="#5b8ab5" stroke-width="1" opacity="0.6"/>
+        <text x="0" y="38" text-anchor="middle" fill="#e4ecf5" font-size="11" font-weight="bold">Altostratus</text>
+        <text x="0" y="50" text-anchor="middle" fill="#7a9ab5" font-size="9">AS · grey sheet · steady rain</text>
+      </g>
+
+      <!-- Altocumulus (AC) — medium lumpy patches -->
+      <g transform="translate(510, 215)">
+        <path d="M-55,6 Q-45,-6 -32,-6 Q-20,-6 -14,2 Q-8,-10 4,-10 Q16,-10 22,2 Q28,-6 40,-6 Q52,-6 58,6 Q58,18 0,18 Q-55,18 -55,6 Z" fill="#2a4560" stroke="#7ab5d5" stroke-width="1.5" opacity="0.9"/>
+        <text x="0" y="32" text-anchor="middle" fill="#e4ecf5" font-size="11" font-weight="bold">Altocumulus</text>
+        <text x="0" y="44" text-anchor="middle" fill="#7a9ab5" font-size="9">AC · grey patches</text>
+      </g>
+
+      <!-- Nimbostratus (NS) — dark ragged layer with rain streaks -->
+      <g transform="translate(670, 215)">
+        <path d="M-48,2 Q-38,-10 -20,-12 Q-2,-14 10,-8 Q18,-14 30,-10 Q44,-6 50,2 Q50,18 -2,22 Q-48,22 -48,2 Z" fill="#1e2e3d" stroke="#4a7090" stroke-width="1.5" opacity="0.9"/>
+        <!-- ragged bottom edge -->
+        <path d="M-48,18 Q-30,26 -10,22 Q10,18 30,26 Q44,22 50,18" stroke="#3a6080" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <!-- rain streaks -->
+        <g stroke="#5b9bd5" stroke-width="1" opacity="0.7">
+          <line x1="-20" y1="24" x2="-22" y2="38"/>
+          <line x1="-4" y1="22" x2="-6" y2="36"/>
+          <line x1="12" y1="24" x2="10" y2="38"/>
+          <line x1="28" y1="23" x2="26" y2="37"/>
+        </g>
+        <text x="0" y="52" text-anchor="middle" fill="#e4ecf5" font-size="11" font-weight="bold">Nimbostratus</text>
+        <text x="0" y="64" text-anchor="middle" fill="#7a9ab5" font-size="9">NS · dark · continuous rain</text>
+      </g>
+
+      <!-- ═══════════════════════════════════════════════════ -->
+      <!-- LOW CLOUDS — puffy/layered shapes near surface -->
+      <!-- ═══════════════════════════════════════════════════ -->
+
+      <!-- Stratus (ST) — uniform flat layer -->
+      <g transform="translate(200, 345)">
+        <path d="M-60,0 Q-55,-8 -35,-10 Q-15,-12 0,-10 Q20,-12 40,-10 Q55,-8 60,0 Q55,10 0,10 Q-55,10 -60,0 Z" fill="#2a3d52" stroke="#6090b5" stroke-width="1.5" opacity="0.9"/>
+        <text x="0" y="24" text-anchor="middle" fill="#e4ecf5" font-size="11" font-weight="bold">Stratus</text>
+        <text x="0" y="36" text-anchor="middle" fill="#7a9ab5" font-size="9">ST · uniform layer · drizzle</text>
+      </g>
+
+      <!-- Stratocumulus (SC) — lumpy grey layer -->
+      <g transform="translate(380, 340)">
+        <path d="M-62,8 Q-55,-5 -38,-8 Q-22,-12 -10,-6 Q-2,-14 12,-14 Q25,-14 32,-6 Q44,-10 58,-6 Q68,-2 68,8 Q68,22 0,22 Q-62,22 -62,8 Z" fill="#253550" stroke="#608ab0" stroke-width="1.5" opacity="0.9"/>
+        <text x="0" y="36" text-anchor="middle" fill="#e4ecf5" font-size="11" font-weight="bold">Stratocumulus</text>
+        <text x="0" y="48" text-anchor="middle" fill="#7a9ab5" font-size="9">SC · lumpy grey · VFR gaps</text>
+      </g>
+
+      <!-- Cumulus (CU) — puffy fair-weather -->
+      <g transform="translate(540, 330)">
+        <!-- classic puffy cumulus blob -->
+        <path d="M-28,28 Q-32,14 -22,6 Q-18,0 -10,0 Q-6,-12 4,-14 Q14,-16 20,-8 Q28,-14 36,-8 Q44,-2 40,8 Q46,12 44,22 Q42,32 28,32 Q0,32 -28,28 Z" fill="#2d4868" stroke="#70a0c8" stroke-width="2" opacity="0.95"/>
+        <text x="8" y="48" text-anchor="middle" fill="#e4ecf5" font-size="11" font-weight="bold">Cumulus</text>
+        <text x="8" y="60" text-anchor="middle" fill="#7a9ab5" font-size="9">CU · puffy · fair weather</text>
+      </g>
+
+      <!-- Cumulonimbus (CB) — tall towering storm cloud spanning low to high -->
+      <!-- CB spans from low band up through middle and into high band -->
+      <g transform="translate(690, 200)">
+        <!-- Anvil top (flat, at high altitude level) -->
+        <path d="M-48,-180 Q-40,-196 -10,-196 Q20,-196 50,-180 Q58,-168 50,-160 Q30,-152 -30,-152 Q-50,-160 -48,-180 Z" fill="#2a3555" stroke="#e05050" stroke-width="1.5" opacity="0.9"/>
+        <!-- CB body (tall vertical column) -->
+        <path d="M-30,100 Q-38,60 -34,-10 Q-30,-70 -20,-130 Q-12,-154 -6,-154 Q0,-154 8,-130 Q18,-70 22,-10 Q26,60 20,100 Q10,115 -10,115 Q-28,115 -30,100 Z" fill="#2a3050" stroke="#e05050" stroke-width="2" opacity="0.95"/>
+        <!-- CB label -->
+        <text x="-5" y="130" text-anchor="middle" fill="#e05050" font-size="11" font-weight="bold">Cumulonimbus</text>
+        <text x="-5" y="144" text-anchor="middle" fill="#e4ecf5" font-size="9">CB · all hazards · avoid 20 NM</text>
+        <!-- Lightning bolt symbol -->
+        <path d="M-2,-60 L-8,-38 L2,-38 L-5,-14" stroke="#f0c040" stroke-width="2" fill="none"/>
+        <!-- Anvil label -->
+        <text x="0" y="-200" text-anchor="middle" fill="#e05050" font-size="9">Anvil top</text>
+      </g>
+
+      <!-- CB height arrow -->
+      <line x1="750" y1="30" x2="750" y2="370" stroke="#e05050" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/>
+      <text x="755" y="200" fill="#e05050" font-size="9" transform="rotate(90,755,200)" text-anchor="middle">CB can reach tropopause</text>
+
+    </svg>
   </div>
 
-  <div class="tier">
-    <div class="tier-label">
-      <div class="alt">Middle</div>
-      <div class="name">Alto-</div>
-      <div class="range">6,500 – 20,000 ft</div>
-      <div class="range" style="color:var(--text-muted);">Water + ice</div>
-    </div>
-    <div class="tier-clouds">
-      <div class="cloud-card"><div class="cname">Altostratus</div><div class="cabbr">AS</div><div class="cnote">Grey/blue sheet — sun appears as through frosted glass. Steady rain/snow approaching.</div></div>
-      <div class="cloud-card"><div class="cname">Altocumulus</div><div class="cabbr">AC</div><div class="cnote">White/grey patches. AC castellanus → afternoon thunderstorm risk.</div></div>
-      <div class="cloud-card"><div class="cname">Nimbostratus</div><div class="cabbr">NS</div><div class="cnote">Dark, ragged, continuous precip. Based mid but often extends low.</div></div>
-    </div>
+  <div class="section-title">High Clouds (Cirro-)</div>
+  <div class="tier-info">
+    <div class="tier-card"><div class="cname">Cirrus</div><div class="cabbr">CI</div><div class="cnote">Wispy ice-crystal streaks — fair weather, but may signal approaching warm front 24–48 h out.</div></div>
+    <div class="tier-card"><div class="cname">Cirrostratus</div><div class="cabbr">CS</div><div class="cnote">Thin translucent sheet — halo around sun/moon. Warm front signal. Entire sky covered.</div></div>
+    <div class="tier-card"><div class="cname">Cirrocumulus</div><div class="cabbr">CC</div><div class="cnote">"Mackerel sky" — small white ripples high up. Rarely produces precipitation.</div></div>
   </div>
 
-  <div class="tier">
-    <div class="tier-label">
-      <div class="alt">Low</div>
-      <div class="name">Strato- / Cumulo-</div>
-      <div class="range">Surface – 6,500 ft</div>
-      <div class="range" style="color:var(--text-muted);">Mostly water</div>
-    </div>
-    <div class="tier-clouds">
-      <div class="cloud-card"><div class="cname">Stratus</div><div class="cabbr">ST</div><div class="cnote">Uniform low layer — drizzle/mist, poor VFR.</div></div>
-      <div class="cloud-card"><div class="cname">Stratocumulus</div><div class="cabbr">SC</div><div class="cnote">Lumpy grey layer with breaks — generally VFR ceilings.</div></div>
-      <div class="cloud-card"><div class="cname">Cumulus</div><div class="cabbr">CU</div><div class="cnote">Puffy fair-weather clouds — bumpy below, smooth above base.</div></div>
-      <div class="cloud-card"><div class="cname">Cumulonimbus</div><div class="cabbr">CB</div><div class="cnote">Towering thunderstorm cell — avoid by 20 NM. All known hazards.</div></div>
-    </div>
+  <div class="section-title">Middle Clouds (Alto-)</div>
+  <div class="tier-info">
+    <div class="tier-card"><div class="cname">Altostratus</div><div class="cabbr">AS</div><div class="cnote">Grey/blue sheet — sun appears as through frosted glass. Steady rain/snow approaching.</div></div>
+    <div class="tier-card"><div class="cname">Altocumulus</div><div class="cabbr">AC</div><div class="cnote">White/grey patches. AC castellanus → afternoon thunderstorm risk.</div></div>
+    <div class="tier-card"><div class="cname">Nimbostratus</div><div class="cabbr">NS</div><div class="cnote">Dark, ragged, continuous precip. Based mid but often extends very low.</div></div>
+  </div>
+
+  <div class="section-title">Low Clouds (Strato- / Cumulo-)</div>
+  <div class="tier-info">
+    <div class="tier-card"><div class="cname">Stratus</div><div class="cabbr">ST</div><div class="cnote">Uniform low layer — drizzle/mist, poor VFR.</div></div>
+    <div class="tier-card"><div class="cname">Stratocumulus</div><div class="cabbr">SC</div><div class="cnote">Lumpy grey layer with breaks — generally VFR ceilings.</div></div>
+    <div class="tier-card"><div class="cname">Cumulus</div><div class="cabbr">CU</div><div class="cnote">Puffy fair-weather clouds — bumpy below, smooth above base.</div></div>
+    <div class="tier-card"><div class="cname">Cumulonimbus</div><div class="cabbr">CB</div><div class="cnote">Towering thunderstorm cell — avoid by 20 NM. All known hazards.</div></div>
   </div>
 
   <div class="section-title">Stable vs Unstable Air</div>
