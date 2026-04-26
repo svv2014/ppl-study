@@ -133,21 +133,21 @@ export default function Home() {
         <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1.5fr 1fr' }, gap: 4, alignItems: 'center', mb: '36px' }}>
           <Box>
             <Box sx={{ fontFamily: MONO, fontSize: '11px', color: 'primary.main', letterSpacing: '0.15em', mb: '14px', textTransform: 'uppercase' }}>
-              Pre-Flight Briefing · 20 Min / Day
+              {activeTrack.byline}
             </Box>
             <Typography
               variant="h1"
               component="h1"
               sx={{ mb: '14px' }}
             >
-              Pass the{' '}
-              <Box component="span" sx={{ color: 'primary.main' }}>PPL written</Box>
-              <br />
-              exam. Twenty minutes a day.
+              {activeTrack.heroHeading}
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 2.5, maxWidth: 460 }}>
-              Structured lessons covering PSTAR and the full Transport Canada syllabus. Audio-first, exam-weighted.
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 1.5, maxWidth: 460 }}>
+              {activeTrack.heroSubtitle}
             </Typography>
+            <Box sx={{ fontFamily: MONO, fontSize: '11px', color: 'text.secondary', letterSpacing: '0.12em', mb: 2, textTransform: 'uppercase' }}>
+              {activeTrack.credibilityTag}
+            </Box>
             <Box
               component={RouterLink}
               to={ctaTo}
