@@ -1,4 +1,5 @@
-import type { Lesson } from './types';
+import type { Lesson, Topic } from './types';
+import { TOPICS } from './curriculum';
 
 export type TrackStatus = 'active' | 'coming-soon' | 'locked';
 
@@ -15,6 +16,10 @@ export interface ExamTrack {
   unlockHint?: string;
   /** Returns true for lessons that belong to this track */
   lessonFilter: (l: Lesson) => boolean;
+  /** Topics shown on the playlist index for this track */
+  playlistTopics: readonly Topic[];
+  /** Heading shown on the playlist index page */
+  playlistHeading: string;
 }
 
 const noLessons = (_l: Lesson) => false;
@@ -27,6 +32,8 @@ export const EXAM_TRACKS: ExamTrack[] = [
     tagline: 'Transport Canada Private Pilot Licence (Aeroplane)',
     status: 'active',
     lessonFilter: () => true,
+    playlistTopics: TOPICS,
+    playlistHeading: 'Study Playlist',
   },
   {
     id: 'pstar',
@@ -35,6 +42,8 @@ export const EXAM_TRACKS: ExamTrack[] = [
     tagline: 'Pre-Solo Standard Test of Air Regulations',
     status: 'active',
     lessonFilter: (l) => l.topic === 'air-law',
+    playlistTopics: ['air-law'] as const,
+    playlistHeading: 'PSTAR Playlist',
   },
   {
     id: 'rroe',
@@ -43,6 +52,8 @@ export const EXAM_TRACKS: ExamTrack[] = [
     tagline: 'Restricted Radiotelephone Operator Certificate (Aeronautical)',
     status: 'active',
     lessonFilter: (l) => l.topic === 'radio',
+    playlistTopics: ['radio'] as const,
+    playlistHeading: 'RROE Playlist',
   },
   {
     id: 'ppl-h',
@@ -51,6 +62,8 @@ export const EXAM_TRACKS: ExamTrack[] = [
     tagline: 'Transport Canada Private Pilot Licence (Helicopter)',
     status: 'coming-soon',
     lessonFilter: noLessons,
+    playlistTopics: TOPICS,
+    playlistHeading: 'PPL-H Playlist',
   },
   {
     id: 'cpl-a',
@@ -59,6 +72,8 @@ export const EXAM_TRACKS: ExamTrack[] = [
     tagline: 'Transport Canada Commercial Pilot Licence (Aeroplane)',
     status: 'coming-soon',
     lessonFilter: noLessons,
+    playlistTopics: TOPICS,
+    playlistHeading: 'CPL-A Playlist',
   },
   {
     id: 'ifr',
@@ -67,6 +82,8 @@ export const EXAM_TRACKS: ExamTrack[] = [
     tagline: 'Transport Canada Instrument Rating',
     status: 'coming-soon',
     lessonFilter: noLessons,
+    playlistTopics: TOPICS,
+    playlistHeading: 'IFR Playlist',
   },
   {
     id: 'instructor',
@@ -76,6 +93,8 @@ export const EXAM_TRACKS: ExamTrack[] = [
     status: 'locked',
     unlockHint: 'Complete PPL-A and CPL-A first',
     lessonFilter: noLessons,
+    playlistTopics: TOPICS,
+    playlistHeading: 'FI Playlist',
   },
 ];
 
