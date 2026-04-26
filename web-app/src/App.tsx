@@ -71,6 +71,7 @@ export default function App() {
     <TrackProvider>
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <TrackProvider>
       <BrowserRouter>
         <Box sx={{ display: 'flex', minHeight: '100vh' }}>
           <Box
@@ -133,6 +134,7 @@ export default function App() {
           <StickyPlayerBar />
         </Box>
       </BrowserRouter>
+      </TrackProvider>
     </ThemeProvider>
     </TrackProvider>
   );
