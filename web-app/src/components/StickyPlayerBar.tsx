@@ -310,6 +310,7 @@ export default function StickyPlayerBar() {
               disabled={currentIndex === 0}
               aria-label="Previous lesson"
               size="small"
+              sx={{ minWidth: 48, minHeight: 48 }}
             >
               <SkipPreviousIcon />
             </IconButton>
@@ -325,6 +326,7 @@ export default function StickyPlayerBar() {
               disabled={currentIndex === playlist.length - 1}
               aria-label="Next lesson"
               size="small"
+              sx={{ minWidth: 48, minHeight: 48 }}
             >
               <SkipNextIcon />
             </IconButton>

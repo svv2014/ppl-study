@@ -126,6 +126,7 @@ export default function SleepTimer({ audioRef }: SleepTimerProps) {
       {isActive && (
         <Typography
           sx={{
+            display: { xs: 'none', sm: 'block' },
             fontFamily: MONO,
             fontSize: 11,
             fontWeight: 500,

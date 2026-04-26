@@ -74,8 +74,8 @@ export default function PlaylistQueue({
             sx={{
               display: 'flex',
               alignItems: 'center',
-              gap: 1.5,
-              px: 2,
+              gap: { xs: 1, sm: 1.5 },
+              px: { xs: 1, sm: 2 },
               minHeight: 48,
               cursor: 'pointer',
               borderLeft: '3px solid',
