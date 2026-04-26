@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link as RouterLink, useSearchParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -42,12 +42,18 @@ function deriveOptionState(
 export default function Exam() {
   const theme = useTheme();
   const [searchParams] = useSearchParams();
-  const { store: activeStore } = useExamTrack();
+  const { store: activeStore, activeTrack } = useExamTrack();
   const { progress, store } = useProgress(activeStore);
 
   const lessons = getAllLessons().filter((l) => l.questions.length > 0);
 
-  const [topicFilter, setTopicFilter] = useState<TopicFilter>('all');
+  const [topicFilter, setTopicFilter] = useState<TopicFilter>(() =>
+    activeTrack.id === 'pstar' ? 'air-law' : 'all',
+  );
+
+  useEffect(() => {
+    setTopicFilter(activeTrack.id === 'pstar' ? 'air-law' : 'all');
+  }, [activeTrack.id]);
   const [selectedLessonId, setSelectedLessonId] = useState<string>(() => {
     const fromUrl = searchParams.get('lesson');
     if (fromUrl && lessons.some((l) => l.id === fromUrl)) return fromUrl;
@@ -118,7 +124,7 @@ export default function Exam() {
     return (
       <Container id="main-content" tabIndex={-1} maxWidth="md" sx={{ py: 4 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
-          Practice Quiz
+          {activeTrack.examHeading}
         </Typography>
         <Box
           sx={{
@@ -139,7 +145,7 @@ export default function Exam() {
   return (
     <Container id="main-content" tabIndex={-1} maxWidth="md" sx={{ py: 4 }}>
       <Typography variant="h4" sx={{ mb: 3 }}>
-        Practice Quiz
+        {activeTrack.examHeading}
       </Typography>
 
       {/* Inline confirm — replaces MUI Dialog */}

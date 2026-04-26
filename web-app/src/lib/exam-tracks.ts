@@ -10,6 +10,8 @@ export interface ExamTrack {
   name: string;
   /** One-line description shown in the dropdown */
   tagline: string;
+  /** Heading shown on the Exam practice page */
+  examHeading: string;
   status: TrackStatus;
   /** Hint shown on locked tracks explaining how to unlock */
   unlockHint?: string;
@@ -25,6 +27,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     code: 'PPL-A',
     name: 'Private Pilot · Aeroplane',
     tagline: 'Transport Canada Private Pilot Licence (Aeroplane)',
+    examHeading: 'Practice Quiz',
     status: 'active',
     lessonFilter: () => true,
   },
@@ -33,6 +36,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     code: 'PSTAR',
     name: 'Pre-Solo Standards',
     tagline: 'Pre-Solo Standard Test of Air Regulations',
+    examHeading: 'PSTAR Practice',
     status: 'active',
     lessonFilter: (l) => l.topic === 'air-law',
   },
@@ -41,6 +45,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     code: 'RROE',
     name: 'Radio Operator',
     tagline: 'Restricted Radiotelephone Operator Certificate (Aeronautical)',
+    examHeading: 'ROC-A Practice',
     status: 'active',
     lessonFilter: (l) => l.topic === 'radio',
   },
@@ -49,6 +54,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     code: 'PPL-H',
     name: 'Private Pilot · Helicopter',
     tagline: 'Transport Canada Private Pilot Licence (Helicopter)',
+    examHeading: 'Practice Quiz',
     status: 'coming-soon',
     lessonFilter: noLessons,
   },
@@ -57,6 +63,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     code: 'CPL-A',
     name: 'Commercial Pilot · Aeroplane',
     tagline: 'Transport Canada Commercial Pilot Licence (Aeroplane)',
+    examHeading: 'Practice Quiz',
     status: 'coming-soon',
     lessonFilter: noLessons,
   },
@@ -65,6 +72,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     code: 'IFR',
     name: 'Instrument Rating',
     tagline: 'Transport Canada Instrument Rating',
+    examHeading: 'Practice Quiz',
     status: 'coming-soon',
     lessonFilter: noLessons,
   },
@@ -73,6 +81,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     code: 'FI',
     name: 'Flight Instructor',
     tagline: 'Transport Canada Flight Instructor Rating',
+    examHeading: 'Practice Quiz',
     status: 'locked',
     unlockHint: 'Complete PPL-A and CPL-A first',
     lessonFilter: noLessons,
