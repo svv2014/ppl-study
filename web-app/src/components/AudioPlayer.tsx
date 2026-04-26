@@ -150,7 +150,7 @@ export default function AudioPlayer({ src, title, topic, lessonId }: AudioPlayer
   }
 
   return (
-    <Box tabIndex={0} onKeyDown={handleKeyDown} sx={{ my: 2, outline: 'none' }}>
+    <Box tabIndex={0} onKeyDown={handleKeyDown} sx={{ my: 2, outline: 'none', overflow: 'hidden' }}>
       <Box
         sx={{
           display: 'flex',
@@ -203,8 +203,8 @@ export default function AudioPlayer({ src, title, topic, lessonId }: AudioPlayer
           ))}
         </Select>
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0.5, sm: 1 } }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
           <IconButton
             onClick={handleSkipBack}
             aria-label="Skip back 15 seconds"
@@ -212,7 +212,7 @@ export default function AudioPlayer({ src, title, topic, lessonId }: AudioPlayer
           >
             <FastRewindIcon />
           </IconButton>
-          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1, display: { xs: 'none', sm: 'block' } }}>
             −15s
           </Typography>
         </Box>
@@ -222,12 +222,12 @@ export default function AudioPlayer({ src, title, topic, lessonId }: AudioPlayer
           preload="none"
           onLoadedMetadata={handleLoaded}
           onKeyDown={handleKeyDown}
-          style={{ flex: 1, display: 'block', minWidth: 0 }}
+          style={{ flex: 1, display: 'block', minWidth: 0, width: '100%' }}
         >
           <source src={src} type="audio/mp4" />
           Your browser does not support the audio element.
         </audio>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexShrink: 0 }}>
           <IconButton
             onClick={handleSkipForward}
             aria-label="Skip forward 15 seconds"
@@ -235,7 +235,7 @@ export default function AudioPlayer({ src, title, topic, lessonId }: AudioPlayer
           >
             <FastForwardIcon />
           </IconButton>
-          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1, display: { xs: 'none', sm: 'block' } }}>
             +15s
           </Typography>
         </Box>

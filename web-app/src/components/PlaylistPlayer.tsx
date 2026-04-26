@@ -255,7 +255,7 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
           ))}
         </Select>
       </Box>
-      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, mb: 1 }}>
+      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, mb: 1, justifyContent: { xs: 'center', sm: 'flex-start' } }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <IconButton
             onClick={handleSkipBack}
@@ -264,7 +264,7 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
           >
             <FastRewindIcon />
           </IconButton>
-          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1, display: { xs: 'none', sm: 'block' } }}>
             −15s
           </Typography>
         </Box>
@@ -276,7 +276,7 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
           >
             {isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
           </IconButton>
-          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1, display: { xs: 'none', sm: 'block' } }}>
             {isPlaying ? 'Pause' : 'Play'}
           </Typography>
         </Box>
@@ -288,7 +288,7 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
           >
             <FastForwardIcon />
           </IconButton>
-          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1 }}>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: 10, lineHeight: 1, display: { xs: 'none', sm: 'block' } }}>
             +15s
           </Typography>
         </Box>

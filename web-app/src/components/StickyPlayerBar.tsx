@@ -296,7 +296,7 @@ export default function StickyPlayerBar() {
       <Box
         sx={{
           overflow: 'hidden',
-          maxHeight: isExpanded ? 480 : 0,
+          maxHeight: isExpanded ? 'min(480px, 55vh)' : 0,
           transition: 'max-height 200ms ease-out',
           borderTop: isExpanded ? '1px solid' : 'none',
           borderColor: 'divider',

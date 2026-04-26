@@ -50,7 +50,7 @@ export default function PlaylistQueue({
         borderColor: 'divider',
         borderRadius: '4px',
         overflow: 'hidden',
-        maxHeight: 320,
+        maxHeight: { xs: 220, sm: 320 },
         overflowY: 'auto',
       }}
     >
