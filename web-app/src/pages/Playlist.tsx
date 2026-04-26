@@ -7,7 +7,8 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import PlaylistPlayer from '../components/PlaylistPlayer';
 import { getAllLessons, getLessonsByTopic } from '../lib/lesson-loader';
-import { TOPICS, TOPIC_LABELS, CURRICULUM } from '../lib/curriculum';
+import { TOPIC_LABELS, CURRICULUM } from '../lib/curriculum';
+import { useExamTrack } from '../context/ExamTrackContext';
 import type { Lesson } from '../lib/types';
 import { CURATED_PLAYLISTS } from '../data/curated-playlists';
 import { getUserPlaylists } from '../lib/user-playlists';
@@ -409,8 +410,10 @@ function NewPlaylistCard() {
 // ── Library index (no topic param) ────────────────────────────────────────
 
 function PlaylistLibrary() {
+  const { activeTrack } = useExamTrack();
+
   // Section 1: Topic playlists
-  const topicEntries: CardEntry[] = TOPICS.map((t) => {
+  const topicEntries: CardEntry[] = activeTrack.playlistTopics.map((t) => {
     const count = CURRICULUM.filter((s) => s.topic === t).length;
     return {
       id: t,
@@ -488,7 +491,7 @@ function PlaylistLibrary() {
           letterSpacing: '-0.015em',
         }}
       >
-        Playlist Library
+        {activeTrack.playlistHeading}
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 0 }}>
         Study by topic, follow a curated path, or build your own.
