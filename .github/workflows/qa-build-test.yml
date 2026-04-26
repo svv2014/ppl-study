@@ -1,10 +1,11 @@
-name: QA build test merge deploy
+name: QA build and test
 
-# Single end-to-end pipeline: when a reviewer labels the PR `ready-for-qa`,
-# we build + test, then merge the PR, then deploy main to Firebase Hosting —
-# all in one workflow run. No PAT needed, no cross-workflow chaining.
+# QA-only pipeline: when a reviewer labels the PR `ready-for-qa`,
+# we build + test. On success, we swap labels (ready-for-qa → qa-pass)
+# so the merge-handler can proceed. Deployment is handled separately by
+# deploy.yml, which triggers on push to main.
 #
-# Fails fast: if build/test fails, we label qa-fail and skip merge + deploy.
+# Fails fast: if build/test fails, we label qa-fail and stop.
 
 on:
   pull_request:
@@ -12,13 +13,12 @@ on:
 
 permissions:
   pull-requests: write
-  contents: write
+  contents: read
   checks: write
-  deployments: write
   statuses: write
 
 jobs:
-  qa-merge-deploy:
+  qa:
     if: github.event.label.name == 'ready-for-qa'
     runs-on: ubuntu-latest
     steps:
@@ -60,37 +60,13 @@ jobs:
             --repo ${{ github.repository }} \
             --body "QA build/test failed. See [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details."
 
-      # --- On success: squash-merge ---
-      - name: Merge PR
+      # --- On success: swap labels (ready-for-qa → qa-pass) ---
+      - name: Apply qa-pass
+        if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh pr merge ${{ github.event.pull_request.number }} \
+          gh pr edit ${{ github.event.pull_request.number }} \
             --repo ${{ github.repository }} \
-            --squash \
-            --delete-branch
-
-      # --- Then deploy from main (in same workflow — no cross-trigger needed) ---
-      - name: Checkout main (post-merge)
-        uses: actions/checkout@v4
-        with:
-          ref: main
-
-      - name: Install (main)
-        working-directory: web-app
-        run: npm ci
-
-      - name: Build (main)
-        working-directory: web-app
-        run: npm run build
-
-      - name: Deploy to Firebase Hosting
-        # No repoToken: we deploy to `live` channel only — no PR preview comment
-        # needed. Avoids the "Resource not accessible by integration" failure
-        # that happens when the action tries to write a check/comment using
-        # GITHUB_TOKEN after the PR is already merged.
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SUPRUN_CA }}'
-          channelId: live
-          projectId: suprun-ca
+            --remove-label ready-for-qa \
+            --add-label qa-pass
