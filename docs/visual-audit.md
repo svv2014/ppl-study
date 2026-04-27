@@ -36,29 +36,32 @@ Eight criteria extracted from `docs/visuals-standards.md` and `CLAUDE.md`:
 | Metric | Count |
 |--------|-------|
 | Total visuals audited | 60 |
-| **Pass** | **45** |
-| **Borderline** | **14** |
-| **Needs-rebuild** | **1** |
+| **Pass** | **44** |
+| **Borderline** | **13** |
+| **Needs-rebuild** | **2** |
 
 ### By subject area
 
 | Subject | Total | Pass | Borderline | Needs-rebuild |
 |---------|------:|-----:|-----------:|--------------:|
-| Air Law (AL-001 – AL-018) | 18 | 17 | 1 | 0 |
+| Air Law (AL-001 – AL-018) | 18 | 17 | 0 | 1 |
 | General Knowledge (GK-001 – GK-014) | 14 | 0 | 13 | 1 |
 | Meteorology (MET-001 – MET-014) | 14 | 14 | 0 | 0 |
 | Navigation (NAV-001 – NAV-014) | 14 | 14 | 0 | 0 |
-| **Total** | **60** | **45** | **14** | **1** |
+| **Total** | **60** | **44** | **13** | **2** |
 
 ### Borderline root causes
 
-All 14 borderline files fail **C1 only** — the `_common.css` stylesheet is linked via a relative path (`href="_common.css"`) instead of the canonical absolute path (`href="/visuals/_common.css"`). This affects every file in the `gk*` series. The relative path works correctly when pages are served from `/visuals/` via Firebase Hosting, but violates the spec and would break in any off-origin context (iframe, direct file open, testing). AL-006 is borderline for a different single-criterion reason (see table).
+All 13 borderline files fail **C1 only** — the `_common.css` stylesheet is linked via a relative path (`href="_common.css"`) instead of the canonical absolute path (`href="/visuals/_common.css"`). This affects every file in the `gk*` series (except GK-006, which is needs-rebuild). The relative path works correctly when pages are served from `/visuals/` via Firebase Hosting, but violates the spec and would break in any off-origin context (iframe, direct file open, testing).
 
-### Needs-rebuild root cause
+### Needs-rebuild root causes
 
 **GK-006** (`gk006-pitot-static-instruments.html`) fails two criteria:
 - **C1** — relative stylesheet path
 - **C8** — the system plumbing diagram represents the ASI, Altimeter, and VSI as plain `<rect>` + small `<circle>` + 3-letter text label. These schematic wireframe symbols do not constitute recognisable gauge faces. The separate ASI speed-arc diagram lower on the page IS a proper recognisable gauge, but the primary system diagram leaves the instrument faces unrecognisable to a student meeting them for the first time.
+
+**AL-006** (`al006-aerodrome-traffic-circuit.html`) fails one readability criterion:
+- **C5** — the aerodrome traffic circuit is rendered as a CSS text-grid with directional arrows only; no SVG drawn flight-path arcs convey the spatial circuit geometry. C5 is a readability criterion; by the status rules above, any readability/teaching criterion failure mandates needs-rebuild regardless of how many criteria fail.
 
 ---
 
@@ -71,7 +74,7 @@ All 14 borderline files fail **C1 only** — the `_common.css` stylesheet is lin
 | `web-app/public/visuals/al003-vfr-weather-minimums.html` | AL-003 | Air Law | **pass** | Meets all 8 criteria; `--info` token tints documented as data-encoding for cloud-clearance values |
 | `web-app/public/visuals/al004-altimeter-settings.html` | AL-004 | Air Law | **pass** | Meets all 8 criteria; uses CSS token variables throughout |
 | `web-app/public/visuals/al005-right-of-way-rules.html` | AL-005 | Air Law | **pass** | Meets all 8 criteria; colour hierarchy paired with numbered labels |
-| `web-app/public/visuals/al006-aerodrome-traffic-circuit.html` | AL-006 | Air Law | **borderline** | Fails C5 (minor): circuit pattern conveyed via CSS text-grid with directional arrows only; no SVG drawn flight-path arcs to reinforce the spatial circuit geometry |
+| `web-app/public/visuals/al006-aerodrome-traffic-circuit.html` | AL-006 | Air Law | **needs-rebuild** | Fails C5 (readability): circuit pattern conveyed via CSS text-grid with directional arrows only; no SVG drawn flight-path arcs to reinforce the spatial circuit geometry — C5 is a readability criterion, mandating needs-rebuild |
 | `web-app/public/visuals/al007-radio-communications.html` | AL-007 | Air Law | **pass** | Meets all 8 criteria; light-gun colour table paired with text descriptions |
 | `web-app/public/visuals/al008-atc-services-clearances.html` | AL-008 | Air Law | **pass** | Meets all 8 criteria; design-exception hex values for handoff-row tints are commented |
 | `web-app/public/visuals/al009-flight-plans-itineraries.html` | AL-009 | Air Law | **pass** | Meets all 8 criteria; token variables used throughout |
