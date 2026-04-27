@@ -17,6 +17,8 @@ export interface ExamTrack {
   byline: string;
   /** Main hero heading text */
   heroHeading: string;
+  /** Optional phrase within heroHeading to render in primary.main amber; a <br /> is inserted after it */
+  heroHeadingAccent?: string;
   /** Hero subtitle / description paragraph */
   heroSubtitle: string;
   /** Short credibility tag shown below the subtitle */
@@ -36,6 +38,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     status: 'active',
     byline: 'Pre-Flight Briefing · 20 Min / Day',
     heroHeading: 'Pass the PPL written exam. Twenty minutes a day.',
+    heroHeadingAccent: 'PPL written',
     heroSubtitle: 'Structured lessons covering PSTAR and the full Transport Canada syllabus. Audio-first, exam-weighted.',
     credibilityTag: 'Covers PSTAR & PPL written exam',
     lessonFilter: () => true,

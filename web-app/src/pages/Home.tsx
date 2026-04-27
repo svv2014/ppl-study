@@ -18,6 +18,21 @@ import { useSRSStore } from '../hooks/useSRSStore';
 
 const MONO = typographyTokens.fontFamily.mono;
 
+function renderAccentedHeading(heading: string, accent: string) {
+  const idx = heading.indexOf(accent);
+  if (idx === -1) return heading;
+  const before = heading.slice(0, idx);
+  const after = heading.slice(idx + accent.length);
+  return (
+    <>
+      {before}
+      <Box component="span" sx={{ color: 'primary.main' }}>{accent}</Box>
+      <br />
+      {after}
+    </>
+  );
+}
+
 const TOPIC_CONFIG = [
   { key: 'air-law' as const, code: 'AL', label: 'Air Law', weight: 0.30 },
   { key: 'navigation' as const, code: 'NAV', label: 'Navigation', weight: 0.25 },
@@ -140,9 +155,11 @@ export default function Home() {
               component="h1"
               sx={{ mb: '14px' }}
             >
-              {activeTrack.heroHeading}
+              {activeTrack.heroHeadingAccent
+                ? renderAccentedHeading(activeTrack.heroHeading, activeTrack.heroHeadingAccent)
+                : activeTrack.heroHeading}
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 1.5, maxWidth: 460 }}>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 2.5, maxWidth: 460 }}>
               {activeTrack.heroSubtitle}
             </Typography>
             <Box sx={{ fontFamily: MONO, fontSize: '11px', color: 'text.secondary', letterSpacing: '0.12em', mb: 2, textTransform: 'uppercase' }}>
