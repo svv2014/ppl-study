@@ -7,7 +7,7 @@ title: "Radio Regulatory Framework — Radiocommunication Act and ROC-A"
 duration_min: 20
 status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/radio/008-regulatory-framework.m4a
-visual: ''
+visual: '/visuals/roc008-regulatory-framework.html'
 sources:
   - Radiocommunication Act R.S.C. 1985 c. R-2
   - ISED RIC-21

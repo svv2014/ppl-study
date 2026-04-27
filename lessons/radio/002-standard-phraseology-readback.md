@@ -7,7 +7,7 @@ title: "Standard Phraseology and Readback Requirements"
 duration_min: 20
 status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/radio/002-standard-phraseology-readback.m4a
-visual: ''
+visual: '/visuals/roc002-standard-phraseology-readback.html'
 sources:
   - ISED RIC-21
   - AIM COM 4.0

@@ -7,7 +7,7 @@ title: "Position Reporting — MF and ATF Procedures"
 duration_min: 20
 status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/radio/004-position-reporting.m4a
-visual: ''
+visual: '/visuals/roc004-position-reporting.html'
 sources:
   - AIM RAC 4.5
   - AIM RAC 4.4

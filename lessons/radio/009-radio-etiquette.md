@@ -7,7 +7,7 @@ title: "Radio Etiquette and Professional Practice"
 duration_min: 20
 status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/radio/009-radio-etiquette.m4a
-visual: ''
+visual: '/visuals/roc009-radio-etiquette.html'
 sources:
   - ISED RIC-21
   - AIM COM 4.0

@@ -7,7 +7,7 @@ title: "Emergency Communications"
 duration_min: 20
 status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/radio/006-emergency-comms.m4a
-visual: ''
+visual: '/visuals/roc006-emergency-comms.html'
 sources:
   - AIM SAR 3.0
   - AIM COM 4.0
