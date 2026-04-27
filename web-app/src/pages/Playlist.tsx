@@ -412,20 +412,26 @@ function NewPlaylistCard() {
 function PlaylistLibrary() {
   const { activeTrack } = useExamTrack();
 
-  // Section 1: Topic playlists
-  const topicEntries: CardEntry[] = activeTrack.playlistTopics.map((t) => {
-    const count = CURRICULUM.filter((s) => s.topic === t).length;
-    return {
-      id: t,
-      name: TOPIC_LABELS[t],
-      tagline: TOPIC_TAGLINES[t],
-      lessonCount: count,
-      durationMin: count * 20,
-      href: `/playlist/topic/${t}`,
-      coverCode: TOPIC_CODES[t],
-      coverAngle: TOPIC_COVER_ANGLES[t],
-    };
-  });
+  // Section 1: Topic playlists — only show topics that have at least one audio lesson
+  const allLessons = getAllLessons();
+  const topicEntries: CardEntry[] = activeTrack.playlistTopics
+    .filter((t) => allLessons.some((l) => l.topic === t && l.audio !== null))
+    .map((t) => {
+      const audioCount = allLessons.filter((l) => l.topic === t && l.audio !== null).length;
+      const durationMin = allLessons
+        .filter((l) => l.topic === t && l.audio !== null)
+        .reduce((sum, l) => sum + (l.duration_min ?? 20), 0);
+      return {
+        id: t,
+        name: TOPIC_LABELS[t],
+        tagline: TOPIC_TAGLINES[t],
+        lessonCount: audioCount,
+        durationMin,
+        href: `/playlist/topic/${t}`,
+        coverCode: TOPIC_CODES[t],
+        coverAngle: TOPIC_COVER_ANGLES[t],
+      };
+    });
 
   // Section 2: Curated playlists
   const curatedEntries: CardEntry[] = CURATED_PLAYLISTS.map((p) => ({
