@@ -1,5 +1,12 @@
 import type { Lesson, Topic } from './types';
-import { TOPICS } from './curriculum';
+import { TOPICS, CURRICULUM } from './curriculum';
+
+/** Returns only topics that have at least one lesson with a non-null audio URL. */
+function topicsWithAudio(topics: readonly Topic[]): readonly Topic[] {
+  return topics.filter((topic) =>
+    CURRICULUM.some((slot) => slot.topic === topic && slot.audio !== null),
+  );
+}
 
 export interface Track {
   slug: string;
@@ -83,7 +90,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     heroSubtitle: 'Structured lessons covering PSTAR and the full Transport Canada syllabus. Audio-first, exam-weighted.',
     credibilityTag: 'Covers PSTAR & PPL written exam',
     lessonFilter: () => true,
-    playlistTopics: TOPICS,
+    playlistTopics: topicsWithAudio(TOPICS),
     playlistHeading: 'Study Playlist',
   },
   {
