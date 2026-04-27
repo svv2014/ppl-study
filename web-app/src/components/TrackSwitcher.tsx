@@ -1,213 +1,99 @@
-import { useState, useMemo } from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Snackbar from '@mui/material/Snackbar';
-import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import AddIcon from '@mui/icons-material/Add';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import LockIcon from '@mui/icons-material/Lock';
-import { useExamTrack } from '../context/ExamTrackContext';
-import { getLessonsByTrack } from '../lib/lesson-loader';
+import Tooltip from '@mui/material/Tooltip';
+import { useTrack } from '../context/TrackContext';
+import { TRACKS } from '../lib/exam-tracks';
+
+const CHIP_BASE = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  px: '10px',
+  py: '4px',
+  minHeight: '28px',
+  borderRadius: '100px',
+  border: '1px solid',
+  fontSize: '0.625rem',
+  fontWeight: 600,
+  letterSpacing: '0.08em',
+  textTransform: 'uppercase' as const,
+  fontFamily: 'inherit',
+  lineHeight: 1.4,
+  whiteSpace: 'nowrap',
+  transition: 'background-color 0.15s, border-color 0.15s, color 0.15s',
+} as const;
 
 export default function TrackSwitcher() {
-  const theme = useTheme();
-  const { activeTrack, setActiveTrack, availableTracks, trackProgress } = useExamTrack();
-
-  const progressPct = useMemo(() => {
-    const trackLessons = getLessonsByTrack(activeTrack.id);
-    if (trackLessons.length === 0) return 0;
-    const trackIds = new Set(trackLessons.map((l) => l.id));
-    const done = trackProgress.completed.filter((id) => trackIds.has(id)).length;
-    return Math.round((done / trackLessons.length) * 100);
-  }, [activeTrack.id, trackProgress.completed]);
-  const [anchor, setAnchor] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchor);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-
-  const handleOpen = (e: React.MouseEvent<HTMLElement>) => setAnchor(e.currentTarget);
-  const handleClose = () => setAnchor(null);
-
-  const handleSelect = (trackId: string) => {
-    setActiveTrack(trackId);
-    handleClose();
-  };
-
-  const showComingSoon = (trackName: string) => {
-    setSnackbarMessage(`${trackName} is coming soon — check back later`);
-    setSnackbarOpen(true);
-  };
+  const { activeTrack, setActiveTrack } = useTrack();
 
   return (
-    <>
-      <Button
-        onClick={handleOpen}
-        aria-haspopup="menu"
-        aria-expanded={open}
-        aria-label={`Active exam track: ${activeTrack.name}. Click to switch.`}
-        endIcon={<ExpandMoreIcon sx={{ fontSize: '0.875rem !important', ml: -0.5 }} />}
-        sx={{
-          borderRadius: '999px',
-          px: 1.5,
-          py: 0.375,
-          fontSize: '0.6875rem',
-          fontWeight: 600,
-          letterSpacing: '0.06em',
-          textTransform: 'uppercase',
-          color: theme.palette.primary.main,
-          border: `1px solid ${theme.palette.primary.main}`,
-          minWidth: 0,
-          whiteSpace: 'nowrap',
-          lineHeight: 1.5,
-          '&:hover': {
-            backgroundColor: theme.palette.primaryMuted,
-            borderColor: theme.palette.primary.main,
-          },
-        }}
-      >
-        {activeTrack.code} · {progressPct}%
-      </Button>
+    <Box
+      role="group"
+      aria-label="Exam track"
+      sx={{ display: 'flex', flexWrap: 'wrap', gap: '6px', minWidth: 0 }}
+    >
+      {TRACKS.map((track) => {
+        const isActive = track.slug === activeTrack.slug;
+        const isComingSoon = track.status === 'coming-soon';
 
-      <Menu
-        anchorEl={anchor}
-        open={open}
-        onClose={handleClose}
-        slotProps={{
-          paper: {
-            sx: {
-              minWidth: 240,
-              maxWidth: 'min(280px, calc(100vw - 32px))',
-              backgroundColor: theme.palette.background.paper,
-              border: `1px solid ${theme.palette.divider}`,
-              backgroundImage: 'none',
-            },
-          },
-        }}
-      >
-        <Box sx={{ px: 2, pt: 1.5, pb: 0.75 }}>
-          <Typography
-            variant="overline"
-            color="text.secondary"
-            sx={{ fontSize: '0.625rem', letterSpacing: '0.12em' }}
-          >
-            Exam Track
-          </Typography>
-        </Box>
-
-        {availableTracks.map((track) => {
-          const isActiveTrack = track.id === activeTrack.id;
-          const isSelectable = track.status === 'active';
-          const isComingSoon = track.status === 'coming-soon';
-          const isLocked = track.status === 'locked';
-
-          const handleClick = isSelectable
-            ? () => handleSelect(track.id)
-            : isComingSoon
-              ? () => showComingSoon(track.name)
-              : undefined;
-
-          const handleKeyDown = (e: React.KeyboardEvent) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              if (isComingSoon) showComingSoon(track.name);
-            }
-          };
-
+        if (isComingSoon) {
           return (
-            <MenuItem
-              key={track.id}
-              onClick={handleClick}
-              onKeyDown={isComingSoon || isLocked ? handleKeyDown : undefined}
-              selected={isActiveTrack}
-              disableRipple={!isSelectable}
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                gap: 1,
-                py: 1,
-                cursor: isSelectable ? 'pointer' : 'default',
-                '&.Mui-selected': {
-                  backgroundColor: theme.palette.primaryMuted,
-                  '&:hover': { backgroundColor: theme.palette.primaryMuted },
-                },
-                '&:hover': {
-                  backgroundColor: isSelectable ? theme.palette.primaryMuted : 'transparent',
-                },
-              }}
+            <Tooltip
+              key={track.slug}
+              title={`${track.label} — coming soon`}
+              placement="bottom"
             >
-              <Box sx={{ minWidth: 0 }}>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    fontWeight: isActiveTrack ? 600 : 400,
-                    color: isSelectable ? 'text.primary' : 'text.disabled',
-                    lineHeight: 1.3,
-                  }}
+              {/* span wrapper required: Tooltip doesn't receive events on disabled buttons */}
+              <span style={{ display: 'inline-flex' }}>
+                <Box
+                  component="button"
+                  disabled
+                  aria-label={`${track.label} — coming soon`}
+                  sx={(theme) => ({
+                    ...CHIP_BASE,
+                    cursor: 'default',
+                    borderColor: theme.palette.divider,
+                    backgroundColor: 'transparent',
+                    color: theme.palette.text.disabled,
+                  })}
                 >
-                  {track.name}
-                </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ lineHeight: 1.2 }}>
-                  {track.tagline}
-                </Typography>
-                {isLocked && track.unlockHint && (
-                  <Typography
-                    variant="caption"
-                    color="text.disabled"
-                    sx={{ lineHeight: 1.2, fontStyle: 'italic', display: 'block' }}
-                  >
-                    {track.unlockHint}
-                  </Typography>
-                )}
-              </Box>
-              {isLocked && (
-                <LockIcon sx={{ fontSize: '1rem', color: 'text.disabled', flexShrink: 0 }} />
-              )}
-              {isComingSoon && (
-                <Chip
-                  label="Soon"
-                  size="small"
-                  sx={{
-                    fontSize: '0.5625rem',
-                    height: 16,
-                    flexShrink: 0,
-                    backgroundColor: theme.palette.background.surfaceRaised,
-                    color: theme.palette.text.secondary,
-                    '& .MuiChip-label': { px: 0.75 },
-                  }}
-                />
-              )}
-            </MenuItem>
+                  {track.shortLabel}
+                </Box>
+              </span>
+            </Tooltip>
           );
-        })}
+        }
 
-        <Divider sx={{ my: 0.5 }} />
-
-        <MenuItem
-          disabled
-          sx={{
-            opacity: '0.45 !important',
-            py: 0.875,
-          }}
-        >
-          <AddIcon sx={{ fontSize: '1rem', mr: 1, color: 'text.secondary' }} />
-          <Typography variant="body2" color="text.secondary">
-            Add another track
-          </Typography>
-        </MenuItem>
-      </Menu>
-
-      <Snackbar
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={() => setSnackbarOpen(false)}
-        message={snackbarMessage}
-      />
-    </>
+        return (
+          <Box
+            key={track.slug}
+            component="button"
+            onClick={() => setActiveTrack(track.slug)}
+            aria-pressed={isActive}
+            aria-label={track.label}
+            sx={(theme) => ({
+              ...CHIP_BASE,
+              cursor: 'pointer',
+              ...(isActive
+                ? {
+                    borderColor: theme.palette.primary.main,
+                    backgroundColor: theme.palette.primaryMuted,
+                    color: theme.palette.primary.main,
+                  }
+                : {
+                    borderColor: theme.palette.divider,
+                    backgroundColor: 'transparent',
+                    color: theme.palette.text.secondary,
+                    '&:hover': {
+                      borderColor: theme.palette.primary.main,
+                      color: theme.palette.primary.main,
+                      backgroundColor: theme.palette.primaryMuted,
+                    },
+                  }),
+            })}
+          >
+            {track.shortLabel}
+          </Box>
+        );
+      })}
+    </Box>
   );
 }
