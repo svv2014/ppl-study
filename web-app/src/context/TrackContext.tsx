@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import type { Track } from '../lib/exam-tracks';
 import { TRACKS, DEFAULT_TRACK_SLUG } from '../lib/exam-tracks';
 
-const LS_KEY = 'ppl-active-track';
+const LS_KEY = 'ppl.active-track';
 
 function readSlug(): string {
   try {
@@ -34,6 +34,16 @@ export function TrackProvider({ children }: { children: React.ReactNode }) {
     }
     setActiveTrackState(findTrack(slug));
   };
+
+  useEffect(() => {
+    function onStorage(e: StorageEvent) {
+      if (e.key === LS_KEY && e.newValue) {
+        setActiveTrackState(findTrack(e.newValue));
+      }
+    }
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
+  }, []);
 
   return (
     <TrackContext.Provider value={{ activeTrack, setActiveTrack }}>
