@@ -36,7 +36,7 @@ Eight criteria extracted from `docs/visuals-standards.md` and `CLAUDE.md`:
 | Metric | Count |
 |--------|-------|
 | Total visuals audited | 60 |
-| **Pass** | **44** |
+| **Pass** | **45** |
 | **Borderline** | **13** |
 | **Needs-rebuild** | **2** |
 
@@ -48,7 +48,7 @@ Eight criteria extracted from `docs/visuals-standards.md` and `CLAUDE.md`:
 | General Knowledge (GK-001 – GK-014) | 14 | 0 | 13 | 1 |
 | Meteorology (MET-001 – MET-014) | 14 | 14 | 0 | 0 |
 | Navigation (NAV-001 – NAV-014) | 14 | 14 | 0 | 0 |
-| **Total** | **60** | **44** | **13** | **2** |
+| **Total** | **60** | **45** | **13** | **2** |
 
 ### Borderline root causes
 
