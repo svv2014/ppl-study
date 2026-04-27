@@ -7,9 +7,10 @@
 <title>ROC-006: Emergency Communications</title>
 <style>
   /* ── Squawk code tiles — data-encoding domain colours ─────────────────
-   * 7700 Emergency: red — immediate grave danger
-   * 7600 Lost comms: amber — impaired but not immediately lethal
-   * 7500 Hijacking: orange — unlawful interference
+   * 7500 Hijacking:  red   (#e05050) — unlawful interference
+   * 7600 Lost comms: white (#e4ecf5) — radio failure
+   * 7700 Emergency:  amber (#f0c040) — immediate grave danger
+   * Colours match roc-ref-emergency.html (merged PR #364).
    */
   .sq-grid {
     display: grid;
@@ -18,19 +19,19 @@
     margin-bottom: 32px;
   }
   .sq-card { border-radius: 8px; padding: 18px 14px; text-align: center; border: 2px solid; }
-  .sq-7700 { background: rgba(224,80,80,0.15); border-color: #e05050; }
-  .sq-7600 { background: rgba(240,192,64,0.12); border-color: #f0c040; }
-  .sq-7500 { background: rgba(224,140,40,0.15); border-color: #e08828; }
+  .sq-7700 { background: rgba(240,192,64,0.12); border-color: #f0c040; }
+  .sq-7600 { background: rgba(228,236,245,0.08); border-color: rgba(228,236,245,0.40); }
+  .sq-7500 { background: rgba(224,80,80,0.15); border-color: #e05050; }
 
   .sq-code { font-size: 32px; font-weight: 900; letter-spacing: 3px; display: block; line-height: 1; margin-bottom: 8px; font-variant-numeric: tabular-nums; }
-  .sq-7700 .sq-code { color: #e05050; }
-  .sq-7600 .sq-code { color: #f0c040; }
-  .sq-7500 .sq-code { color: #e08828; }
+  .sq-7700 .sq-code { color: #f0c040; }
+  .sq-7600 .sq-code { color: #e4ecf5; }
+  .sq-7500 .sq-code { color: #e05050; }
 
   .sq-name { font-size: 13px; font-weight: 700; display: block; margin-bottom: 6px; }
-  .sq-7700 .sq-name { color: #e05050; }
-  .sq-7600 .sq-name { color: #f0c040; }
-  .sq-7500 .sq-name { color: #e08828; }
+  .sq-7700 .sq-name { color: #f0c040; }
+  .sq-7600 .sq-name { color: #e4ecf5; }
+  .sq-7500 .sq-name { color: #e05050; }
 
   .sq-desc { font-size: 11px; color: var(--text-muted); line-height: 1.5; }
 
@@ -215,9 +216,9 @@
 
 <div class="hook-box">
   <h2>Memory Hook</h2>
-  <div class="hook-row"><span class="hook-badge" style="background:#3a0a0a;color:#e05050;border-color:#e05050;">7700</span><span class="hook-text"><strong>Emergency</strong> — immediate danger. Set on MAYDAY declaration.</span></div>
-  <div class="hook-row"><span class="hook-badge" style="background:#3a3000;color:#f0c040;border-color:#f0c040;">7600</span><span class="hook-text"><strong>Lost comms</strong> — radio failure. ATC provides light signals.</span></div>
-  <div class="hook-row"><span class="hook-badge" style="background:#3a1e00;color:#e08828;border-color:#e08828;">7500</span><span class="hook-text"><strong>Hijacking</strong> — unlawful interference. Do not confirm verbally.</span></div>
+  <div class="hook-row"><span class="hook-badge" style="background:#3a3000;color:#f0c040;border-color:#f0c040;">7700</span><span class="hook-text"><strong>Emergency</strong> — immediate danger. Set on MAYDAY declaration.</span></div>
+  <div class="hook-row"><span class="hook-badge" style="background:rgba(228,236,245,0.08);color:#e4ecf5;border-color:rgba(228,236,245,0.40);">7600</span><span class="hook-text"><strong>Lost comms</strong> — radio failure. ATC provides light signals.</span></div>
+  <div class="hook-row"><span class="hook-badge" style="background:#3a0a0a;color:#e05050;border-color:#e05050;">7500</span><span class="hook-text"><strong>Hijacking</strong> — unlawful interference. Do not confirm verbally.</span></div>
   <div class="hook-row"><span class="hook-badge">MAYDAY</span><span class="hook-text">= imminent danger &nbsp;|&nbsp; PAN PAN = urgency. Give: position · nature · intentions · souls · fuel.</span></div>
   <div class="hook-row"><span class="hook-badge">121.5</span><span class="hook-text">Emergency frequency — always try this if working frequency fails.</span></div>
 </div>

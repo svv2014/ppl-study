@@ -11,7 +11,7 @@
    * Flashing green = conditional clearance           (#4caf7d, semi-opaque)
    * Steady red     = stop / do not land              (#e05050)
    * Flashing red   = danger / clear area             (#e05050, semi-opaque)
-   * Flashing white = administrative / return         (#e4ecf5, semi-opaque)
+   * Flashing white = return to starting point        (#e4ecf5, semi-opaque)
    * Alt red+green  = extreme caution                 (split)
    */
   .sig-dot {
@@ -90,7 +90,7 @@
       <tr>
         <td><div class="sig-cell"><span class="sig-dot sig-white-f" aria-label="Flashing white"></span><span class="sig-name">Flashing White <span class="flash-indicator">●●●</span></span></div></td>
         <td>Flashing white</td>
-        <td><span class="m-admin">Not used for aircraft in flight</span></td>
+        <td><span class="m-admin">Return to starting point on the aerodrome</span></td>
       </tr>
       <tr>
         <td><div class="sig-cell"><span class="sig-dot sig-alt" aria-label="Alternating red and green"></span><span class="sig-name">Alternating Red/Green</span></div></td>
@@ -164,7 +164,7 @@
   <strong>Colour is the primary cue:</strong>
   <span style="color:#4caf7d;font-weight:700;">Green = go/proceed</span> ·
   <span style="color:#e05050;font-weight:700;">Red = stop/danger</span> ·
-  <span style="color:#e4ecf5;font-weight:600;">White = administrative (ground only)</span>.
+  <span style="color:#e4ecf5;font-weight:600;">White = administrative (return to starting point)</span>.
   Steady = immediate action. Flashing = conditional or upcoming action. Alternating red/green = extreme caution regardless of phase.
 </div>
 
@@ -174,7 +174,7 @@
   <div class="hook-row"><span class="hook-badge" style="background:rgba(76,175,125,0.1);color:#80c880;border-color:#4caf7d;">Flash G</span><span class="hook-text">In flight: <strong>return for landing</strong> · On ground: <strong>cleared to taxi</strong></span></div>
   <div class="hook-row"><span class="hook-badge" style="background:rgba(224,80,80,0.2);color:#e05050;border-color:#e05050;">Steady R</span><span class="hook-text">In flight: <strong>give way, keep circling</strong> · On ground: <strong>stop</strong></span></div>
   <div class="hook-row"><span class="hook-badge" style="background:rgba(224,80,80,0.1);color:#f08080;border-color:#e05050;">Flash R</span><span class="hook-text">In flight: <strong>aerodrome unsafe, don't land</strong> · On ground: <strong>clear runway</strong></span></div>
-  <div class="hook-row"><span class="hook-badge" style="background:rgba(228,236,245,0.1);color:#b0bfcc;border-color:#6070808;">Flash W</span><span class="hook-text">In flight: N/A · On ground: <strong>return to start</strong></span></div>
+  <div class="hook-row"><span class="hook-badge" style="background:rgba(228,236,245,0.1);color:#b0bfcc;border-color:#607080;">Flash W</span><span class="hook-text">In flight: <strong>return to starting point</strong> · On ground: <strong>return to starting point</strong></span></div>
   <div class="hook-row"><span class="hook-badge" style="background:linear-gradient(135deg,rgba(224,80,80,0.2) 50%,rgba(76,175,125,0.2) 50%);color:var(--text);border-color:var(--border-hi);">Alt R/G</span><span class="hook-text"><strong>Extreme caution</strong> — both phases</span></div>
 </div>
 
