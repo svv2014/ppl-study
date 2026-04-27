@@ -9,10 +9,21 @@ page.
 
 ## Canonical style sample
 
-`web-app/public/visuals/al001-airspace-classifications.html`
+Two exemplar files cover the two main visual archetypes:
 
-All new visuals must match the look and structure of this file. Read it before
-authoring a new one.
+- **Spatial diagram exemplar** — `web-app/public/visuals/al006-aerodrome-traffic-circuit.html`
+  Top-down plan-view SVG with circuit path (amber `var(--accent)`), labelled legs,
+  altitude annotations, ATC radio-call markers, and inline generic aircraft silhouettes.
+  Use this as the model for any spatial or diagrammatic visual.
+
+- **Reference table exemplar** — `web-app/public/visuals/al001-airspace-classifications.html`
+  Colour-coded layer stack, requirements matrix table, and memory-hook panel.
+  Use this as the model for tabular reference visuals.
+
+Read the relevant exemplar before authoring a new visual. If your visual is primarily
+spatial (circuit patterns, airspace cross-sections, instrument layouts), model it on
+`al006`. If it is primarily tabular (weather minimums, equipment requirements, class
+comparisons), model it on `al001`.
 
 ## Template
 
