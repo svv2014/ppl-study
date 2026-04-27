@@ -1,6 +1,39 @@
 import type { Lesson, Topic } from './types';
 import { TOPICS } from './curriculum';
 
+export interface Track {
+  slug: string;
+  label: string;
+  shortLabel: string;
+  description: string;
+  heroHeading: string;
+  heroSubtitle: string;
+  status: 'active' | 'coming-soon';
+}
+
+export const DEFAULT_TRACK_SLUG = 'ppl-a';
+
+export const TRACKS: Track[] = [
+  {
+    slug: 'ppl-a',
+    label: 'Private Pilot · Aeroplane',
+    shortLabel: 'PPL-A',
+    description: 'Transport Canada Private Pilot Licence (Aeroplane)',
+    heroHeading: 'Pass the Canadian PPL written exam — 20 minutes a day',
+    heroSubtitle: 'Structured lessons covering PSTAR and the full Transport Canada PPL syllabus.',
+    status: 'active',
+  },
+  {
+    slug: 'pstar',
+    label: 'Pre-Solo Standards',
+    shortLabel: 'PSTAR',
+    description: 'Pre-Solo Standard Test of Air Regulations',
+    heroHeading: 'Pass the PSTAR — Pre-Solo Standard Test of Air Regulations',
+    heroSubtitle: 'Air Law focus. 50 questions, 40 minutes, 90% pass mark.',
+    status: 'active',
+  },
+];
+
 export type TrackStatus = 'active' | 'coming-soon' | 'locked';
 
 export interface ExamTrack {

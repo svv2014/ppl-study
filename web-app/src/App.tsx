@@ -4,6 +4,7 @@ import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { buildTheme } from './theme';
 import { useThemeMode } from './context/ThemeModeContext';
 import { useStickyPlayer } from './context/StickyPlayerContext';
+import { TrackProvider } from './context/TrackContext';
 import Nav from './components/Nav';
 import StickyPlayerBar from './components/StickyPlayerBar';
 import Home from './pages/Home';
@@ -67,6 +68,7 @@ export default function App() {
   const railWidth = collapsed ? RAIL_COLLAPSED : RAIL_EXPANDED;
 
   return (
+    <TrackProvider>
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
@@ -132,5 +134,6 @@ export default function App() {
         </Box>
       </BrowserRouter>
     </ThemeProvider>
+    </TrackProvider>
   );
 }
