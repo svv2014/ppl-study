@@ -18,11 +18,11 @@ questions:
     prompt: "Using the ICAO phonetic alphabet, how do you correctly say the aircraft registration C-FXYZ on initial radio contact?"
     choices:
       A: "Charlie Foxtrot X-ray Yankee Zulu"
-      B: "Seefox Zulu"
+      B: "X-ray Yankee Zulu"
       C: "See Eff Ecks Why Zee"
       D: "Charlie Fox X-ray Yankee Zero"
     answer: A
-    explanation: "The ICAO phonetic alphabet spells each letter using a standardized word: C = Charlie, F = Foxtrot, X = X-ray, Y = Yankee, Z = Zulu. On initial contact you use the full phonetic spelling of each letter. Source: AIM COM 5.0, TP 12880E."
+    explanation: "The ICAO phonetic alphabet spells each letter using a standardized word: C = Charlie, F = Foxtrot, X = X-ray, Y = Yankee, Z = Zulu. On initial contact all five letters must be said phonetically using the full call sign. ATC may later shorten it to the last three letters (e.g., X-ray Yankee Zulu), but you must not use the abbreviated form until ATC has used it first. Source: AIM COM 5.0, TP 12880E."
   - id: q2
     prompt: "ATC issues you a clearance: 'Cessna Golf Bravo Romeo, cleared to land runway 27, wind 260 at 12.' You must read back:"
     choices:
