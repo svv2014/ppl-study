@@ -95,7 +95,7 @@ export default function Home() {
       const slots = CURRICULUM.filter((s) => s.topic === key);
       const done = slots.filter((s) => trackProgress.completed.includes(s.id)).length;
       const pct = slots.length > 0 ? Math.round((done / slots.length) * 100) : 0;
-      return { code, label, weight: weight / totalWeight, pct, done, total: slots.length };
+      return { code, label, topic: key, weight: weight / totalWeight, pct, done, total: slots.length };
     });
   }, [activeTopicConfig, trackProgress.completed]);
 
