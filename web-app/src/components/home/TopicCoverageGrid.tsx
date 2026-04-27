@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
+import { Link as RouterLink } from 'react-router-dom';
 import { typographyTokens } from '../../tokens';
 import type { TopicStat } from './ReadinessGauge';
+import { getLessonsByTopic } from '../../lib/lesson-loader';
 
 const MONO = typographyTokens.fontFamily.mono;
 
@@ -17,15 +19,25 @@ export default function TopicCoverageGrid({ stats }: Props) {
         gap: '14px',
       }}
     >
-      {stats.map((s) => (
+      {stats.map((s) => {
+        const firstLesson = getLessonsByTopic(s.topic)[0];
+        const to = firstLesson ? `/lessons/${s.topic}/${firstLesson.slug}` : '/lessons';
+        return (
         <Box
           key={s.code}
+          component={RouterLink}
+          to={to}
           sx={{
+            display: 'block',
             bgcolor: 'background.paper',
             border: '1px solid',
             borderColor: 'divider',
             borderRadius: 1,
             p: 2,
+            textDecoration: 'none',
+            color: 'text.primary',
+            transition: 'border-color 0.15s',
+            '&:hover': { borderColor: 'primary.main' },
           }}
         >
           <Box sx={{ fontFamily: MONO, fontSize: '10px', color: 'text.secondary', letterSpacing: '0.1em' }}>
@@ -58,7 +70,8 @@ export default function TopicCoverageGrid({ stats }: Props) {
             <Box component="strong" sx={{ color: 'primary.main', fontWeight: 500 }}>{s.pct}%</Box>
           </Box>
         </Box>
-      ))}
+        );
+      })}
     </Box>
   );
 }

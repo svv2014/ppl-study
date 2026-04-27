@@ -1,7 +1,9 @@
 import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import { alpha } from '@mui/material/styles';
+import { Link as RouterLink } from 'react-router-dom';
 import { typographyTokens } from '../../tokens';
+import { getLessonsByTopic } from '../../lib/lesson-loader';
 
 const MONO = typographyTokens.fontFamily.mono;
 const R = 48;
@@ -10,6 +12,7 @@ const CIRCUMFERENCE = 2 * Math.PI * R;
 export interface TopicStat {
   code: string;
   label: string;
+  topic: string;
   weight: number;
   pct: number;
   done: number;
@@ -101,26 +104,54 @@ export default function ReadinessGauge({ weightedPct, topicStats }: Props) {
           </Box>
           <Box sx={{ fontFamily: MONO, fontSize: '11px', color: 'text.secondary', lineHeight: 1.9, mt: 0.75 }}>
             <Box>
-              {row1.map((s, i) => (
-                <Box key={s.code} component="span">
-                  {s.code}{' '}
-                  <Box component="span" sx={{ color: s.pct >= 70 ? 'success.main' : 'primary.main' }}>
-                    {s.pct}%
+              {row1.map((s, i) => {
+                const firstLesson = getLessonsByTopic(s.topic)[0];
+                const to = firstLesson ? `/lessons/${s.topic}/${firstLesson.slug}` : '/lessons';
+                return (
+                  <Box key={s.code} component="span">
+                    <Box
+                      component={RouterLink}
+                      to={to}
+                      sx={{
+                        color: 'inherit',
+                        textDecoration: 'none',
+                        '&:hover': { textDecoration: 'underline', color: 'primary.main' },
+                      }}
+                    >
+                      {s.code}{' '}
+                      <Box component="span" sx={{ color: s.pct >= 70 ? 'success.main' : 'primary.main' }}>
+                        {s.pct}%
+                      </Box>
+                    </Box>
+                    {i < row1.length - 1 && <Box component="span"> · </Box>}
                   </Box>
-                  {i < row1.length - 1 && <Box component="span"> · </Box>}
-                </Box>
-              ))}
+                );
+              })}
             </Box>
             <Box>
-              {row2.map((s, i) => (
-                <Box key={s.code} component="span">
-                  {s.code}{' '}
-                  <Box component="span" sx={{ color: s.pct >= 70 ? 'success.main' : 'primary.main' }}>
-                    {s.pct}%
+              {row2.map((s, i) => {
+                const firstLesson = getLessonsByTopic(s.topic)[0];
+                const to = firstLesson ? `/lessons/${s.topic}/${firstLesson.slug}` : '/lessons';
+                return (
+                  <Box key={s.code} component="span">
+                    <Box
+                      component={RouterLink}
+                      to={to}
+                      sx={{
+                        color: 'inherit',
+                        textDecoration: 'none',
+                        '&:hover': { textDecoration: 'underline', color: 'primary.main' },
+                      }}
+                    >
+                      {s.code}{' '}
+                      <Box component="span" sx={{ color: s.pct >= 70 ? 'success.main' : 'primary.main' }}>
+                        {s.pct}%
+                      </Box>
+                    </Box>
+                    {i < row2.length - 1 && <Box component="span"> · </Box>}
                   </Box>
-                  {i < row2.length - 1 && <Box component="span"> · </Box>}
-                </Box>
-              ))}
+                );
+              })}
             </Box>
             <Box sx={{ mt: '6px', color: delta >= 0 ? 'success.main' : 'primary.main' }}>
               Target 80 — Delta {delta >= 0 ? '+' : ''}{delta}
