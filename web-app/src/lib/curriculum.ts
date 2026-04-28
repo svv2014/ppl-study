@@ -80,15 +80,15 @@ export const CURRICULUM: CurriculumSlot[] = [
   { id: 'GK-014', slug: 'preflight-inspection', title: 'Pre-Flight Inspection and Maintenance', topic: 'general-knowledge', order: 14 },
 
   // Radio (ROC-A) (9)
-  { id: 'ROC-001', slug: 'phonetic-alphabet-numbers', title: 'Phonetic Alphabet and Numbers', topic: 'radio', order: 1, audio: null, visual: '' },
-  { id: 'ROC-002', slug: 'standard-phraseology-readback', title: 'Standard Phraseology and Readback', topic: 'radio', order: 2, audio: null, visual: '' },
-  { id: 'ROC-003', slug: 'frequencies-reference', title: 'Frequencies Reference', topic: 'radio', order: 3, audio: null, visual: '' },
-  { id: 'ROC-004', slug: 'position-reporting', title: 'Position Reporting', topic: 'radio', order: 4, audio: null, visual: '' },
-  { id: 'ROC-005', slug: 'vfr-ifr-comms-overview', title: 'VFR/IFR Communications Overview', topic: 'radio', order: 5, audio: null, visual: '' },
-  { id: 'ROC-006', slug: 'emergency-comms', title: 'Emergency Communications', topic: 'radio', order: 6, audio: null, visual: '' },
-  { id: 'ROC-007', slug: 'light-signals', title: 'Light Signals', topic: 'radio', order: 7, audio: null, visual: '' },
-  { id: 'ROC-008', slug: 'regulatory-framework', title: 'Regulatory Framework', topic: 'radio', order: 8, audio: null, visual: '' },
-  { id: 'ROC-009', slug: 'radio-etiquette', title: 'Radio Etiquette', topic: 'radio', order: 9, audio: null, visual: '' },
+  { id: 'ROC-001', slug: 'phonetic-alphabet-numbers', title: 'Phonetic Alphabet and Numbers', topic: 'radio', order: 1, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/001-phonetic-alphabet-numbers.m4a', visual: '' },
+  { id: 'ROC-002', slug: 'standard-phraseology-readback', title: 'Standard Phraseology and Readback', topic: 'radio', order: 2, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/002-standard-phraseology-readback.m4a', visual: '' },
+  { id: 'ROC-003', slug: 'frequencies-reference', title: 'Frequencies Reference', topic: 'radio', order: 3, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/003-frequencies-reference.m4a', visual: '' },
+  { id: 'ROC-004', slug: 'position-reporting', title: 'Position Reporting', topic: 'radio', order: 4, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/004-position-reporting.m4a', visual: '' },
+  { id: 'ROC-005', slug: 'vfr-ifr-comms-overview', title: 'VFR/IFR Communications Overview', topic: 'radio', order: 5, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/005-vfr-ifr-comms-overview.m4a', visual: '' },
+  { id: 'ROC-006', slug: 'emergency-comms', title: 'Emergency Communications', topic: 'radio', order: 6, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/006-emergency-comms.m4a', visual: '' },
+  { id: 'ROC-007', slug: 'light-signals', title: 'Light Signals', topic: 'radio', order: 7, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/007-light-signals.m4a', visual: '' },
+  { id: 'ROC-008', slug: 'regulatory-framework', title: 'Regulatory Framework', topic: 'radio', order: 8, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/008-regulatory-framework.m4a', visual: '' },
+  { id: 'ROC-009', slug: 'radio-etiquette', title: 'Radio Etiquette', topic: 'radio', order: 9, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/009-radio-etiquette.m4a', visual: '' },
 ];
 
 export const TOPIC_LABELS: Record<string, string> = {
