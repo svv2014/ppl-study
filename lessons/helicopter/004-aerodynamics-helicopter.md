@@ -1,0 +1,140 @@
+---
+id: HEL-004
+topic: helicopter
+order: 4
+slug: aerodynamics-helicopter
+title: "Helicopter Aerodynamics"
+duration_min: 20
+status: draft
+sources:
+  - "TC Helicopter Flight Training Manual (TP 9982E)"
+  - "TP 12880E — Aeroplane Flight Training Manual (rotary-wing supplement concepts)"
+  - "CARs Part VI Subpart 3 (helicopter-specific provisions)"
+questions:
+  - id: q1
+    prompt: "Translational lift in a helicopter is gained when:"
+    choices:
+      A: "The pilot increases collective pitch to produce more rotor RPM"
+      B: "The helicopter accelerates and the rotor system moves into undisturbed air, increasing efficiency"
+      C: "The tail rotor produces additional lift to assist the main rotor"
+      D: "The helicopter climbs above the ground effect cushion"
+    answer: B
+    explanation: "Translational lift occurs as the helicopter transitions from hover to forward flight. As the rotor disc moves into undisturbed (non-recirculating) air, the effective angle of attack increases and rotor efficiency improves markedly. This is typically felt between 16–24 knots. Source: TP 9982E, Helicopter Aerodynamics chapter."
+  - id: q2
+    prompt: "Dissymmetry of lift in a helicopter in forward flight is caused by:"
+    choices:
+      A: "The tail rotor producing more thrust on one side than the other"
+      B: "The advancing blade having a higher airspeed — and thus more lift — than the retreating blade"
+      C: "The rotor mast tilting the disc forward during cruise"
+      D: "Torque effect pulling the fuselage nose to the right"
+    answer: B
+    explanation: "In forward flight the advancing blade (moving in the same direction as flight) has a higher relative airspeed than the retreating blade (moving opposite to flight). This creates asymmetric lift. Blade flapping and pitch change mechanisms are used to compensate. Source: TP 9982E."
+  - id: q3
+    prompt: "During a power-off autorotation, the energy sustaining rotor rotation comes from:"
+    choices:
+      A: "Inertia stored in the rotor disc at the time of engine failure"
+      B: "The airflow through the rotor disc from below as the helicopter descends"
+      C: "Residual engine torque transmitted through the freewheeling unit"
+      D: "Wind energy captured by the advancing blade only"
+    answer: B
+    explanation: "In autorotation the helicopter descends and air flows upward through the rotor disc. This upward airflow through the inner portion of the disc produces a driving force that sustains rotor RPM. The freewheeling unit disconnects the engine from the rotor, allowing autorotation independent of engine state. Source: TP 9982E."
+  - id: q4
+    prompt: "Torque effect in a single-rotor helicopter tends to rotate the fuselage:"
+    choices:
+      A: "In the same direction as the main rotor"
+      B: "In the opposite direction to the main rotor, countered by the tail rotor"
+      C: "Nose-down, requiring forward cyclic to counteract"
+      D: "Nose-up, requiring aft cyclic during hover"
+    answer: B
+    explanation: "Newton's third law: the rotor torque applied to spin the main rotor produces an equal and opposite reaction on the fuselage, rotating it in the opposite direction. The tail rotor generates sideward thrust to counteract this torque. Source: TP 9982E, Torque and Tail Rotor section."
+  - id: q5
+    prompt: "Ground effect in a helicopter is most pronounced when hovering at approximately:"
+    choices:
+      A: "One rotor diameter above the surface"
+      B: "Half the rotor diameter above the surface"
+      C: "Two rotor diameters above the surface"
+      D: "Three rotor diameters above the surface"
+    answer: B
+    explanation: "Ground effect is significant within approximately one rotor diameter of the surface and is greatest at about half the rotor diameter. The cushion of high-pressure air between the rotor disc and the surface reduces induced drag and increases lift efficiency. Source: TP 9982E."
+---
+
+# Lesson HEL-004: Helicopter Aerodynamics
+
+**Section:** Helicopter  
+**Lesson number:** 004  
+**Estimated time:** 20 minutes  
+**Source:** TC Helicopter Flight Training Manual (TP 9982E); CARs Part VI Subpart 3
+
+---
+
+## Narration Script
+
+Welcome to the helicopter aerodynamics lesson. If you've already studied fixed-wing aerodynamics, some of what follows will look familiar — lift, drag, angle of attack. But rotary-wing flight involves forces and phenomena unique to helicopters. This lesson covers the fundamentals you need for the PPL-H written exam.
+
+---
+
+### The Four Forces — Rotary-Wing Version
+
+In fixed-wing flight, the four forces are lift (up), weight (down), thrust (forward), and drag (rearward). In a helicopter, the rotor system produces both lift and thrust simultaneously, in whatever direction the rotor disc is tilted. This is the key difference: a helicopter has no separate engine-driven propeller for forward thrust. The main rotor does everything.
+
+**Lift** is generated by the rotor blades as they spin through the air. Each blade is an aerofoil, just like a wing, and produces lift by accelerating airflow over its cambered upper surface and creating a pressure differential. The total lift of the rotor disc depends on blade pitch angle (set by collective and cyclic controls), rotor RPM, air density, and blade area.
+
+**Thrust** — in helicopter terminology, the component of total rotor force that acts horizontally — is produced by tilting the rotor disc. Tilt forward, and the horizontal component accelerates the helicopter forward. Tilt laterally, and you sideslip. The rotor disc does not tilt by physically moving the mast; instead, the pilot changes the pitch of individual blades as they rotate around the disc, producing more lift on one side and less on the other, which causes the disc to tilt. This is the function of the cyclic control.
+
+**Drag** in a rotor system includes profile drag (air resistance of the blades themselves), induced drag (drag from lift production), and parasite drag (fuselage and component drag). The engine must overcome all of these to maintain rotor RPM.
+
+**Torque** — unique to helicopters with a single main rotor — is the reaction force. When the engine spins the main rotor in one direction, Newton's third law dictates the fuselage tries to rotate in the opposite direction. In most North American helicopters, the main rotor turns counter-clockwise when viewed from above, so the fuselage tries to yaw to the right. The tail rotor produces sideward thrust to counteract this torque.
+
+---
+
+### Translational Lift
+
+In a hover, the rotor system works in a recirculating mass of air it has already disturbed. This recirculated, turbulent air is less efficient than fresh, undisturbed air. As the helicopter accelerates into forward flight — typically noticeable between 16 and 24 knots — the rotor disc begins to outrun its own downwash and moves into undisturbed air. The result is a dramatic increase in rotor efficiency: translational lift. The pilot experiences this as a slight lurch or "jump" in lift as the helicopter transitions from hover to forward flight. Climbing away from a hover, this transition is a welcome boost. Decelerating to a hover, the loss of translational lift means the pilot must add collective to maintain altitude.
+
+---
+
+### Dissymmetry of Lift
+
+In forward flight, the advancing blade (the blade moving in the same direction as the helicopter's flight) has a higher airspeed relative to the air than the retreating blade (moving opposite to the direction of flight). At cruise speed, the velocity difference between advancing and retreating blades is roughly twice the airspeed of the helicopter. More airspeed means more lift — so without compensation, the advancing side of the rotor disc would produce far more lift than the retreating side, rolling the helicopter toward the retreating side.
+
+Two mechanisms compensate for dissymmetry of lift:
+
+1. **Blade flapping.** In articulated and semi-rigid rotor systems, blades are free to flap up and down as they rotate. The advancing blade, producing excess lift, flaps upward. This reduces its angle of attack and therefore its lift. The retreating blade flaps downward, which increases its angle of attack and its lift. Flapping equalizes lift around the disc.
+
+2. **Blade pitch change.** Cyclic pitch inputs alter blade pitch as each blade passes through different positions in the rotation, precisely matching lift production to the position in the disc. This is controlled automatically by the swashplate mechanism.
+
+The retreating blade stall is the limiting factor in helicopter airspeed. At high speeds, the retreating blade's angle of attack must be increased to produce adequate lift, and eventually the blade reaches a critical angle and stalls. Retreating blade stall causes vibration, a nose pitch-up tendency, and roll toward the retreating side — a dangerous condition requiring immediate deceleration.
+
+---
+
+### Autorotation Principles
+
+When the engine fails (or is deliberately disengaged), the pilot must immediately enter autorotation. Autorotation is the state in which the main rotor is driven not by engine power, but by the aerodynamic forces generated by airflow through the rotor disc during descent.
+
+How it works: as the helicopter descends, air flows upward through the rotor disc. This upward-flowing air strikes the lower surface of the rotor blades in the inner portion of the disc and produces a driving force — a force that keeps the rotor spinning. The pilot controls descent rate with collective and uses cyclic to manage airspeed and direction. The freewheeling unit (sprag clutch) automatically disengages the engine from the rotor, allowing the rotor to spin freely as the engine stops.
+
+At the correct point above the ground — the flare altitude — the pilot raises the nose sharply, converting forward airspeed into rotor RPM (rotor inertia) and reducing descent rate. The stored energy in the spinning rotor disc is used during the final flare and cushion to achieve a safe landing. A successful autorotation requires the helicopter to be within safe parameters on the height-velocity diagram — more on that in the performance lesson.
+
+---
+
+### Ground Effect
+
+When hovering close to the surface — within roughly one rotor diameter — the rotor's downwash cannot flow freely downward and outward. The ground interferes with the airflow, creating a high-pressure cushion beneath the rotor disc. This reduces induced drag, increases efficiency, and allows the helicopter to hover at a lower power setting than out of ground effect. Ground effect is greatest at about half the rotor diameter above the surface.
+
+Practically: a helicopter can sometimes hover in ground effect (HIGE) when it cannot hover out of ground effect (HOGE) — this matters significantly for performance planning, especially at high density altitudes or heavy weights.
+
+---
+
+## Key Points
+
+- The main rotor provides both lift and directional thrust — unique to helicopters.
+- Torque reaction tries to rotate the fuselage opposite to rotor direction; the tail rotor counteracts this.
+- Translational lift occurs ~16–24 kt as the rotor moves into undisturbed air.
+- Dissymmetry of lift (advancing vs. retreating blade airspeed difference) is corrected by blade flapping and cyclic pitch change.
+- Retreating blade stall limits maximum airspeed.
+- Autorotation uses upward airflow through a descending rotor disc to maintain RPM — no engine needed.
+- Ground effect is strongest within half a rotor diameter of the surface.
+
+---
+
+*End of Lesson HEL-004.*
