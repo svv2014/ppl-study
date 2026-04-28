@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Tooltip from '@mui/material/Tooltip';
-import { useTrack } from '../context/TrackContext';
-import { TRACKS } from '../lib/exam-tracks';
+import { useExamTrack } from '../context/ExamTrackContext';
+import { EXAM_TRACKS } from '../lib/exam-tracks';
 
 const CHIP_BASE = {
   display: 'inline-flex',
@@ -22,7 +22,7 @@ const CHIP_BASE = {
 } as const;
 
 export default function TrackSwitcher() {
-  const { activeTrack, setActiveTrack } = useTrack();
+  const { activeTrack, setActiveTrack } = useExamTrack();
 
   return (
     <Box
@@ -30,15 +30,20 @@ export default function TrackSwitcher() {
       aria-label="Exam track"
       sx={{ display: 'flex', flexWrap: 'wrap', gap: '6px', minWidth: 0 }}
     >
-      {TRACKS.map((track) => {
-        const isActive = track.slug === activeTrack.slug;
-        const isComingSoon = track.status === 'coming-soon';
+      {EXAM_TRACKS.map((track) => {
+        const isActive = track.id === activeTrack.id;
+        const isDisabled = track.status !== 'active';
 
-        if (isComingSoon) {
+        if (isDisabled) {
+          const tooltipTitle =
+            track.status === 'locked' && track.unlockHint
+              ? `${track.name} — ${track.unlockHint}`
+              : `${track.name} — coming soon`;
+
           return (
             <Tooltip
-              key={track.slug}
-              title={`${track.label} — coming soon`}
+              key={track.id}
+              title={tooltipTitle}
               placement="bottom"
             >
               {/* span wrapper required: Tooltip doesn't receive events on disabled buttons */}
@@ -46,7 +51,7 @@ export default function TrackSwitcher() {
                 <Box
                   component="button"
                   disabled
-                  aria-label={`${track.label} — coming soon`}
+                  aria-label={tooltipTitle}
                   sx={(theme) => ({
                     ...CHIP_BASE,
                     cursor: 'default',
@@ -55,7 +60,7 @@ export default function TrackSwitcher() {
                     color: theme.palette.text.disabled,
                   })}
                 >
-                  {track.shortLabel}
+                  {track.code}
                 </Box>
               </span>
             </Tooltip>
@@ -64,11 +69,11 @@ export default function TrackSwitcher() {
 
         return (
           <Box
-            key={track.slug}
+            key={track.id}
             component="button"
-            onClick={() => setActiveTrack(track.slug)}
+            onClick={() => setActiveTrack(track.id)}
             aria-pressed={isActive}
-            aria-label={track.label}
+            aria-label={track.name}
             sx={(theme) => ({
               ...CHIP_BASE,
               cursor: 'pointer',
@@ -90,7 +95,7 @@ export default function TrackSwitcher() {
                   }),
             })}
           >
-            {track.shortLabel}
+            {track.code}
           </Box>
         );
       })}
