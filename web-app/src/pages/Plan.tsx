@@ -21,10 +21,11 @@ import { CURRICULUM, TOPIC_LABELS, TOPICS } from '../lib/curriculum';
 import { getAllLessons } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
 import { useExamTrack } from '../context/ExamTrackContext';
+import type { Lesson } from '../lib/types';
 
 export default function Plan() {
   const [resetOpen, setResetOpen] = useState(false);
-  const { store } = useExamTrack();
+  const { store, activeTrack } = useExamTrack();
   const { progress, markComplete, markIncomplete, isComplete, reset } = useProgress(store);
 
   const { authoredIds, lessonTitleMap } = useMemo(() => {
@@ -35,8 +36,17 @@ export default function Plan() {
     };
   }, []);
 
-  const totalLessons = CURRICULUM.length;
-  const completedCount = CURRICULUM.filter((s) => isComplete(s.id)).length;
+  const filteredCurriculum = useMemo(
+    () => CURRICULUM.filter((slot) => activeTrack.lessonFilter({ topic: slot.topic } as Lesson)),
+    [activeTrack],
+  );
+  const filteredTopics = useMemo(
+    () => TOPICS.filter((t) => filteredCurriculum.some((s) => s.topic === t)),
+    [filteredCurriculum],
+  );
+
+  const totalLessons = filteredCurriculum.length;
+  const completedCount = filteredCurriculum.filter((s) => isComplete(s.id)).length;
   const overallPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
 
   function handleToggle(lessonId: string) {
@@ -78,8 +88,8 @@ export default function Plan() {
       </Box>
 
       {/* ── Topic sections ── */}
-      {TOPICS.map((topic) => {
-        const slots = CURRICULUM.filter((s) => s.topic === topic);
+      {filteredTopics.map((topic) => {
+        const slots = filteredCurriculum.filter((s) => s.topic === topic);
         const topicDone = slots.filter((s) => isComplete(s.id)).length;
 
         return (
