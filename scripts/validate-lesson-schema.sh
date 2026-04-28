@@ -26,7 +26,7 @@ REQUIRED_FIELDS = [
     "duration_min", "status", "audio", "visual",
     "sources", "questions",
 ]
-VALID_TOPICS = {"air-law", "navigation", "meteorology", "general-knowledge"}
+VALID_TOPICS = {"air-law", "navigation", "meteorology", "general-knowledge", "radio", "cpl-a"}
 REQUIRED_QUESTION_FIELDS = {"id", "prompt", "choices", "answer", "explanation"}
 
 def fail(path, msg):
@@ -79,15 +79,18 @@ def main():
     if topic not in VALID_TOPICS:
         fail(path, f"invalid topic {topic!r}; must be one of {sorted(VALID_TOPICS)}")
 
-    # ── 5. questions must have exactly 5 entries ──────────────────────────────
+    # ── 5. questions must have exactly 5 entries (0 allowed for draft/planning) ─
     questions = fm.get("questions")
     if not isinstance(questions, list):
         fail(path, "questions must be a YAML list")
-    if len(questions) != 5:
+    status = fm.get("status", "")
+    if len(questions) == 0 and status not in ("draft", "planning"):
+        fail(path, f"questions list is empty; 5 required unless status is draft or planning")
+    if len(questions) not in (0, 5):
         fail(path, f"questions must have exactly 5 entries (found {len(questions)})")
 
     # ── 6. Each question's answer key must exist in its choices map ───────────
-    for i, q in enumerate(questions, start=1):
+    for i, q in enumerate(questions, start=1):  # skipped when questions is []
         if not isinstance(q, dict):
             fail(path, f"question {i} is not a YAML mapping")
         for qf in REQUIRED_QUESTION_FIELDS:
