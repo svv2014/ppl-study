@@ -97,6 +97,7 @@ export const TOPIC_LABELS: Record<string, string> = {
   'meteorology': 'Meteorology',
   'general-knowledge': 'General Knowledge',
   'radio': 'Radio (ROC-A)',
+  'helicopter': 'Helicopter',
 };
 
-export const TOPICS = ['air-law', 'navigation', 'meteorology', 'general-knowledge', 'radio'] as const;
+export const TOPICS = ['air-law', 'navigation', 'meteorology', 'general-knowledge', 'radio', 'helicopter'] as const;
