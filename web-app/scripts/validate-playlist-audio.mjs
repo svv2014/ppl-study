@@ -28,7 +28,7 @@ function walkMd(dir) {
 
 const files = walkMd(lessonsDir);
 
-// topic -> { total, withAudio }
+// topic -> { total, withAudio, allPlanning }
 const topics = {};
 
 for (const file of files) {
@@ -36,19 +36,24 @@ for (const file of files) {
   const fm = raw.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? '';
   const topic = fm.match(/^topic:\s*(.+)$/m)?.[1]?.trim();
   const audioLine = fm.match(/^audio:\s*(.+)$/m)?.[1]?.trim();
+  const status = fm.match(/^status:\s*(.+)$/m)?.[1]?.trim();
   const hasAudio = audioLine && audioLine !== 'null' && audioLine !== '~' && audioLine !== '';
+  const isPlanning = status === 'planning';
 
   if (!topic) continue;
 
-  if (!topics[topic]) topics[topic] = { total: 0, withAudio: 0 };
+  if (!topics[topic]) topics[topic] = { total: 0, withAudio: 0, allPlanning: true };
   topics[topic].total += 1;
   if (hasAudio) topics[topic].withAudio += 1;
+  if (!isPlanning) topics[topic].allPlanning = false;
 }
 
 let failed = false;
 
-for (const [topic, { total, withAudio }] of Object.entries(topics).sort()) {
-  if (withAudio === 0) {
+for (const [topic, { total, withAudio, allPlanning }] of Object.entries(topics).sort()) {
+  if (allPlanning) {
+    console.log(`- ${topic}: ${total} lessons, all in planning — skipped`);
+  } else if (withAudio === 0) {
     console.log(`✗ ${topic}: ${total} lessons, 0 with audio  ← FAIL`);
     failed = true;
   } else {
@@ -61,4 +66,4 @@ if (failed) {
   process.exit(1);
 }
 
-console.log('\nAll topics have at least one audio lesson. ✓');
+console.log('\nAll active topics have at least one audio lesson. ✓');
