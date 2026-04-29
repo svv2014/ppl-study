@@ -7,6 +7,7 @@ import { useStickyPlayer } from './context/StickyPlayerContext';
 import { TrackProvider } from './context/TrackContext';
 import Nav from './components/Nav';
 import StickyPlayerBar from './components/StickyPlayerBar';
+import AppErrorBoundary from './components/AppErrorBoundary';
 import Home from './pages/Home';
 import LessonsIndex from './pages/LessonsIndex';
 import LessonDetail from './pages/LessonDetail';
@@ -109,6 +110,7 @@ export default function App() {
               }),
             }}
           >
+            <AppErrorBoundary>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/lessons" element={<LessonsIndex />} />
@@ -129,6 +131,7 @@ export default function App() {
               <Route path="/pstar" element={<PSTARPath />} />
               <Route path="/srs" element={<SRSQueue />} />
             </Routes>
+            </AppErrorBoundary>
           </Box>
           <StickyPlayerBar />
         </Box>

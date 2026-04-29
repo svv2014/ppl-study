@@ -506,13 +506,21 @@ function PlaylistLibrary() {
       {/* §1 — Topic playlists */}
       <SectionHeader
         title="Topic Playlists"
-        meta={`${topicEntries.length} PLAYLISTS`}
+        meta={topicEntries.length > 0 ? `${topicEntries.length} PLAYLISTS` : undefined}
       />
-      <CardGrid>
-        {topicEntries.map((entry) => (
-          <PlaylistCard key={entry.id} entry={entry} />
-        ))}
-      </CardGrid>
+      {topicEntries.length === 0 ? (
+        <Box sx={{ py: 4, textAlign: 'center' }}>
+          <Typography variant="h6" color="text.secondary">
+            No audio playlists for {activeTrack.code} yet — lessons are still being recorded.
+          </Typography>
+        </Box>
+      ) : (
+        <CardGrid>
+          {topicEntries.map((entry) => (
+            <PlaylistCard key={entry.id} entry={entry} />
+          ))}
+        </CardGrid>
+      )}
 
       {/* §2 — Curated playlists */}
       <SectionHeader
