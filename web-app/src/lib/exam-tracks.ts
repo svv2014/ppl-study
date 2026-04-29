@@ -167,7 +167,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     heroSubtitle: 'Structured lessons for the Transport Canada Instrument Rating. Audio-first, exam-weighted.',
     credibilityTag: 'Covers TC IFR written exam',
     lessonFilter: noLessons,
-    playlistTopics: TOPICS,
+    playlistTopics: [] as const,
     playlistHeading: 'IFR Playlist',
   },
   {
@@ -183,7 +183,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     heroSubtitle: 'Structured lessons for the Transport Canada Flight Instructor Rating.',
     credibilityTag: 'Covers TC Flight Instructor Rating',
     lessonFilter: noLessons,
-    playlistTopics: TOPICS,
+    playlistTopics: [] as const,
     playlistHeading: 'FI Playlist',
   },
 ];
