@@ -178,6 +178,16 @@ export default function PlaylistPlayer({ lessons }: PlaylistPlayerProps) {
     writeSpeed(val);
   }
 
+  if (playlist.length === 0 || !current) {
+    return (
+      <Box sx={{ py: 4, textAlign: 'center' }}>
+        <Typography variant="body2" color="text.secondary">
+          No audio lessons available for this playlist yet.
+        </Typography>
+      </Box>
+    );
+  }
+
   return (
     <Box tabIndex={0} onKeyDown={handleKeyDown} sx={{ my: 2, width: '100%', outline: 'none', overflow: 'hidden' }}>
       <Typography
