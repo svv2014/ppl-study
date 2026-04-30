@@ -6,9 +6,11 @@ slug: helicopter-ops
 title: "Helicopter Operations"
 duration_min: 20
 status: draft
+audio: null
 sources:
   - "TC Helicopter Flight Training Manual (TP 9982E)"
-  - "CARs Part VI Subpart 3 (helicopter-specific provisions)"
+  - "CARs 602.26 — Carriage of External Loads"
+  - "CARs Part VI (General Operating and Flight Rules)"
   - "Transport Canada Advisory Circular AC 600-001 — Off-Aerodrome Operations"
 questions:
   - id: q1
@@ -63,7 +65,7 @@ questions:
 **Section:** Helicopter  
 **Lesson number:** 007  
 **Estimated time:** 20 minutes  
-**Source:** TC Helicopter Flight Training Manual (TP 9982E); CARs Part VI Subpart 3; AC 600-001
+**Source:** TC Helicopter Flight Training Manual (TP 9982E); CARs 602.26; CARs Part VI; AC 600-001
 
 ---
 

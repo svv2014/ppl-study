@@ -6,10 +6,11 @@ slug: aerodynamics-helicopter
 title: "Helicopter Aerodynamics"
 duration_min: 20
 status: draft
+audio: null
 sources:
   - "TC Helicopter Flight Training Manual (TP 9982E)"
   - "TP 12880E — Aeroplane Flight Training Manual (rotary-wing supplement concepts)"
-  - "CARs Part VI Subpart 3 (helicopter-specific provisions)"
+  - "CARs Part VI (General Operating and Flight Rules)"
 questions:
   - id: q1
     prompt: "Translational lift in a helicopter is gained when:"
@@ -63,7 +64,7 @@ questions:
 **Section:** Helicopter  
 **Lesson number:** 004  
 **Estimated time:** 20 minutes  
-**Source:** TC Helicopter Flight Training Manual (TP 9982E); CARs Part VI Subpart 3
+**Source:** TC Helicopter Flight Training Manual (TP 9982E); CARs Part VI
 
 ---
 

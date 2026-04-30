@@ -6,10 +6,11 @@ slug: human-factors-helicopter
 title: "Human Factors in Helicopter Operations"
 duration_min: 20
 status: draft
+audio: null
 sources:
   - "TC Helicopter Flight Training Manual (TP 9982E)"
   - "Transport Canada TP 12863E — Human Factors for Aviation — Basic Handbook"
-  - "CARs 602.115 — Aerobatic Manoeuvres (inadvertent IMC context)"
+  - "CARs 602.114 / 602.115 — VFR Weather Minimums (inadvertent IMC context)"
   - "TC Advisory Circular AC 700-042 — Fatigue Risk Management"
 questions:
   - id: q1

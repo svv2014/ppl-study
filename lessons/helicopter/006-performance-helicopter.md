@@ -6,9 +6,11 @@ slug: performance-helicopter
 title: "Helicopter Performance"
 duration_min: 20
 status: draft
+audio: null
 sources:
   - "TC Helicopter Flight Training Manual (TP 9982E)"
-  - "CARs 602.46 — Weight and Balance"
+  - "CARs 605.31 — Weight and Balance Control"
+  - "CARs 605.92 — Aircraft Operating Limitations"
   - "Transport Canada TP 13572E — Density Altitude and Performance"
 questions:
   - id: q1
@@ -46,7 +48,7 @@ questions:
       C: "A manufacturer-defined reference point from which all moment arms are measured"
       D: "The centre of the fuselage"
     answer: C
-    explanation: "The datum is an arbitrary reference point defined by the manufacturer (often the nose of the helicopter, the rotor hub, or another convenient point). All moment arm distances (horizontal distances from the datum to component CG locations) are measured from this datum. The overall centre of gravity must remain within the allowable CG envelope for safe flight. Source: CARs 602.46; TP 9982E, Weight and Balance chapter."
+    explanation: "The datum is an arbitrary reference point defined by the manufacturer (often the nose of the helicopter, the rotor hub, or another convenient point). All moment arm distances (horizontal distances from the datum to component CG locations) are measured from this datum. The overall centre of gravity must remain within the allowable CG envelope for safe flight. Source: CARs 605.31; TP 9982E, Weight and Balance chapter."
   - id: q5
     prompt: "A helicopter's CG that is too far aft will result in:"
     choices:
@@ -63,7 +65,7 @@ questions:
 **Section:** Helicopter  
 **Lesson number:** 006  
 **Estimated time:** 20 minutes  
-**Source:** TC Helicopter Flight Training Manual (TP 9982E); CARs 602.46; TP 13572E
+**Source:** TC Helicopter Flight Training Manual (TP 9982E); CARs 605.31; CARs 605.92; TP 13572E
 
 ---
 
@@ -119,7 +121,7 @@ Helicopter weight and balance follows the same fundamental principles as fixed-w
 - **Aft CG:** The disc must tilt aft, requiring forward cyclic. Extreme aft CG can exhaust forward cyclic travel, leading to loss of control. Aft CG also reduces longitudinal stability and makes the helicopter harder to control.
 - **Lateral CG:** Many helicopters have a lateral CG limit. Asymmetric loading (e.g., a heavy passenger on one side and no one on the other) can cause a sustained lateral roll that requires constant cyclic correction and may exceed the correction available.
 
-**CARs 602.46** requires that no aircraft be operated at a weight or CG position outside the certificated limits established by the manufacturer.
+**CARs 605.31** requires that aircraft be operated within the weight and balance limits established by the manufacturer, and **CARs 605.92** requires the operating limitations from the flight manual to be available to the flight crew.
 
 ---
 
@@ -150,7 +152,7 @@ Density altitude is the altitude in the International Standard Atmosphere (ISA) 
 - The H-V (height-velocity) diagram defines combinations of height and speed from which autorotation to a safe landing is not possible — avoid the "dead man's curve."
 - Helicopter CG must remain within the manufacturer's envelope; aft CG is particularly dangerous due to loss of forward cyclic authority.
 - High density altitude reduces both rotor efficiency and engine power, degrading all performance parameters.
-- CARs 602.46 requires operation within certificated weight and CG limits.
+- CARs 605.31 requires weight and balance control within certificated limits; CARs 605.92 covers operating limitations.
 
 ---
 

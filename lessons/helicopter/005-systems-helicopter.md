@@ -6,9 +6,11 @@ slug: systems-helicopter
 title: "Helicopter Systems"
 duration_min: 20
 status: draft
+audio: null
 sources:
   - "TC Helicopter Flight Training Manual (TP 9982E)"
-  - "CARs Part VI Subpart 3"
+  - "CARs 605.06 — Aircraft Equipment Standards and Serviceability"
+  - "CARs Part VI (General Operating and Flight Rules)"
   - "Transport Canada Aeronautical Information Manual (AIM)"
 questions:
   - id: q1
@@ -63,7 +65,7 @@ questions:
 **Section:** Helicopter  
 **Lesson number:** 005  
 **Estimated time:** 20 minutes  
-**Source:** TC Helicopter Flight Training Manual (TP 9982E); CARs Part VI Subpart 3
+**Source:** TC Helicopter Flight Training Manual (TP 9982E); CARs 605.06; CARs Part VI
 
 ---
 
