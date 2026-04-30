@@ -5,7 +5,7 @@ order: 5
 slug: commercial-vfr-operations
 title: "Commercial VFR and Special Operations"
 duration_min: 20
-status: complete
+status: draft
 audio: null
 visual: null
 sources:

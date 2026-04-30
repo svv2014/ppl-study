@@ -5,7 +5,7 @@ order: 4
 slug: pic-authority-responsibilities
 title: "Pilot-in-Command Authority and Responsibilities"
 duration_min: 20
-status: complete
+status: draft
 audio: null
 visual: null
 sources:

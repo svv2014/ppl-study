@@ -5,7 +5,7 @@ order: 2
 slug: commercial-air-services
 title: "Commercial Air Services and Air Operator Certificates"
 duration_min: 20
-status: complete
+status: draft
 audio: null
 visual: null
 sources:
