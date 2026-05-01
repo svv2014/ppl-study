@@ -5,7 +5,10 @@ import '@fontsource/ibm-plex-mono/600.css';
 import { ThemeModeProvider } from './context/ThemeModeContext';
 import { StickyPlayerProvider } from './context/StickyPlayerContext';
 import { ExamTrackProvider } from './context/ExamTrackContext';
+import { initAnalytics } from './lib/analytics';
 import App from './App';
+
+initAnalytics();
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
