@@ -86,6 +86,14 @@ export default function LessonQuiz() {
       percent: result.percent,
       answers,
     });
+    try {
+      localStorage.setItem(
+        `ppl-quiz-result-${lesson!.id}`,
+        JSON.stringify({ correct: result.correct, total: result.total }),
+      );
+    } catch {
+      // storage unavailable — non-fatal
+    }
     setQuizResult(result);
     setPhase('results');
   }
