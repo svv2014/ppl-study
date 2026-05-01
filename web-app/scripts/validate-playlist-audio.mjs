@@ -28,7 +28,7 @@ function walkMd(dir) {
 
 const files = walkMd(lessonsDir);
 
-// topic -> { total, withAudio, allPlanning }
+// topic -> { total, withAudio, allPreDeploy }
 const topics = {};
 
 for (const file of files) {
@@ -38,21 +38,21 @@ for (const file of files) {
   const audioLine = fm.match(/^audio:\s*(.+)$/m)?.[1]?.trim();
   const status = fm.match(/^status:\s*(.+)$/m)?.[1]?.trim();
   const hasAudio = audioLine && audioLine !== 'null' && audioLine !== '~' && audioLine !== '';
-  const isPlanning = status === 'planning';
+  const isPreDeploy = status === 'planning' || status === 'draft';
 
   if (!topic) continue;
 
-  if (!topics[topic]) topics[topic] = { total: 0, withAudio: 0, allPlanning: true };
+  if (!topics[topic]) topics[topic] = { total: 0, withAudio: 0, allPreDeploy: true };
   topics[topic].total += 1;
   if (hasAudio) topics[topic].withAudio += 1;
-  if (!isPlanning) topics[topic].allPlanning = false;
+  if (!isPreDeploy) topics[topic].allPreDeploy = false;
 }
 
 let failed = false;
 
-for (const [topic, { total, withAudio, allPlanning }] of Object.entries(topics).sort()) {
-  if (allPlanning) {
-    console.log(`- ${topic}: ${total} lessons, all in planning — skipped`);
+for (const [topic, { total, withAudio, allPreDeploy }] of Object.entries(topics).sort()) {
+  if (allPreDeploy) {
+    console.log(`- ${topic}: ${total} lessons, all pre-deploy — skipped`);
   } else if (withAudio === 0) {
     console.log(`✗ ${topic}: ${total} lessons, 0 with audio  ← FAIL`);
     failed = true;
