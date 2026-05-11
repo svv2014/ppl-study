@@ -5,7 +5,7 @@ order: 2
 slug: meteorology-helicopter
 title: "Meteorology for Helicopter Operations"
 duration_min: 20
-status: draft
+status: planning
 audio: null
 sources:
   - "TP 12880E (Aeroplane Flight Training Manual) – Meteorology and Performance chapters"

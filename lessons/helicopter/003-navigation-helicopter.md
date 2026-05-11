@@ -5,7 +5,7 @@ order: 3
 slug: navigation-helicopter
 title: "Navigation for Helicopter Operations"
 duration_min: 20
-status: draft
+status: planning
 audio: null
 sources:
   - "TP 12880E (Aeroplane Flight Training Manual) – Navigation chapter"
