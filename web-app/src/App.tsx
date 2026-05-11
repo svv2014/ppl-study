@@ -1,5 +1,6 @@
-import { useState, useEffect, useMemo } from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useParams } from 'react-router-dom';
+import { useState, useEffect, useMemo, useRef } from 'react';
+import { BrowserRouter, Routes, Route, Navigate, useParams, useLocation } from 'react-router-dom';
+import { trackPageView } from './lib/analytics';
 import { ThemeProvider, CssBaseline, Box } from '@mui/material';
 import { buildTheme } from './theme';
 import { useThemeMode } from './context/ThemeModeContext';
@@ -22,6 +23,19 @@ import PlaylistEditor from './pages/PlaylistEditor';
 import UserPlaylistPage from './pages/UserPlaylistPage';
 import PSTARPath from './pages/PSTARPath';
 import SRSQueue from './pages/SRSQueue';
+
+function RouteTracker() {
+  const location = useLocation();
+  const isInitialRender = useRef(true);
+  useEffect(() => {
+    if (isInitialRender.current) {
+      isInitialRender.current = false;
+      return;
+    }
+    trackPageView(location.pathname + location.search);
+  }, [location.pathname, location.search]);
+  return null;
+}
 
 function PlaylistTopicRedirect() {
   const { topic } = useParams<{ topic: string }>();
@@ -73,6 +87,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
+        <RouteTracker />
         <Box sx={{ display: 'flex', minHeight: '100vh' }}>
           <Box
             component="a"
