@@ -12,6 +12,7 @@ import Typography from '@mui/material/Typography';
 import { getLessonBySlug, getAdjacentLessons } from '../lib/lesson-loader';
 import { scoreQuiz } from '../lib/quiz';
 import type { QuizResult } from '../lib/quiz';
+import { useExamTrack } from '../context/ExamTrackContext';
 import QuizRunner from '../components/QuizRunner';
 
 type Phase = 'intro' | 'quiz' | 'results';
@@ -21,6 +22,7 @@ const TOUCH_TARGET = { minHeight: 48, minWidth: 48 };
 export default function LessonQuiz() {
   const { topic, slug } = useParams<{ topic: string; slug: string }>();
   const navigate = useNavigate();
+  const { store } = useExamTrack();
 
   const lesson = topic && slug ? getLessonBySlug(topic, slug) : undefined;
 
@@ -76,14 +78,14 @@ export default function LessonQuiz() {
 
   function handleQuizComplete(answers: Record<string, string>) {
     const result = scoreQuiz(answers, lesson!.questions);
-    try {
-      localStorage.setItem(
-        `ppl-quiz-result-${lesson!.id}`,
-        JSON.stringify({ correct: result.correct, total: result.total }),
-      );
-    } catch {
-      // storage unavailable — non-fatal
-    }
+    store.recordQuizAttempt({
+      lessonId: lesson!.id,
+      timestamp: new Date().toISOString(),
+      score: result.correct,
+      total: result.total,
+      percent: result.percent,
+      answers,
+    });
     setQuizResult(result);
     setPhase('results');
   }
