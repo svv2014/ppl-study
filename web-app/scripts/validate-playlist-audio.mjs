@@ -55,7 +55,7 @@ let failed = false;
 
 for (const [topic, { total, withAudio, allSkippable }] of Object.entries(topics).sort()) {
   if (allSkippable) {
-    console.log(`- ${topic}: ${total} lessons, all in planning — skipped`);
+    console.log(`- ${topic}: ${total} lessons, all pre-deploy — skipped`);
   } else if (withAudio === 0) {
     console.log(`✗ ${topic}: ${total} lessons, 0 with audio  ← FAIL`);
     failed = true;
