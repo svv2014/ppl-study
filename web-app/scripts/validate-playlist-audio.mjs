@@ -28,7 +28,9 @@ function walkMd(dir) {
 
 const files = walkMd(lessonsDir);
 
-// topic -> { total, withAudio, allPlanning }
+// topic -> { total, withAudio, allSkippable }
+// A lesson is skippable if status === 'planning', or status === 'draft' with no audio yet.
+// A topic is skipped entirely if all lessons are skippable (the track is still being built).
 const topics = {};
 
 for (const file of files) {
@@ -38,20 +40,21 @@ for (const file of files) {
   const audioLine = fm.match(/^audio:\s*(.+)$/m)?.[1]?.trim();
   const status = fm.match(/^status:\s*(.+)$/m)?.[1]?.trim();
   const hasAudio = audioLine && audioLine !== 'null' && audioLine !== '~' && audioLine !== '';
-  const isPlanning = status === 'planning';
+  // planning = not started; draft-without-audio = content authored but audio not yet generated
+  const isSkippable = status === 'planning' || (status === 'draft' && !hasAudio);
 
   if (!topic) continue;
 
-  if (!topics[topic]) topics[topic] = { total: 0, withAudio: 0, allPlanning: true };
+  if (!topics[topic]) topics[topic] = { total: 0, withAudio: 0, allSkippable: true };
   topics[topic].total += 1;
   if (hasAudio) topics[topic].withAudio += 1;
-  if (!isPlanning) topics[topic].allPlanning = false;
+  if (!isSkippable) topics[topic].allSkippable = false;
 }
 
 let failed = false;
 
-for (const [topic, { total, withAudio, allPlanning }] of Object.entries(topics).sort()) {
-  if (allPlanning) {
+for (const [topic, { total, withAudio, allSkippable }] of Object.entries(topics).sort()) {
+  if (allSkippable) {
     console.log(`- ${topic}: ${total} lessons, all in planning — skipped`);
   } else if (withAudio === 0) {
     console.log(`✗ ${topic}: ${total} lessons, 0 with audio  ← FAIL`);
@@ -60,6 +63,7 @@ for (const [topic, { total, withAudio, allPlanning }] of Object.entries(topics).
     console.log(`✓ ${topic}: ${total} lessons, ${withAudio} with audio`);
   }
 }
+
 
 if (failed) {
   console.error('\nValidation failed: one or more topics have no audio lessons.');
