@@ -23,11 +23,11 @@ export function initAnalytics(): void {
   script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(id)}`;
   document.head.appendChild(script);
 
-  // send_page_view: false — RouteTracker fires page_view on every location
-  // change including the initial render, so we let it own all page_view events
-  // to avoid a double-fire on first load.
+  // send_page_view: true — GA4 tracks the initial page load automatically.
+  // RouteTracker skips the first render via useRef so subsequent navigations
+  // are tracked without double-firing on initial load.
   window.gtag('js', new Date());
-  window.gtag('config', id, { send_page_view: false });
+  window.gtag('config', id, { send_page_view: true });
 
   initialised = true;
 }
