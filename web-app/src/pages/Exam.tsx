@@ -45,14 +45,12 @@ export default function Exam() {
   const { store: activeStore, activeTrack } = useExamTrack();
   const { progress, store } = useProgress(activeStore);
 
-  const lessons = getAllLessons().filter((l) => l.questions.length > 0);
+  const lessons = getAllLessons().filter(activeTrack.lessonFilter).filter((l) => l.questions.length > 0);
 
-  const [topicFilter, setTopicFilter] = useState<TopicFilter>(() =>
-    activeTrack.id === 'pstar' ? 'air-law' : 'all',
-  );
+  const [topicFilter, setTopicFilter] = useState<TopicFilter>('all');
 
   useEffect(() => {
-    setTopicFilter(activeTrack.id === 'pstar' ? 'air-law' : 'all');
+    setTopicFilter('all');
   }, [activeTrack.id]);
   const [selectedLessonId, setSelectedLessonId] = useState<string>(() => {
     const fromUrl = searchParams.get('lesson');
