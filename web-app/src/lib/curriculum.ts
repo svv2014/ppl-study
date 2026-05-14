@@ -79,13 +79,14 @@ export const CURRICULUM: CurriculumSlot[] = [
   { id: 'GK-013', slug: 'load-factor', title: 'Load Factor and Maneuvering Speed', topic: 'general-knowledge', order: 13 },
   { id: 'GK-014', slug: 'preflight-inspection', title: 'Pre-Flight Inspection and Maintenance', topic: 'general-knowledge', order: 14 },
 
-  // Night Rating (6)
-  { id: 'NIGHT-001', slug: 'visual-illusions-dark-adaptation', title: 'Visual Illusions at Night and Dark Adaptation', topic: 'night', order: 1 },
-  { id: 'NIGHT-002', slug: 'aircraft-lighting', title: 'Aircraft Lighting — Interior and Exterior', topic: 'night', order: 2 },
-  { id: 'NIGHT-003', slug: 'aerodrome-lighting', title: 'Aerodrome Lighting — PAPI, VASI, Runway and Beacon', topic: 'night', order: 3 },
-  { id: 'NIGHT-004', slug: 'night-navigation', title: 'Night Navigation', topic: 'night', order: 4 },
-  { id: 'NIGHT-005', slug: 'night-emergency-procedures', title: 'Night Emergency Procedures', topic: 'night', order: 5 },
-  { id: 'NIGHT-006', slug: 'night-cars-regulations', title: 'Night CARs and Regulations — CAR 401.42 and Recency', topic: 'night', order: 6 },
+  // Night Rating (6) — pedagogical order: regulations & recency → physiology / vision → aircraft lighting → aerodrome lighting → night navigation → night emergencies
+  // Intentional: NIGHT-006 is order:1 because it was authored last but taught first. IDs reflect authoring sequence; order reflects pedagogy — see #483.
+  { id: 'NIGHT-006', slug: 'night-cars-regulations', title: 'Night CARs and Regulations — CAR 401.42 and Recency', topic: 'night', order: 1 },
+  { id: 'NIGHT-001', slug: 'visual-illusions-dark-adaptation', title: 'Visual Illusions at Night and Dark Adaptation', topic: 'night', order: 2 },
+  { id: 'NIGHT-002', slug: 'aircraft-lighting', title: 'Aircraft Lighting — Interior and Exterior', topic: 'night', order: 3 },
+  { id: 'NIGHT-003', slug: 'aerodrome-lighting', title: 'Aerodrome Lighting — PAPI, VASI, Runway and Beacon', topic: 'night', order: 4 },
+  { id: 'NIGHT-004', slug: 'night-navigation', title: 'Night Navigation', topic: 'night', order: 5 },
+  { id: 'NIGHT-005', slug: 'night-emergency-procedures', title: 'Night Emergency Procedures', topic: 'night', order: 6 },
 
   // Radio (ROC-A) (9)
   { id: 'ROC-001', slug: 'phonetic-alphabet-numbers', title: 'Phonetic Alphabet and Numbers', topic: 'radio', order: 1, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/001-phonetic-alphabet-numbers.m4a', visual: '' },

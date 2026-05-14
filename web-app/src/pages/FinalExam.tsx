@@ -22,6 +22,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { buildExamPool, scoreExam, formatTime, POOL_CONFIGS } from '../lib/final-exam';
 import type { ExamQuestion, ExamResult } from '../lib/final-exam';
+import PracticeOral from './PracticeOral';
 
 type Phase = 'config' | 'running' | 'results';
 type PoolType = 'full' | 'quick' | 'custom';
@@ -88,11 +89,25 @@ function poolLabel(type: PoolType): string {
   return 'Custom';
 }
 
+// Thin router: reads search params, then delegates to PracticeOral or FinalExamContent.
+// FinalExamContent owns all hooks — keeping them here would violate the rules-of-hooks
+// when the early return for practice-oral mode fires before they are called.
 export default function FinalExam() {
-  const theme = useTheme();
   const [searchParams] = useSearchParams();
+  const mode = searchParams.get('mode');
+  const trackParam = searchParams.get('track') ?? 'night';
   const seedParam = searchParams.get('seed');
   const seedValue = seedParam !== null ? Number(seedParam) : undefined;
+
+  if (mode === 'practice-oral') {
+    return <PracticeOral trackId={trackParam} count={20} />;
+  }
+
+  return <FinalExamContent seedValue={seedValue} />;
+}
+
+function FinalExamContent({ seedValue }: { seedValue?: number }) {
+  const theme = useTheme();
 
   const [phase, setPhase] = useState<Phase>('config');
   const [poolType, setPoolType] = useState<PoolType>('full');

@@ -16,6 +16,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 import { CURRICULUM, TOPIC_LABELS, TOPICS } from '../lib/curriculum';
 import { getAllLessons } from '../lib/lesson-loader';
@@ -24,6 +25,7 @@ import { useExamTrack } from '../context/ExamTrackContext';
 import type { Lesson } from '../lib/types';
 
 export default function Plan() {
+  const theme = useTheme();
   const [resetOpen, setResetOpen] = useState(false);
   const { store, activeTrack } = useExamTrack();
   const { progress, markComplete, markIncomplete, isComplete, reset } = useProgress(store);
@@ -86,6 +88,36 @@ export default function Plan() {
           Reset Progress
         </Button>
       </Box>
+
+      {/* ── Practice Oral (night track only) ── */}
+      {activeTrack.id === 'night' && (
+        <Box
+          component={RouterLink}
+          to="/final-exam?mode=practice-oral&track=night"
+          sx={{
+            display: 'block',
+            mb: 4,
+            p: 2,
+            border: '1px solid',
+            borderColor: 'primary.main',
+            borderRadius: 2,
+            bgcolor: theme.palette.primaryMuted,
+            textDecoration: 'none',
+            color: 'text.primary',
+            '&:hover': { opacity: 0.85 },
+          }}
+        >
+          <Typography variant="overline" color="primary.main" sx={{ display: 'block' }}>
+            Night Rating · Practice Oral
+          </Typography>
+          <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 0.5 }}>
+            Practice Oral Exam
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            20 shuffled questions from all Night Rating lessons — no timer, full explanations.
+          </Typography>
+        </Box>
+      )}
 
       {/* ── Topic sections ── */}
       {filteredTopics.map((topic) => {
