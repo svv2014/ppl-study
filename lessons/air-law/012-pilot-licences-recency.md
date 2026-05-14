@@ -7,6 +7,7 @@ title: "Pilot Licences and Recency Requirements"
 duration_min: 20
 status: complete
 audio: https://media.suprun.workers.dev/ppl/lessons/air-law/012-pilot-licences-recency.m4a
+visual: null
 sources:
   - CAR 401.05
   - CAR 421.26
