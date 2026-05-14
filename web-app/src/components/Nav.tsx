@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getCurrentStreak } from '../lib/checkins';
 import AppBar from '@mui/material/AppBar';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -20,7 +21,7 @@ import HeadphonesIcon from '@mui/icons-material/Headphones';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
-import { colorTokens } from '../tokens';
+import { colorTokens, radiusTokens } from '../tokens';
 import { useThemeMode } from '../context/ThemeModeContext';
 import ModeToggle from './ModeToggle';
 import TrackSwitcher from './TrackSwitcher';
@@ -58,6 +59,8 @@ export default function Nav() {
     }
   });
 
+  const [streak, setStreak] = useState<number>(0);
+
   useEffect(() => {
     try {
       localStorage.setItem(LS_KEY, String(collapsed));
@@ -65,6 +68,10 @@ export default function Nav() {
       // ignore storage errors
     }
   }, [collapsed]);
+
+  useEffect(() => {
+    setStreak(getCurrentStreak());
+  }, [location.pathname]);
 
   const activeIndex = NAV_LINKS.findIndex(({ to }) => isActiveRoute(location.pathname, to));
   const railWidth = collapsed ? RAIL_COLLAPSED : RAIL_EXPANDED;
@@ -117,6 +124,26 @@ export default function Nav() {
             <span aria-hidden="true">✈ </span>
             {!collapsed && 'PPL Study'}
           </Typography>
+          {streak > 0 && (
+            <Box
+              component="span"
+              aria-label={`${streak}-day streak`}
+              sx={{
+                ml: collapsed ? 'auto' : 1,
+                fontSize: '0.7rem',
+                fontWeight: 700,
+                color: c.primary.main,
+                backgroundColor: c.primary.muted,
+                borderRadius: `${radiusTokens.sm}px`,
+                px: 0.75,
+                py: 0.25,
+                lineHeight: 1.4,
+                flexShrink: 0,
+              }}
+            >
+              {collapsed ? '🔥' : `🔥 ${streak}`}
+            </Box>
+          )}
         </Box>
 
         {/* Track switcher */}
@@ -258,18 +285,38 @@ export default function Nav() {
             px: 2,
           }}
         >
-          <Typography
-            component="span"
-            sx={{
-              color: c.primary.main,
-              fontWeight: 700,
-              fontSize: '1rem',
-              letterSpacing: '0.01em',
-            }}
-          >
-            <span aria-hidden="true">✈ </span>
-            PPL Study
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Typography
+              component="span"
+              sx={{
+                color: c.primary.main,
+                fontWeight: 700,
+                fontSize: '1rem',
+                letterSpacing: '0.01em',
+              }}
+            >
+              <span aria-hidden="true">✈ </span>
+              PPL Study
+            </Typography>
+            {streak > 0 && (
+              <Box
+                component="span"
+                aria-label={`${streak}-day streak`}
+                sx={{
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  color: c.primary.main,
+                  backgroundColor: c.primary.muted,
+                  borderRadius: `${radiusTokens.sm}px`,
+                  px: 0.75,
+                  py: 0.25,
+                  lineHeight: 1.4,
+                }}
+              >
+                {streak}
+              </Box>
+            )}
+          </Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <ModeToggle />
             <TrackSwitcher />
