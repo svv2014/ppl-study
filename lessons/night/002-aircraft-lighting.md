@@ -58,6 +58,24 @@ questions:
       D: "No specific operations — they are recommended but not required for private VFR"
     answer: C
     explanation: "CARs require landing lights for air taxi, commuter operations, and aircraft used in commercial operations at night. Private VFR aircraft are not required to carry a landing light under the basic night VFR rules, though it is strongly recommended for safety. Source: CARs 605.16, TP 12880E Chapter 10."
+  - id: q6
+    prompt: "You observe another aircraft with a red light on your right and a green light on your left, both at the same altitude. This geometry indicates:"
+    choices:
+      A: "The aircraft is flying away from you"
+      B: "The aircraft is flying toward you on a converging course — a potential head-on conflict"
+      C: "The aircraft is crossing from right to left"
+      D: "The aircraft is descending toward your altitude"
+    answer: B
+    explanation: "Red (port/left) on your right and green (starboard/right) on your left means you are seeing the aircraft's left and right wingtips face-on — it is flying toward you. This is a head-on situation requiring both aircraft to alter course to the right per CARs rules of the air. Source: CARs 602.19, TP 12880E Chapter 10."
+  - id: q7
+    prompt: "Which aircraft lighting is specifically designed to alert other aircraft and ground vehicles to the aircraft's presence and is required to be operating before taxiing at night?"
+    choices:
+      A: "Landing light"
+      B: "Anti-collision (rotating beacon or strobe) light"
+      C: "Taxi light"
+      D: "Logo lights"
+    answer: B
+    explanation: "The anti-collision beacon (rotating beacon or strobe lights) is the conspicuity light specifically designed for alerting other traffic. Under CARs 605.16, the anti-collision light must be operating whenever the engine is running at night, including during taxi. The landing light is optional for private operations and the taxi light is an aid for the pilot, not a conspicuity device. Source: CARs 605.16."
 ---
 
 # Lesson NIGHT-002: Aircraft Lighting — Interior and Exterior
