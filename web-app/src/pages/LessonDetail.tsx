@@ -15,6 +15,7 @@ import LessonProgressBar from '../components/LessonProgressBar';
 import SourceList from '../components/SourceList';
 import { getLessonBySlug, getAdjacentLessons, getLessonsByTopic } from '../lib/lesson-loader';
 import { useProgress } from '../lib/progress';
+import { recordCheckin } from '../lib/checkins';
 import { useExamTrack } from '../context/ExamTrackContext';
 import { useThemeMode } from '../context/ThemeModeContext';
 import { TOPIC_LABELS } from '../lib/curriculum';
@@ -105,6 +106,7 @@ export default function LessonDetail() {
   const progressTotal = topicLessons.length;
 
   useEffect(() => {
+    recordCheckin();
     return () => {
       localStorage.setItem(LAST_SESSION_KEY, new Date().toISOString());
     };
