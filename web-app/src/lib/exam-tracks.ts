@@ -39,6 +39,15 @@ export const TRACKS: Track[] = [
     heroSubtitle: 'Air Law focus. 50 questions, 40 minutes, 90% pass mark.',
     status: 'active',
   },
+  {
+    slug: 'night',
+    label: 'Night Rating',
+    shortLabel: 'NIGHT',
+    description: 'Transport Canada Night Rating',
+    heroHeading: 'Earn your Night Rating. Twenty minutes a day.',
+    heroSubtitle: 'Focused lessons for the Transport Canada Night Rating. Audio-first, exam-weighted.',
+    status: 'active',
+  },
 ];
 
 export type TrackStatus = 'active' | 'coming-soon' | 'locked';
@@ -154,6 +163,22 @@ export const EXAM_TRACKS: ExamTrack[] = [
     lessonFilter: (l) => l.topic === 'cpl-a',
     playlistTopics: ['cpl-a'] as const,
     playlistHeading: 'CPL-A Playlist',
+  },
+  {
+    id: 'night',
+    code: 'NIGHT',
+    name: 'Night Rating',
+    tagline: 'Transport Canada Night Rating',
+    examHeading: 'Night Rating Practice',
+    status: 'active',
+    byline: 'Night Rating · 20 Min / Day',
+    heroHeading: 'Earn your Night Rating. Twenty minutes a day.',
+    heroHeadingAccent: 'Night Rating',
+    heroSubtitle: 'Structured lessons for the Transport Canada Night Rating. Audio-first, exam-weighted.',
+    credibilityTag: 'Covers TC Night Rating written exam',
+    lessonFilter: (l) => l.topic === 'night',
+    playlistTopics: ['night'] as const,
+    playlistHeading: 'Night Rating Playlist',
   },
   {
     id: 'ifr',
