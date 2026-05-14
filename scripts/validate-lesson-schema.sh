@@ -26,7 +26,7 @@ REQUIRED_FIELDS = [
     "duration_min", "status", "audio", "visual",
     "sources", "questions",
 ]
-VALID_TOPICS = {"air-law", "navigation", "meteorology", "general-knowledge"}
+VALID_TOPICS = {"air-law", "navigation", "meteorology", "general-knowledge", "radio", "cpl-a", "helicopter"}
 REQUIRED_QUESTION_FIELDS = {"id", "prompt", "choices", "answer", "explanation"}
 
 def fail(path, msg):
