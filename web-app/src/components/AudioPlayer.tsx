@@ -10,6 +10,7 @@ import FastForwardIcon from '@mui/icons-material/FastForward';
 import FastRewindIcon from '@mui/icons-material/FastRewind';
 import { readSpeed, writeSpeed, readPosition, writePosition, clearAudioPosition } from '../lib/audio-state';
 import { useMediaSession } from './MediaSessionBridge';
+import { recordCheckin } from '../lib/checkins';
 
 const SPEEDS = [0.75, 1, 1.1, 1.25, 1.5, 1.75, 2] as const;
 type Speed = (typeof SPEEDS)[number];
@@ -61,6 +62,7 @@ export default function AudioPlayer({ src, title, topic, lessonId }: AudioPlayer
     }
 
     function handlePlay() {
+      recordCheckin();
       if (intervalRef.current) clearInterval(intervalRef.current);
       intervalRef.current = setInterval(savePos, 5000);
     }
