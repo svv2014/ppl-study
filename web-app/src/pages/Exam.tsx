@@ -50,8 +50,14 @@ export default function Exam() {
   const [topicFilter, setTopicFilter] = useState<TopicFilter>('all');
 
   useEffect(() => {
+    const trackLessons = getAllLessons()
+      .filter(activeTrack.lessonFilter)
+      .filter((l) => l.questions.length > 0);
     setTopicFilter('all');
-  }, [activeTrack.id]);
+    setSelectedLessonId(trackLessons[0]?.id ?? '');
+    setPhase('select');
+    setQuizResult(null);
+  }, [activeTrack]);
   const [selectedLessonId, setSelectedLessonId] = useState<string>(() => {
     const fromUrl = searchParams.get('lesson');
     if (fromUrl && lessons.some((l) => l.id === fromUrl)) return fromUrl;
