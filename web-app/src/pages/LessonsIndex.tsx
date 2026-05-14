@@ -17,13 +17,23 @@ import { useExamTrack } from '../context/ExamTrackContext';
 import TopicMasteryCard from '../components/TopicMasteryCard';
 
 export default function LessonsIndex() {
-  const { store } = useExamTrack();
+  const { store, activeTrack } = useExamTrack();
   const { isComplete } = useProgress(store);
 
-  const lessonMap = useMemo(() => {
-    const map = new Map(getAllLessons().map((l) => [l.id, l]));
-    return map;
-  }, []);
+  const visibleLessons = useMemo(
+    () => getAllLessons().filter(activeTrack.lessonFilter),
+    [activeTrack],
+  );
+
+  const lessonMap = useMemo(
+    () => new Map(visibleLessons.map((l) => [l.id, l])),
+    [visibleLessons],
+  );
+
+  const visibleTopics = useMemo(
+    () => TOPICS.filter((t) => visibleLessons.some((l) => l.topic === t)),
+    [visibleLessons],
+  );
 
   return (
     <Container id="main-content" tabIndex={-1} maxWidth="md" sx={{ py: 4 }}>
@@ -31,11 +41,11 @@ export default function LessonsIndex() {
         Browse Lessons
       </Typography>
       <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
-        {CURRICULUM.length} lessons across {TOPICS.length} topics
+        {visibleLessons.length} lessons across {visibleTopics.length} topics
       </Typography>
 
-      {TOPICS.map((topic) => {
-        const slots = CURRICULUM.filter((s) => s.topic === topic);
+      {visibleTopics.map((topic) => {
+        const slots = CURRICULUM.filter((s) => s.topic === topic && lessonMap.has(s.id));
 
         return (
           <Box key={topic} id={topic} sx={{ mb: 5 }}>
