@@ -58,253 +58,133 @@
 
 <!-- ═══════════════════════════════════════════════════════════
      PLAN-VIEW SVG DIAGRAM
-     Orientation: ↑ = north. Runway 36/18 runs N–S.
-     Landing direction = RWY 36 (heading north, threshold at top, y=115).
-     Departure end = RWY 18 (bottom of runway, y=355).
+     Orientation: ↑ = north. Runway 09/27 runs E–W (centreline y=200).
+     Landing direction = RWY 09 (heading east, into wind from the east).
+     Threshold 09 = west end (x=200); departure end 27 = east end (x=400).
 
-     LEFT-HAND circuit (standard): turns counter-clockwise, west of runway.
-       Amber solid line, var(--accent) = #f0c040.
-     RIGHT-HAND circuit (exception): turns clockwise, east of runway.
-       Blue-grey dashed, var(--text-muted) = #7a9ab5.
+     LEFT-HAND circuit (standard): turns counter-clockwise, north of runway.
+       Amber solid line, var(--accent) #f0c040, stroke 2.5 px.
+     RIGHT-HAND circuit (exception): turns clockwise, south of runway.
+       Blue-grey dashed, var(--text-muted) #7a9ab5, stroke 1.5 px.
 
-     Key x coords:
-       runway-left=184  runway-cx=200  runway-right=216
-       upwind-x=208 (slight right offset so upwind/final don't overlap)
-       final-x=192  (slight left offset)
-       left-edge=52  right-edge=330
-     Key y coords:
-       circuit-top=60   runway-threshold=115  runway-departure=355
-       circuit-bottom=440
+     Wind: top-right indicator, blowing east-to-west — runway 09 is into-wind.
+
+     Key coords (viewBox 600 × 380):
+       runway: x 200→400, y 186→214 (centre y=200)
+       upwind extends to x=480 (50 px past departure end)
+       crosswind/base x=480 (east) and x=90 (west)
+       circuit-top y=80 (1,000 ft AGL annotation)
+       circuit-bottom y=320 (right-hand exception)
      ═══════════════════════════════════════════════════════════ -->
 <div class="section-label">Standard Circuit — Plan View (Top-Down)</div>
 <div class="diagram-wrap">
   <svg
     class="circuit-svg"
-    viewBox="0 0 400 510"
+    viewBox="0 0 1200 760"
     width="100%"
-    style="max-width:620px;"
+    style="max-width:760px;"
     role="img"
-    aria-label="Top-down plan view of aerodrome traffic circuit. Runway runs north–south centre-right. Left-hand circuit in amber counter-clockwise west of runway; right-hand exception dashed blue-grey east of runway. ATC radio call points at downwind abeam threshold, base turn, and final approach.">
+    aria-label="Aerodrome traffic circuit, plan view top-down. Horizontal runway 09/27 lower-centre. Standard Canadian left-hand circuit traced counter-clockwise above the runway in amber. Five labelled legs: upwind take-off, crosswind, downwind at 1,000 ft AGL, base, and final approach into runway 09. Wind blows east-to-west.">
 
     <defs>
-      <!-- Amber filled arrowhead — left-hand circuit direction markers -->
+      <!-- Amber arrowhead — circuit direction -->
       <marker id="arr-a" viewBox="0 0 10 10" refX="9" refY="5"
-              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              markerWidth="6" markerHeight="6" orient="auto-start-reverse">
         <path d="M0,0 L10,5 L0,10 Z" fill="#f0c040"/>
       </marker>
-      <!-- Blue-grey filled arrowhead — right-hand circuit (exception) -->
+      <!-- Muted arrowhead — wind indicator -->
       <marker id="arr-m" viewBox="0 0 10 10" refX="9" refY="5"
-              markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              markerWidth="6" markerHeight="6" orient="auto-start-reverse">
         <path d="M0,0 L10,5 L0,10 Z" fill="#7a9ab5"/>
       </marker>
     </defs>
 
-    <!-- ── North compass indicator ─────────────────────────────── -->
-    <text x="20" y="24" font-size="13" font-weight="700" text-anchor="middle"
-          fill="#7a9ab5" font-family="Inter,system-ui,sans-serif">N</text>
-    <line x1="20" y1="28" x2="20" y2="50"
+    <!-- ── Subtitle (above diagram) ──────────────────────────── -->
+    <text x="48" y="50" font-size="14" font-weight="700"
+          fill="#e4ecf5" font-family="Inter,system-ui,sans-serif">Standard Canadian left-hand pattern · 1,000 ft AGL · Runway 09 in use</text>
+
+    <!-- ── Wind indicator (top-right): blows east-to-west, runway 09 = into-wind ── -->
+    <text x="1100" y="50" font-size="13" font-weight="700"
+          fill="#7a9ab5" text-anchor="end" font-family="Inter,system-ui,sans-serif">Wind</text>
+    <line x1="1150" y1="60" x2="1020" y2="60"
           stroke="#7a9ab5" stroke-width="1.5" marker-end="url(#arr-m)"/>
 
-    <!-- ── RUNWAY ─────────────────────────────────────────────── -->
-    <!-- Parallel-rectangle runway with distinct fill and amber border.
-         fill="#142a40" = var(--surface2) — nearest token for runway body dark shade -->
-    <rect x="184" y="115" width="32" height="240" rx="2"
+    <!-- ── RUNWAY (centred horizontally) ─────────────────────── -->
+    <!-- fill="#142a40" — runway body, matches surface2 token from _common.css -->
+    <rect x="430" y="455" width="340" height="50" rx="2"
           fill="#142a40" stroke="#f0c040" stroke-width="1.5"/>
-    <!-- Threshold bar at landing end (RWY 36 — north/top) -->
-    <rect x="184" y="115" width="32" height="7" rx="1"
-          fill="#f0c040" opacity="0.8"/>
-    <!-- Displaced-threshold marks at departure end (RWY 18 — south) -->
-    <line x1="184" y1="355" x2="216" y2="355"
-          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5"/>
-    <!-- Runway centreline dashes -->
-    <line x1="200" y1="130" x2="200" y2="346"
-          stroke="#7a9ab5" stroke-width="1" stroke-dasharray="10,7" opacity="0.35"/>
-    <!-- Runway designator numbers -->
-    <text x="200" y="111" text-anchor="middle" font-size="10" font-weight="800"
-          fill="#f0c040" font-family="Inter,system-ui,sans-serif">36</text>
-    <text x="200" y="374" text-anchor="middle" font-size="10" font-weight="800"
-          fill="#f0c040" font-family="Inter,system-ui,sans-serif">18</text>
-    <!-- Landing direction caret inside runway -->
-    <text x="200" y="150" text-anchor="middle" font-size="15"
-          fill="#f0c040" opacity="0.5" font-family="Inter,system-ui,sans-serif">↑</text>
+    <!-- Centreline dashes -->
+    <line x1="450" y1="480" x2="750" y2="480"
+          stroke="#7a9ab5" stroke-width="1" stroke-dasharray="14,12" opacity="0.5"/>
+    <!-- Threshold marks 09 (west) -->
+    <g stroke="#f0c040" stroke-width="1.5">
+      <line x1="438" y1="463" x2="438" y2="497"/>
+      <line x1="442" y1="463" x2="442" y2="497"/>
+      <line x1="446" y1="463" x2="446" y2="497"/>
+      <line x1="450" y1="463" x2="450" y2="497"/>
+    </g>
+    <!-- Threshold marks 27 (east) -->
+    <g stroke="#f0c040" stroke-width="1.5">
+      <line x1="762" y1="463" x2="762" y2="497"/>
+      <line x1="758" y1="463" x2="758" y2="497"/>
+      <line x1="754" y1="463" x2="754" y2="497"/>
+      <line x1="750" y1="463" x2="750" y2="497"/>
+    </g>
+    <text x="465" y="487" font-size="20" font-weight="800"
+          fill="#f0c040" font-family="Inter,system-ui,sans-serif">09</text>
+    <text x="715" y="487" font-size="20" font-weight="800"
+          fill="#f0c040" font-family="Inter,system-ui,sans-serif">27</text>
 
-    <!-- Extended centreline guides (faint) -->
-    <line x1="200" y1="62" x2="200" y2="115"
-          stroke="#7a9ab5" stroke-width="1" stroke-dasharray="5,6" opacity="0.2"/>
-    <line x1="200" y1="355" x2="200" y2="440"
-          stroke="#7a9ab5" stroke-width="1" stroke-dasharray="5,6" opacity="0.2"/>
+    <!-- ═══ LEFT-HAND CIRCUIT — amber, single continuous path ═══ -->
+    <!-- Take-off RWY 09 east-bound → upwind → left to crosswind →
+         left to downwind (1,000 ft AGL) → left to base → left to final → land RWY 09. -->
+    <path d="
+      M 600 480
+      L 870 480
+      Q 920 480 920 430
+      L 920 270
+      Q 920 220 870 220
+      L 320 220
+      Q 270 220 270 270
+      L 270 430
+      Q 270 480 320 480
+      L 437 480"
+      fill="none" stroke="#f0c040" stroke-width="2.5"
+      stroke-linecap="round" stroke-linejoin="round"
+      marker-end="url(#arr-a)"/>
 
-    <!-- ═══ LEFT-HAND CIRCUIT (STANDARD) ─ amber, solid ══════════ -->
-    <!--
-      1. Upwind:     depart RWY 18 (y=355), fly north past threshold, x=208
-      2. Crosswind:  turn left (west) at circuit altitude, y=60
-      3. Downwind:   turn left (south), parallel to runway, x=52
-      4. Base:       turn left (east), toward runway, y=440
-      5. Final:      turn left (north), aligned with runway, x=192 → threshold y=120
-    -->
-    <line x1="208" y1="353" x2="208" y2="63"
-          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
-    <line x1="208" y1="63" x2="55"  y2="63"
-          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
-    <line x1="55"  y1="63" x2="55"  y2="438"
-          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
-    <line x1="55"  y1="438" x2="192" y2="438"
-          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
-    <line x1="192" y1="438" x2="192" y2="122"
-          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
-
-    <!-- ═══ RIGHT-HAND CIRCUIT (EXCEPTION) ─ muted dashed ════════ -->
-    <!-- Only unique legs drawn (crosswind/downwind/base) — upwind/final shared -->
-    <line x1="208" y1="63" x2="328" y2="63"
-          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="7,4"
-          marker-end="url(#arr-m)" opacity="0.65"/>
-    <line x1="328" y1="63" x2="328" y2="438"
-          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="7,4"
-          marker-end="url(#arr-m)" opacity="0.65"/>
-    <line x1="328" y1="438" x2="208" y2="438"
-          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="7,4"
-          marker-end="url(#arr-m)" opacity="0.65"/>
-
-    <!-- ═══ ATC RADIO CALL MARKERS ════════════════════════════════ -->
-    <!--
-      Circles mark position-report points required at controlled aerodromes.
-      1. Downwind — abeam the landing threshold (RWY 36, y=115, on downwind x=55)
-      2. Base turn — at the downwind-to-base corner (x=55, y=438)
-      3. Final     — established on final (x=192, y=310 mid-final)
-    -->
-    <!-- Call 1: Downwind abeam landing threshold -->
-    <circle cx="55" cy="115" r="9" fill="none" stroke="#5b9bd5" stroke-width="2"/>
-    <text x="55" y="119" text-anchor="middle" font-size="8" font-weight="800"
-          fill="#5b9bd5" font-family="Inter,system-ui,sans-serif">R</text>
-
-    <!-- Call 2: Base turn -->
-    <circle cx="55" cy="438" r="9" fill="none" stroke="#5b9bd5" stroke-width="2"/>
-    <text x="55" y="442" text-anchor="middle" font-size="8" font-weight="800"
-          fill="#5b9bd5" font-family="Inter,system-ui,sans-serif">R</text>
-
-    <!-- Call 3: Final (mid-final) -->
-    <circle cx="192" cy="310" r="9" fill="none" stroke="#5b9bd5" stroke-width="2"/>
-    <text x="192" y="314" text-anchor="middle" font-size="8" font-weight="800"
-          fill="#5b9bd5" font-family="Inter,system-ui,sans-serif">R</text>
-
-    <!-- ═══ INLINE-SVG AIRCRAFT SILHOUETTES ══════════════════════ -->
-    <!--
-      Generic top-down airplane shape — no brand marks.
-      Nose points toward +y in local coords (rotate so nose points in heading direction).
-      Path: nose (top), swept wings, T-tail (bottom). Filled var(--text-muted).
-    -->
-    <!-- Aircraft on downwind leg, heading south (rotate 180° → nose down) -->
-    <g transform="translate(55,252) rotate(180) scale(0.95)">
-      <path d="M0,-12 L3,-5 L14,2 L14,6 L3,3 L4,10 L7,14 L2,14 L0,11 L-2,14 L-7,14 L-4,10 L-3,3 L-14,6 L-14,2 L-3,-5 Z"
-            fill="#7a9ab5" opacity="0.7"/>
+    <!-- Direction-of-flow arrows mid-leg -->
+    <g fill="#f0c040">
+      <polygon points="780,474 794,480 780,486"/>
+      <polygon points="914,340 920,326 926,340"/>
+      <polygon points="600,214 586,220 600,226"/>
+      <polygon points="264,360 270,374 276,360"/>
+      <polygon points="370,474 384,480 370,486"/>
     </g>
 
-    <!-- Aircraft on base leg, heading east (rotate 90° → nose right) -->
-    <g transform="translate(124,438) rotate(90) scale(0.95)">
+    <!-- ═══ AIRCRAFT ICON (at takeoff start) ═══ -->
+    <!-- Generic planform, nose east. -->
+    <g transform="translate(600,480) rotate(90) scale(1.2)">
       <path d="M0,-12 L3,-5 L14,2 L14,6 L3,3 L4,10 L7,14 L2,14 L0,11 L-2,14 L-7,14 L-4,10 L-3,3 L-14,6 L-14,2 L-3,-5 Z"
-            fill="#7a9ab5" opacity="0.6"/>
+            fill="#f0c040"/>
     </g>
 
-    <!-- Aircraft on final, heading north (rotate 0° → nose up) -->
-    <g transform="translate(192,370) rotate(0) scale(0.95)">
-      <path d="M0,-12 L3,-5 L14,2 L14,6 L3,3 L4,10 L7,14 L2,14 L0,11 L-2,14 L-7,14 L-4,10 L-3,3 L-14,6 L-14,2 L-3,-5 Z"
-            fill="#7a9ab5" opacity="0.5"/>
+    <!-- ═══ LEG LABELS ═══ -->
+    <g font-family="Inter,system-ui,sans-serif" font-weight="700" fill="#e4ecf5">
+      <text x="700" y="448" font-size="20" text-anchor="middle">Upwind / Take-off</text>
+      <text x="952" y="335" font-size="20" text-anchor="middle"
+            transform="rotate(90 952 335)">Crosswind</text>
+      <text x="595" y="208" font-size="20" text-anchor="middle">Downwind · 1,000 ft AGL</text>
+      <text x="238" y="360" font-size="20" text-anchor="middle"
+            transform="rotate(-90 238 360)">Base</text>
+      <text x="370" y="448" font-size="20" text-anchor="middle">Final</text>
     </g>
 
-    <!-- ═══ LEG LABELS ════════════════════════════════════════════ -->
-
-    <!-- UPWIND — right of runway, mid-upwind -->
-    <text x="225" y="207" font-size="12" font-weight="700"
-          fill="#e4ecf5" text-anchor="start" font-family="Inter,system-ui,sans-serif">UPWIND</text>
-    <text x="225" y="220" font-size="10"
-          fill="#7a9ab5" text-anchor="start" font-family="Inter,system-ui,sans-serif">climb-out · same hdg</text>
-
-    <!-- CROSSWIND — above crosswind leg -->
-    <text x="132" y="51" font-size="12" font-weight="700"
-          fill="#e4ecf5" text-anchor="middle" font-family="Inter,system-ui,sans-serif">CROSSWIND</text>
-    <text x="132" y="41" font-size="10"
-          fill="#7a9ab5" text-anchor="middle" font-family="Inter,system-ui,sans-serif">90° away · climb</text>
-
-    <!-- DOWNWIND — left side, rotated to read bottom-to-top -->
-    <text x="22" y="252"
-          font-size="12" font-weight="700"
-          fill="#e4ecf5" text-anchor="middle"
-          transform="rotate(-90 22 252)"
-          font-family="Inter,system-ui,sans-serif">DOWNWIND</text>
-    <text x="9" y="252"
-          font-size="10"
-          fill="#7a9ab5" text-anchor="middle"
-          transform="rotate(-90 9 252)"
-          font-family="Inter,system-ui,sans-serif">parallel · opp direction</text>
-
-    <!-- BASE — below base leg -->
-    <text x="124" y="455" font-size="12" font-weight="700"
-          fill="#e4ecf5" text-anchor="middle" font-family="Inter,system-ui,sans-serif">BASE</text>
-    <text x="124" y="467" font-size="10"
-          fill="#7a9ab5" text-anchor="middle" font-family="Inter,system-ui,sans-serif">90° toward runway</text>
-
-    <!-- FINAL — left of final approach path -->
-    <text x="178" y="285" font-size="12" font-weight="700"
-          fill="#e4ecf5" text-anchor="end" font-family="Inter,system-ui,sans-serif">FINAL</text>
-    <text x="178" y="298" font-size="10"
-          fill="#7a9ab5" text-anchor="end" font-family="Inter,system-ui,sans-serif">aligned · descending</text>
-
-    <!-- RIGHT-HAND label — east side, rotated -->
-    <text x="350" y="252"
-          font-size="10" font-weight="700"
-          fill="#7a9ab5" text-anchor="middle"
-          transform="rotate(90 350 252)"
-          opacity="0.75"
-          font-family="Inter,system-ui,sans-serif">RIGHT-HAND</text>
-    <text x="363" y="252"
-          font-size="9"
-          fill="#7a9ab5" text-anchor="middle"
-          transform="rotate(90 363 252)"
-          opacity="0.7"
-          font-family="Inter,system-ui,sans-serif">CFS / NOTAM / ATC only</text>
-
-    <!-- ═══ ALTITUDE LABEL — 1,000 ft AGL ════════════════════════ -->
-    <!-- Tick line from circuit-top (y=63) leftward, label to the left -->
-    <line x1="39" y1="63" x2="52" y2="63"
-          stroke="#f0c040" stroke-width="1" stroke-dasharray="3,3" opacity="0.55"/>
-    <text x="37" y="59" font-size="10" font-weight="700"
-          fill="#f0c040" text-anchor="end" font-family="Inter,system-ui,sans-serif">1,000 ft AGL</text>
-    <text x="37" y="71" font-size="9"
-          fill="#7a9ab5" text-anchor="end" font-family="Inter,system-ui,sans-serif">circuit altitude</text>
-
-    <!-- ═══ RADIO CALL ANNOTATIONS ════════════════════════════════ -->
-    <text x="73" y="112" font-size="9" font-weight="700"
-          fill="#5b9bd5" text-anchor="start" font-family="Inter,system-ui,sans-serif">Downwind call</text>
-    <text x="73" y="123" font-size="8"
-          fill="#7a9ab5" text-anchor="start" font-family="Inter,system-ui,sans-serif">abeam landing threshold</text>
-
-    <text x="73" y="435" font-size="9" font-weight="700"
-          fill="#5b9bd5" text-anchor="start" font-family="Inter,system-ui,sans-serif">Base call</text>
-
-    <text x="206" y="307" font-size="9" font-weight="700"
-          fill="#5b9bd5" text-anchor="start" font-family="Inter,system-ui,sans-serif">Final call</text>
-
-    <!-- ═══ LEGEND ════════════════════════════════════════════════ -->
-    <rect x="10" y="481" width="378" height="24" rx="4"
-          fill="#0f1f33" stroke="#1a3550" stroke-width="1"/>
-    <!-- Left-hand legend swatch -->
-    <line x1="18" y1="493" x2="42" y2="493"
-          stroke="#f0c040" stroke-width="2.5" marker-end="url(#arr-a)"/>
-    <text x="47" y="497" font-size="9"
-          fill="#e4ecf5" font-family="Inter,system-ui,sans-serif">Left-hand (standard)</text>
-    <!-- Right-hand legend swatch -->
-    <line x1="158" y1="493" x2="182" y2="493"
-          stroke="#7a9ab5" stroke-width="1.5" stroke-dasharray="5,3"
-          marker-end="url(#arr-m)" opacity="0.8"/>
-    <text x="187" y="497" font-size="9"
-          fill="#7a9ab5" font-family="Inter,system-ui,sans-serif">Right-hand (CFS/ATC)</text>
-    <!-- Radio call legend swatch -->
-    <circle cx="303" cy="493" r="5" fill="none" stroke="#5b9bd5" stroke-width="1.5"/>
-    <text x="308" y="490" font-size="8" font-weight="800"
-          fill="#5b9bd5" font-family="Inter,system-ui,sans-serif">R</text>
-    <text x="316" y="497" font-size="9"
-          fill="#7a9ab5" font-family="Inter,system-ui,sans-serif">ATC radio call</text>
-
+    <!-- ═══ FOOTNOTES ═══ -->
+    <g font-family="Inter,system-ui,sans-serif" fill="#7a9ab5">
+      <text x="48" y="700" font-size="13">Sources: AIM RAC 4.5 · CARs 602.96 · TP 12880E</text>
+      <text x="48" y="724" font-size="12">Recommended join: 45° entry to mid-downwind from the non-traffic (upwind) side. Right-hand circuits noted in CFS or by aerodrome markings.</text>
+    </g>
   </svg>
 </div><!-- /.diagram-wrap -->
 
