@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
@@ -69,6 +70,7 @@ function SectionHead({ title, meta }: { title: string; meta: string }) {
 }
 
 export default function SRSQueue() {
+  const theme = useTheme();
   const { activeTrack } = useExamTrack();
   const { updateCard, getDueCards } = useSRSStore(activeTrack.id);
 
@@ -586,12 +588,12 @@ export default function SRSQueue() {
                     '&:hover': {
                       borderColor: grade === 0 ? 'error.main' : grade === 2 ? 'warning.main' : grade === 3 ? 'info.main' : 'success.main',
                       bgcolor: grade === 0
-                        ? 'rgba(224,80,80,0.08)'
+                        ? alpha(theme.palette.error.main, 0.08)
                         : grade === 2
-                        ? 'rgba(240,192,64,0.08)'
+                        ? alpha(theme.palette.warning.main, 0.08)
                         : grade === 3
-                        ? 'rgba(91,155,213,0.08)'
-                        : 'rgba(76,175,125,0.08)',
+                        ? alpha(theme.palette.info.main, 0.08)
+                        : alpha(theme.palette.success.main, 0.08),
                     },
                   }}
                 >
