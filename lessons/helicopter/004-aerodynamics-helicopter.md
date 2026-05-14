@@ -7,6 +7,7 @@ title: "Helicopter Aerodynamics"
 duration_min: 20
 status: draft
 audio: null
+visual: null
 sources:
   - "TC Helicopter Flight Training Manual (TP 9982E)"
   - "TP 12880E — Aeroplane Flight Training Manual (rotary-wing supplement concepts)"

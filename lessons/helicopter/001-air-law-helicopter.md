@@ -7,6 +7,7 @@ title: "Air Law for Helicopter Operations"
 duration_min: 20
 status: draft
 audio: null
+visual: null
 sources:
   - "CARs Part VI (General Operating and Flight Rules)"
   - "CARs 601.01–601.15 (Airspace Classifications)"

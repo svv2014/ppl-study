@@ -7,6 +7,7 @@ title: "Helicopter Systems"
 duration_min: 20
 status: draft
 audio: null
+visual: null
 sources:
   - "TC Helicopter Flight Training Manual (TP 9982E)"
   - "CARs 605.06 — Aircraft Equipment Standards and Serviceability"
