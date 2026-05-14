@@ -7,6 +7,7 @@ title: "Helicopter Operations"
 duration_min: 20
 status: draft
 audio: null
+visual: null
 sources:
   - "TC Helicopter Flight Training Manual (TP 9982E)"
   - "CARs 602.26 — Carriage of External Loads"

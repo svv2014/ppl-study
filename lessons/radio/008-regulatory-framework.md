@@ -59,24 +59,6 @@ questions:
       D: "The aerodrome at which the aircraft is based"
     answer: B
     explanation: "The station licence is issued to the aircraft (or the aircraft owner/operator), not to the individual pilot. It is associated with the aircraft registration mark (e.g., C-GABC) and must be carried on board. The ROC-A is the personal certificate held by the individual operating the radio. Source: Radiocommunication Act, ISED RIC-21."
-  - id: q6
-    prompt: "Is a radio operator's log (communication log) required for private VFR flights in Canadian civil aviation?"
-    choices:
-      A: "Yes — a log must be kept for every transmission"
-      B: "Yes — but only for cross-country flights over 25 NM"
-      C: "No — a communication log is not required for private VFR aircraft operations in Canada"
-      D: "Yes — the CARs require a 30-day rolling log to be kept on board"
-    answer: C
-    explanation: "Unlike marine radio operations, private VFR aircraft operators in Canada are not required to maintain a radio communication log. Log requirements exist for certain commercial and IFR operations, but not for private VFR flight. Source: ISED RIC-21, Radiocommunication Act (no general log requirement for private VFR)."
-  - id: q7
-    prompt: "A Canadian pilot with a valid PPL plans to fly a Canadian-registered aircraft in the United States. Which document must the pilot carry regarding radio operations?"
-    choices:
-      A: "The Canadian ROC-A is automatically valid in the US — no additional document needed"
-      B: "A US FCC Restricted Radiotelephone Operator Permit or equivalent"
-      C: "The Canadian ROC-A, which is recognized by the FCC under bilateral agreement, and the aircraft station licence"
-      D: "No radio licence is required in the US for private VFR flight"
-    answer: C
-    explanation: "Under the bilateral recognition agreement between Canada and the United States, the Canadian ROC-A is accepted by the FCC for operation of aeronautical radios in the US. The pilot should carry both the ROC-A and the aircraft station licence. Source: ISED RIC-21, FCC-ISED bilateral arrangements."
 ---
 
 # Lesson ROC-008: Radio Regulatory Framework — Radiocommunication Act and ROC-A
