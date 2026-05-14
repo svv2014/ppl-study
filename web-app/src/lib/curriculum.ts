@@ -79,6 +79,14 @@ export const CURRICULUM: CurriculumSlot[] = [
   { id: 'GK-013', slug: 'load-factor', title: 'Load Factor and Maneuvering Speed', topic: 'general-knowledge', order: 13 },
   { id: 'GK-014', slug: 'preflight-inspection', title: 'Pre-Flight Inspection and Maintenance', topic: 'general-knowledge', order: 14 },
 
+  // Night Rating (6)
+  { id: 'NIGHT-001', slug: 'visual-illusions-dark-adaptation', title: 'Visual Illusions at Night and Dark Adaptation', topic: 'night', order: 1 },
+  { id: 'NIGHT-002', slug: 'aircraft-lighting', title: 'Aircraft Lighting — Interior and Exterior', topic: 'night', order: 2 },
+  { id: 'NIGHT-003', slug: 'aerodrome-lighting', title: 'Aerodrome Lighting — PAPI, VASI, Runway and Beacon', topic: 'night', order: 3 },
+  { id: 'NIGHT-004', slug: 'night-navigation', title: 'Night Navigation', topic: 'night', order: 4 },
+  { id: 'NIGHT-005', slug: 'night-emergency-procedures', title: 'Night Emergency Procedures', topic: 'night', order: 5 },
+  { id: 'NIGHT-006', slug: 'night-cars-regulations', title: 'Night CARs and Regulations — CAR 401.42 and Recency', topic: 'night', order: 6 },
+
   // Radio (ROC-A) (9)
   { id: 'ROC-001', slug: 'phonetic-alphabet-numbers', title: 'Phonetic Alphabet and Numbers', topic: 'radio', order: 1, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/001-phonetic-alphabet-numbers.m4a', visual: '' },
   { id: 'ROC-002', slug: 'standard-phraseology-readback', title: 'Standard Phraseology and Readback', topic: 'radio', order: 2, audio: 'https://media.suprun.workers.dev/ppl/lessons/radio/002-standard-phraseology-readback.m4a', visual: '' },
@@ -98,6 +106,7 @@ export const TOPIC_LABELS: Record<string, string> = {
   'general-knowledge': 'General Knowledge',
   'radio': 'Radio (ROC-A)',
   'helicopter': 'Helicopter',
+  'night': 'Night Rating',
 };
 
-export const TOPICS = ['air-law', 'navigation', 'meteorology', 'general-knowledge', 'radio', 'cpl-a', 'helicopter'] as const;
+export const TOPICS = ['air-law', 'navigation', 'meteorology', 'general-knowledge', 'radio', 'cpl-a', 'helicopter', 'night'] as const;
