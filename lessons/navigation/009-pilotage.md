@@ -47,6 +47,15 @@ questions:
       D: "It requires a second pilot to read the chart"
     answer: B
     explanation: "Pilotage depends on being able to see and identify ground features. In featureless terrain (large flat areas of farmland, tundra, ocean, or dense boreal forest), landmarks may be absent or indistinguishable. In reduced visibility (haze, rain, smoke), even identifiable features may not be visible. In these conditions, pilotage must be supplemented by dead reckoning and radio aids. Source: TP 12880E Chapter 9."
+  - id: q5
+    prompt: "When selecting pilotage checkpoints during pre-flight planning, which combination is most effective?"
+    choices:
+      A: "Select only point features (towns, lakes) placed directly on track"
+      B: "Select a mix of point features on track and line features that cross the track"
+      C: "Rely entirely on line features such as highways running parallel to track"
+      D: "Select checkpoints spaced 50 NM apart to reduce workload"
+    answer: B
+    explanation: "Effective checkpoint selection combines point features (towns, lakes, hills) located on or near the track, which confirm both along-track and across-track position, with line features (rivers, railways, highways) that cross the track perpendicularly, which confirm along-track progress. Parallel line features and distant point features are much harder to use for position fixing. Source: TP 12880E Chapter 9."
 ---
 
 # Lesson NAV-009: Pilotage — Navigating by Ground Reference

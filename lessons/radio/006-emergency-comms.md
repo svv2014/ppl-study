@@ -60,24 +60,6 @@ questions:
       D: "7000"
     answer: C
     explanation: "Squawk 7500 is the universal code for unlawful interference (hijack). It alerts ATC and military authorities without a verbal declaration. Squawk 7700 = general emergency; squawk 7600 = radio failure. Source: AIM RAC 1.9, ISED RIC-21."
-  - id: q6
-    prompt: "After declaring MAYDAY, a pilot who has re-established the aircraft under control and no longer needs assistance should:"
-    choices:
-      A: "Continue on 121.5 MHz and wait for ATC to cancel the emergency"
-      B: "Simply switch to the en route frequency without notifying anyone"
-      C: "Transmit 'MAYDAY CANCELLED' to notify all stations the emergency is over"
-      D: "Land immediately as required by regulation regardless of circumstances"
-    answer: C
-    explanation: "When an emergency is resolved, the pilot should transmit 'MAYDAY CANCELLED' (or equivalent cancellation phrase) on the frequency on which the MAYDAY was declared. This notifies all listening stations — including SAR assets that may be mobilizing — that the emergency no longer exists. Source: ISED RIC-21, AIM SAR 3.0."
-  - id: q7
-    prompt: "The complete MAYDAY call format includes (in order):"
-    choices:
-      A: "MAYDAY x3, station called, your identification, nature of distress, last known position, heading and speed, altitude, intentions, number of persons on board"
-      B: "MAYDAY x3, your name, aircraft type, departure aerodrome, destination"
-      C: "MAYDAY x3, your registration only — ATC will ask for more"
-      D: "MAYDAY x3, transponder code, fuel remaining, passengers"
-    answer: A
-    explanation: "The standard MAYDAY call format follows the mnemonic MPDAIINS: MAYDAY x3, station called, identification (call sign), nature of distress, position (last known or current), altitude, intentions, number of persons. Source: ISED RIC-21, AIM SAR 3.0."
 ---
 
 # Lesson ROC-006: Emergency Communications

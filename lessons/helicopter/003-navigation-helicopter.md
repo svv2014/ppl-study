@@ -7,6 +7,7 @@ title: "Navigation for Helicopter Operations"
 duration_min: 20
 status: draft
 audio: null
+visual: null
 sources:
   - "TP 12880E (Aeroplane Flight Training Manual) – Navigation chapter"
   - "TC AIM MAP section"

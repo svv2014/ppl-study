@@ -48,6 +48,15 @@ questions:
       D: "Turn left because wind from the north creates a southerly drift"
     answer: A
     explanation: "Wind from 360° (north) pushes the aircraft south (to the right of a 090° track). To correct, the pilot must point the nose into the wind — to the left (north), turning to a heading less than 090°. Source: TP 12880E Chapter 9."
+  - id: q5
+    prompt: "An aircraft has a TAS of 120 knots and a direct tailwind of 30 knots. What is the ground speed, and how does this affect the ETA compared to calm wind conditions?"
+    choices:
+      A: "90 knots — ETA increases"
+      B: "120 knots — ETA unchanged"
+      C: "150 knots — ETA decreases"
+      D: "150 knots — ETA increases"
+    answer: C
+    explanation: "With a direct tailwind, ground speed = TAS + tailwind: 120 + 30 = 150 knots. A higher ground speed means the aircraft covers distance faster, so ETA decreases (arrives earlier than in calm conditions). The pilot must update fuel burn calculations accordingly, as time en route is reduced. Source: TP 12880E Chapter 9."
 ---
 
 # Lesson NAV-005: Wind Correction Angle and Ground Speed

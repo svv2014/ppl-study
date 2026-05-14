@@ -47,6 +47,15 @@ questions:
       D: "Dead reckoning does not use magnetic headings"
     answer: B
     explanation: "In dead reckoning, position is estimated by projecting from the last known point. Any small error in heading or ground speed estimate multiplies with time: a 2° heading error becomes a 3.5 NM track error after 100 NM. Regular checkpoint verification is essential to correct accumulated errors. Source: TP 12880E Chapter 9."
+  - id: q5
+    prompt: "A pilot's flight log shows a planned ground speed of 100 knots for a 200 NM leg. After 1 hour the pilot notes they have covered only 90 NM. What is the best estimate of actual ground speed?"
+    choices:
+      A: "90 knots"
+      B: "100 knots"
+      C: "110 knots"
+      D: "200 knots"
+    answer: A
+    explanation: "Ground speed is distance divided by time: 90 NM ÷ 1 hour = 90 knots. The pilot should use this revised ground speed to recalculate ETAs for all remaining checkpoints and the destination. This is standard dead reckoning in-flight correction. Source: TP 12880E Chapter 9."
 ---
 
 # Lesson NAV-004: Dead Reckoning

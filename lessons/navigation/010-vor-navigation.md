@@ -48,6 +48,15 @@ questions:
       D: "By confirming the CDI centres on the expected radial"
     answer: B
     explanation: "VOR stations broadcast a continuous Morse code identifier (3 letters) on the VOR frequency. The pilot must identify the VOR by listening to or decoding the Morse identifier and confirming it matches the identifier printed on the chart. If a VOR is undergoing maintenance, it transmits TST or no identifier as a signal to pilots not to use it. Source: TP 12880E Chapter 10, AIM COM 5.0."
+  - id: q5
+    prompt: "An aircraft is on the 090° radial of a VOR (east of the station) and the pilot sets OBS to 270°. What will the TO/FROM flag show?"
+    choices:
+      A: "TO — because 270° would take the aircraft toward the VOR"
+      B: "FROM — because the aircraft is on the 090° radial, flying away from the station"
+      C: "OFF — the indicator cannot resolve the radial"
+      D: "TO — because the aircraft is east of the station"
+    answer: A
+    explanation: "The OBS is set to 270°, which is the course that points from east toward the VOR (westbound inbound). Since flying 270° would take the aircraft toward the VOR, the TO flag is displayed. The TO/FROM flag indicates whether the selected OBS course takes you toward or away from the station — it is independent of the aircraft's current heading. Source: TP 12880E Chapter 10."
 ---
 
 # Lesson NAV-010: VOR Navigation

@@ -49,6 +49,15 @@ questions:
       D: "075°"
     answer: A
     explanation: "With easterly variation, you SUBTRACT the variation from true to get magnetic: 090° − 25° = 065°. Easterly variation means magnetic north is east of true north, so compass headings are numerically less than true headings. Source: TP 12880E Chapter 9, AIM GEN 1.1."
+  - id: q5
+    prompt: "A pilot needs to fly a magnetic heading of 180°. The compass deviation card shows −2° on that heading. What compass heading should the pilot fly?"
+    choices:
+      A: "178°"
+      B: "180°"
+      C: "182°"
+      D: "176°"
+    answer: C
+    explanation: "Compass = Magnetic + Deviation. With −2° (westerly) deviation, the compass reads 2° low, so the pilot must steer 182° on the compass to fly a magnetic heading of 180°. Using TVMDC: subtract westerly deviation when converting from Magnetic to Compass, which means the compass heading is numerically higher. Source: TP 12880E Chapter 9."
 ---
 
 # Lesson NAV-003: True vs Magnetic vs Compass Heading
