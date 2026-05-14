@@ -27,6 +27,9 @@ that conforms to this schema. The web app and validator both rely on it.
 | `navigation` | Navigation (charts, dead reckoning, wind correction) |
 | `meteorology` | Meteorology (METAR, TAF, GFAs, weather hazards) |
 | `general-knowledge` | Aeronautics — General Knowledge (aircraft systems, instruments, W&B) |
+| `radio` | Radiotelephony — RROE track |
+| `cpl-a` | Commercial Pilot Licence (Aeroplane) — CPL-A track |
+| `helicopter` | PPL Helicopter — PPL-H track |
 
 ### Question object schema
 
