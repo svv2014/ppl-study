@@ -22,6 +22,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { buildExamPool, scoreExam, formatTime, POOL_CONFIGS } from '../lib/final-exam';
 import type { ExamQuestion, ExamResult } from '../lib/final-exam';
+import PracticeOral from './PracticeOral';
 
 type Phase = 'config' | 'running' | 'results';
 type PoolType = 'full' | 'quick' | 'custom';
@@ -91,8 +92,15 @@ function poolLabel(type: PoolType): string {
 export default function FinalExam() {
   const theme = useTheme();
   const [searchParams] = useSearchParams();
+  const mode = searchParams.get('mode');
+  const trackParam = searchParams.get('track') ?? 'night';
   const seedParam = searchParams.get('seed');
   const seedValue = seedParam !== null ? Number(seedParam) : undefined;
+
+  // Practice Oral mode — lightweight quiz for night track (no timer, no TC weighting)
+  if (mode === 'practice-oral') {
+    return <PracticeOral trackId={trackParam} count={20} />;
+  }
 
   const [phase, setPhase] = useState<Phase>('config');
   const [poolType, setPoolType] = useState<PoolType>('full');

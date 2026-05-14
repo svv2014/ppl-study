@@ -2,6 +2,7 @@ import type { Question } from './types';
 import { scoreQuiz } from './quiz';
 import { getAllLessons } from './lesson-loader';
 import { TOPIC_LABELS } from './curriculum';
+import { getTrack } from './exam-tracks';
 
 export type { QuizResult } from './quiz';
 
@@ -70,6 +71,32 @@ function shuffle<T>(arr: T[], rng: () => number): T[] {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+/**
+ * Builds a shuffled pool of questions for Practice Oral mode.
+ * Draws from lessons filtered by the given trackId's lessonFilter (e.g. 'night').
+ * Does NOT apply TOPIC_WEIGHTS — all matching questions are treated equally.
+ */
+export function buildPracticeOralPool(trackId: string, count: number, seed?: number): ExamQuestion[] {
+  const track = getTrack(trackId);
+  const rng = seededRng(seed !== undefined ? seed : (Date.now() >>> 0));
+  const allLessons = getAllLessons().filter((l) => (track ? track.lessonFilter(l) : true) && l.questions.length > 0);
+
+  const pool: ExamQuestion[] = [];
+  for (const lesson of allLessons) {
+    for (const q of lesson.questions) {
+      pool.push({
+        ...q,
+        lessonId: lesson.id,
+        lessonSlug: lesson.slug,
+        lessonTopic: lesson.topic,
+      });
+    }
+  }
+
+  const shuffled = shuffle(pool, rng);
+  return shuffled.slice(0, Math.min(count, shuffled.length));
 }
 
 export function buildExamPool(totalCount: number, seed?: number): ExamQuestion[] {
