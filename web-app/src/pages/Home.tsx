@@ -9,6 +9,7 @@ import { CURRICULUM } from '../lib/curriculum';
 import { getLessonsByTrack } from '../lib/lesson-loader';
 import type { Lesson } from '../lib/types';
 import StatusBar, { LAST_SESSION_KEY } from '../components/home/StatusBar';
+import CheckinHeatmap from '../components/CheckinHeatmap';
 import ReadinessGauge from '../components/home/ReadinessGauge';
 import TopicCoverageGrid from '../components/home/TopicCoverageGrid';
 import NextActionCard from '../components/home/NextActionCard';
@@ -201,6 +202,10 @@ export default function Home() {
             <NextActionCard lesson={nextLesson} lastSessionAgo={lastSessionAgo} />
           </>
         )}
+
+        {/* Study Activity */}
+        <SectionHead title="Study Activity" meta="Last 30 Days" />
+        <CheckinHeatmap />
 
         {/* Topic Coverage */}
         <SectionHead title="Topic Coverage · TC Exam Weight" meta="4 Domains" />
