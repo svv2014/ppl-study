@@ -8,6 +8,7 @@ import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import { alpha, useTheme } from '@mui/material/styles';
 
 import { CURRICULUM, TOPIC_LABELS, TOPICS } from '../lib/curriculum';
 import { TOPIC_PLAYLISTS } from '../data/playlists';
@@ -17,6 +18,7 @@ import { useExamTrack } from '../context/ExamTrackContext';
 import TopicMasteryCard from '../components/TopicMasteryCard';
 
 export default function LessonsIndex() {
+  const theme = useTheme();
   const { store, activeTrack } = useExamTrack();
   const { isComplete } = useProgress(store);
 
@@ -71,7 +73,7 @@ export default function LessonsIndex() {
 
                 if (!lesson) {
                   return (
-                    <Card key={slot.id} variant="outlined" sx={{ opacity: 0.5, borderLeft: '3px solid rgba(255,255,255,0.12)' }}>
+                    <Card key={slot.id} variant="outlined" sx={{ opacity: 0.5, borderLeft: `3px solid ${alpha(theme.palette.divider, 0.12)}` }}>
                       <CardContent sx={{ pb: '12px !important' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.5 }}>
                           <Chip label={slot.id} size="small" variant="outlined" color="default" sx={{ fontFamily: 'monospace', fontWeight: 600 }} />
@@ -96,7 +98,7 @@ export default function LessonsIndex() {
                       transition: 'all 0.15s ease',
                       '&:hover': {
                         transform: 'translateY(-2px)',
-                        boxShadow: '0 4px 20px rgba(245, 166, 35, 0.2)',
+                        boxShadow: `0 4px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
                       },
                     }}
                   >
