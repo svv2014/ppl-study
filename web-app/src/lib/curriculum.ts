@@ -80,6 +80,7 @@ export const CURRICULUM: CurriculumSlot[] = [
   { id: 'GK-014', slug: 'preflight-inspection', title: 'Pre-Flight Inspection and Maintenance', topic: 'general-knowledge', order: 14 },
 
   // Night Rating (6) — pedagogical order: regulations & recency → physiology / vision → aircraft lighting → aerodrome lighting → night navigation → night emergencies
+  // Intentional: NIGHT-006 is order:1 because it was authored last but taught first. IDs reflect authoring sequence; order reflects pedagogy — see #483.
   { id: 'NIGHT-006', slug: 'night-cars-regulations', title: 'Night CARs and Regulations — CAR 401.42 and Recency', topic: 'night', order: 1 },
   { id: 'NIGHT-001', slug: 'visual-illusions-dark-adaptation', title: 'Visual Illusions at Night and Dark Adaptation', topic: 'night', order: 2 },
   { id: 'NIGHT-002', slug: 'aircraft-lighting', title: 'Aircraft Lighting — Interior and Exterior', topic: 'night', order: 3 },
