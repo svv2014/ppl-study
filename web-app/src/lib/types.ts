@@ -1,4 +1,4 @@
-export type Topic = 'air-law' | 'navigation' | 'meteorology' | 'general-knowledge' | 'radio' | 'cpl-a' | 'helicopter';
+export type Topic = 'air-law' | 'navigation' | 'meteorology' | 'general-knowledge' | 'radio' | 'cpl-a' | 'helicopter' | 'night';
 export type LessonStatus = 'planning' | 'draft' | 'complete';
 
 export interface Question {
