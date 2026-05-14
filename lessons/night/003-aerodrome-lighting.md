@@ -58,24 +58,6 @@ questions:
       D: "Yellow"
     answer: B
     explanation: "Aerodrome identification beacons flash the airport's two-letter identifier in Morse code in green. They are used to help pilots positively identify an aerodrome at night, especially in areas with multiple airports. Source: AIM AIR 4.0."
-  - id: q6
-    prompt: "A 4-light PAPI showing all four lights red indicates:"
-    choices:
-      A: "You are on the correct glide path"
-      B: "You are slightly below the glide path — adjust pitch up slightly"
-      C: "You are dangerously below the glide path — immediate climb required"
-      D: "The PAPI is unserviceable — disregard and use runway lights only"
-    answer: C
-    explanation: "On a standard 4-light PAPI: 4 red = dangerously low — obstacle clearance may be compromised. Immediate action is required to arrest the descent and climb back to the glide path. This is not a slight deviation: 4 red is the most critical PAPI indication. Source: TP 12880E Chapter 10, AIM AIR 4.0."
-  - id: q7
-    prompt: "Pilot-Controlled Lighting (PCL) at an uncontrolled aerodrome is typically activated by:"
-    choices:
-      A: "Calling the nearest FSS and requesting activation"
-      B: "Clicking the aircraft's radio microphone on the CTAF frequency a specific number of times"
-      C: "Broadcasting an intention to land on 121.5 MHz"
-      D: "Contacting NAV CANADA on 126.7 MHz"
-    answer: B
-    explanation: "Pilot-Controlled Lighting is activated by keying the microphone on the CTAF frequency a specified number of times within a 5-second window. The number of clicks selects the lighting intensity. The CTAF frequency and keying procedure are published in the Canada Flight Supplement (CFS) for each aerodrome. Source: AIM AIR 4.4, TP 12880E Chapter 10."
 ---
 
 # Lesson NIGHT-003: Aerodrome Lighting — PAPI, VASI, Runway and Beacon

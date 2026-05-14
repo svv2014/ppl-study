@@ -57,24 +57,6 @@ questions:
       D: "High-intensity runway edge lights"
     answer: C
     explanation: "Red light (long wavelength) stimulates cones but has minimal effect on rods, so it preserves dark adaptation better than white or blue-white light. Aircraft cockpits traditionally use red or low-intensity lighting for this reason. Source: TP 12880E Chapter 10."
-  - id: q6
-    prompt: "The 'black hole approach' illusion at night is most dangerous when approaching an airport over:"
-    choices:
-      A: "Built-up urban areas with extensive street lighting"
-      B: "Dark, featureless terrain such as water or flat farmland with no ambient lighting"
-      C: "Mountainous terrain where rising ground provides visual cues"
-      D: "An airport with PAPI and runway edge lights fully operational"
-    answer: B
-    explanation: "The black hole illusion occurs when an approach is made over dark, featureless terrain with no visual cues to judge height or slope. Without ambient lighting, pilots tend to fly lower-than-intended approach angles, increasing CFIT risk short of the runway. The remedy is to use PAPI/VASI and instrument glide paths. Source: TP 12880E Chapter 10."
-  - id: q7
-    prompt: "A pilot's dark adaptation will be significantly disrupted if they:"
-    choices:
-      A: "Check a red-lit instrument panel for 10 seconds"
-      B: "Briefly look at a phone screen at full white brightness"
-      C: "Use off-centre viewing to scan for traffic"
-      D: "Conduct a pre-flight walk-around under a half-moon"
-    answer: B
-    explanation: "Even a brief exposure to bright white light can significantly reset rod adaptation by bleaching rhodopsin. A full-brightness phone or tablet screen is one of the most common culprits in cockpits. Red light (option A) minimally affects rods and does not significantly disrupt adaptation. Source: TP 12880E Chapter 10."
 ---
 
 # Lesson NIGHT-001: Visual Illusions at Night and Dark Adaptation

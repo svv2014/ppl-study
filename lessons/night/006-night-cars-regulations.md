@@ -60,24 +60,6 @@ questions:
       D: "No — they must re-apply for the Night Rating and complete a night flight test"
     answer: B
     explanation: "The Night Rating itself is permanent once issued, but CARs 401.05(2) imposes a recency requirement to carry passengers. Without 5 night take-offs and 5 night full-stop landings in the preceding 6 months, the pilot may fly solo at night (maintaining their own currency) but may not carry passengers. They do not need to re-apply for the rating. Source: CARs 401.05(2), 401.42."
-  - id: q6
-    prompt: "A pilot completed 5 night touch-and-go landings last month. Are they current to carry passengers at night under CARs 401.05?"
-    choices:
-      A: "Yes — 5 night landings in the preceding 6 months meets the recency requirement"
-      B: "No — the 5 landings must be full-stop landings, not touch-and-go"
-      C: "Yes — touch-and-go landings are acceptable if completed on a night endorsed by an instructor"
-      D: "No — the landings must be completed within 3 months, not 6"
-    answer: B
-    explanation: "CARs 401.05(2) explicitly requires full-stop landings for night recency. Touch-and-go landings do not satisfy the requirement. The distinction matters operationally: a full-stop landing involves a complete deceleration and repositioning, better simulating the judgment required for a real night landing. Source: CARs 401.05(2)."
-  - id: q7
-    prompt: "Under CARs 602.115, the night VFR weather minimum in Class G airspace above 1,000 ft AGL is:"
-    choices:
-      A: "1 statute mile visibility and clear of cloud"
-      B: "3 statute miles visibility and 500 ft below, 1,000 ft above, 2,000 ft horizontal from cloud"
-      C: "5 statute miles visibility and 1,000 ft below, 1,000 ft above, 1 nm horizontal from cloud"
-      D: "2 statute miles visibility and clear of cloud"
-    answer: B
-    explanation: "Night VFR in Class G above 1,000 ft AGL requires the same minimums as controlled airspace VFR: 3 statute miles visibility and 500-1,000-2,000 ft cloud separation. The reduced daytime minimums available in Class G (1 mile / clear of cloud at low altitude) do not apply at night. This is a common exam trap. Source: CARs 602.115, TP 12880E Chapter 10."
 ---
 
 # Lesson NIGHT-006: Night CARs and Regulations — CAR 401.42 and Recency

@@ -58,24 +58,6 @@ questions:
       D: "Nearest VOR and its frequency"
     answer: B
     explanation: "Arriving at an uncontrolled aerodrome at night with no lighting and no plan to activate it is a serious hazard. The Canada Flight Supplement (CFS) lists PCL frequencies and keying codes. A pre-flight check of PCL availability and CTAF frequency is essential for every uncontrolled aerodrome night arrival. Source: AIM, TP 12880E Chapter 10."
-  - id: q6
-    prompt: "When flying at night, a pilot discovers they are uncertain of their position. The most appropriate initial action is:"
-    choices:
-      A: "Descend below cloud and attempt to identify terrain features"
-      B: "Maintain altitude and heading, cross-check GPS or VOR position, and use the radio for ATC assistance"
-      C: "Turn 180° and track back to the last known position using dead reckoning"
-      D: "Declare an emergency immediately on 121.5 MHz"
-    answer: B
-    explanation: "Becoming uncertain of position at night is a precursor to a serious situation, but the first step is not to panic or descend. Maintain altitude (terrain clearance), cross-check available navigation aids (GPS, VOR), and if unable to re-establish position, call ATC for radar identification assistance. Descending into unknown terrain at night is extremely dangerous. Source: TP 12880E Chapter 10."
-  - id: q7
-    prompt: "Which of the following is a reliable strategy for maintaining situational awareness during a night cross-country flight?"
-    choices:
-      A: "Relying primarily on visual pilotage since roads and towns are well lit"
-      B: "Using dead reckoning, GPS, and VOR cross-checks at regular intervals to confirm position"
-      C: "Flying at low altitude to remain below cloud and closer to visible ground features"
-      D: "Following the coastline or a major river to navigate without instruments"
-    answer: B
-    explanation: "Night cross-country requires a multi-layered navigation strategy: dead reckoning (time/distance/heading), confirmed by GPS track and VOR cross-checks at regular intervals. Relying on a single method — especially visual pilotage alone — is insufficient because visual features are unreliable and easily misidentified at night. Source: TP 12880E Chapter 10."
 ---
 
 # Lesson NIGHT-004: Night Navigation
