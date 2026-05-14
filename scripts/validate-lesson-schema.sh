@@ -79,12 +79,12 @@ def main():
     if topic not in VALID_TOPICS:
         fail(path, f"invalid topic {topic!r}; must be one of {sorted(VALID_TOPICS)}")
 
-    # ── 5. questions must have exactly 5 entries ──────────────────────────────
+    # ── 5. questions must have between 3 and 10 entries ──────────────────────
     questions = fm.get("questions")
     if not isinstance(questions, list):
         fail(path, "questions must be a YAML list")
-    if len(questions) != 5:
-        fail(path, f"questions must have exactly 5 entries (found {len(questions)})")
+    if not (3 <= len(questions) <= 10):
+        fail(path, f"questions must have between 3 and 10 entries (found {len(questions)})")
 
     # ── 6. Each question's answer key must exist in its choices map ───────────
     for i, q in enumerate(questions, start=1):

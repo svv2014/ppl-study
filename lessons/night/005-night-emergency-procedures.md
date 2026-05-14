@@ -58,6 +58,24 @@ questions:
       D: "Civil aircraft voluntarily on a best-effort basis"
     answer: B
     explanation: "121.5 MHz (international aeronautical emergency frequency) is monitored by ATC radar facilities, and most commercial airliners carry it on a second receiver. The Cospas-Sarsat satellite system also monitors 121.5 MHz from ELTs. A MAYDAY on 121.5 MHz has the broadest possible reach. Source: TP 12880E Chapter 10, AIP Canada."
+  - id: q6
+    prompt: "A pilot experiencing partial instrument failure at night should prioritize which instruments to maintain controlled flight?"
+    choices:
+      A: "Airspeed indicator and altimeter only — these are always vacuum-independent"
+      B: "Attitude indicator, airspeed indicator, and altimeter as the primary control group"
+      C: "The magnetic compass exclusively, as it requires no power"
+      D: "GPS ground track and altitude readout"
+    answer: B
+    explanation: "In partial panel conditions at night, the attitude indicator (if functional), airspeed indicator, and altimeter form the essential control triad. They provide pitch/bank, energy state, and height. If the attitude indicator fails, the altimeter and airspeed together indicate pitch via energy changes. GPS supplements but does not replace primary flight instruments. Source: TP 12880E Chapter 10."
+  - id: q7
+    prompt: "Following a night engine failure, a pilot should select a forced landing area and then immediately:"
+    choices:
+      A: "Begin the descent immediately at best glide speed and focus on the target area"
+      B: "Transmit a MAYDAY, squawk 7700, and configure the aircraft while maintaining best glide speed"
+      C: "Turn the aircraft toward the nearest lit runway regardless of distance"
+      D: "Jettison all unnecessary weight to extend glide distance"
+    answer: B
+    explanation: "After selecting a landing area and establishing best glide speed — which comes first — the pilot should transmit a MAYDAY (position, nature of emergency, intentions), squawk 7700 on the transponder, and configure the aircraft for the forced landing (fuel off, harnesses tight, unlatch doors). These actions happen concurrently as workload permits. Source: TP 12880E Chapter 10, CARs 602.131."
 ---
 
 # Lesson NIGHT-005: Night Emergency Procedures
