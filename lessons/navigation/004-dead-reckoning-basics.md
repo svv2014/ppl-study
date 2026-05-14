@@ -47,6 +47,15 @@ questions:
       D: "Dead reckoning does not use magnetic headings"
     answer: B
     explanation: "In dead reckoning, position is estimated by projecting from the last known point. Any small error in heading or ground speed estimate multiplies with time: a 2° heading error becomes a 3.5 NM track error after 100 NM. Regular checkpoint verification is essential to correct accumulated errors. Source: TP 12880E Chapter 9."
+  - id: q5
+    prompt: "A pilot plans a cross-country leg of 75 NM with a calculated ground speed of 90 knots. What is the estimated time en route for this leg?"
+    choices:
+      A: "40 minutes"
+      B: "45 minutes"
+      C: "50 minutes"
+      D: "55 minutes"
+    answer: C
+    explanation: "Time (min) = (Distance ÷ Ground Speed) × 60 = (75 ÷ 90) × 60 = 0.833 × 60 = 50 minutes. Ground speed — not TAS — is used for time calculations because it accounts for the wind effect on actual progress over the ground. Source: TP 12880E Chapter 9."
 ---
 
 # Lesson NAV-004: Dead Reckoning

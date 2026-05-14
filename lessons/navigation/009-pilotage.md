@@ -47,6 +47,15 @@ questions:
       D: "It requires a second pilot to read the chart"
     answer: B
     explanation: "Pilotage depends on being able to see and identify ground features. In featureless terrain (large flat areas of farmland, tundra, ocean, or dense boreal forest), landmarks may be absent or indistinguishable. In reduced visibility (haze, rain, smoke), even identifiable features may not be visible. In these conditions, pilotage must be supplemented by dead reckoning and radio aids. Source: TP 12880E Chapter 9."
+  - id: q5
+    prompt: "A pilot's dead reckoning estimate places the aircraft over a lake, but the pilot identifies what appears to be a different lake 5 NM to the left. What is the recommended action?"
+    choices:
+      A: "Turn toward the identified lake and navigate from there as the new confirmed position"
+      B: "Investigate the discrepancy — verify heading flown, ground speed, and re-examine the landmark identification before changing course"
+      C: "Climb to a higher altitude so more landmarks become visible for a better fix"
+      D: "Declare uncertainty on 121.5 MHz and request radar vectors to the nearest airport"
+    answer: B
+    explanation: "When DR and pilotage disagree, the recommended action is to investigate: verify the heading was correctly flown, check whether ground speed matched the forecast, and critically re-examine whether the landmark was positively identified. Abandoning the DR plan to follow an ambiguous or unconfirmed landmark is a common cause of becoming lost. Maintain the DR heading as primary until a positive identification is made. Source: TP 12880E Chapter 9."
 ---
 
 # Lesson NAV-009: Pilotage — Navigating by Ground Reference

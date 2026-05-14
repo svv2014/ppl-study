@@ -48,6 +48,15 @@ questions:
       D: "By confirming the CDI centres on the expected radial"
     answer: B
     explanation: "VOR stations broadcast a continuous Morse code identifier (3 letters) on the VOR frequency. The pilot must identify the VOR by listening to or decoding the Morse identifier and confirming it matches the identifier printed on the chart. If a VOR is undergoing maintenance, it transmits TST or no identifier as a signal to pilots not to use it. Source: TP 12880E Chapter 10, AIM COM 5.0."
+  - id: q5
+    prompt: "To obtain a precise position fix using two VOR stations, a pilot should:"
+    choices:
+      A: "Fly toward the first VOR until station passage, then track the second VOR outbound"
+      B: "Tune each VOR, centre the CDI with a FROM flag displayed, read the OBS for each, and plot both radials on the chart — the intersection is the aircraft's position"
+      C: "Average the two OBS readings and apply the result to the nearest chart feature"
+      D: "Use the TO/FROM flags from both VORs to determine which quadrant the aircraft is in"
+    answer: B
+    explanation: "A position fix by cross-bearing requires tuning each VOR in turn, rotating the OBS until the CDI centres with a FROM flag, and reading the OBS — that value is the radial from that station. Plotting both radials on the VNC gives a precise fix at their intersection. This technique provides a reliable position confirmation independent of visual ground contact. Source: TP 12880E Chapter 10."
 ---
 
 # Lesson NAV-010: VOR Navigation
