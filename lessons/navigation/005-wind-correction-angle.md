@@ -48,6 +48,15 @@ questions:
       D: "Turn left because wind from the north creates a southerly drift"
     answer: A
     explanation: "Wind from 360° (north) pushes the aircraft south (to the right of a 090° track). To correct, the pilot must point the nose into the wind — to the left (north), turning to a heading less than 090°. Source: TP 12880E Chapter 9."
+  - id: q5
+    prompt: "An aircraft is flying a track of 180° (due south) at a TAS of 115 knots. The winds aloft forecast reports winds from 180° at 30 knots. What is the expected ground speed?"
+    choices:
+      A: "145 knots — the wind is a tailwind"
+      B: "85 knots — the wind is a headwind"
+      C: "115 knots — the wind is a crosswind with no GS effect"
+      D: "100 knots — the wind reduces GS by half the wind speed"
+    answer: B
+    explanation: "Wind direction is always stated as the direction FROM which it blows. A wind 'from 180°' blows from the south toward the north. An aircraft flying a 180° track (southbound) is flying directly into this wind — a direct headwind. Ground speed = TAS − headwind component = 115 − 30 = 85 knots. Source: TP 12880E Chapter 9."
 ---
 
 # Lesson NAV-005: Wind Correction Angle and Ground Speed
