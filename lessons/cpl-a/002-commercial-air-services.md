@@ -6,7 +6,7 @@ slug: commercial-air-services
 title: "Commercial Air Services and Operator Certificates"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/cpl-a/002-commercial-air-services.m4a
 visual: null
 sources:
   - "CARs Part VII (Commercial Air Services)"
