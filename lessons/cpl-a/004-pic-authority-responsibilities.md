@@ -6,7 +6,7 @@ slug: pic-authority-responsibilities
 title: "PIC Authority and Commercial Crew Responsibilities"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/cpl-a/004-pic-authority-responsibilities.m4a
 visual: null
 sources:
   - "CARs 700.15 (Pilot-in-Command Authority)"
