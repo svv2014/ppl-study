@@ -34,4 +34,11 @@ export const CURATED_PLAYLISTS: CuratedPlaylist[] = [
     lessonIds: ['NAV-001', 'NAV-002', 'NAV-003', 'NAV-004', 'NAV-005'],
     badge: 'Nav',
   },
+  {
+    id: 'night-rating-full',
+    name: 'Night Rating',
+    tagline: 'Dark adaptation, lighting, aerodrome systems, navigation, and emergency procedures — TC night endorsement curriculum.',
+    lessonIds: ['NIGHT-001', 'NIGHT-002', 'NIGHT-003', 'NIGHT-004', 'NIGHT-005', 'NIGHT-006'],
+    badge: 'Night',
+  },
 ];
