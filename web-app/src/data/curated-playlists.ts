@@ -41,4 +41,11 @@ export const CURATED_PLAYLISTS: CuratedPlaylist[] = [
     lessonIds: ['NIGHT-001', 'NIGHT-002', 'NIGHT-003', 'NIGHT-004', 'NIGHT-005', 'NIGHT-006'],
     badge: 'Night',
   },
+  {
+    id: 'helicopter-full',
+    name: 'PPL-H Full Listen',
+    tagline: 'Air law through human factors — the complete helicopter PPL ground-school curriculum',
+    lessonIds: ['HEL-001', 'HEL-002', 'HEL-003', 'HEL-004', 'HEL-005', 'HEL-006', 'HEL-007', 'HEL-008'],
+    badge: 'H',
+  },
 ];
