@@ -6,7 +6,7 @@ slug: air-law-helicopter
 title: "Air Law for Helicopter Operations"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/helicopter/001-air-law-helicopter.m4a
 visual: null
 sources:
   - "CARs Part VI (General Operating and Flight Rules)"

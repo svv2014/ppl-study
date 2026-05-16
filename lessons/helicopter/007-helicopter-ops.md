@@ -6,7 +6,7 @@ slug: helicopter-ops
 title: "Helicopter Operations"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/helicopter/007-helicopter-ops.m4a
 visual: null
 sources:
   - "TC Helicopter Flight Training Manual (TP 9982E)"

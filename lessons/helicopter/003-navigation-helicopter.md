@@ -6,7 +6,7 @@ slug: navigation-helicopter
 title: "Navigation for Helicopter Operations"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/helicopter/003-navigation-helicopter.m4a
 visual: null
 sources:
   - "TP 12880E (Aeroplane Flight Training Manual) – Navigation chapter"
