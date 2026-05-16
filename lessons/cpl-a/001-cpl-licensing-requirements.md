@@ -6,7 +6,7 @@ slug: cpl-licensing-requirements
 title: "CPL Licensing Requirements"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/cpl-a/001-cpl-licensing-requirements.m4a
 visual: null
 sources:
   - "CARs Part IV (Personnel Licensing)"
