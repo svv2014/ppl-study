@@ -6,7 +6,7 @@ slug: aircraft-lighting
 title: "Aircraft Lighting — Interior and Exterior"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/night/002-aircraft-lighting.m4a
 visual: ""
 sources:
   - TP 12880E Chapter 10

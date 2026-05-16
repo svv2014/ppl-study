@@ -6,7 +6,7 @@ slug: night-emergency-procedures
 title: "Night Emergency Procedures"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/night/005-night-emergency-procedures.m4a
 visual: ""
 sources:
   - TP 12880E Chapter 10

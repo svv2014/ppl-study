@@ -6,7 +6,7 @@ slug: night-cars-regulations
 title: "Night CARs and Regulations — CAR 401.42 and Recency"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/night/006-night-cars-regulations.m4a
 visual: ""
 sources:
   - CARs 401.42
