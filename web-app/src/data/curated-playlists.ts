@@ -48,4 +48,17 @@ export const CURATED_PLAYLISTS: CuratedPlaylist[] = [
     lessonIds: ['HEL-001', 'HEL-002', 'HEL-003', 'HEL-004', 'HEL-005', 'HEL-006', 'HEL-007', 'HEL-008'],
     badge: 'H',
   },
+  {
+    id: 'cpl-a-full',
+    name: 'CPL-A Full Listen',
+    tagline: 'Licensing through limitations — complete commercial airplane ground-school curriculum',
+    lessonIds: [
+      'CAL-001', 'CAL-002', 'CAL-003', 'CAL-004', 'CAL-005',
+      'AMT-001', 'AMT-002', 'AMT-003', 'AMT-004',
+      'ANV-001', 'ANV-002', 'ANV-003',
+      'ADE-001', 'ADE-002', 'ADE-003',
+      'PAL-001', 'PAL-002', 'PAL-003',
+    ],
+    badge: 'CPL',
+  },
 ];
