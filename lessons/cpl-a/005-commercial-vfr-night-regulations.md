@@ -6,7 +6,7 @@ slug: commercial-vfr-night-regulations
 title: "Commercial VFR and Night Regulations"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/cpl-a/005-commercial-vfr-night-regulations.m4a
 visual: null
 sources:
   - "CARs 602.114–602.116 (VFR Weather Minimums)"

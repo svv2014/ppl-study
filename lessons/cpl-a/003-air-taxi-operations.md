@@ -6,7 +6,7 @@ slug: air-taxi-operations
 title: "Air Taxi Operations (CARs 703)"
 duration_min: 20
 status: draft
-audio: null
+audio: https://media.suprun.workers.dev/ppl/lessons/cpl-a/003-air-taxi-operations.m4a
 visual: null
 sources:
   - "CARs 703 (Air Taxi Operations)"
