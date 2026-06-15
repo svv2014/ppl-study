@@ -99,7 +99,7 @@ export const EXAM_TRACKS: ExamTrack[] = [
     heroSubtitle: 'Structured lessons covering PSTAR and the full Transport Canada syllabus. Audio-first, exam-weighted.',
     credibilityTag: 'Covers PSTAR & PPL written exam',
     lessonFilter: () => true,
-    playlistTopics: topicsWithAudio(TOPICS.filter((t) => t !== 'radio')),
+    playlistTopics: ['air-law', 'navigation', 'meteorology', 'general-knowledge'] as const,
     playlistHeading: 'Study Playlist',
   },
   {

@@ -21,6 +21,10 @@ const TOPIC_CODES: Record<string, string> = {
   'navigation': 'NAV',
   'meteorology': 'MET',
   'general-knowledge': 'GK',
+  'night': 'NGT',
+  'radio': 'RROE',
+  'helicopter': 'HEL',
+  'cpl-a': 'CPL',
 };
 
 const TOPIC_TAGLINES: Record<string, string> = {
@@ -28,6 +32,10 @@ const TOPIC_TAGLINES: Record<string, string> = {
   'navigation': 'Charts · Dead Reckoning · Cross-Country',
   'meteorology': 'METAR · TAF · GFA · Weather Decision-Making',
   'general-knowledge': 'Systems · Instruments · Weight & Balance',
+  'night': 'Dark Adaptation · Lighting · Night Nav · Emergency',
+  'radio': 'Phonetic Alphabet · Phraseology · Frequencies',
+  'helicopter': 'Rotorcraft · Systems · Aerodynamics',
+  'cpl-a': 'Commercial Licensing · Performance · Regulations',
 };
 
 const TOPIC_COVER_ANGLES: Record<string, number> = {
@@ -35,6 +43,10 @@ const TOPIC_COVER_ANGLES: Record<string, number> = {
   'navigation': 45,
   'meteorology': 225,
   'general-knowledge': 315,
+  'night': 270,
+  'radio': 180,
+  'helicopter': 90,
+  'cpl-a': 0,
 };
 
 // ── §5.4 Section header ────────────────────────────────────────────────────
@@ -108,8 +120,8 @@ function PlaylistCover({
   primary: string;
   bg: string;
 }) {
-  const safeId = `pg-${code.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
-  const rad = (angle * Math.PI) / 180;
+  const safeId = `pg-${(code ?? 'x').toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+  const rad = ((angle ?? 90) * Math.PI) / 180;
   const x2 = Math.round(50 + 50 * Math.cos(rad));
   const y2 = Math.round(50 + 50 * Math.sin(rad));
 
